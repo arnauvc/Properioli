@@ -20,7 +20,7 @@ public class Ranking {
     }
 
     public void Actualitzar(Integer idhidato, Double temps){
-        PriorityQueue<Double> resultats = (PriorityQueue<Double>) ranking.get(idhidato);
+        PriorityQueue<Double> resultats = ranking.get(idhidato);
         if(resultats == null){
             PriorityQueue<Double> pq = new PriorityQueue<Double>();
             pq.add(temps);
@@ -28,16 +28,16 @@ public class Ranking {
         }
 
         else{
-            PriorityQueue<Double> pqr = (PriorityQueue<Double>) ranking.get(idhidato);
+            PriorityQueue<Double> pqr = ranking.get(idhidato);
             pqr.add(temps);
 			ranking.remove(idhidato);
 			ranking.put(idhidato, pqr);
-            //ranking.replace(idhidato, resultats, pqr);
+            //ranking.replace(idhidato, resultats, pqr); //Nomes funciona per Java8, i el compilador de la fib es javac versio 7
         }
     }
 
     public PriorityQueue<Double> GetValue(Integer idhidato){
-        return (PriorityQueue<Double>) ranking.get(idhidato);
+        return ranking.get(idhidato);
     }
 
 

@@ -65,6 +65,7 @@ public class Gestor {
         //Fi test error
 
 		//Test Partida; 
+		/* 
 		Partida par = new Partida();
 		par.IniciaPartida();//Aquest metode falla degut, possiblement, a una falta de inicialitzacio
 		for(long i=0; i<100000000 ; i++) {
@@ -73,6 +74,7 @@ public class Gestor {
         }
 		par.AcabaPartida();
 		System.out.println(par.GetTemps());
+		*/
 		//Fi test
 	}
 

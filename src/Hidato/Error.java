@@ -11,7 +11,7 @@ public class Error {
                 missatge = "Missatge d'exemple del codi 2";
                 break;
             default:
-                missatge = "Codi d'error no reconegut. Siusplau consultiu amb l'administrador";
+                missatge = "Codi d'error no reconegut";
                 break;
         }
         System.out.println(missatge);

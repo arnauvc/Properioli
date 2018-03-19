@@ -17,7 +17,7 @@ public class Rellotge {
     }
 
     //elaspsed time in seconds
-    public double getElapsedTimeSecs() {
+    public double getTime() {
         double elapsed;
         if (running) {
             elapsed = ((System.currentTimeMillis() - startTime) / 1000);

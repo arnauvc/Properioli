@@ -8,7 +8,7 @@ import Hidato.Tauler;
 
 public class Ranking {
 
-    private HashMap ranking;
+    private HashMap<Integer, PriorityQueue<Double> > ranking;
     private Integer NUMMAXTEMPS;//Numero maxim de temps record per hidato
 
     public Ranking() {
@@ -30,7 +30,9 @@ public class Ranking {
         else{
             PriorityQueue<Double> pqr = (PriorityQueue<Double>) ranking.get(idhidato);
             pqr.add(temps);
-            ranking.replace(idhidato, resultats, pqr);
+			ranking.remove(idhidato);
+			ranking.put(idhidato, pqr);
+            //ranking.replace(idhidato, resultats, pqr);
         }
     }
 

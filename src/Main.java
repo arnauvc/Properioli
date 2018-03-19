@@ -2,9 +2,13 @@ import Hidato.Rellotge;
 import Hidato.Usuari;
 import Hidato.Ranking;
 import Hidato.Error;
+import Hidato.Gestor;
 
 public class Main {
     public static void main(String[] args) {
+		
+		Gestor gestor = new Gestor();
+		gestor.IniciaJoc();
 
         //Aixo es un test de la classe rellotge. No forma part del main com a tal
         Rellotge r = new Rellotge();
@@ -14,7 +18,7 @@ public class Main {
             Integer b = 3;
         }
         r.stop();
-        System.out.println(r.getElapsedTimeSecs());
+        System.out.println(r.getTime());
         //Fi del test
 
         //Test d'usuari. Idem

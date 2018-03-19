@@ -74,6 +74,11 @@ public class Gestor {
         }
 		par.AcabaPartida();
 		System.out.println(par.GetTemps());
+		
+		If (par.Finalitzada()) {
+		    u.AfegirTaulers(Tauler.Getid());
+		}
+		
 		*/
 		//Fi test
 	}

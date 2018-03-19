@@ -1,8 +1,12 @@
 package Hidato;
 
+import Gestor.java;
+
 public class Usuari {
 
     private String nom;
+    private ArrayList<Integer> Taulers = new ArrayList<Integer>();
+
 
     public String GetNom(){
         return nom;
@@ -10,5 +14,7 @@ public class Usuari {
     public void SetNom(String nom){
         this.nom = nom;
     }
-
+    public void AfegirTaulers (Integer idTauler){
+        Taulers.add(idTauler);
+    }
 }

@@ -1,6 +1,7 @@
 package Hidato;
 
-import Gestor.java;
+import Hidato.Gestor;
+import java.util.ArrayList;
 
 public class Usuari {
 

@@ -17,9 +17,9 @@ public class Gestor {
     private Usuari usuariactiu;//Conte l'objecte usuari del usuari actiu en el sistema
 	
 	public void IniciaJoc(){
-		
-		
+
 	}
+
     public void CarregaPartida(){}
     public void ActulitzarRanking(){}
 

@@ -15,13 +15,19 @@ public class Gestor {
 
     //Podem eliminar aquest usuari actiu potser
     private Usuari usuariactiu;//Conte l'objecte usuari del usuari actiu en el sistema
+    private Partida partidaactiva;
 	
 	public void IniciaJoc(){
 
 	}
 
-    public void CarregaPartida(){}
-    public void ActulitzarRanking(){}
+    public void CarregaPartida(){
+
+    }
+
+    public void ActulitzarRanking(){
+	    ranking.Actualitzar(partidaactiva.GetIdHidato(), partidaactiva.GetTemps() );
+    }
 
 	public void Test(){
 		//Aixo es un test de la classe rellotge. No forma part del main com a tal

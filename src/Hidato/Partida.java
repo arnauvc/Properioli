@@ -13,6 +13,7 @@ public class Partida {
     private boolean finalitzat;
     private double  temps;
 	private Rellotge r;
+	private Integer idhidato;
 	
 	public void IniciaPartida(){
 		//Aqui fa coses
@@ -28,5 +29,8 @@ public class Partida {
 		return temps;
 	}
 
+	public Integer GetIdHidato(){
+		return idhidato;
+	}
 
 }

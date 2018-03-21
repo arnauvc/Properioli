@@ -7,7 +7,7 @@ import Hidato.Tauler;
 import Hidato.Usuari;
 import Hidato.Partida;
 
-import java.awt.desktop.ScreenSleepEvent;
+//import java.awt.desktop.ScreenSleepEvent;
 
 public class Gestor {
 
@@ -82,22 +82,29 @@ public class Gestor {
         e.PrintError(5);
         //Fi test error
 
-		//Test Partida; 
-		/* 
+		//Test Partida;
+
 		Partida par = new Partida();
 		par.IniciaPartida();//Aquest metode falla degut, possiblement, a una falta de inicialitzacio
+
+        System.out.printf("El jugador ha escollit: %s\n", par.GetCela());
+        System.out.printf("El jugador ha escollit: %s\n", par.GetAdjacencia());
+        System.out.printf("El jugador ha escollit: %s\n", par.GetDificultat());
+
 		for(long i=0; i<100000000 ; i++) {
             Integer a = 0;//Codi Trivial
             Integer b = 3;//Codi Trivial
         }
+
+
 		par.AcabaPartida();
-		System.out.println(par.GetTemps());
+		System.out.printf("Has trigat: %f\n", par.GetTemps());
 		
-		If (par.Finalitzada()) {
+		/*If (par.Finalitzada()) {
 		    u.AfegirTaulers(Tauler.Getid());
-		}
+		}*/
 		
-		*/
+
 		//Fi test
 	}
 

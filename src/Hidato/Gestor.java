@@ -7,6 +7,8 @@ import Hidato.Tauler;
 import Hidato.Usuari;
 import Hidato.Partida;
 
+import java.awt.desktop.ScreenSleepEvent;
+
 public class Gestor {
 
 	private Error e;
@@ -16,6 +18,7 @@ public class Gestor {
     //Podem eliminar aquest usuari actiu potser
     private Usuari usuariactiu;//Conte l'objecte usuari del usuari actiu en el sistema
     private Partida partidaactiva;
+    private Tauler tauler;
 	
 	public void IniciaJoc(){
 
@@ -30,6 +33,15 @@ public class Gestor {
     }
 
 	public void Test(){
+
+        tauler = new Tauler(1);
+        System.out.print("El numero de id del tauler: ");
+
+
+
+
+
+
 		//Aixo es un test de la classe rellotge. No forma part del main com a tal
         Rellotge r = new Rellotge();
         r.start();

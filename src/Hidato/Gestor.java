@@ -7,7 +7,6 @@ import Hidato.Tauler;
 import Hidato.Usuari;
 import Hidato.Partida;
 
-import java.awt.desktop.ScreenSleepEvent;
 
 public class Gestor {
 
@@ -29,6 +28,7 @@ public class Gestor {
     }
 
     public void ActulitzarRanking(){
+
 	    ranking.Actualitzar(partidaactiva.GetIdHidato(), partidaactiva.GetTemps() );
     }
 
@@ -36,11 +36,6 @@ public class Gestor {
 
         tauler = new Tauler(1);
         System.out.print("El numero de id del tauler: ");
-
-
-
-
-
 
 		//Aixo es un test de la classe rellotge. No forma part del main com a tal
         Rellotge r = new Rellotge();

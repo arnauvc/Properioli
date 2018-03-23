@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
+
 public class PartidesGuardades {
     private HashMap<String, ArrayList<Partida>> Partides; //Implementar-ho amb un ArrayList<pair<Partida,Tauler>>
 

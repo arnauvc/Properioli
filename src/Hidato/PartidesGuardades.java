@@ -2,6 +2,8 @@ package Hidato;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import Hidato.Partida;
+import Hidato.Gestor
 
 
 

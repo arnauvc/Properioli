@@ -6,6 +6,8 @@ import Hidato.Ranking;
 import Hidato.Tauler;
 import Hidato.Usuari;
 import Hidato.Partida;
+import java.util.Iterator;
+import java.util.TreeSet;
 
 
 public class Gestor {
@@ -18,7 +20,6 @@ public class Gestor {
     private Usuari usuariactiu;//Conte l'objecte usuari del usuari actiu en el sistema
     private Partida partidaactiva;
     private Tauler tauler;
-	
 	public void IniciaJoc(){
 
 	}
@@ -29,7 +30,7 @@ public class Gestor {
 
     public void ActulitzarRanking(){
 
-	    ranking.Actualitzar(partidaactiva.GetIdHidato(), partidaactiva.GetTemps() );
+	    //ranking.Actualitzar(partidaactiva.GetIdHidato(), partidaactiva.GetTemps() );
     }
 
 	public void Test(){
@@ -56,18 +57,31 @@ public class Gestor {
 
         //Test Ranking
         Ranking ra = new Ranking();
-        ra.Inicialitzar();
-        ra.Actualitzar(1,72.4);
-        ra.Actualitzar(1, 63.5);
-        ra.Actualitzar(1,95.7);
-        ra.Actualitzar(1, 46.9);
-        ra.Actualitzar(1,32.7);
-        ra.Actualitzar(1, 56.9);
-        System.out.println(ra.GetValue(1));
-        //Per algun motiu que desconec, el punyetero ranking no surt ordenat. Ni en natural order, ni en reversed
 
-        ra.Actualitzar(2, 3.14);
-        System.out.println(ra.GetValue(2));
+        ra.Inicialitzar();
+        ra.Actualitzar(1,2.4);
+        ra.Actualitzar(1,5.6);
+        ra.Actualitzar(1,7.4);
+        ra.Actualitzar(1,1.4);
+        ra.Actualitzar(1,3.4);
+
+        /*
+        TreeSet<Double> resultat = ra.GetValue(1);
+        //Versio 1
+        Iterator iterator;
+        iterator = resultat.iterator();
+        Integer count = 0;
+        while (iterator.hasNext() & count <5) {
+            System.out.println(iterator.next() + " ");
+            count++;
+        }
+        */
+        //Versio 2
+        System.out.println(ra.GetValue(1));
+
+
+        //ra.Actualitzar(2, 7);
+        //System.out.println(ra.GetValue(2));
         //Fi test ranking
 
         //Test Error

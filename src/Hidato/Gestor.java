@@ -82,15 +82,13 @@ public class Gestor {
 		Partida par = new Partida();
 		par.IniciaPartida();//Aquest metode falla degut, possiblement, a una falta de inicialitzacio
 
+
+        System.out.printf("El jugador es diu: %s\n", par.GetNom());
         System.out.printf("El jugador ha escollit: %s\n", par.GetCela());
         System.out.printf("El jugador ha escollit: %s\n", par.GetAdjacencia());
         System.out.printf("El jugador ha escollit: %s\n", par.GetDificultat());
 
-		for(long i=0; i<100000000 ; i++) {
-            Integer a = 0;//Codi Trivial
-            Integer b = 3;//Codi Trivial
-        }
-
+        par.TranscursPartida();
 
 		par.AcabaPartida();
 		System.out.printf("Has trigat: %f\n", par.GetTemps());

@@ -35,11 +35,10 @@ public class ComprovarHidato {
        }
    }
 
-   /* public int ComprovarHidato (){
+   public int ComprovarHidato (){
         for (int i = 0; i < 4; i++) {
 
        }
    }
-   */
 
 }

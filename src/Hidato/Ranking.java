@@ -1,44 +1,38 @@
 package Hidato;
 
-import java.awt.*;
 import java.util.*;
-
-import Hidato.Tauler;
 
 
 public class Ranking {
 
-    private HashMap<Integer, PriorityQueue<Double> > ranking;
-    private Integer NUMMAXTEMPS;//Numero maxim de temps record per hidato
-
-    public Ranking() {
-        ranking = new HashMap<Integer,PriorityQueue<Double>>();
-    }
+    private HashMap<Integer, TreeSet<Double>> ranking = new HashMap<>();
+    //private Integer NUMMAXTEMPS;//Numero maxim de temps record per hidato
+    //private PriorityQueue<Integer> cua = new PriorityQueue <Integer>(10, Comparator.reverseOrder());
 
     public void Inicialitzar(){
         ranking.clear();
     }
 
     public void Actualitzar(Integer idhidato, Double temps){
-        PriorityQueue<Double> resultats = ranking.get(idhidato);
-        if(resultats == null){
-            PriorityQueue<Double> pq = new PriorityQueue<Double>();
-            pq.add(temps);
-            ranking.put(idhidato, pq);
+
+        if(! ranking.containsKey(idhidato)){
+            TreeSet<Double> ss = new TreeSet<Double>(Comparator.reverseOrder());
+            ss.add(temps);
+            ranking.put(idhidato, ss);
         }
 
         else{
-            PriorityQueue<Double> pqr = ranking.get(idhidato);
-            pqr.add(temps);
+            TreeSet<Double> resultats = ranking.get(idhidato);
+            resultats.add(temps);
 			ranking.remove(idhidato);
-			ranking.put(idhidato, pqr);
+			ranking.put(idhidato, resultats);
             //ranking.replace(idhidato, resultats, pqr); //Nomes funciona per Java8, i el compilador de la fib es javac versio 7
         }
+
     }
 
-    public PriorityQueue<Double> GetValue(Integer idhidato){
+    public TreeSet<Double> GetValue(Integer idhidato){
         return ranking.get(idhidato);
     }
-
 
 }

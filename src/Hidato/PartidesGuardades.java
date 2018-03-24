@@ -5,8 +5,6 @@ import java.util.HashMap;
 import Hidato.Partida;
 import Hidato.Gestor;
 
-
-
 public class PartidesGuardades {
     private HashMap<String, ArrayList<Partida>> Partides; //Implementar-ho amb un ArrayList<pair<Partida,Tauler>>
 

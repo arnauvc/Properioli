@@ -97,15 +97,9 @@ public class Gestor {
 		par.IniciaPartida();//Aquest metode falla degut, possiblement, a una falta de inicialitzacio
 
 
-        System.out.printf("El jugador es diu: %s\n", par.GetNom());
-        System.out.printf("El jugador ha escollit: %s\n", par.GetCela());
-        System.out.printf("El jugador ha escollit: %s\n", par.GetAdjacencia());
-        System.out.printf("El jugador ha escollit: %s\n", par.GetDificultat());
-
         par.TranscursPartida();
 
 		par.AcabaPartida();
-		System.out.printf("Has trigat: %f\n", par.GetTemps());
 		
 		/*If (par.Finalitzada()) {
 		    u.AfegirTaulers(Tauler.Getid());

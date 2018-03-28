@@ -33,16 +33,25 @@ public class Jugada {
         if (jugada.equals("NUMERO")) {
             System.out.println("Insereix numero de casella: ");
             SetNumero(input.nextInt());
-            //Aqui es comprova si el numero es correcte, pero em fa pal fer-ho ara
+            /*
+            Comprovar que num sigui valid
+            - que estigui dins de la sequencia de numeros a omplir
+            - que no estigui ja ficat al tauler
+             */
 
             System.out.println("Insereix coordenades de fila: ");
             SetX(input.nextInt());
-            //Comprovar bla bla bla ...
+            //Comprovar que X estigui entre [nfilmin, nfilmax]
+
             System.out.println("Insereix coordenades de columna: ");
             SetY(input.nextInt());
-            //Comprovar bla bla bla ...
+            //Comprovar que Y estigui entre [ncolmin,ncolmax]
         }
 
+
+    }
+
+    public void ComprovarJugada(){
 
     }
 

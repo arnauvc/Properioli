@@ -10,6 +10,11 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 
+
+/////////
+import Hidato.ComprovarHidato;
+
+
 public class Gestor {
 
 	private Error e;
@@ -93,18 +98,25 @@ public class Gestor {
 
 		//Test Partida;
 
-		Partida par = new Partida();
+		/*Partida par = new Partida();
 		par.IniciaPartida();//Aquest metode falla degut, possiblement, a una falta de inicialitzacio
 
 
         par.TranscursPartida();
 
 		par.AcabaPartida();
+
+
 		
-		/*If (par.Finalitzada()) {
+		If (par.Finalitzada()) {
 		    u.AfegirTaulers(Tauler.Getid());
 		}*/
-		
+
+        ComprovarHidato ch = new ComprovarHidato();
+        if (!ch.Comprovar("C:\\Users\\Nil\\IdeaProjects\\PROP\\src\\com\\company\\Hidato\\prova.txt")) {
+            System.out.println("Aixo no funciona Hulio");
+        }
+        else System.out.println("Aixo funciona Hulio");
 
 		//Fi test
 	}

@@ -36,7 +36,7 @@ public class ComprovarHidato {
        return true;
    }
 
-   private boolean TencarFitxer(String nom) {
+   private boolean TancarFitxer(String nom) {
        if (nom != this.nom) {
            return false;
        } else {

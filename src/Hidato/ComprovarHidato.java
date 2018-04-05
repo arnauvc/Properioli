@@ -81,7 +81,7 @@ public class ComprovarHidato {
            }
        }
        if (x.hasNext()) return false; //Error no te mateixes files i columnes;
-       if (!TencarFitxer(nom)) return false;//error de tencament de fitxer
+       if (!TancarFitxer(nom)) return false;//error de tencament de fitxer
        return true;
    }
 

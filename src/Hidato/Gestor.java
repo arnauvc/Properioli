@@ -27,7 +27,7 @@ public class Gestor {
     //private Tauler tauler;
     private PartidesGuardades pg = new PartidesGuardades();
 
-
+    //Test Spicy
 	public void JugarPartida(){
 
         Scanner input = new Scanner(System.in);

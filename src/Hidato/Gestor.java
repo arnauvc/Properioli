@@ -27,8 +27,9 @@ public class Gestor {
     //private Tauler tauler;
     private PartidesGuardades pg = new PartidesGuardades();
 
+    //Test
 
-	public void JugarPartida(){
+    public void JugarPartida(){
 
         Scanner input = new Scanner(System.in);
 

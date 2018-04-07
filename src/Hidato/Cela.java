@@ -6,11 +6,11 @@ public class Cela{
 	private boolean valida;
 	private boolean visible;
 	private Integer valor;
-	List<Cela> adjacents = new Arraylist<Cela>();
+	private List<Cela> adjacents = new Arraylist<Cela>();
 
 
 	//Constructora
-	public Cela(val,vis){
+	public Cela(Integer val, Boolean vis){
 		this.valor = val;
 		this.visible = vis;
 	}

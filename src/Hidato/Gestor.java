@@ -28,6 +28,7 @@ public class Gestor {
     private PartidesGuardades pg = new PartidesGuardades();
 
     //Test
+    //Test del master al branch
 
     public void JugarPartida(){
 

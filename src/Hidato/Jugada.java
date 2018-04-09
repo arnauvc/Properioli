@@ -13,7 +13,9 @@ public class Jugada {
     private void UsageJugada(){
         System.out.println("Usage: String {GUARDAR, AJUDA, NUMERO}");
     }
+    private void ComprovaJugada(){
 
+    }
 
     public void DoJugada(){
         Scanner input = new Scanner(System.in);

@@ -1,6 +1,6 @@
 package Hidato;
 
-import javafx.util.Pair;
+/*import javafx.util.Pair;
 
 import java.io.*;
 import java.util.*;
@@ -125,4 +125,4 @@ public class ComprovarHidato {
        return true;
    }
 
-}
+}*/

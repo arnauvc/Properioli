@@ -8,14 +8,14 @@ public class Tauler {
     /*private enum TipusCela{
         TRIANGLE, QUADRAT, HEXAGON
     }*/
-    private List<List<Cela>> Celas = new ArrayList<ArrayListCela>>();
+    //private List<List<Cela>> Celas = new ArrayList<ArrayListCela>>();
     private String tipuscela;
     private Integer numcelestotal;
     private Integer numcelesocupades;
     private Integer numcelesbuides;
     private Integer id;//Numero que identifica l'hidato inequivocament
     private boolean adjacencia;// si adjacencia == true  es adjacencia tanto para lado como vertices
-    private Cela cela
+    private Cela cela;
 
 
     //constructora
@@ -33,11 +33,11 @@ public class Tauler {
     public boolean GetTiposAdj(){return adjacencia;}
 
     //Modificadoras
-     public void ModificaCeldaV(int x, int posi, int posj){
+     /*public void ModificaCeldaV(int x, int posi, int posj){
 	    cela = Celas.get(posi).get(posj);
 	    cela.modificarValor(x);
 
-    }
+    }*/
 
 
     /*public void ModificarCela(){ //celas adjacents

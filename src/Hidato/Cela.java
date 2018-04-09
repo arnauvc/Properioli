@@ -6,14 +6,14 @@ public class Cela{
 	private boolean valida;
 	private boolean visible;
 	private Integer valor;
-	/*List<Cela> adjacents = new Arraylist<Cela>();
+	List<Cela> adjacents = new Arraylist<Cela>();
 
 
 	//Constructora
 	public Cela(val,vis){
 		this.valor = val;
 		this.visible = vis;
-	}*/
+	}
 
 	//Consultora
 	public Integer getValor() {
@@ -28,9 +28,9 @@ public class Cela{
 		return visible;
 	}
 
-	/*public ArrayList getAdjacents() {
+	public ArrayList getAdjacents() {
 		return adjacents;
-	}*/
+	}
 
 	//modificadores
 	public void ModificarValor(int x){

@@ -4,6 +4,12 @@ import java.util.Scanner;
 
 
 
+/*
+    AVIS!!!:
+    Nomes es un esquelet de prova mentre no tenim la creacio del hidato
+    implementada, i mentre penso com fotre tot aixo mes eficient
+*/
+
 public class Jugada {
     private String jugada;
     private Integer numcasella;
@@ -13,9 +19,7 @@ public class Jugada {
     private void UsageJugada(){
         System.out.println("Usage: String {GUARDAR, AJUDA, NUMERO}");
     }
-    private void ComprovaJugada(){
 
-    }
 
     public void DoJugada(){
         Scanner input = new Scanner(System.in);

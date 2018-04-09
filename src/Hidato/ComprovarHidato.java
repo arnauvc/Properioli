@@ -1,12 +1,12 @@
 package Hidato;
 
-/*import javafx.util.Pair;
+//import javafx.util.Pair;
 
 import java.io.*;
 import java.util.*;
 
 public class ComprovarHidato {
-
+/*
    private Scanner x;
    private String nom;
    private char Tcela;
@@ -124,5 +124,5 @@ public class ComprovarHidato {
         }
        return true;
    }
-
-}*/
+*/
+}

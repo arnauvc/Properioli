@@ -6,6 +6,7 @@ import Hidato.Ranking;
 //import Hidato.Tauler;
 import Hidato.Usuari;
 import Hidato.Partida;
+import Hidato.Generacio;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeSet;

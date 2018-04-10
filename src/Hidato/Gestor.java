@@ -19,7 +19,7 @@ import Hidato.ComprovarHidato;
 public class Gestor {
 
 	private Error e;
-	private Ranking ranking;
+	private Ranking r;
 
     //Podem eliminar aquest usuari actiu potser
     private Usuari usuariactiu;//Conte l'objecte usuari del usuari actiu en el sistema
@@ -27,10 +27,7 @@ public class Gestor {
     //private Tauler tauler;
     private PartidesGuardades pg = new PartidesGuardades();
 
-    //Test
-    //Test del master al branch
-
-    public void JugarPartida(){
+    public void Jugar(){
 
         Scanner input = new Scanner(System.in);
 
@@ -64,22 +61,19 @@ public class Gestor {
             //partidaactiva.Generar();
 	    }
         else if(tipuspartida.equals("REPRENDRE")){
-            pg.Obtenirpartida(nomusuari, 1);//Nomes cal el nom, no li caldria la resta
+            pg.Obtenirpartida(nomusuari, 1);//Nomes cal el nom, no li caldria el idhidato
         }
 
 
 
 	}
 
-	public void CarregaPartida(){
-
-    }
     public void GuardarPartida(){
 
     }
 
-    public void ActulitzarRanking(){
-
+    public void ActulitzarRanking(Integer id, Double temps){
+        r.Actualitzar(id, temps);
     }
 	public void Test(){
 

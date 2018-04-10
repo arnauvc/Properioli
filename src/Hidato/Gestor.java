@@ -11,8 +11,6 @@ import java.util.Scanner;
 import java.util.TreeSet;
 
 
-
-/////////
 import Hidato.ComprovarHidato;
 
 
@@ -26,6 +24,7 @@ public class Gestor {
     private Partida partidaactiva = new Partida();
     //private Tauler tauler;
     private PartidesGuardades pg = new PartidesGuardades();
+
 
     public void Jugar(){
 
@@ -79,13 +78,13 @@ public class Gestor {
 
 
 
-        ComprovarHidato ch = new ComprovarHidato();
-        if (!ch.Comprovar("C:\\Users\\Nil\\IdeaProjects\\PROP\\src\\com\\company\\Hidato\\prova.txt")) {
+        /*ComprovarHidato ch = new ComprovarHidato();
+        if (ch.Comprovar() == 0) {
             System.out.println("Aixo no funciona Hulio");
         }
         else System.out.println("Aixo funciona Hulio");
 
-		//Fi test
+		//Fi test*/
 	}
 
 

@@ -18,4 +18,7 @@ public class Usuari {
     public void AfegirTaulers (Integer idTauler){
         Taulers.add(idTauler);
     }
+    public boolean HidatoFet (Integer idhidato) {
+        return Taulers.contains(idhidato);
+    }
 }

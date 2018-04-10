@@ -6,6 +6,7 @@ import Hidato.Ranking;
 //import Hidato.Tauler;
 import Hidato.Usuari;
 import Hidato.Partida;
+import Hidato.Generacio;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeSet;
@@ -59,7 +60,7 @@ public class Gestor {
 
         }
 	    else if (tipuspartida.equals("GENERAR")){
-            //partidaactiva.Generar();
+            partidaactiva.Generar();
 	    }
         else if(tipuspartida.equals("REPRENDRE")){
             pg.Obtenirpartida(nomusuari, 1);//Nomes cal el nom, no li caldria la resta

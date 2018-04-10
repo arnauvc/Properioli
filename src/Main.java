@@ -6,6 +6,7 @@ public class Main {
 		Gestor gestor = new Gestor();
 		gestor.JugarPartida();
 		//gestor.Test(); //La classe test de gestor la faig servir per provar tota la resta de classes
+
         
     }
 }

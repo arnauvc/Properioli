@@ -25,6 +25,8 @@ public class Partida {
 	private Integer idhidato;
 	private String dif; //Dificultat
 	private Integer torn;
+	private Integer fil;
+	private Integer col;
 
 
 
@@ -41,7 +43,6 @@ public class Partida {
 	public void Generar(){
 		Scanner input = new Scanner(System.in);
 		String tcela, tadj;
-		int fil, col;
 
 		//Falta interactuar con el usuario para tcela tadj
 
@@ -179,6 +180,10 @@ public class Partida {
 	}
 
 
+
+	public void SetTauler(Tauler t){
+		this.t = t;
+	}
 	public double GetTemps(){
 		return temps;
 	}
@@ -193,5 +198,17 @@ public class Partida {
 	}
 	public Integer GetTorn(){
 		return torn;
+	}
+	public Integer GetFiles(){
+		return fil;
+	}
+	public Integer GetColumnes(){
+		return col;
+	}
+	public void SetFiles(Integer fil){
+		this.fil = fil;
+	}
+	public void SetColumnes(Integer col){
+		this.col = col;
 	}
 }

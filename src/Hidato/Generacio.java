@@ -2,6 +2,7 @@ package Hidato;
 
 import java.util.Scanner;
 import java.util.Random;
+import Hidato.Partida;
 
 
 public class Generacio {
@@ -45,6 +46,10 @@ public class Generacio {
             ncol = NumeroAleatori(8, 10);
 
         }
+        Partida p = new Partida();
+        p.SetFiles(nfil);
+        p.SetColumnes(ncol);
+
         /*
         Els dos bucles seguents son per comprovar, el segon es pot esborrar, el primer no sino
         peta perque la matriu estari buida i faig un return de la matriu

@@ -211,4 +211,16 @@ public class Partida {
 	public void SetColumnes(Integer col){
 		this.col = col;
 	}
+	public String GetCela(){
+		return t.getTipuscela();
+	}
+	public String GetAdjacencia(){
+		return t.GetTiposAdj();
+	}
+	public void SetCela(String cela){
+		t.SetCela = cela;
+	}
+	public void SetAdjacencia(String adj){
+		t.SetAdjacencia = adj;
+	}
 }

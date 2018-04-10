@@ -19,7 +19,7 @@ public class Partida {
     private double  temps;
 	private Rellotge r = new Rellotge();
 	private Error e = new Error();
-	private Tauler t;
+	private Tauler t = new Tauler();
 	private Generacio g = new Generacio();
 	private Gestor ge;
 	private Integer idhidato;
@@ -31,24 +31,54 @@ public class Partida {
 	private void UsageDificultat(){
 		System.out.println("Usage: String {FACIL, NORMAL, DIFICIL}");
 	}
+	private void UsageCela(){
+		System.out.println("Usage: String {T(Triangle), Q(Quadrat), H(Hexagon)}");
+	}
+	private void UsageAdjacencia(){
+		System.out.println("Usage: String {C(Costat), CA(Costat+Angle)}");
+	}
 
 	public void Generar(){
+		Scanner input = new Scanner(System.in);
 		String tcela, tadj;
 		int fil, col;
 
+		//Falta interactuar con el usuario para tcela tadj
+
 		String hidato[][];
 
-		//tcela = t.GetTipusCela();
-		//tadj = t.GetTiposAdj();
-		//fil = t.GetNombreFiles();
-		//col = t.GetNombreColumnes();
+		System.out.println("Selecciona el tipus de cela: ");
+		tcela = (input.nextLine());
 
-		//hidato = g.GenerarHidatoUsuari(fil, col);
+		while (!tcela.equals("T") && !tcela.equals("Q") && !tcela.equals("H")) {
+			UsageCela();
+			System.out.println("Selecciona el tipus de cela: ");
+			tcela = (input.nextLine());
+		}
+
+		if (tcela.equals("Q")){
+			System.out.println("Selecciona el tipus de adjacencia: ");
+			tadj = (input.nextLine());
+			while (!tadj.equals("C") && !tadj.equals("CA")) {
+				UsageAdjacencia();
+				System.out.println("Selecciona el tipus de adjacencia: ");
+				tadj = (input.nextLine());
+			}
+
+		}
+		else tadj = "C";
+
+		System.out.println("Indica el numero de files del hidato: ");
+		fil = input.nextInt();
+		System.out.println("Indica el numero de columnes del hidato: ");
+		col = input.nextInt();
+
+
+		hidato = g.GenerarHidatoUsuari(fil, col);
 
 		System.out.println("Hidato Generat!");
 
-		//passar a tauler i tauler a solucio
-
+		t.CrearTauler(tcela, tadj, hidato);
 	}
 
 
@@ -62,32 +92,30 @@ public class Partida {
 	public void IniciaPartida(){
 		Scanner input = new Scanner(System.in);
 		String tcela, tadj;
-
-		//tcela = t.GetTipusCela();
-		//tadj = t.GetTiposAdj();
+		String[][] hidato;
 
 
-		/*System.out.println("Selecciona el tipus de cela: ");
-		SetCela(input.nextLine());
+		System.out.println("Selecciona el tipus de cela: ");
+		tcela = (input.nextLine());
 
-		while (!tipuscela.equals("T") && !tipuscela.equals("Q") && !tipuscela.equals("H")) {
+		while (!tcela.equals("T") && !tcela.equals("Q") && !tcela.equals("H")) {
 			UsageCela();
 			System.out.println("Selecciona el tipus de cela: ");
-			SetCela(input.nextLine());
+			tcela = (input.nextLine());
 		}
 
-			if (tipuscela.equals("Q")){
+			if (tcela.equals("Q")){
 				System.out.println("Selecciona el tipus de adjacencia: ");
-				SetAdjacencia(input.nextLine());
-				while (!tipusadj.equals("C") && !tipusadj.equals("CA")) {
+				tadj = (input.nextLine());
+				while (!tadj.equals("C") && !tadj.equals("CA")) {
 					UsageAdjacencia();
 					System.out.println("Selecciona el tipus de adjacencia: ");
-					SetAdjacencia(input.nextLine());
+					tadj = (input.nextLine());
 				}
 
 			}
-			else SetAdjacencia("C");
-			*/
+			else tadj = "C";
+
 		System.out.println("Selecciona la dificultat: ");
 		SetDificultat(input.nextLine());
 
@@ -96,11 +124,10 @@ public class Partida {
 			System.out.println("Selecciona la dificultat: ");
 			SetDificultat(input.nextLine());
 		}
-		tcela = "Q";
-		tadj = "C";
 
 
-		g.GenerarHidatoAlgorisme(tcela, tadj, dif);
+		hidato = g.GenerarHidatoAlgorisme(tcela, tadj, dif);
+		t.CrearTauler(tcela, tadj, hidato);
 
 		r.start(); //Inicia el rellotge
 		finalitzat = false;

@@ -60,7 +60,7 @@ public class Gestor {
 
         }
 	    else if (tipuspartida.equals("GENERAR")){
-            //partidaactiva.Generar();
+            partidaactiva.Generar();
 	    }
         else if(tipuspartida.equals("REPRENDRE")){
             pg.Obtenirpartida(nomusuari, 1);//Nomes cal el nom, no li caldria la resta

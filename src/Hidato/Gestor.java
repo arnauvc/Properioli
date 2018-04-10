@@ -14,7 +14,7 @@ import java.util.TreeSet;
 
 
 /////////
-//import Hidato.ComprovarHidato;
+import Hidato.ComprovarHidato;
 
 
 public class Gestor {
@@ -85,12 +85,12 @@ public class Gestor {
 
 
         /*ComprovarHidato ch = new ComprovarHidato();
-        if (!ch.Comprovar("C:\\Users\\Nil\\IdeaProjects\\PROP\\src\\com\\company\\Hidato\\prova.txt")) {
+        if (ch.Comprovar() == 0) {
             System.out.println("Aixo no funciona Hulio");
         }
         else System.out.println("Aixo funciona Hulio");
-        */
-		//Fi test
+
+		//Fi test*/
 	}
 
 

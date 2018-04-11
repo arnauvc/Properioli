@@ -33,7 +33,7 @@ public class Gestor {
     public void EscullHidato(Integer nhidato){} //Retorna numero total de hidatos
     public void Aleatori(Vector<String> v){}
     public void Generar(Vector<String> v){
-        partidaactiva.SetNom(v.get(0));
+        //partidaactiva.SetNom(v.get(0));
         //partidaactiva.Generar();
     }
     public void Reprendre(Vector<String> v){

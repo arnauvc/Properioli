@@ -218,9 +218,9 @@ public class Partida {
 		return t.GetTiposAdj();
 	}
 	public void SetCela(String cela){
-		t.SetCela = cela;
+		//t.SetCela = cela;
 	}
 	public void SetAdjacencia(String adj){
-		t.SetAdjacencia = adj;
+		//t.SetAdjacencia = adj;
 	}
 }

@@ -63,7 +63,7 @@ public class Gestor {
             partidaactiva.Generar();
 	    }
         else if(tipuspartida.equals("REPRENDRE")){
-            pg.Obtenirpartida(nomusuari, 1);//Nomes cal el nom, no li caldria la resta
+            //pg.Obtenirpartida(nomusuari, 1);//Nomes cal el nom, no li caldria la resta
         }
 
 

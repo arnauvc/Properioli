@@ -6,6 +6,7 @@ public class Cela{
 	private String tipus;
 	private boolean valida;
 	private boolean visible;
+
 	private String valor;
 
 

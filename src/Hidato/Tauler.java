@@ -8,8 +8,8 @@ public class Tauler {
     /*private enum TipusCela{
         TRIANGLE, QUADRAT, HEXAGON
     }*/
-    private Integer id;//Numero que identifica l'hidato inequivocament
-    private List<List<Cela>> Celas = new ArrayList<List<Cela>>();
+    private List<List<Cela>> Celas = new ArrayList<>();
+
     private String tipuscela;
     private Integer numFiles;
     private Integer numColum;

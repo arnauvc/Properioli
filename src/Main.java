@@ -1,15 +1,10 @@
-import Hidato.Driver_Usuari;
-import Hidato.Gestor;
+import Hidato.CtrlPresGestor;
 
 public class Main {
     public static void main(String[] args) {
-		
-		Gestor gestor = new Gestor();
-		//gestor.JugarPartida();
-		//gestor.Test(); //La classe test de gestor la faig servir per provar tota la resta de classes
-        Driver_Usuari du = new Driver_Usuari();
-        du.Prova();
-
-        
+        while(true) {
+            CtrlPresGestor cpg = new CtrlPresGestor();
+            cpg.Inicia();
+        }
     }
 }

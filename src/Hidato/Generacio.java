@@ -1,11 +1,15 @@
 package Hidato;
 
+
 import java.util.Scanner;
 import java.util.Random;
 import Hidato.Partida;
 
-
 public class Generacio {
+        /*
+        Random rand = new Random();
+        boolean val = rand.nextInt(25)==0;
+        */
 
     public String[][] GenerarHidatoUsuari(Integer nfil, Integer ncol){
         String[][] hidato = new String[nfil][ncol];

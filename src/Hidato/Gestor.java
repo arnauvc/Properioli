@@ -6,6 +6,11 @@ import Hidato.Ranking;
 //import Hidato.Tauler;
 import Hidato.Usuari;
 import Hidato.Partida;
+<<<<<<< HEAD
+=======
+import Hidato.Generacio;
+import java.util.Iterator;
+>>>>>>> 49e036ba555e42b2c5e5de0f092431267da43eb6
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -24,6 +29,7 @@ public class Gestor {
     //private Tauler tauler;
     private PartidesGuardades pg = new PartidesGuardades();
 
+
     public Integer VisualitzaHidatos(){
         return 1;
     }
@@ -34,7 +40,6 @@ public class Gestor {
         //partidaactiva.Generar();
     }
     public void Reprendre(Vector<String> v){
-
         /*
         partidaactiva = pg.Obtenirpartida(nomusuari);//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
         partidaactiva.TranscursPartida();

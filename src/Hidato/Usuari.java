@@ -8,7 +8,7 @@ public class Usuari {
     private String nom;
     private ArrayList<Integer> Taulers = new ArrayList<Integer>();
 
-
+    public Usuari(String nom) { this.nom = nom; }
     public String GetNom(){
         return nom;
     }
@@ -21,4 +21,5 @@ public class Usuari {
     public boolean HidatoFet (Integer idhidato) {
         return Taulers.contains(idhidato);
     }
+    public ArrayList<Integer> HidatosJugats() {return this.Taulers;}
 }

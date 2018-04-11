@@ -7,8 +7,6 @@ public class Main {
         while(true) {
             CtrlPresGestor cpg = new CtrlPresGestor();
             cpg.Inicia();
-            //Gestor gestor = new Gestor();
-            //gestor.Jugar();
         }
     }
 }

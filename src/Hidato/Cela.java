@@ -3,20 +3,26 @@ package Hidato;
 import java.util.ArrayList;
 
 public class Cela{
+	private String tipus;
 	private boolean valida;
 	private boolean visible;
-	private Integer valor;
-	private List<Cela> adjacents = new Arraylist<Cela>();
+
+	private String valor;
 
 
 	//Constructora
-	public Cela(Integer val, Boolean vis){
-		this.valor = val;
+
+	public Cela(){};
+
+	public Cela(String tip, String val, boolean vis, boolean vali){
+		this.tipus = tip;
 		this.visible = vis;
+		this.valor = val;
+		this.valida = vali;
 	}
 
 	//Consultora
-	public Integer getValor() {
+	public String getValor() {
 		return valor;
 	}
 
@@ -28,12 +34,9 @@ public class Cela{
 		return visible;
 	}
 
-	public ArrayList getAdjacents() {
-		return adjacents;
-	}
 
 	//modificadores
-	public void ModificarValor(int x){
+	public void ModificarValor(String x){
 		this.valor = x;
 	}
 

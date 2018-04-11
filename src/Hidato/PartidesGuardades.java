@@ -52,12 +52,7 @@ public class PartidesGuardades {
     }
 
     private boolean TancarFitxerLectura() {
-        try {
-            x.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("No ho trobo");
-            return false;
-        }
+        x.close();
         return true;
     }
 
@@ -95,22 +90,22 @@ public class PartidesGuardades {
             llegir = new String(x.next());
         } else return null;
         p.SetAdjacencia(llegir);
-        /*if (x.hasNext()) {
-            llegir = new String(x.next());
-        } else return null;
-        p.SetFiles(String.valueOf(llegir.charAt(5)));
         if (x.hasNext()) {
             llegir = new String(x.next());
         } else return null;
-        p.SetColumnes(String.valueOf(llegir.charAt(7)));
+        p.SetFiles(Integer.parseInt(String.valueOf(llegir.charAt(5))));
         if (x.hasNext()) {
             llegir = new String(x.next());
         } else return null;
-        p.SetDificultat(String.valueOf(llegir.charAt(9)));*/
+        p.SetColumnes(Integer.parseInt(String.valueOf(llegir.charAt(7))));
+        if (x.hasNext()) {
+            llegir = new String(x.next());
+        } else return null;
+        p.SetDificultat(String.valueOf(llegir.charAt(9)));
         int i = 0;
-        //Integer f = Integer.parseInt(p.GetFiles);
-        //Integer c = Integer.parseInt(p.GetColumnes);
-        String [][] Tauler = new String[3][4];  //Ha de ser String[f][c]
+        Integer f = p.GetFiles();
+        Integer c = p.GetColumnes();
+        String [][] Tauler = new String[f][c];  //Ha de ser String[f][c]
         while (x.hasNext()) {
             llegir = x.next();
             for (int j = 0; j < llegir.length(); j++) {

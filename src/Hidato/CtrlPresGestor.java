@@ -2,6 +2,7 @@ package Hidato;
 
 import Hidato.Gestor;
 
+import java.text.StringCharacterIterator;
 import java.util.Scanner;
 import java.io.ObjectInputStream;
 import java.util.Vector;
@@ -24,6 +25,7 @@ public class CtrlPresGestor {
     private String TCela(){
         Scanner input = new Scanner(System.in);
         System.out.println("Selecciona el tipus de cela: ");
+        System.out.println("T(Triangle), Q(Quadrat), H(Hexagon)");
         String tipuscela = input.nextLine();
         while (!tipuscela.equals("T") && !tipuscela.equals("Q") && !tipuscela.equals("H")) {
             System.out.println("Selecciona el tipus de cela: ");
@@ -36,9 +38,11 @@ public class CtrlPresGestor {
         Scanner input = new Scanner(System.in);
         String tipusadj;
         System.out.println("Selecciona el tipus de adjacencia: ");
+        System.out.println("C(Costat), CA(Costat+Angle");
         tipusadj = input.nextLine();
         while (!tipusadj.equals("C") && !tipusadj.equals("CA")) {
             System.out.println("Selecciona el tipus de adjacencia: ");
+            System.out.println("C(Costat), CA(Costat+Angle");
             tipusadj = input.nextLine();
         }
         return tipusadj;
@@ -55,6 +59,56 @@ public class CtrlPresGestor {
         }
         return numhidato;
     }
+    private Vector<String> NFilCol(){
+        Vector<String> vres = new Vector<String>();
+        Scanner input = new Scanner(System.in);
+        System.out.println("Introdueix numero files: ");
+        Integer nfiles = Integer.parseInt(input.nextLine());
+        System.out.println("Introdueix numero columnes: ");
+        Integer ncolumnes = Integer.parseInt(input.nextLine());
+        while (nfiles < 2|| ncolumnes < 2 ) {
+            System.out.println("Introdueix numero files: ");
+            nfiles = Integer.parseInt(input.nextLine());
+            System.out.println("Introdueix numero columnes: ");
+            ncolumnes = Integer.parseInt(input.nextLine());
+        }
+        vres.add(0, Integer.toString(nfiles));
+        vres.add(1, Integer.toString(ncolumnes));
+        return vres;
+    }
+
+    private Vector<String> Params(){
+        //No funciona encara
+
+        System.out.println("Introdueix configuracio: ");
+        Vector<String> res = new Vector<String>();
+        Scanner input = new Scanner(System.in);
+        String valors = input.nextLine();
+        StringCharacterIterator sct = new StringCharacterIterator(valors);
+        for(Integer i = 0; i< 8; ++i) {
+            if (valors.charAt(i) != ',') {
+                res.add(String.valueOf(valors.charAt(i)));
+            }
+        }
+        return res;
+    }
+
+    private String [][] LlegirTauler(Integer nfil, Integer ncol){
+        //No funcionen encara
+
+        String[][] Tauler = new String[nfil][ncol];
+        Scanner input = new Scanner(System.in);
+        String hidato = input.nextLine();
+        for(int i = 0; i < nfil; i++) {
+            for (int j = 0; j < ncol; j++) {
+                if (hidato.charAt(j) != ',') Tauler[i][j] = String.valueOf(hidato.charAt(j));
+            }
+
+            hidato = input.nextLine();
+        }
+        return Tauler;
+    }
+
 
     public void Inicia(){
         Vector<String> v = new Vector<String>();
@@ -67,6 +121,7 @@ public class CtrlPresGestor {
         System.out.println("Benvingut a Hidato!");
         System.out.println("Insereix el teu nom: ");
         nomusuari = input.nextLine();
+        System.out.println("Hola " + nomusuari);
         v.add(0,nomusuari);
 
         tipuspartida = TPartida();
@@ -88,13 +143,38 @@ public class CtrlPresGestor {
             }
         }
         else if (tipuspartida.equals("GENERAR")){
+            //Tipus 1. Interactiu amb l'usuari
+
             tipuscela = TCela();
-            tipusadj = TAdj();
+            if(tipuscela.equals("Q")){
+                tipusadj = TAdj();
+            }
+            else tipusadj = "C";
             v.add(1,tipuscela);
             v.add(2,tipusadj);
-            //Faltara fer el read del hidato com a tal. El tauler vaja. I passarem una copia o referencia de la matriu
-            //en la possicio 5 del vector v
-            g.Generar(v);//V{nomusuari,tipuscela, tipusadj, numfil, numcol, matriu}
+            Vector<String> vres = NFilCol();
+            v.add(3,vres.get(0));
+            v.add(4,vres.get(1));
+            String[][] tau = LlegirTauler(Integer.parseInt(vres.get(0)), Integer.parseInt(vres.get(1)));
+            g.Parametres(v);
+            g.Generar(tau);//V{nomusuari,tipuscela, tipusadj, numfil, numcol}
+
+            /*
+            //Tipus 2. No interactiu. Com el pdf de mostra
+            Vector<String> parametres = Params();
+            String[][] Tauler = LlegirTauler(Integer.parseInt(parametres.get(2)), Integer.parseInt(parametres.get(3)));
+            g.Parametres(parametres);
+            g.Generar(Tauler);
+
+            System.out.println(parametres);
+            for(int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    System.out.println(Tauler[i][j]);
+                    }
+                //hidato = input.nextLine();
+            }
+            */
+
         }
         else if(tipuspartida.equals("REPRENDRE")){
             g.Reprendre(v);

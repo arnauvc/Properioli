@@ -4,67 +4,22 @@ import java.util.*;
 import java.io.*;
 import Hidato.Partida;
 import Hidato.Gestor;
+import Hidato.LlegirEscriure;
 
 public class PartidesGuardades {
 
     private BufferedWriter escriptor;
     private Scanner x;
-
-    private boolean ObrirFitxerEscriptura (String nom) {//Nom ha de ser idHidato.txt
-        File fitxer = new File(nom);
-        if (!fitxer.exists()) {
-            try {
-                fitxer.createNewFile();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        try {
-            FileWriter filew = new FileWriter(fitxer);
-            escriptor = new BufferedWriter(filew);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    private boolean TancarFitxerEscriptura() {
-        try {
-            escriptor.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("No es pot tencar");
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    private boolean ObrirFitxerLectura (String nom) {//Nom ha de ser idHidato.txt
-        try {
-            x = new Scanner(new File(nom));
-        } catch (FileNotFoundException e) {
-            System.out.println("No ho trobo");
-            return false; //No existeix el fitxer
-        }
-        return true;
-    }
-
-    private boolean TancarFitxerLectura() {
-        x.close();
-        return true;
-    }
+    private LlegirEscriure LE = new LlegirEscriure();
 
 
-
-    public void GuardarPartida(String nom_fitxer, Partida p, String[][] Tauler) {
-        ObrirFitxerEscriptura(nom_fitxer);
+    public void GuardarPartida(String nom_fitxer, Partida p, String[][] Tauler) throws Exception {
+        LE.ObrirFitxerEscriptura(nom_fitxer, escriptor, true);
         try {
             escriptor.write(p.GetCela());escriptor.newLine();
             escriptor.write(p.GetAdjacencia());escriptor.newLine();
-            //escriptor.write(p.GetFiles);escriptor.newLine();
-            //escriptor.write(p.GetColumnes);escriptor.newLine();
+            escriptor.write(p.GetFiles());escriptor.newLine();
+            escriptor.write(p.GetColumnes());escriptor.newLine();
             escriptor.write(p.GetDificultat());escriptor.newLine();
             for (int i = 0; i < Tauler.length; i++) {
                 escriptor.newLine();
@@ -76,10 +31,11 @@ public class PartidesGuardades {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        LE.TancarFitxerEscriptura(escriptor);
     }
 
-    public Partida Obtenirpartida(String nom_fitxer) {
-        if (!ObrirFitxerLectura(nom_fitxer)) return null;
+    public Partida Obtenirpartida(String nom_fitxer) throws Exception {
+        if (!LE.ObrirFitxerLectura(nom_fitxer, x)) return null;
         Partida p = new Partida();
         String llegir;
         if (x.hasNext()) {
@@ -113,6 +69,7 @@ public class PartidesGuardades {
             }
         }
         //p.SetTauler(Tauler);
+        LE.TancarFitxerLectura(x);
         return p;
     }
 }

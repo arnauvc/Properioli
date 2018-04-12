@@ -40,11 +40,12 @@ public class Partida {
 		System.out.println("Usage: String {C(Costat), CA(Costat+Angle)}");
 	}
 
+	public void PartidaBiblioteca(){}
+
 	public void Generar(){
 		Scanner input = new Scanner(System.in);
 		String tcela, tadj;
 
-		//Falta interactuar con el usuario para tcela tadj
 
 		String hidato[][];
 
@@ -84,9 +85,7 @@ public class Partida {
 
 
 	public void ReprendrePartida(){
-		ge.CarregaPartida();
-		finalitzat = false;
-		TranscursPartida();
+
 
 	}
 	
@@ -183,6 +182,9 @@ public class Partida {
 
 	public void SetTauler(Tauler t){
 		this.t = t;
+	}
+	public void SetNom(String nom){
+
 	}
 	public double GetTemps(){
 		return temps;

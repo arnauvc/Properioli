@@ -1,6 +1,6 @@
 package Hidato;
 
-//import Hidato.Tauler;
+import Hidato.Tauler;
 
 public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les solucions
 
@@ -8,8 +8,8 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
 
     }
 
-    public void CarregarHidato(Integer id){
-        //Tauler tau = new Tauler(3);
-        //return tau;
+    public Tauler CarregarHidato(Integer id){
+        Tauler tau = new Tauler(3);
+        return tau;
     }
 }

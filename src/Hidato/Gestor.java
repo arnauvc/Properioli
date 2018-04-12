@@ -17,22 +17,33 @@ import Hidato.ComprovarHidato;
 
 public class Gestor {
 
-	private Error e;
+	//private Error e;
 	private Ranking r;
-
-    //Podem eliminar aquest usuari actiu potser
-    //private Usuari usuariactiu;//Conte l'objecte usuari del usuari actiu en el sistema
     private Partida partidaactiva = new Partida();
-    //private Tauler tauler;
     private PartidesGuardades pg = new PartidesGuardades();
+    private HidatosSolucionats hs = new HidatosSolucionats();
 
     private Vector<String> parametres;
 
 
-    public Integer VisualitzaHidatos(){
-        return 1;
+    public Integer VisualitzaHidatos() {
+        //Aqui caldra invocar la capa de presentacio per fer display dels hidatos
+        //I retornara el nombre total d'hidatos
+        return 5;
     }
-    public void EscullHidato(Integer nhidato){} //Retorna numero total de hidatos
+    public void JugarHidato(Vector<String> v , Integer idhidato){
+        //Es selecciona de la biblioteca l'hidato amb id nhidato
+        Tauler t = hs.CarregarHidato(idhidato);
+        //Partida pa = new Partida();
+        //pa.SetTauler(t);
+        //partidaactiva = pa;
+
+        //Caldra considerar si crea una nova partida o no
+
+        partidaactiva.SetNom(v.get(0));
+        partidaactiva.SetTauler(t);
+        partidaactiva.PartidaBiblioteca();
+    }
     public void Aleatori(Vector<String> v){}
 
     public void Parametres(Vector<String> p){
@@ -50,20 +61,16 @@ public class Gestor {
         partidaactiva.Generar();
     }
     public void Reprendre(Vector<String> v){
-        /*
-        partidaactiva = pg.Obtenirpartida(nomusuari);//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
+
+        partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
         partidaactiva.TranscursPartida();
-        */
+
     }
     public void GuardarPartida(){
 
     }
+
     public void ActulitzarRanking(Integer id, Double temps){
         r.Actualitzar(id, temps);
     }
-
-    public void Jugar(){}
-
-
-
 }

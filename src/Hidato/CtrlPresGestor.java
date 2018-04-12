@@ -60,6 +60,9 @@ public class CtrlPresGestor {
         return numhidato;
     }
     private Vector<String> NFilCol(){
+
+        //S'ha de gestionar que si entres un Enter per teclat, peta
+
         Vector<String> vres = new Vector<String>();
         Scanner input = new Scanner(System.in);
         System.out.println("Introdueix numero files: ");
@@ -134,9 +137,10 @@ public class CtrlPresGestor {
                 tipushidato = input.nextLine();
             }
             if(tipushidato.equals("BIBLIOTECA")){
-                Integer totalhidatos = g.VisualitzaHidatos();//Li demana al gestor que faci display dels hidatos de la biblioteca
-                Integer numhidato = NHidato(totalhidatos);
-                g.EscullHidato(numhidato);//Aqui ja l'envia a jugar
+                Integer totalhidatos = g.VisualitzaHidatos();//Li demana per poder fer display dels hidatos de la biblioteca
+                //L'usuari ara veuria tots els hidatos i en triaria un
+                Integer idhidato = NHidato(totalhidatos); //Tria l'hidato que vol
+                g.JugarHidato(v, idhidato);//Aqui ja l'envia a jugar
             }
             else if (tipushidato.equals("ALEATORI")){
                 g.Aleatori(v);

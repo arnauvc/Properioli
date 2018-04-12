@@ -19,6 +19,7 @@ public class Tauler {
     private String adjacencia;
     private Cela cela;
     private Error e = new Error();
+    private Integer id;
 
 
     //constructora

@@ -18,10 +18,10 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         String s = new String(String.valueOf(idhidato));
         s += ".txt";
         path += s;
-        System.out.println(path);
         //Afegir el string s al string global que seria el path
         LE.ObrirFitxerEscriptura(path, escriptor, true);
-        escriptor.write(String.valueOf(idhidato));escriptor.newLine();
+        escriptor.write(String.valueOf(idhidato));
+        escriptor.newLine();
         for (int i = 0; i < t.length; i++) {
             escriptor.newLine();
             for (int j = 0; j < t.length; j++) {
@@ -39,6 +39,7 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
                 else escriptor.newLine();
             }
         }
+        LE.TancarFitxerEscriptura(escriptor);
     }
 
     public void GuardarSolucioHidato(Integer idhidato, String[][] solucio) throws Exception {
@@ -56,6 +57,7 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
                 else escriptor.newLine();
             }
         }
+        LE.TancarFitxerEscriptura(escriptor);
     }
 
     public String[][] CarregarHidato(Integer idhidato, int num_solucio) throws Exception {
@@ -83,6 +85,7 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
             }
             if (x.hasNext()) s = x.nextLine();
         }
+        LE.TancarFitxerLectura(x);
         return solucio;
     }
 }

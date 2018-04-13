@@ -12,12 +12,15 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
     private BufferedWriter escriptor;
     private Scanner x;
     private LlegirEscriure LE = new LlegirEscriure();
+    private String path = new String("C:\\Users\\Nil\\Desktop\\");
 
     public void GuardarHidato(Integer idhidato, String[][] t, String[][] solucio) throws Exception {//Te un tauler Tau com a parametre
         String s = new String(String.valueOf(idhidato));
-        s.concat(".txt");
+        s += ".txt";
+        path += s;
+        System.out.println(path);
         //Afegir el string s al string global que seria el path
-        LE.ObrirFitxerEscriptura(s, escriptor, true);
+        LE.ObrirFitxerEscriptura(path, escriptor, true);
         escriptor.write(String.valueOf(idhidato));escriptor.newLine();
         for (int i = 0; i < t.length; i++) {
             escriptor.newLine();
@@ -40,9 +43,10 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
 
     public void GuardarSolucioHidato(Integer idhidato, String[][] solucio) throws Exception {
         String s = new String(String.valueOf(idhidato));
-        s.concat(".txt");
+        s += ".txt";
+        path += s;
         //Afegir el string s al string global que seria el path
-        LE.ObrirFitxerEscriptura(s, escriptor, false);
+        LE.ObrirFitxerEscriptura(path, escriptor, false);
         escriptor.write("-");escriptor.newLine();
         for (int i = 0; i < solucio.length; i++) {
             escriptor.newLine();
@@ -57,8 +61,9 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
     public String[][] CarregarHidato(Integer idhidato, int num_solucio) throws Exception {
         int i = 0;
         String s = new String(String.valueOf(idhidato));
-        s.concat(".txt");
-        LE.ObrirFitxerLectura(s, x);
+        s += ".txt";
+        path += s;
+        LE.ObrirFitxerLectura(path, x);
         boolean trobat = false;
         if (x.hasNext()) s = x.nextLine();
         while (!trobat) {

@@ -1,24 +1,27 @@
 package Hidato;
 
-import java.util.Scanner;
-
-
 
 public class Jugada {
     private String jugada;
     private Integer numcasella;
     private Integer coordx;
     private Integer coordy;
+    private boolean invalid;
 
-    private void UsageJugada(){
+    /*private void UsageJugada(){
         System.out.println("Usage: String {GUARDAR, AJUDA, NUMERO}");
-    }
-    private void ComprovaJugada(){
-
+    }*/
+    public void ComprovaJugada(){
+        //FALTA
+        //Mirar que numcasella estigui entre els numeros possibles de l'hidato
+        //Mirar que coordx i coordy estiguin entre [nfilmin, nfilmax] i [ncolmin, ncolmax]
+        
     }
 
     public void DoJugada(){
-        Scanner input = new Scanner(System.in);
+        //CtrlPresentacio!
+
+        /*Scanner input = new Scanner(System.in);
         System.out.println("Tria la propera jugada: ");
         SetJugada(input.nextLine());
 
@@ -29,11 +32,11 @@ public class Jugada {
         if (jugada.equals("NUMERO")) {
             System.out.println("Insereix numero de casella: ");
             SetNumero(input.nextInt());
-            /*
+
             Comprovar que num sigui valid
             - que estigui dins de la sequencia de numeros a omplir
             - que no estigui ja ficat al tauler
-             */
+
 
             System.out.println("Insereix coordenades de fila: ");
             SetX(input.nextInt());
@@ -42,16 +45,13 @@ public class Jugada {
             System.out.println("Insereix coordenades de columna: ");
             SetY(input.nextInt());
             //Comprovar que Y estigui entre [ncolmin,ncolmax]
-        }
+        }*/
 
-
-    }
-
-    public void ComprovarJugada(){
 
     }
 
     public void SetJugada(String jugada){
+        //Si jugada = AJUDA o GUARDAR, no cal cap mes Set
         this.jugada = jugada;
     }
     public String GetJugada(){
@@ -74,6 +74,9 @@ public class Jugada {
     }
     public Integer GetY(){
         return coordy;
+    }
+    public boolean GetInvalid(){
+        return invalid;
     }
 
 }

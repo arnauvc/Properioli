@@ -4,177 +4,126 @@ import Hidato.Rellotge;
 import Hidato.Tauler;
 import Hidato.Jugada;
 import Hidato.Ajuda;
-import Hidato.Error;
-import Hidato.Gestor;
-
-import java.util.Scanner;
+import Hidato.Usuari;
 
 
 public class Partida {
 
     private boolean ajuda; //Ha fet servir ajuda en algun moment de la partida
     private boolean guardat; //Ha guardat la partida en algun moment
+	private boolean reguardat; //Guardat aux per si torna a guardar la partida
     private boolean finalitzat; //Ha parat la partida
 	private boolean completat; //Ha acabat la partida
     private double  temps;
 	private Rellotge r = new Rellotge();
-	private Error e = new Error();
 	private Tauler t = new Tauler();
 	private Generacio g = new Generacio();
-	private Gestor ge;
+	private Usuari u;
 	private Integer idhidato;
 	private String dif; //Dificultat
 	private Integer torn;
 	private Integer fil;
 	private Integer col;
+	private String[][] taulerU;
 
 
-
-	private void UsageDificultat(){
-		System.out.println("Usage: String {FACIL, NORMAL, DIFICIL}");
+	public Partida(){}
+	public Partida(String nomusuari, String tcela, String tadj, Integer nfil, Integer ncol){
+		SetNom(nomusuari);
+		SetCela(tcela);
+		SetAdjacencia(tadj);
+		fil = nfil;
+		col = ncol;
 	}
-	private void UsageCela(){
-		System.out.println("Usage: String {T(Triangle), Q(Quadrat), H(Hexagon)}");
-	}
-	private void UsageAdjacencia(){
-		System.out.println("Usage: String {C(Costat), CA(Costat+Angle)}");
-	}
 
-	public void PartidaBiblioteca(){}
+
+	public void PartidaBiblioteca(){
+		//Quan l'usuari tria un hidato que esta a la biblioteca i el vol resoldre
+		r.start();
+		finalitzat = false;
+		completat = false;
+		ajuda = false;
+		guardat = false;
+		reguardat = false;
+		torn = 1;
+		TranscursPartida();
+	}
 
 	public void Generar(){
-		Scanner input = new Scanner(System.in);
-		String tcela, tadj;
-
-
-		String hidato[][];
-
-		System.out.println("Selecciona el tipus de cela: ");
-		tcela = (input.nextLine());
-
-		while (!tcela.equals("T") && !tcela.equals("Q") && !tcela.equals("H")) {
-			UsageCela();
-			System.out.println("Selecciona el tipus de cela: ");
-			tcela = (input.nextLine());
-		}
-
-		if (tcela.equals("Q")){
-			System.out.println("Selecciona el tipus de adjacencia: ");
-			tadj = (input.nextLine());
-			while (!tadj.equals("C") && !tadj.equals("CA")) {
-				UsageAdjacencia();
-				System.out.println("Selecciona el tipus de adjacencia: ");
-				tadj = (input.nextLine());
-			}
-
-		}
-		else tadj = "C";
-
-		System.out.println("Indica el numero de files del hidato: ");
-		fil = input.nextInt();
-		System.out.println("Indica el numero de columnes del hidato: ");
-		col = input.nextInt();
-
-
-		hidato = g.GenerarHidatoUsuari(fil, col);
-
-		System.out.println("Hidato Generat!");
-
-		t.CrearTauler(tcela, tadj, hidato);
-	}
-
-
-	public void ReprendrePartida(){
-
-
+		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
+		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
 	}
 	
 	public void IniciaPartida(){
-		Scanner input = new Scanner(System.in);
-		String tcela, tadj;
+		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
 		String[][] hidato;
 
-
-		System.out.println("Selecciona el tipus de cela: ");
-		tcela = (input.nextLine());
-
-		while (!tcela.equals("T") && !tcela.equals("Q") && !tcela.equals("H")) {
-			UsageCela();
-			System.out.println("Selecciona el tipus de cela: ");
-			tcela = (input.nextLine());
-		}
-
-			if (tcela.equals("Q")){
-				System.out.println("Selecciona el tipus de adjacencia: ");
-				tadj = (input.nextLine());
-				while (!tadj.equals("C") && !tadj.equals("CA")) {
-					UsageAdjacencia();
-					System.out.println("Selecciona el tipus de adjacencia: ");
-					tadj = (input.nextLine());
-				}
-
-			}
-			else tadj = "C";
-
-		System.out.println("Selecciona la dificultat: ");
-		SetDificultat(input.nextLine());
-
-		while (!dif.equals("FACIL") && !dif.equals("NORMAL") && !dif.equals("DIFICIL")) {
-			UsageDificultat();
-			System.out.println("Selecciona la dificultat: ");
-			SetDificultat(input.nextLine());
-		}
-
-
-		hidato = g.GenerarHidatoAlgorisme(tcela, tadj, dif);
-		t.CrearTauler(tcela, tadj, hidato);
+		hidato = g.GenerarHidatoAlgorisme(GetCela(), GetAdjacencia(), dif);
+		t.CrearTauler(GetCela(), GetAdjacencia(), hidato);
 
 		r.start(); //Inicia el rellotge
 		finalitzat = false;
+		completat = false;
 		ajuda = false;
+		guardat = false;
+		reguardat = false;
 		torn = 1;
 		TranscursPartida();
 
 	}
+	public void ReprendrePartida(){
+		//Quan l'usuari carrega la partida que tenia guardada
+		finalitzat = false;
+		completat = false;
+		reguardat = false;
+		TranscursPartida();
+	}
 
 	public void TranscursPartida(){
 		Jugada j = new Jugada();
+		Integer num, x, y;
 
 		while (!finalitzat && !completat){
 			j.DoJugada();
 			j.GetJugada();
 			if (j.GetJugada().equals("NUMERO")){
-				j.GetNumero();
-				j.GetX();
-				j.GetY();
+				num = j.GetNumero();
+				x = j.GetX();
+				y = j.GetY();
 				++torn;
+				t.ModificaCeldaV(Integer.toString(num), x, y);
 
 				//if (ja no hi han interrogants) completat = true;
 			}
 			else if (j.GetJugada().equals("GUARDAR")){
 				r.stop();
-				guardat = true;
+				guardat = true; //L'unic que fa es invalidar el temps
+				reguardat = true; //Es per avisar al Ctrl que l'usuari ha guardat
 				finalitzat = true;
-				System.out.println("Has guardat la partida.");
-				//ge.GuardarPartida();
 			}
-			else if (j.GetJugada().equals("AJUDA") && !ajuda){
+			else if (j.GetJugada().equals("AJUDA")){
 				r.stop();
 				ajuda = true;
-				//GetAjuda: Mostra en vermell les celes incorrectes
-				System.out.println("Ajuda");
+				String[][] hidato_ajuda;
+				//hidato_ajuda = GetAjuda: Mostra en blanc, o amb un simbol, les celes incorrectes
 			}
 
 		}
 
 		//Partida completada
-		if (completat){
-
+		if (completat && !guardat && !ajuda){
 			r.stop();
 			temps = r.GetTime();
-			System.out.printf("Has trigat: %f\n", temps);
 
+			/*Aixo ho ha de fer el CtrlPresentacio
+			System.out.printf("Has trigat: %f\n", temps);
 			System.out.println("Has guanyat!");
+			*/
+		}
+
+		//Partida completada utilitzant ajuda o havent guardat
+		if (completat && guardat || ajuda){
+			temps = 0;
 		}
 	}
 
@@ -183,8 +132,11 @@ public class Partida {
 	public void SetTauler(Tauler t){
 		this.t = t;
 	}
+	public void SetTaulerU(String[][] taulerU){
+		this.taulerU = taulerU;
+	}
 	public void SetNom(String nom){
-
+		u.SetNom(nom);
 	}
 	public double GetTemps(){
 		return temps;
@@ -200,6 +152,9 @@ public class Partida {
 	}
 	public Integer GetTorn(){
 		return torn;
+	}
+	public void SetTorn(Integer torn){
+		this.torn = torn;
 	}
 	public Integer GetFiles(){
 		return fil;
@@ -224,5 +179,20 @@ public class Partida {
 	}
 	public void SetAdjacencia(String adj){
 		//t.SetAdjacencia = adj;
+	}
+	public boolean GetReguardat(){
+		return reguardat;
+	}
+	public boolean GetGuardat(){
+		return guardat;
+	}
+	public void SetGuardat(boolean guardat){
+		this.guardat = guardat;
+	}
+	public boolean GetCompletat(){
+		return completat;
+	}
+	public boolean GetAjuda(){
+		return ajuda;
 	}
 }

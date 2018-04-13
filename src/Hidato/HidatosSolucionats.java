@@ -27,7 +27,7 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
                 else escriptor.newLine();
             }
         }
-        escriptor.newLine();
+        escriptor.write("-"); escriptor.newLine();
         for (int i = 0; i < solucio.length; i++) {
             escriptor.newLine();
             for (int j = 0; j < solucio.length; j++) {
@@ -43,7 +43,7 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         s.concat(".txt");
         //Afegir el string s al string global que seria el path
         LE.ObrirFitxerEscriptura(s, escriptor, false);
-        escriptor.newLine();
+        escriptor.write("-");escriptor.newLine();
         for (int i = 0; i < solucio.length; i++) {
             escriptor.newLine();
             for (int j = 0; j < solucio.length; j++) {
@@ -54,8 +54,30 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         }
     }
 
-    public String[][] CarregarHidato(Integer id){
-        String[][] s = new String[0][];
-        return s;
+    public String[][] CarregarHidato(Integer idhidato, int num_solucio) throws Exception {
+        int i = 0;
+        String s = new String(String.valueOf(idhidato));
+        s.concat(".txt");
+        LE.ObrirFitxerLectura(s, x);
+        boolean trobat = false;
+        if (x.hasNext()) s = x.nextLine();
+        while (!trobat) {
+            if (s == "-") i++;
+            if (i == num_solucio) trobat = true;
+            if (x.hasNext()) s = x.nextLine();
+        }
+        String[][] solucio = new String[0][];
+        i = 0;
+        int k = 0;
+        while (s != "-") {
+            for (int j = 0; j < s.length(); j++) {
+                if (s.charAt(j) != ',') {
+                    solucio[i][k] = String.valueOf(s.charAt(j));
+                    k++;
+                }
+            }
+            if (x.hasNext()) s = x.nextLine();
+        }
+        return solucio;
     }
 }

@@ -1,5 +1,6 @@
 import Hidato.CtrlPresGestor;
 import Hidato.HidatosSolucionats;
+import Hidato.Tauler;
 
 
 public class Main {
@@ -15,11 +16,20 @@ public class Main {
             }
         }
         HidatosSolucionats hs = new HidatosSolucionats();
-        hs.GuardarHidato(1,s,solucio);
+        Tauler t = new Tauler();
+        t.CrearTauler("Q", "C", s);
+        hs.GuardarHidato(1,t,solucio);
+        /*s = hs.CarregarHidato(1,1);
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                System.out.print(s[i][j]);
+            }
+        }*/
+        hs.GuardarSolucioHidato(2, s);
 
-        while(true) {
+        /*while(true) {
             CtrlPresGestor cpg = new CtrlPresGestor();
             cpg.Inicia();
-        }
+        }*/
     }
 }

@@ -113,7 +113,7 @@ public class CtrlPresGestor {
     }
 
 
-    public void Inicia(){
+    public void Inicia() throws Exception {
         Vector<String> v = new Vector<String>();
         Scanner input = new Scanner(System.in);
         String tipuspartida;

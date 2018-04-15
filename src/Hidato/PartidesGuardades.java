@@ -76,11 +76,17 @@ public class PartidesGuardades {
         Integer f = p.GetFiles();
         Integer c = p.GetColumnes();
         String [][] Tauler = new String[f][c];  //Ha de ser String[f][c]
+        int l = 0;
         while (x.hasNext()) {
             llegir = x.next();
+            l = 0;
             for (int j = 0; j < llegir.length(); j++) {
-                if (llegir.charAt(i) != ',') Tauler[i][j] = String.valueOf(llegir.charAt(i));
+                if (llegir.charAt(j) == ',') {
+                    Tauler[i][j] = llegir.substring(l, j-1);
+                    l = j+1;
+                }
             }
+            i++;
         }
         //p.SetTauler(Tauler);
         LE.TancarFitxerLectura(x);

@@ -1,11 +1,12 @@
 import Hidato.CtrlPresGestor;
+import Hidato.Driver_Ajuda;
 import Hidato.HidatosSolucionats;
 import Hidato.Tauler;
 
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        String[][] s = new String[3][3];
+        /*String[][] s = new String[3][3];
         String[][] solucio = new String[3][3];
 
         for (int i = 0; i < 3; i++) {
@@ -19,17 +20,21 @@ public class Main {
         Tauler t = new Tauler();
         t.CrearTauler("Q", "C", s);
         hs.GuardarHidato(1,t,solucio);
+        */
         /*s = hs.CarregarHidato(1,1);
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 System.out.print(s[i][j]);
             }
         }*/
-        hs.GuardarSolucioHidato(2, s);
+        //hs.GuardarSolucioHidato(2, s);
 
         /*while(true) {
             CtrlPresGestor cpg = new CtrlPresGestor();
             cpg.Inicia();
         }*/
+
+        Driver_Ajuda da = new Driver_Ajuda();
+        da.TestClass();
     }
 }

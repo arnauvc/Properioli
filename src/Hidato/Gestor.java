@@ -33,7 +33,7 @@ public class Gestor {
     }
     public void JugarHidato(Vector<String> v , Integer idhidato){
         //Es selecciona de la biblioteca l'hidato amb id nhidato
-        Tauler t = hs.CarregarHidato(idhidato);
+        ///Tauler t = hs.CarregarHidato(idhidato);
         //Partida pa = new Partida();
         //pa.SetTauler(t);
         //partidaactiva = pa;
@@ -41,7 +41,7 @@ public class Gestor {
         //Caldra considerar si crea una nova partida o no
 
         partidaactiva.SetNom(v.get(0));
-        partidaactiva.SetTauler(t);
+        ///partidaactiva.SetTauler(t);
         partidaactiva.PartidaBiblioteca();
     }
     public void Aleatori(Vector<String> v){}
@@ -62,7 +62,7 @@ public class Gestor {
     }
     public void Reprendre(Vector<String> v){
 
-        partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
+        ///partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
         partidaactiva.TranscursPartida();
 
     }

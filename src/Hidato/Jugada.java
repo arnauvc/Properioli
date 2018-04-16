@@ -15,7 +15,7 @@ public class Jugada {
         //FALTA
         //Mirar que numcasella estigui entre els numeros possibles de l'hidato
         //Mirar que coordx i coordy estiguin entre [nfilmin, nfilmax] i [ncolmin, ncolmax]
-        
+
     }
 
     public void DoJugada(){

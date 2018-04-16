@@ -2,14 +2,14 @@ package Hidato;
 
 import java.util.ArrayList;
 import java.util.List;
-import Hidato.Cela;
+import java.util.ListIterator;
 
 public class Tauler {
     /*private enum TipusCela{
         TRIANGLE, QUADRAT, HEXAGON
     }*/
-    private List<List<Cela>> Celas = new ArrayList<>();
-
+    private Integer id;//Numero que identifica l'hidato inequivocament
+    private List<List<Cela>> Celas = new ArrayList<List<Cela>>();
     private String tipuscela;
     private Integer numFiles;
     private Integer numColum;
@@ -19,7 +19,6 @@ public class Tauler {
     private String adjacencia;
     private Cela cela;
     private Error e = new Error();
-    private Integer id;
 
 
     //constructora
@@ -32,6 +31,8 @@ public class Tauler {
     {
         this.tipuscela = ticela;
         this.adjacencia = adj;
+        this.numFiles = matriu.length;
+        this.numColum = matriu[0].length;
         boolean visible, valida;
         int numceltotal, numcelbuides, numcelesocu;
         numcelbuides = numceltotal = numcelesocu = 0;
@@ -70,11 +71,19 @@ public class Tauler {
                     aux.add(cela);
                 }
             }
-            Celas.add(aux);
+            mostrarfila(aux);
+            this.Celas.add(aux);
+            System.out.println(Celas.size() + " " + aux.size());
         }
         this.numcelestotal = numceltotal;
         this.numcelesbuides = numcelbuides;
         this.numcelesocupades = numcelesocu;
+    }
+
+    private void mostrarfila(List<Cela> a){
+        for(int i = 0; i < a.size(); ++i){
+            System.out.print(a.get(i).getValor() +  ",");
+        }
     }
 
 
@@ -111,6 +120,15 @@ public class Tauler {
 
     public Integer getNumColum(){return numColum;}
 
+    public String consultarValCela(int x, int y){
+        cela = Celas.get(x).get(y);
+        return cela.getValor();
+    }
+
+    public boolean consultarValidaCela(int x, int y){
+        cela = Celas.get(x).get(y);
+        return cela.isValida();
+    }
 
 
 
@@ -119,6 +137,26 @@ public class Tauler {
         cela = Celas.get(posi).get(posj);
         cela.ModificarValor(x);
 
+    }
+
+    public void SetAdjacencia(String  ad){
+        this.adjacencia = ad;
+    }
+
+    public void SetTipuscela(String ce){
+        this.tipuscela = ce;
+    }
+
+    public void MostrarTauler() {//no funciona correctament
+        List<Cela> aux = new ArrayList<Cela>();
+        System.out.println(numFiles);
+        System.out.println(Celas.size());
+        for (int i = 0; i <= numFiles; ++i) {
+            aux.clear();
+            aux = Celas.get(i);
+            System.out.println(aux.size());
+            mostrarfila(aux);
+        }
     }
 
 

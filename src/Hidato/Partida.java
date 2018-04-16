@@ -175,10 +175,10 @@ public class Partida {
 		return t.GetTiposAdj();
 	}
 	public void SetCela(String cela){
-		//t.SetCela = cela;
+		t.SetTipuscela(cela);
 	}
 	public void SetAdjacencia(String adj){
-		//t.SetAdjacencia = adj;
+		t.SetAdjacencia(adj);
 	}
 	public boolean GetReguardat(){
 		return reguardat;

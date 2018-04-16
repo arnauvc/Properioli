@@ -18,23 +18,15 @@ public class Generacio {
         private Double fillfactor = 0.9;
 
         private Integer maxceles;
+        private Integer ValorMaxim = 0;
         private String tipuscela;
         private String tipusadj;
         private Integer numadj; //Conte el numero de veins que pot tenir una cela en funcio de l'adjecencia
-        private String dificultat;
+        //private String dificultat;
         private Integer numcostats;//segons tipuscela i tipusadj
 
         private Integer ProbNumero;
         private Integer ProbBlanc;
-/*
-        private Integer maxI;
-        private Integer minI;
-        private Integer maxJ;
-        private Integer minJ;
-*/
-
-
-
 
     private boolean Check1(Integer i, Integer j){
         return (i < nfiles && i >= 0) && (j < ncolumnes && j >= 0) && (tauler[i][j].equals("#"));
@@ -43,7 +35,9 @@ public class Generacio {
 
     private boolean Generar1(Integer i, Integer j, Integer contador){
         //Pair<Integer,Integer>nextcela = NextPos(new Pair(x,y));
-        if(contador > maxceles*fillfactor){return true;}
+        if(contador > maxceles*fillfactor){
+            ValorMaxim = contador-1;
+            return true;}
         if(!Check1(i,j)){//retorna fals si la casella te un numero o esta fora dels limits
             //System.out.printf("La parella: %d , %d falla el check", i, j);
            // System.out.println();
@@ -124,7 +118,7 @@ public class Generacio {
         tipuscela = Tipuscela;
         tipusadj = Tipusadj;
         numadj = 4;//si tipusadj es C
-        dificultat = Dif;
+        //dificultat = Dif;
         ProbBlanc = 100 - ProbNumero;
         numcostats = 4;
 
@@ -224,6 +218,9 @@ public class Generacio {
         return r.nextInt(max-min) + min;
     }
 
+    public Integer GetValorMaxim(){
+        return ValorMaxim;
+    }
 
     public String[][] GenerarHidatoUsuari(Integer fil, Integer col){
         return new String[1][1];
@@ -232,4 +229,6 @@ public class Generacio {
     public String[][] GenerarHidatoAlgorisme(String tcela, String tadj, String dif){
         return new String[1][1];
     }
+
+
 }

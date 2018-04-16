@@ -38,7 +38,7 @@ public class CtrlPresGestor {
         Scanner input = new Scanner(System.in);
         String tipusadj;
         System.out.println("Selecciona el tipus de adjacencia: ");
-        System.out.println("C(Costat), CA(Costat+Angle");
+        System.out.println("C(Costat), CA(Costat+Angle)");
         tipusadj = input.nextLine();
         while (!tipusadj.equals("C") && !tipusadj.equals("CA")) {
             System.out.println("Selecciona el tipus de adjacencia: ");
@@ -46,6 +46,20 @@ public class CtrlPresGestor {
             tipusadj = input.nextLine();
         }
         return tipusadj;
+    }
+
+    private String TDificultat(){
+        Scanner input = new Scanner(System.in);
+        String tipusdificultat;
+        System.out.println("Selecciona el nivell de dificultat: ");
+        System.out.println("F(FACIL), N(NORMAL) O D(DIFICIL)");
+        tipusdificultat = input.nextLine();
+        while (!tipusdificultat.equals("F") && !tipusdificultat.equals("N") && !tipusdificultat.equals("D")) {
+            System.out.println("Selecciona el nivell de dificultat: ");
+            System.out.println("F(FACIL), N(NORMAL) O D(DIFICIL)");
+            tipusdificultat = input.nextLine();
+        }
+        return tipusdificultat;
     }
 
     private Integer NHidato(Integer totalhidatos){
@@ -120,6 +134,7 @@ public class CtrlPresGestor {
         String tipuscela;
         String tipusadj;
         String nomusuari;
+        String tipusdificultat;
 
         System.out.println("Benvingut a Hidato!");
         System.out.println("Insereix el teu nom: ");
@@ -143,6 +158,16 @@ public class CtrlPresGestor {
                 g.JugarHidato(v, idhidato);//Aqui ja l'envia a jugar
             }
             else if (tipushidato.equals("ALEATORI")){
+                tipuscela = TCela();
+                if(tipuscela.equals("Q")){
+                    tipusadj = TAdj();
+                }
+                else tipusadj = "C";
+                tipusdificultat = TDificultat();
+                v.add(1,tipuscela);
+                v.add(2,tipusadj);
+                v.add(3,tipusdificultat);
+                //tcela, tadj, tdificultat
                 g.Aleatori(v);
             }
         }
@@ -160,25 +185,19 @@ public class CtrlPresGestor {
             Vector<String> vres = NFilCol();
             v.add(3,vres.get(0));
             v.add(4,vres.get(1));
+            tipusdificultat = TDificultat();
+            v.add(5,tipusdificultat);
             String[][] tau = LlegirTauler(Integer.parseInt(vres.get(0)), Integer.parseInt(vres.get(1)));
-            g.Parametres(v);
-            g.Generar(tau);//V{nomusuari,tipuscela, tipusadj, numfil, numcol}
+            //g.Parametres(v);
+            g.Generar(v,tau);//V{nomusuari,tipuscela, tipusadj, numfil, numcol, dificultat}
 
             /*
             //Tipus 2. No interactiu. Com el pdf de mostra
 
             Vector<String> parametres = Params();
             String[][] Tauler = LlegirTauler(Integer.parseInt(parametres.get(2)), Integer.parseInt(parametres.get(3)));
-            g.Parametres(parametres);
-            g.Generar(Tauler);
-
-            System.out.println(parametres);
-            for(int i = 0; i < 2; i++) {
-                for (int j = 0; j < 2; j++) {
-                    System.out.println(Tauler[i][j]);
-                    }
-                //hidato = input.nextLine();
-            }
+            //g.Parametres(parametres);
+            g.Generar(parametres, Tauler);
             */
 
         }

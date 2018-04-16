@@ -9,20 +9,28 @@ public class Ajuda {
     private Resolucio r;
     private String[][] matajuda;
     private String[][] mattauler;
+    private String[][] matsolucio;
 
     public String[][] GetAjuda(Tauler t){
-        List<List<Cela>> tauler;
+        List<List<Cela>> tauler = null;
         tauler = t.getCelas();
-        /*for (int i = 0; i < t.getNumFiles(); ++i) {
-            for (int j = 0; j < t.getNumColum(); ++j) {
+        mattauler = new String[t.getNumFiles()][t.getNumColum()]; //El tauler actual
+        matajuda = new String[t.getNumFiles()][t.getNumColum()]; //El tauler amb celes incorrectes
+        matsolucio = new String[t.getNumFiles()][t.getNumColum()]; //El tauler resolt
 
-                System.out.printf("Element: %s\n", (tauler.get(i).get(j)).getValor());
-                mattauler[i][j] = (tauler.get(i).get(j)).getValor();
-                System.out.printf("Element: %s\n", mattauler[i][j]);
+        //La idea es comparar el tauler actual amb la resolucio, i la diferencia es la matajuda
+        //Esta a mitges
+
+        //matsolucio = r.ResoldreHidato();
+
+        for (int i = 0; i < t.getNumFiles(); ++i) {
+            for (int j = 0; j < t.getNumColum(); ++j) {
+                mattauler[i][j] = t.consultarValCela(i, j);
             }
-        }*/
-        t.MostrarTauler();
-        matajuda = mattauler;
+        }
+
+
+
 
 
         return matajuda;

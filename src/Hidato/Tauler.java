@@ -71,9 +71,9 @@ public class Tauler {
                     aux.add(cela);
                 }
             }
-            mostrarfila(aux);
+            //mostrarfila(aux);
             this.Celas.add(aux);
-            System.out.println(Celas.size() + " " + aux.size());
+            //System.out.println(Celas.size() + " " + aux.size());
         }
         this.numcelestotal = numceltotal;
         this.numcelesbuides = numcelbuides;

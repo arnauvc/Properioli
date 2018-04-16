@@ -20,6 +20,7 @@ public class Partida {
 	private Generacio g = new Generacio();
 	private Ajuda a = new Ajuda();
 	private CtrlPresJugada ctj = new CtrlPresJugada();
+	private Error e = new Error();
 	private Usuari u;
 	private Integer idhidato;
 	private String dif; //Dificultat
@@ -84,16 +85,22 @@ public class Partida {
 	public void TranscursPartida(){
 		Jugada j = new Jugada();
 		Integer num, x, y;
+		boolean aux = false;
 
 		while (!finalitzat && !completat){
 			ctj.InteraccioJugada(j);
+			j.SetInvalid(aux);
 			j.GetJugada();
 			if (j.GetJugada().equals("NUMERO")){
 				num = j.GetNumero();
 				x = j.GetX();
 				y = j.GetY();
-				++torn;
-				t.ModificaCeldaV(Integer.toString(num), x, y);
+                j.ComprovaJugada();
+                if (j.GetInvalid()) e.PrintError(1);
+				if (!j.GetInvalid()) {
+                    ++torn;
+				    t.ModificaCeldaV(Integer.toString(num), x, y);
+                }
 
 				//if (ja no hi han interrogants) completat = true;
 			}

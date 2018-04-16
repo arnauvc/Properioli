@@ -73,5 +73,8 @@ public class Jugada {
     public boolean GetInvalid(){
         return invalid;
     }
+    public void SetInvalid(boolean invalid){
+        this.invalid = invalid;
+    }
 
 }

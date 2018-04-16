@@ -11,16 +11,22 @@ public class PartidesGuardades {
     private BufferedWriter escriptor;
     private Scanner x;
     private LlegirEscriure LE = new LlegirEscriure();
+    private String path = new String("C:\\Users\\nilmc\\Desktop\\");
 
 
-    public void GuardarPartida(String nom_fitxer, Partida p, String[][] Tauler) throws Exception {
-        LE.ObrirFitxerEscriptura(nom_fitxer, escriptor, true);
+    public void GuardarPartida(String nom_usuari, Partida p, String[][] Tauler) throws Exception {
+        String s = new String(path);
+        s += nom_usuari;
+        s += "_";
+        s += String.valueOf(p.GetIdHidato());
+        escriptor = LE.ObrirFitxerEscriptura(s, true);
         try {
             escriptor.write(p.GetCela());escriptor.newLine();
             escriptor.write(p.GetAdjacencia());escriptor.newLine();
             escriptor.write(p.GetFiles());escriptor.newLine();
             escriptor.write(p.GetColumnes());escriptor.newLine();
             escriptor.write(p.GetDificultat());escriptor.newLine();
+            //escriptor.write(p.GetTorn());escriptor.newLine();
             for (int i = 0; i < Tauler.length; i++) {
                 escriptor.newLine();
                 for (int j = 0; j < Tauler[i].length; j++) {
@@ -34,39 +40,53 @@ public class PartidesGuardades {
         LE.TancarFitxerEscriptura(escriptor);
     }
 
-    public Partida Obtenirpartida(String nom_fitxer) throws Exception {
-        if (!LE.ObrirFitxerLectura(nom_fitxer, x)) return null;
+    public Partida Obtenirpartida(String nom_usuari, Integer idhidato) throws Exception {
+        String s = new String(path);
+        s += nom_usuari;
+        s += "_";
+        s += String.valueOf(idhidato);
+        x = LE.ObrirFitxerLectura(s);
         Partida p = new Partida();
         String llegir;
         if (x.hasNext()) {
-            llegir = new String(x.next());
+            llegir = new String(x.nextLine());
         } else return null;
         p.SetCela(llegir);
         if (x.hasNext()) {
-            llegir = new String(x.next());
+            llegir = new String(x.nextLine());
         } else return null;
         p.SetAdjacencia(llegir);
         if (x.hasNext()) {
-            llegir = new String(x.next());
+            llegir = new String(x.nextLine());
         } else return null;
-        p.SetFiles(Integer.parseInt(String.valueOf(llegir.charAt(5))));
+        p.SetFiles(Integer.parseInt(llegir));
         if (x.hasNext()) {
             llegir = new String(x.next());
         } else return null;
-        p.SetColumnes(Integer.parseInt(String.valueOf(llegir.charAt(7))));
+        p.SetColumnes(Integer.parseInt(llegir));
         if (x.hasNext()) {
             llegir = new String(x.next());
         } else return null;
-        p.SetDificultat(String.valueOf(llegir.charAt(9)));
+        p.SetDificultat(llegir);
+        /*if (x.hasNext()) {
+            llegir = new String(x.next());
+        } else return null;
+        p.SetTorn(Integer.parseInt(llegir));*/
         int i = 0;
         Integer f = p.GetFiles();
         Integer c = p.GetColumnes();
         String [][] Tauler = new String[f][c];  //Ha de ser String[f][c]
+        int l = 0;
         while (x.hasNext()) {
             llegir = x.next();
+            l = 0;
             for (int j = 0; j < llegir.length(); j++) {
-                if (llegir.charAt(i) != ',') Tauler[i][j] = String.valueOf(llegir.charAt(i));
+                if (llegir.charAt(j) == ',') {
+                    Tauler[i][j] = llegir.substring(l, j-1);
+                    l = j+1;
+                }
             }
+            i++;
         }
         //p.SetTauler(Tauler);
         LE.TancarFitxerLectura(x);

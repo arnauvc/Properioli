@@ -4,16 +4,16 @@ import java.io.*;
 import java.util.Scanner;
 
 public class LlegirEscriure {
-    public boolean ObrirFitxerEscriptura (String nom, BufferedWriter escriptor, boolean sobreescriure) throws Exception {//Nom ha de ser idHidato.txt
+    public BufferedWriter ObrirFitxerEscriptura (String nom, boolean sobreescriure) throws Exception {//Nom ha de ser idHidato.txt
         File fitxer = new File(nom);
         FileWriter filew;
+        BufferedWriter escriptor = null;
         if (!fitxer.exists()) {
             try {
                 fitxer.createNewFile();
             }
             catch (Exception e) {
                 e.printStackTrace();
-                return false;
             }
         }
         try {
@@ -22,9 +22,8 @@ public class LlegirEscriure {
             escriptor = new BufferedWriter(filew);
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
         }
-        return true;
+        return escriptor;
     }
 
     public boolean TancarFitxerEscriptura(BufferedWriter escriptor) throws Exception{
@@ -40,14 +39,14 @@ public class LlegirEscriure {
         return true;
     }
 
-    public boolean ObrirFitxerLectura (String nom, Scanner x) throws Exception{//Nom ha de ser idHidato.txt
+    public Scanner ObrirFitxerLectura (String nom) throws Exception {//Nom ha de ser idHidato.txt
+        Scanner x = null;
         try {
             x = new Scanner(new File(nom));
         } catch (FileNotFoundException e) {
-            System.out.println("No ho trobo");
-            return false; //No existeix el fitxer
+            e.printStackTrace();
         }
-        return true;
+        return x;
     }
 
     public boolean TancarFitxerLectura(Scanner x) {

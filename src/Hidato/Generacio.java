@@ -12,13 +12,15 @@ public class Generacio {
         private ArrayList<Pair<Pair<Integer,Integer>, String>> hidato = new ArrayList<>(); //(x,y),Valor
         private HashMap<Pair<Integer,Integer>,String> Hidato = new HashMap<>();
         private Random r = new Random();
-        /*
+
         private Integer nfiles;
         private Integer ncolumnes;
-        */
+        private Double fillfactor = 0.9;
+
         private Integer maxceles;
         private String tipuscela;
         private String tipusadj;
+        private Integer numadj; //Conte el numero de veins que pot tenir una cela en funcio de l'adjecencia
         private String dificultat;
         private Integer numcostats;//segons tipuscela i tipusadj
 
@@ -39,6 +41,10 @@ public class Generacio {
         if(j < minJ) minJ = j;
     }
 
+    private boolean Check1(Integer i, Integer j){
+        return (i < nfiles && i >= 0) && (j < ncolumnes && j >= 0) && (tauler[i][j].equals("#"));
+    }
+
     public boolean Generar(Integer i, Integer j, Integer contador){
         //Pair<Integer,Integer>nextcela = NextPos(new Pair(x,y));
         if(contador.equals(maxceles)){return true;}
@@ -55,27 +61,54 @@ public class Generacio {
         return true;
     }
 
+    private boolean Generar1(Integer i, Integer j, Integer contador){
+        //Pair<Integer,Integer>nextcela = NextPos(new Pair(x,y));
+        if(contador >= maxceles*fillfactor){return true;}
+        if(!Check1(i,j)){//retorna fals si la casella te un numero o esta fora dels limits
+            System.out.println(contador);
+            return false;
+        }
+        else{
+            hidato.add(new Pair<>(new Pair<>(i, j), Integer.toString(contador)));
+            tauler[i][j]=Integer.toString(contador);
+            //Hidato.put(new Pair<>(i,j), Integer.toString(contador));
+            //Check(i,j);
+            HashSet<Pair<Integer,Integer>> visitades = new HashSet<>();
+            Pair<Integer, Integer> nextcela = NextPos(new Pair<>(i, j));
+            visitades.add(nextcela);
+            Integer cont = ++contador;
+            while(!Generar1(nextcela.getKey(),nextcela.getValue(), cont)){
+                if(visitades.size() >= numadj) return false;
+                nextcela = NextPos(new Pair<>(i, j));
+                visitades.add(nextcela);
+            }
+            return true;
+        }
+    }
+
     public String[][] GenerarHidato(String Tipuscela, String Tipusadj, String Dif){
-        Integer numceles;
         if (Dif.equals("FACIL")){
-            numceles = NumeroAleatori(4, 12);
+            maxceles = NumeroAleatori(4, 12);
+            nfiles = NumeroAleatori(3, 4);
+            ncolumnes = NumeroAleatori(3,4);
             ProbNumero = 98;
         }
         else if (Dif.equals("NORMAL")){
-            numceles = NumeroAleatori(16, 25);
+            maxceles = NumeroAleatori(16, 25);
+            nfiles = NumeroAleatori(5, 6);
+            ncolumnes = NumeroAleatori(5,6);
             ProbNumero = 94;
         }
         else {
-            numceles = NumeroAleatori(25,49);
+            maxceles = NumeroAleatori(25,49);
+            nfiles = NumeroAleatori(7, 8);
+            ncolumnes = NumeroAleatori(7,8);
             ProbNumero = 90;
         }
-        /*
-        nfiles = nfil;
-        ncolumnes = ncol;
-        */
-        maxceles = numceles;
+
         tipuscela = Tipuscela;
         tipusadj = Tipusadj;
+        numadj = 4;//si tipusadj es C
         dificultat = Dif;
         ProbBlanc = 100 - ProbNumero;
         numcostats = 4;
@@ -90,15 +123,39 @@ public class Generacio {
         probs.add(25);
         probs.add(25);
         probs.add(25);
+
+        tauler = new String[nfiles][ncolumnes];
+        Integer Iini = NumeroAleatori(0, nfiles-1);
+        Integer Jini = NumeroAleatori(0, ncolumnes-1);
+        tauler[Iini][Jini] = Integer.toString(1);
+
+        hidato.add(new Pair<>(new Pair<>(Iini,Jini),"1"));
+        maxceles = nfiles*ncolumnes;
+
+        for (int i = 0; i < nfiles; ++i){
+            for (int j = 0; j < ncolumnes; ++j){
+                tauler[i][j] = "#";
+            }
+        }
+        System.out.println(nfiles);
+        System.out.println(ncolumnes);
+        System.out.println("Cela ini");
+        System.out.println(Iini);
+        System.out.println(Jini);
+        if(Generar1(Iini,Jini, 1)){
+            for (int i = 0; i < nfiles; ++i){
+                if (i > 0) System.out.println();
+                for (int j = 0; j < ncolumnes; ++j){
+                    if (j > 0) System.out.printf(",%s", tauler[i][j]);
+                    else System.out.print(tauler[i][j]);
+                }
+            }
+            System.out.println();
+        }
+        else  System.out.println("CACA");
         /*
-        Integer xini = NumeroAleatori(0, nfiles-1);
-        Integer yini = NumeroAleatori(0, ncolumnes-1);
-        taula[xini][yini] = Integer.toString(1);
-        */
-        //hidato.add(1,new Pair(new Pair(0,0),"1"));
         Hidato.put(new Pair<>(0,0), "1");
         Generar(0,-1,2);
-
         System.out.println(Hidato.values());
 
         Integer nfil = (maxI-minI)+1;
@@ -137,7 +194,7 @@ public class Generacio {
             }
         }
         System.out.println();
-
+        */
         //Convertiat llista hidato en tauler[][]
         return tauler;
     }
@@ -152,10 +209,10 @@ public class Generacio {
         Pair<Integer, Integer> p;
 
         Integer in = r.nextInt(100);
-        if(in < probs.get(0)){ p = new Pair<>(posactual.getKey()-1,posactual.getValue());}
-        else if (in < probs.get(1)){p = new Pair<>(posactual.getKey(),posactual.getValue()+1);}
-        else if (in < probs.get(2)){p = new Pair<>(posactual.getKey()+1,posactual.getValue());}
-        else {p = new Pair<>(posactual.getKey(),posactual.getValue()-1);}
+        if(in < probs.get(0)){ p = new Pair<>(posactual.getKey()-1,posactual.getValue());}//TOP
+        else if (in < probs.get(0) + probs.get(1)){p = new Pair<>(posactual.getKey(),posactual.getValue()+1);}//RIGHT
+        else if (in < probs.get(0) + probs.get(1) + probs.get(2)){p = new Pair<>(posactual.getKey()+1,posactual.getValue());}//BOT
+        else {p = new Pair<>(posactual.getKey(),posactual.getValue()-1);}//LEFT
         return p;
     }
 
@@ -165,6 +222,8 @@ public class Generacio {
         if(ra < ProbNumero) return true;
         else return false;
     }
+
+
 
 
 

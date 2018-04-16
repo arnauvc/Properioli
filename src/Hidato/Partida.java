@@ -58,7 +58,7 @@ public class Partida {
 		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
 		String[][] hidato;
 
-		hidato = g.GenerarHidatoAlgorisme(GetCela(), GetAdjacencia(), dif);
+		hidato = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
 		t.CrearTauler(GetCela(), GetAdjacencia(), hidato);
 
 		r.start(); //Inicia el rellotge

@@ -5,6 +5,7 @@ import Hidato.Tauler;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        /*
         String[][] s = new String[3][3];
         String[][] solucio = new String[3][3];
 
@@ -31,5 +32,9 @@ public class Main {
             CtrlPresGestor cpg = new CtrlPresGestor();
             cpg.Inicia();
         }*/
+        */
+        CtrlPresGestor cpg = new CtrlPresGestor();
+        cpg.Inicia();
+
     }
 }

@@ -147,6 +147,7 @@ public class CtrlPresGestor {
             }
         }
         else if (tipuspartida.equals("GENERAR")){
+
             //Tipus 1. Interactiu amb l'usuari
 
             tipuscela = TCela();
@@ -165,6 +166,7 @@ public class CtrlPresGestor {
 
             /*
             //Tipus 2. No interactiu. Com el pdf de mostra
+
             Vector<String> parametres = Params();
             String[][] Tauler = LlegirTauler(Integer.parseInt(parametres.get(2)), Integer.parseInt(parametres.get(3)));
             g.Parametres(parametres);
@@ -181,8 +183,12 @@ public class CtrlPresGestor {
 
         }
         else if(tipuspartida.equals("REPRENDRE")){
-            g.Reprendre(v);
-
+            try {
+                g.Reprendre(v);
+            }
+            catch (Exception e){
+                System.out.println("No tens cap partida guardada");
+            }
         }
     }
 }

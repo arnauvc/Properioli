@@ -5,7 +5,8 @@ import java.util.*;
 public class Driver_Ajuda {
     public void TestClass(){
         Scanner input = new Scanner(System.in);
-        String[][] hidato=null;
+        String[][] hidato = new String[3][3];
+
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
                 hidato[i][j] = input.next();
@@ -16,10 +17,9 @@ public class Driver_Ajuda {
         t.CrearTauler("Q", "C", hidato);
         Ajuda a = new Ajuda();
         String[][] ajuda;
-        ajuda = a.GetAjuda();
+        ajuda = a.GetAjuda(t);
 
         for (int i = 0; i < 3; i++){
-            System.out.print(",");
             for (int j = 0; j < 3; j++){
                 if (j != 0) System.out.print(",");
                 System.out.print(ajuda[i][j]);

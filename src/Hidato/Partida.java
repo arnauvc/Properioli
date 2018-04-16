@@ -18,6 +18,8 @@ public class Partida {
 	private Rellotge r = new Rellotge();
 	private Tauler t = new Tauler();
 	private Generacio g = new Generacio();
+	private Ajuda a = new Ajuda();
+	private CtrlPresJugada ctj = new CtrlPresJugada();
 	private Usuari u;
 	private Integer idhidato;
 	private String dif; //Dificultat
@@ -84,7 +86,7 @@ public class Partida {
 		Integer num, x, y;
 
 		while (!finalitzat && !completat){
-			j.DoJugada();
+			ctj.InteraccioJugada(j);
 			j.GetJugada();
 			if (j.GetJugada().equals("NUMERO")){
 				num = j.GetNumero();
@@ -105,7 +107,7 @@ public class Partida {
 				r.stop();
 				ajuda = true;
 				String[][] hidato_ajuda;
-				//hidato_ajuda = GetAjuda: Mostra en blanc, o amb un simbol, les celes incorrectes
+				hidato_ajuda = a.GetAjuda(t);
 			}
 
 		}
@@ -114,11 +116,9 @@ public class Partida {
 		if (completat && !guardat && !ajuda){
 			r.stop();
 			temps = r.GetTime();
-
-			/*Aixo ho ha de fer el CtrlPresentacio
 			System.out.printf("Has trigat: %f\n", temps);
 			System.out.println("Has guanyat!");
-			*/
+
 		}
 
 		//Partida completada utilitzant ajuda o havent guardat

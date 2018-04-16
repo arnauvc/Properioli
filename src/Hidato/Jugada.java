@@ -24,6 +24,8 @@ public class Jugada {
             for (int i = 0; i < t.getNumFiles(); i++){
                 for (int j = 0; j < t.getNumColum(); j++){
                     if (numcasella.equals(t.consultarValCela(i,j))) invalid = true;
+                    if (t.consultarValCela(i,j).equals("#")) invalid = true;
+                    if (t.consultarValCela(i,j).equals("*")) invalid = true;
                 }
             }
         }

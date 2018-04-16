@@ -15,7 +15,7 @@ public class Generacio {
 
         private Integer nfiles;
         private Integer ncolumnes;
-        private Double fillfactor = 0.9;
+        private Double fillfactor = 1.0;
 
         private Integer maxceles;
         private String tipuscela;
@@ -44,7 +44,7 @@ public class Generacio {
     private boolean Check1(Integer i, Integer j){
         return (i < nfiles && i >= 0) && (j < ncolumnes && j >= 0) && (tauler[i][j].equals("#"));
     }
-
+    /*
     public boolean Generar(Integer i, Integer j, Integer contador){
         //Pair<Integer,Integer>nextcela = NextPos(new Pair(x,y));
         if(contador.equals(maxceles)){return true;}
@@ -60,12 +60,14 @@ public class Generacio {
         }
         return true;
     }
+    */
 
     private boolean Generar1(Integer i, Integer j, Integer contador){
         //Pair<Integer,Integer>nextcela = NextPos(new Pair(x,y));
-        if(contador >= maxceles*fillfactor){return true;}
+        if(contador > maxceles*fillfactor){return true;}
         if(!Check1(i,j)){//retorna fals si la casella te un numero o esta fora dels limits
-            System.out.println(contador);
+            System.out.format("El torn: %d falla el check", contador);
+            System.out.println();
             return false;
         }
         else{
@@ -75,12 +77,19 @@ public class Generacio {
             //Check(i,j);
             HashSet<Pair<Integer,Integer>> visitades = new HashSet<>();
             Pair<Integer, Integer> nextcela = NextPos(new Pair<>(i, j));
+            System.out.printf("%d , %d", nextcela.getKey(), nextcela.getValue());
+            System.out.println();
             visitades.add(nextcela);
             Integer cont = ++contador;
             while(!Generar1(nextcela.getKey(),nextcela.getValue(), cont)){
-                if(visitades.size() >= numadj) return false;
+                if(visitades.size() >= numadj){
+                    //Si tira enrere hem d'esborra els numeros escrits en el tauler
+                    tauler[i][j]="#";
+                    return false;
+                }
                 nextcela = NextPos(new Pair<>(i, j));
                 visitades.add(nextcela);
+
             }
             return true;
         }
@@ -89,8 +98,8 @@ public class Generacio {
     public String[][] GenerarHidato(String Tipuscela, String Tipusadj, String Dif){
         if (Dif.equals("FACIL")){
             maxceles = NumeroAleatori(4, 12);
-            nfiles = NumeroAleatori(3, 4);
-            ncolumnes = NumeroAleatori(3,4);
+            nfiles = NumeroAleatori(3, 6);
+            ncolumnes = NumeroAleatori(3, 6);
             ProbNumero = 98;
         }
         else if (Dif.equals("NORMAL")){
@@ -137,12 +146,15 @@ public class Generacio {
                 tauler[i][j] = "#";
             }
         }
-        System.out.println(nfiles);
-        System.out.println(ncolumnes);
+        System.out.println("NFiles i NColumnes");
+        System.out.printf("%d , %d", nfiles, ncolumnes);
+        System.out.println();
         System.out.println("Cela ini");
-        System.out.println(Iini);
-        System.out.println(Jini);
+        System.out.printf("%d , %d", Iini, Jini);
+        System.out.println();
+
         if(Generar1(Iini,Jini, 1)){
+            System.out.println("HIDATO COMPLET");
             for (int i = 0; i < nfiles; ++i){
                 if (i > 0) System.out.println();
                 for (int j = 0; j < ncolumnes; ++j){
@@ -198,11 +210,11 @@ public class Generacio {
         //Convertiat llista hidato en tauler[][]
         return tauler;
     }
-
+    /*
     private Double aspectratio(Integer i, Integer j){//aquesta funcio s'ha de millorar en funcionalitat
         return Double.valueOf(i/j);
     }
-
+    */
     private Pair<Integer,Integer> NextPos(Pair<Integer,Integer> posactual){
 
         //Assumint adjacencia costat, celes quadrades
@@ -215,7 +227,7 @@ public class Generacio {
         else {p = new Pair<>(posactual.getKey(),posactual.getValue()-1);}//LEFT
         return p;
     }
-
+    
     private boolean NextType(){ //True es un numero, false es Cela en blanc
         Random rand = new Random();
         Integer ra = rand.nextInt(100);

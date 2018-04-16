@@ -31,7 +31,7 @@ public class Gestor {
         //I retornara el nombre total d'hidatos
         return 5;
     }
-    public void JugarHidato(Vector<String> v , Integer idhidato){
+    public void JugarHidato(Vector<String> v , Integer idhidato) throws Exception {
         //Es selecciona de la biblioteca l'hidato amb id nhidato
         Tauler t = hs.CarregarHidato(idhidato);
         //Partida pa = new Partida();
@@ -60,9 +60,9 @@ public class Gestor {
         //partidaactiva.SetTauler(); // Haura de ser String[][], es a dir SetTauler(tauler);
         partidaactiva.Generar();
     }
-    public void Reprendre(Vector<String> v){
+    public void Reprendre(Vector<String> v) throws Exception {
 
-        partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
+        partidaactiva = pg.Obtenirpartida(v.get(0),1);//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
         partidaactiva.TranscursPartida();
 
     }

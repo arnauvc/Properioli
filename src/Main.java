@@ -26,13 +26,13 @@ public class Main {
                 System.out.print(s[i][j]);
             }
         }*/
-        hs.GuardarSolucioHidato(2, s);
+        //hs.GuardarSolucioHidato(2, s);
 
         /*while(true) {
             CtrlPresGestor cpg = new CtrlPresGestor();
             cpg.Inicia();
         }*/
-        */
+
         CtrlPresGestor cpg = new CtrlPresGestor();
         cpg.Inicia();
 

@@ -199,7 +199,6 @@ public class CtrlPresGestor {
             //g.Parametres(parametres);
             g.Generar(parametres, Tauler);
             */
-
         }
         else if(tipuspartida.equals("REPRENDRE")){
             try {

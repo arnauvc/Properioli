@@ -5,7 +5,7 @@ public class Error {
         String missatge;
         switch (codierror){
             case 1:
-                missatge = "Possicio invalida!";
+                missatge = "Posicio invalida!";
                 break;
             case 2:
                 missatge = "Missatge d'exemple del codi 2";

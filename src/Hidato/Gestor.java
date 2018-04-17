@@ -31,9 +31,9 @@ public class Gestor {
         //I retornara el nombre total d'hidatos
         return 5;
     }
-    public void JugarHidato(Vector<String> v , Integer idhidato){
+    public void JugarHidato(Vector<String> v , Integer idhidato) throws Exception {
         //Es selecciona de la biblioteca l'hidato amb id nhidato
-        ///Tauler t = hs.CarregarHidato(idhidato);
+        Tauler t = hs.CarregarHidato(idhidato);
         //Partida pa = new Partida();
         //pa.SetTauler(t);
         //partidaactiva = pa;
@@ -41,13 +41,20 @@ public class Gestor {
         //Caldra considerar si crea una nova partida o no
 
         partidaactiva.SetNom(v.get(0));
-        ///partidaactiva.SetTauler(t);
+        partidaactiva.SetTauler(t);
         partidaactiva.PartidaBiblioteca();
     }
-    public void Aleatori(Vector<String> v){}
+    public void Aleatori(Vector<String> v){
+        Partida p = new Partida();
+        p.SetCela(v.get(1));
+        p.SetAdjacencia(v.get(2));
+        p.SetDificultat(v.get(3));
+        p.IniciaPartida();
+        partidaactiva = p;
+    }
 
     public void Parametres(Vector<String> p){
-        parametres = p; //{nomusuari,tipuscela, tipusadj, numfil, numcol}
+        //parametres = p; //{nomusuari,tipuscela, tipusadj, numfil, numcol}
         partidaactiva.SetNom(p.get(0));
         partidaactiva.SetCela(p.get(1));
         partidaactiva.SetAdjacencia(p.get(2));
@@ -56,14 +63,24 @@ public class Gestor {
         //Aixo ho podriem posar amb una constructora tot junt estil
         //partidaactiva = new Partida(p.get(0),p.get(1),p.get(2),Integer.parseInt(p.get(3)),Integer.parseInt(p.get(4)) )
     }
-    public void Generar(String[][] tauler){
-        //partidaactiva.SetTauler(); // Haura de ser String[][], es a dir SetTauler(tauler);
-        partidaactiva.Generar();
-    }
-    public void Reprendre(Vector<String> v){
 
-        ///partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
-        partidaactiva.TranscursPartida();
+    public void Generar(Vector<String> p, String[][] tauler){
+        //partidaactiva.SetTauler(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
+        Partida pa = new Partida();
+        partidaactiva = pa;
+        partidaactiva.SetNom(p.get(0));
+        partidaactiva.SetCela(p.get(1));
+        partidaactiva.SetAdjacencia(p.get(2));
+        partidaactiva.SetFiles(Integer.parseInt(p.get(3)));
+        partidaactiva.SetColumnes(Integer.parseInt(p.get(4)));
+        //partidaactiva.SetDificultat(p.get(5));
+        //partidaactiva.SetTauler(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
+        partidaactiva.Generar();//Que s'hauria de dir, RESOLDRELamaquina
+    }
+    public void Reprendre(Vector<String> v) throws Exception {
+
+        partidaactiva = pg.Obtenirpartida(v.get(0),1);//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
+        partidaactiva.ReprendrePartida();
 
     }
     public void GuardarPartida(){

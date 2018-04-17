@@ -1,6 +1,7 @@
 package Hidato;
 
 import Hidato.Tauler;
+import com.sun.org.apache.xalan.internal.xsltc.dom.SimpleResultTreeImpl;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
@@ -22,77 +23,171 @@ public class Resolucio{
     }
 
     private boolean TrobarSolucio(Integer i, Integer j, Integer valor1, Integer i2, Integer j2, Integer valor2, int distancia) {
-        if (distancia == 0) {
-            if (valor1 == valor2) return true;
+        //System.out.println(distancia);
+        for (int k = 0; k < 4; k++) {
+            for (int l = 0; l < 4; l++) {
+                System.out.print(solucio[k][l]);
+                System.out.print(" ");
+            }
+            System.out.println("");
+        }
+        System.out.println("--------------------------");
+        if (distancia == 1) {
+            if (valor1 == valor2-1) return true;
             return false;
         }
         else {
             if (i2 <= i) {
-                if (i > 0 && solucio[i - 1][j] == String.valueOf(0)) {
+                //System.out.println(i);
+                if (i > 0 && solucio[i - 1][j].equals(String.valueOf(0))) {
                     solucio[i - 1][j] = String.valueOf(valor1 + 1);
-                    if (TrobarSolucio(i - 1, j, valor1 + 1, i2, j2, valor2, distancia--)) return true;
+                    distancia -= 1;
+                    if (TrobarSolucio(i - 1, j, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                    distancia += 1;
                     solucio[i - 1][j] = String.valueOf(0);
                 }
                 if (j2 < j) {
-                    if (j > 0 && solucio[i][j - 1] == String.valueOf(0)) {
+                    if (j > 0 && solucio[i][j - 1].equals(String.valueOf(0))) {
                         solucio[i][j - 1] = String.valueOf(valor1 + 1);
-                        if (TrobarSolucio(i, j - 1, valor1 + 1, i2, j2, valor2, distancia--)) return true;
+                        distancia -= 1;
+                        if (TrobarSolucio(i, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                        distancia += 1;
                         solucio[i][j - 1] = String.valueOf(0);
                     }
-                    if (adj.equals("CA")) {
-                        if((i > 0 && j > 0) && solucio[i - 1][j - 1] == String.valueOf(0)) {
-                            solucio[i - 1][j - 1] = String.valueOf(valor1 + 1);
-                            if (TrobarSolucio(i - 1, j - 1, valor1 + 1, i2, j2, valor2, distancia--)) return true;
-                            solucio[i - 1][j - 1] = String.valueOf(0);
-                        }
-                    }
-                }
-                else if (j2 > j) {
-                    if (j < solucio[0].length-1 && solucio[i][j + 1] == String.valueOf(0)) {
+                    if (j < solucio[0].length-1 && solucio[i][j + 1].equals(String.valueOf(0))) {
                         solucio[i][j + 1] = String.valueOf(valor1 + 1);
-                        if (TrobarSolucio(i, j + 1, valor1 + 1, i2, j2, valor2, distancia--)) return true;
+                        distancia -= 1;
+                        if (TrobarSolucio(i, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                        distancia += 1;
                         solucio[i][j + 1] = String.valueOf(0);
                     }
                     if (adj.equals("CA")) {
-                        if((i > 0 && j < solucio[0].length-1) && solucio[i - 1][j + 1] == String.valueOf(0)) {
+                        if((i > 0 && j > 0) && solucio[i - 1][j - 1].equals(String.valueOf(0))) {
+                            solucio[i - 1][j - 1] = String.valueOf(valor1 + 1);
+                            distancia -= 1;
+                            if (TrobarSolucio(i - 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                            distancia += 1;
+                            solucio[i - 1][j - 1] = String.valueOf(0);
+                        }
+                    }
+                    if (adj.equals("CA")) {
+                        if((i > 0 && j < solucio[0].length-1) && solucio[i - 1][j + 1].equals(String.valueOf(0))) {
                             solucio[i - 1][j + 1] = String.valueOf(valor1 + 1);
-                            if (TrobarSolucio(i - 1, j + 1, valor1 + 1, i2, j2, valor2, distancia--)) return true;
+                            distancia -= 1;
+                            if (TrobarSolucio(i - 1, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                            distancia += 1;
                             solucio[i - 1][j + 1] = String.valueOf(0);
+                        }
+                    }
+                }
+                else {
+                    if (j < solucio[0].length-1 && solucio[i][j + 1].equals(String.valueOf(0))) {
+                        solucio[i][j + 1] = String.valueOf(valor1 + 1);
+                        distancia -= 1;
+                        if (TrobarSolucio(i, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                        distancia += 1;
+                        solucio[i][j + 1] = String.valueOf(0);
+                    }
+                    if (j > 0 && solucio[i][j - 1].equals(String.valueOf(0))) {
+                        solucio[i][j - 1] = String.valueOf(valor1 + 1);
+                        distancia -= 1;
+                        if (TrobarSolucio(i, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                        distancia += 1;
+                        solucio[i][j - 1] = String.valueOf(0);
+                    }
+                    if (adj.equals("CA")) {
+                        if((i > 0 && j < solucio[0].length-1) && solucio[i - 1][j + 1].equals(String.valueOf(0))) {
+                            solucio[i - 1][j + 1] = String.valueOf(valor1 + 1);
+                            distancia -= 1;
+                            if (TrobarSolucio(i - 1, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                            distancia += 1;
+                            solucio[i - 1][j + 1] = String.valueOf(0);
+                        }
+                    }
+                    if (adj.equals("CA")) {
+                        if((i > 0 && j > 0) && solucio[i - 1][j - 1].equals(String.valueOf(0))) {
+                            solucio[i - 1][j - 1] = String.valueOf(valor1 + 1);
+                            distancia -= 1;
+                            if (TrobarSolucio(i - 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                            distancia += 1;
+                            solucio[i - 1][j - 1] = String.valueOf(0);
                         }
                     }
                 }
             }
             else {
-                if (i < solucio.length-1 && solucio[i + 1][j] == String.valueOf(0)) {
+                if ((i < solucio.length-1) && (solucio[i + 1][j].equals(String.valueOf(0)))) {
                     solucio[i + 1][j] = String.valueOf(valor1 + 1);
-                    if (TrobarSolucio(i + 1, j, valor1 + 1, i2, j2, valor2, distancia--)) return true;
+                    distancia -= 1;
+                    if (TrobarSolucio(i + 1, j, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                    distancia += 1;
                     solucio[i + 1][j] = String.valueOf(0);
                 }
                 if (j2 < j) {
-                    if (j > 0 && solucio[i][j - 1] == String.valueOf(0)) {
+                    if (j > 0 && solucio[i][j - 1].equals(String.valueOf(0))) {
                         solucio[i][j - 1] = String.valueOf(valor1 + 1);
-                        if (TrobarSolucio(i, j - 1, valor1 + 1, i2, j2, valor2, distancia--)) return true;
+                        distancia -= 1;
+                        if (TrobarSolucio(i, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                        distancia += 1;
                         solucio[i][j - 1] = String.valueOf(0);
                     }
-                    if (adj.equals("CA")) {
-                        if((i < solucio.length-1 && j > 0 ) && solucio[i + 1][j - 1] == String.valueOf(0)) {
-                            solucio[i + 1][j - 1] = String.valueOf(valor1 + 1);
-                            if (TrobarSolucio(i + 1, j - 1, valor1 + 1, i2, j2, valor2, distancia--)) return true;
-                            solucio[i + 1][j - 1] = String.valueOf(0);
-                        }
-                    }
-                }
-                else if (j2 > j) {
-                    if ( j < solucio[0].length-1 && solucio[i][j + 1] == String.valueOf(0)) {
+                    if ( j < solucio[0].length-1 && solucio[i][j + 1].equals(String.valueOf(0))) {
                         solucio[i][j + 1] = String.valueOf(valor1 + 1);
-                        if (TrobarSolucio(i, j + 1, valor1 + 1, i2, j2, valor2, distancia--)) return true;
+                        distancia -= 1;
+                        if (TrobarSolucio(i, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                        distancia += 1;
                         solucio[i][j + 1] = String.valueOf(0);
                     }
                     if (adj.equals("CA")) {
-                        if((i < solucio.length-1 && j < solucio[0].length-1 ) && solucio[i + 1][j + 1] == String.valueOf(0)) {
+                        if((i < solucio.length-1 && j > 0 ) && solucio[i + 1][j - 1].equals(String.valueOf(0))) {
+                            solucio[i + 1][j - 1] = String.valueOf(valor1 + 1);
+                            distancia -= 1;
+                            if (TrobarSolucio(i + 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                            distancia += 1;
+                            solucio[i + 1][j - 1] = String.valueOf(0);
+                        }
+                    }
+                    if (adj.equals("CA")) {
+                        if((i < solucio.length-1 && j < solucio[0].length-1 ) && solucio[i + 1][j + 1].equals(String.valueOf(0))) {
                             solucio[i + 1][j + 1] = String.valueOf(valor1 + 1);
-                            if (TrobarSolucio(i + 1, j + 1, valor1 + 1, i2, j2, valor2, distancia--)) return true;
+                            distancia -= 1;
+                            if (TrobarSolucio(i + 1, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                            distancia += 1;
                             solucio[i + 1][j + 1] = String.valueOf(0);
+                        }
+                    }
+                }
+                else {
+                    if ( j < solucio[0].length-1 && solucio[i][j + 1].equals(String.valueOf(0))) {
+                        solucio[i][j + 1] = String.valueOf(valor1 + 1);
+                        distancia -= 1;
+                        if (TrobarSolucio(i, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                        distancia += 1;
+                        solucio[i][j + 1] = String.valueOf(0);
+                    }
+                    if (j > 0 && solucio[i][j - 1].equals(String.valueOf(0))) {
+                        solucio[i][j - 1] = String.valueOf(valor1 + 1);
+                        distancia -= 1;
+                        if (TrobarSolucio(i, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                        distancia += 1;
+                        solucio[i][j - 1] = String.valueOf(0);
+                    }
+                    if (adj.equals("CA")) {
+                        if((i < solucio.length-1 && j < solucio[0].length-1 ) && solucio[i + 1][j + 1].equals(String.valueOf(0))) {
+                            solucio[i + 1][j + 1] = String.valueOf(valor1 + 1);
+                            distancia -= 1;
+                            if (TrobarSolucio(i + 1, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                            distancia += 1;
+                            solucio[i + 1][j + 1] = String.valueOf(0);
+                        }
+                    }
+                    if (adj.equals("CA")) {
+                        if((i < solucio.length-1 && j > 0 ) && solucio[i + 1][j - 1].equals(String.valueOf(0))) {
+                            solucio[i + 1][j - 1] = String.valueOf(valor1 + 1);
+                            distancia -= 1;
+                            if (TrobarSolucio(i + 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return true;
+                            distancia += 1;
+                            solucio[i + 1][j - 1] = String.valueOf(0);
                         }
                     }
                 }
@@ -158,7 +253,7 @@ public class Resolucio{
                 }
             }*/
         }
-        return true;
+        return false;
     }
 
     private void ObtenirNumeros(String[][] t) {
@@ -172,6 +267,8 @@ public class Resolucio{
                     solucio[i][j] = t[i][j];
                 }
                 else if (t[i][j].equals("?")) solucio[i][j] = String.valueOf(0);
+                else if (t[i][j].equals(("#"))) solucio[i][j] = String.valueOf("-1");
+                else if (t[i][j].equals(("*"))) solucio[i][j] = String.valueOf("-2");
             }
         }
         Collections.sort(sl, c);
@@ -189,6 +286,14 @@ public class Resolucio{
                 break;
             }
         }
-        return solucio.clone();
+        /*for (int i = 0; i < sl.size(); i++) {
+            System.out.print(String.valueOf(sl.get(i).getKey().getKey()));
+            System.out.print(" ");
+            System.out.print(String.valueOf(sl.get(i).getKey().getValue()));
+            System.out.print(" ");
+            System.out.print(String.valueOf(sl.get(i).getValue()));
+            System.out.print(" ");
+        }*/
+        return solucio;
     }
 }

@@ -6,28 +6,40 @@ import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
 import java.util.*;
 import Hidato.Resolucio;
+import Hidato.Generacio;
 
 public class Driver_Resolucio {
 
     private Resolucio r = new Resolucio();
+    private Generacio g = new Generacio();
 
     public void Prova() {
-        String[][] s = new String[4][4];
-        Integer k = 1;
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (j%2 != 0) s[i][j] = String.valueOf(k);
+        String[][] tauler = g.GenerarHidato("Q", "C", "FACIL");
+        /*Integer k = 1;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (j == 0 && i == 0) s[i][j] = String.valueOf(1);
+                else if (j == 0 && i == 4) s[i][j] = String.valueOf(25);
                 else s[i][j] = "?";
-                k++;
             }
-        }
-        s = r.ResoltreHidato(s, "C");
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                System.out.print(s[i][j]);
+        }*/
+        for (int i = 0; i < tauler.length; i++) {
+            for (int j = 0; j < tauler[i].length; j++) {
+                System.out.print(tauler[i][j]);
                 System.out.print(" ");
             }
             System.out.println("");
+        }
+        System.out.println("_-_-_-_-_-_-_-_-_-_-_-_-_");
+        String[][] s = r.ResoltreHidato(tauler, "C");
+        if (s != null) {
+            for (int i = 0; i < s.length; i++) {
+                for (int j = 0; j < s[i].length; j++) {
+                    System.out.print(s[i][j]);
+                    System.out.print(" ");
+                }
+                System.out.println("");
+            }
         }
     }
 }

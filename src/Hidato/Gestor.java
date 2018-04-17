@@ -52,7 +52,6 @@ public class Gestor {
         p.IniciaPartida();
         partidaactiva = p;
     }
-
     public void Parametres(Vector<String> p){
         //parametres = p; //{nomusuari,tipuscela, tipusadj, numfil, numcol}
         partidaactiva.SetNom(p.get(0));
@@ -63,7 +62,6 @@ public class Gestor {
         //Aixo ho podriem posar amb una constructora tot junt estil
         //partidaactiva = new Partida(p.get(0),p.get(1),p.get(2),Integer.parseInt(p.get(3)),Integer.parseInt(p.get(4)) )
     }
-
     public void Generar(Vector<String> p, String[][] tauler){
         //partidaactiva.SetTauler(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
         Partida pa = new Partida();
@@ -86,7 +84,6 @@ public class Gestor {
     public void GuardarPartida(){
 
     }
-
     public void ActulitzarRanking(Integer id, Double temps){
         r.Actualitzar(id, temps);
     }

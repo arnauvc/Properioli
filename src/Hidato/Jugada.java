@@ -16,7 +16,7 @@ public class Jugada {
 
         Integer max, min, nfil, ncol;
         min = 1;
-        max = g.GetValorMaxim;
+        max = g.GetValorMaxim();
         nfil = t.getNumFiles();
         ncol = t.getNumColum();
         if (numcasella <= min && numcasella > max) invalid = true;

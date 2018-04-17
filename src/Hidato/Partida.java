@@ -79,6 +79,7 @@ public class Partida {
 		finalitzat = false;
 		completat = false;
 		reguardat = false;
+		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
 		TranscursPartida();
 	}
 

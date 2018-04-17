@@ -30,6 +30,9 @@ public class Ajuda {
         }
 
 
+        matajuda = mattauler;
+
+
 
 
 

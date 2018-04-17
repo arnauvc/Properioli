@@ -3,6 +3,7 @@ package Hidato;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Iterator;
 
 public class Tauler {
     /*private enum TipusCela{
@@ -38,28 +39,30 @@ public class Tauler {
         numcelbuides = numceltotal = numcelesocu = 0;
         String valor;
         List<Cela> aux = new ArrayList<Cela>();
-        for (int i = 0; matriu.length > i; ++i) {
+        for (int i = 0; i < matriu.length; ++i) {
             aux.clear();
-            for (int j = 0; j < matriu[i].length; ++j) {
+            this.Celas.add(new ArrayList<Cela>() );
+            for (int j = 0; j < matriu[0].length; ++j) {
+                cela = new Cela();
                 valor = matriu[i][j];
                 if (valor.equals("#")) {
                     visible = false;
                     valida = false;
                     cela = new Cela(ticela, valor, visible, valida);
-                    aux.add(cela);
+                    //aux.add(cela);
                 } else if (valor.equals("?")) {
                     numceltotal++;
                     numcelbuides++;
                     visible = true;
                     valida = true;
                     cela = new Cela(ticela, valor, visible, valida);
-                    aux.add(cela);
+                    //aux.add(cela);
                 } else if (valor.equals("*")) {
                     numceltotal++;
                     visible = true;
                     valida = false;
                     cela = new Cela(ticela, valor, visible, valida);
-                    aux.add(cela);
+                    //aux.add(cela);
                 } else {
                     //error si no lee un numero, sobreentiendo que aqui siempre me llegara un numero.
                     //e(50)
@@ -68,12 +71,11 @@ public class Tauler {
                     visible = true;
                     valida = true;
                     cela = new Cela(ticela, valor, visible, valida);
-                    aux.add(cela);
+                    //aux.add(cela);
                 }
+                this.Celas.get(i).add(cela);
             }
-            //mostrarfila(aux);
-            this.Celas.add(aux);
-            //System.out.println(Celas.size() + " " + aux.size());
+
         }
         this.numcelestotal = numceltotal;
         this.numcelesbuides = numcelbuides;
@@ -82,7 +84,8 @@ public class Tauler {
 
     private void mostrarfila(List<Cela> a){
         for(int i = 0; i < a.size(); ++i){
-            System.out.print(a.get(i).getValor() +  ",");
+            System.out.print(a.get(i).getValor());
+            if(i < a.size()-1) System.out.print(",");
         }
     }
 
@@ -91,6 +94,10 @@ public class Tauler {
     public Integer GetId() {
         return id;
     }
+
+    public Integer getNumFiles(){return numFiles;}
+
+    public Integer getNumColum(){return numColum;}
 
     public Integer GetNumCelasTotal() {
         return numcelestotal;
@@ -116,10 +123,7 @@ public class Tauler {
         return Celas;
     }
 
-    public Integer getNumFiles(){return numFiles;}
-
-    public Integer getNumColum(){return numColum;}
-
+    //consulturas cela
     public String consultarValCela(int x, int y){
         cela = Celas.get(x).get(y);
         return cela.getValor();
@@ -151,13 +155,11 @@ public class Tauler {
         List<Cela> aux = new ArrayList<Cela>();
         System.out.println(numFiles);
         System.out.println(Celas.size());
-        for (int i = 0; i <= numFiles; ++i) {
-            aux.clear();
+        for (int i = 0; i < Celas.size(); ++i) {
             aux = Celas.get(i);
-            System.out.println(aux.size());
             mostrarfila(aux);
+            System.out.println();
         }
     }
-
 
 }

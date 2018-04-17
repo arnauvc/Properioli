@@ -26,7 +26,7 @@ public class PartidesGuardades {
             escriptor.write(p.GetFiles());escriptor.newLine();
             escriptor.write(p.GetColumnes());escriptor.newLine();
             escriptor.write(p.GetDificultat());escriptor.newLine();
-            //escriptor.write(p.GetTorn());escriptor.newLine();
+            escriptor.write(p.GetTorn());escriptor.newLine();
             for (int i = 0; i < Tauler.length; i++) {
                 escriptor.newLine();
                 for (int j = 0; j < Tauler[i].length; j++) {
@@ -68,10 +68,10 @@ public class PartidesGuardades {
             llegir = new String(x.next());
         } else return null;
         p.SetDificultat(llegir);
-        /*if (x.hasNext()) {
+        if (x.hasNext()) {
             llegir = new String(x.next());
         } else return null;
-        p.SetTorn(Integer.parseInt(llegir));*/
+        p.SetTorn(Integer.parseInt(llegir));
         int i = 0;
         Integer f = p.GetFiles();
         Integer c = p.GetColumnes();
@@ -88,7 +88,7 @@ public class PartidesGuardades {
             }
             i++;
         }
-        //p.SetTauler(Tauler);
+        p.SetTaulerU(Tauler);
         LE.TancarFitxerLectura(x);
         return p;
     }

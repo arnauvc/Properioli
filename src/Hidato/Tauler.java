@@ -2,14 +2,15 @@ package Hidato;
 
 import java.util.ArrayList;
 import java.util.List;
-import Hidato.Cela;
+import java.util.ListIterator;
+import java.util.Iterator;
 
 public class Tauler {
     /*private enum TipusCela{
         TRIANGLE, QUADRAT, HEXAGON
     }*/
-    private List<List<Cela>> Celas = new ArrayList<>();
-
+    private Integer id;//Numero que identifica l'hidato inequivocament
+    private List<List<Cela>> Celas = new ArrayList<List<Cela>>();
     private String tipuscela;
     private Integer numFiles;
     private Integer numColum;
@@ -19,7 +20,6 @@ public class Tauler {
     private String adjacencia;
     private Cela cela;
     private Error e = new Error();
-    private Integer id;
 
 
     //constructora
@@ -32,33 +32,37 @@ public class Tauler {
     {
         this.tipuscela = ticela;
         this.adjacencia = adj;
+        this.numFiles = matriu.length;
+        this.numColum = matriu[0].length;
         boolean visible, valida;
         int numceltotal, numcelbuides, numcelesocu;
         numcelbuides = numceltotal = numcelesocu = 0;
         String valor;
         List<Cela> aux = new ArrayList<Cela>();
-        for (int i = 0; matriu.length > i; ++i) {
+        for (int i = 0; i < matriu.length; ++i) {
             aux.clear();
-            for (int j = 0; j < matriu[i].length; ++j) {
+            this.Celas.add(new ArrayList<Cela>() );
+            for (int j = 0; j < matriu[0].length; ++j) {
+                cela = new Cela();
                 valor = matriu[i][j];
                 if (valor.equals("#")) {
                     visible = false;
                     valida = false;
                     cela = new Cela(ticela, valor, visible, valida);
-                    aux.add(cela);
+                    //aux.add(cela);
                 } else if (valor.equals("?")) {
                     numceltotal++;
                     numcelbuides++;
                     visible = true;
                     valida = true;
                     cela = new Cela(ticela, valor, visible, valida);
-                    aux.add(cela);
+                    //aux.add(cela);
                 } else if (valor.equals("*")) {
                     numceltotal++;
                     visible = true;
                     valida = false;
                     cela = new Cela(ticela, valor, visible, valida);
-                    aux.add(cela);
+                    //aux.add(cela);
                 } else {
                     //error si no lee un numero, sobreentiendo que aqui siempre me llegara un numero.
                     //e(50)
@@ -67,14 +71,22 @@ public class Tauler {
                     visible = true;
                     valida = true;
                     cela = new Cela(ticela, valor, visible, valida);
-                    aux.add(cela);
+                    //aux.add(cela);
                 }
+                this.Celas.get(i).add(cela);
             }
-            Celas.add(aux);
+
         }
         this.numcelestotal = numceltotal;
         this.numcelesbuides = numcelbuides;
         this.numcelesocupades = numcelesocu;
+    }
+
+    private void mostrarfila(List<Cela> a){
+        for(int i = 0; i < a.size(); ++i){
+            System.out.print(a.get(i).getValor());
+            if(i < a.size()-1) System.out.print(",");
+        }
     }
 
 
@@ -82,6 +94,10 @@ public class Tauler {
     public Integer GetId() {
         return id;
     }
+
+    public Integer getNumFiles(){return numFiles;}
+
+    public Integer getNumColum(){return numColum;}
 
     public Integer GetNumCelasTotal() {
         return numcelestotal;
@@ -107,10 +123,16 @@ public class Tauler {
         return Celas;
     }
 
-    public Integer getNumFiles(){return numFiles;}
+    //consulturas cela
+    public String consultarValCela(int x, int y){
+        cela = Celas.get(x).get(y);
+        return cela.getValor();
+    }
 
-    public Integer getNumColum(){return numColum;}
-
+    public boolean consultarValidaCela(int x, int y){
+        cela = Celas.get(x).get(y);
+        return cela.isValida();
+    }
 
 
 
@@ -121,5 +143,23 @@ public class Tauler {
 
     }
 
+    public void SetAdjacencia(String  ad){
+        this.adjacencia = ad;
+    }
+
+    public void SetTipuscela(String ce){
+        this.tipuscela = ce;
+    }
+
+    public void MostrarTauler() {//no funciona correctament
+        List<Cela> aux = new ArrayList<Cela>();
+        System.out.println(numFiles);
+        System.out.println(Celas.size());
+        for (int i = 0; i < Celas.size(); ++i) {
+            aux = Celas.get(i);
+            mostrarfila(aux);
+            System.out.println();
+        }
+    }
 
 }

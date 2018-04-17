@@ -96,7 +96,7 @@ public class Partida {
 				num = j.GetNumero();
 				x = j.GetX();
 				y = j.GetY();
-                j.ComprovaJugada();
+                j.ComprovaJugada(t);
                 if (j.GetInvalid()) e.PrintError(1);
 				if (!j.GetInvalid()) {
                     ++torn;
@@ -116,6 +116,13 @@ public class Partida {
 				ajuda = true;
 				String[][] hidato_ajuda;
 				hidato_ajuda = a.GetAjuda(t);
+				for (int i = 0; i < t.getNumFiles(); i++){
+					for (int k = 0; k < t.getNumColum(); k++){
+						if (k > 0) System.out.print(",");
+						System.out.print(hidato_ajuda[i][k]);
+					}
+					System.out.println();
+				}
 			}
 
 		}

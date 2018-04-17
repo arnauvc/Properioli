@@ -8,11 +8,10 @@ public class Jugada {
     private Integer coordx;
     private Integer coordy;
     private boolean invalid;
-    private Generacio g;
-    private Tauler t;
+    private Generacio g = new Generacio();
 
 
-    public void ComprovaJugada(){
+    public void ComprovaJugada(Tauler t){
 
         Integer max, min, nfil, ncol;
         min = 1;

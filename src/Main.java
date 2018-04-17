@@ -6,8 +6,8 @@ public class Main {
         CtrlPresGestor cpg = new CtrlPresGestor();
         cpg.Inicia();
 
-        /*
-        Driver_Ajuda da = new Driver_Ajuda();
+
+        /*Driver_Ajuda da = new Driver_Ajuda();
         da.TestClass();
         */
     }

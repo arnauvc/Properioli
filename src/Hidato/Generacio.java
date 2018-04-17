@@ -132,9 +132,10 @@ public class Generacio {
         System.out.println();
         */
         if(Generar1(Iini,Jini, 1)){
+            //Genera una copia del tauler
             solucio = new String[nfiles][ncolumnes];
             for(int i = 0; i < nfiles; ++i){
-                for(int j = 0; j < nfiles; ++j){
+                for(int j = 0; j < ncolumnes; ++j){
                     solucio[i][j] = tauler[i][j];
                 }
             }
@@ -212,14 +213,4 @@ public class Generacio {
     public Integer GetNumColumnes(){
         return ncolumnes;
     }
-
-    public String[][] GenerarHidatoUsuari(Integer fil, Integer col){
-        return new String[1][1];
-    }
-
-    public String[][] GenerarHidatoAlgorisme(String tcela, String tadj, String dif){
-        return new String[1][1];
-    }
-
-
 }

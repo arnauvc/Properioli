@@ -18,23 +18,15 @@ public class Generacio {
         private Double fillfactor = 0.9;
 
         private Integer maxceles;
+        private Integer ValorMaxim = 0;
         private String tipuscela;
         private String tipusadj;
         private Integer numadj; //Conte el numero de veins que pot tenir una cela en funcio de l'adjecencia
-        private String dificultat;
+        //private String dificultat;
         private Integer numcostats;//segons tipuscela i tipusadj
 
         private Integer ProbNumero;
         private Integer ProbBlanc;
-/*
-        private Integer maxI;
-        private Integer minI;
-        private Integer maxJ;
-        private Integer minJ;
-*/
-
-
-
 
     private boolean Check1(Integer i, Integer j){
         return (i < nfiles && i >= 0) && (j < ncolumnes && j >= 0) && (tauler[i][j].equals("#"));
@@ -43,16 +35,13 @@ public class Generacio {
 
     private boolean Generar1(Integer i, Integer j, Integer contador){
         //Pair<Integer,Integer>nextcela = NextPos(new Pair(x,y));
-        if(contador > maxceles*fillfactor){return true;}
+        if(contador > maxceles*fillfactor){
+            ValorMaxim = contador-1;
+            return true;}
         if(!Check1(i,j)){//retorna fals si la casella te un numero o esta fora dels limits
-            //System.out.printf("La parella: %d , %d falla el check", i, j);
-           // System.out.println();
             return false;
         }
         else{
-            //System.out.printf("Parella: %d , %d OK", i, j);
-            //System.out.println();
-
             hidato.add(new Pair<>(new Pair<>(i, j), Integer.toString(contador)));
             tauler[i][j]=Integer.toString(contador);
 
@@ -74,28 +63,19 @@ public class Generacio {
             System.out.println();
 
 */
-
             visitades.add(nextcela);
             Integer cont = ++contador;
             while(!Generar1(nextcela.getKey(),nextcela.getValue(), cont)){
                 if(visitades.size() >= numadj){
-                    //Si tira enrere hem d'esborra els numeros escrits en el tauler
-                   // System.out.println("Cap de les 4 combinacions es bona");
                     tauler[i][j]="#";
                     return false;
                 }
                 Recalcular(nextcela,prob);
                 for(int t = 0; t < 4; ++t){
                     prob.get(t).getKey();
-                   /*
-                    System.out.printf("NOU valor del vector: %d" , prob.get(t).getValue());
-                    System.out.println();
-                    */
                 }
-                //System.out.println();
                 nextcela = NextPos(new Pair<>(i, j), prob);
                 visitades.add(nextcela);
-
             }
             return true;
         }
@@ -103,35 +83,36 @@ public class Generacio {
 
     public String[][] GenerarHidato(String Tipuscela, String Tipusadj, String Dif){
         if (Dif.equals("FACIL")){
-            maxceles = NumeroAleatori(4, 12);
-            nfiles = NumeroAleatori(3, 8);
-            ncolumnes = NumeroAleatori(3, 8);
-            ProbNumero = 98;
+            nfiles = NumeroAleatori(3, 6);
+            ncolumnes = NumeroAleatori(3, 6);
+            ProbNumero = 75;
         }
         else if (Dif.equals("NORMAL")){
-            maxceles = NumeroAleatori(16, 25);
-            nfiles = NumeroAleatori(5, 6);
-            ncolumnes = NumeroAleatori(5,6);
-            ProbNumero = 94;
+            nfiles = NumeroAleatori(7, 8);
+            ncolumnes = NumeroAleatori(7,8);
+            ProbNumero = 50;
         }
         else {
-            maxceles = NumeroAleatori(25,49);
-            nfiles = NumeroAleatori(7, 9);
-            ncolumnes = NumeroAleatori(7,9);
-            ProbNumero = 90;
+            nfiles = NumeroAleatori(9, 11);
+            ncolumnes = NumeroAleatori(9,11);
+            ProbNumero = 25;
         }
 
         tipuscela = Tipuscela;
         tipusadj = Tipusadj;
         numadj = 4;//si tipusadj es C
-        dificultat = Dif;
+        //dificultat = Dif;
         ProbBlanc = 100 - ProbNumero;
         numcostats = 4;
+        maxceles = nfiles * ncolumnes;
 
         if(nfiles*ncolumnes >= 49) fillfactor = 0.8;
         else fillfactor = 0.9;
 
         tauler = new String[nfiles][ncolumnes];
+
+
+        //Podem canviar la cela inicial per algo diferent
         Integer Iini = NumeroAleatori(0, 1);
         Integer Jini = NumeroAleatori(0, 1);
         tauler[Iini][Jini] = Integer.toString(1);
@@ -144,6 +125,7 @@ public class Generacio {
                 tauler[i][j] = "#";
             }
         }
+        /*
         System.out.println("NFiles i NColumnes");
         System.out.printf("%d , %d", nfiles, ncolumnes);
         System.out.println();
@@ -152,6 +134,7 @@ public class Generacio {
         System.out.println("Cela ini");
         System.out.printf("%d , %d", Iini, Jini);
         System.out.println();
+        */
 
         if(Generar1(Iini,Jini, 1)){
             System.out.println("HIDATO COMPLET");
@@ -164,7 +147,10 @@ public class Generacio {
             }
             System.out.println();
         }
-        else  System.out.println("CACA");
+        else  {
+            System.out.println("CACA");
+            return new String[0][0];
+        }
 
         return tauler;
     }
@@ -224,6 +210,9 @@ public class Generacio {
         return r.nextInt(max-min) + min;
     }
 
+    public Integer GetValorMaxim(){
+        return ValorMaxim;
+    }
 
     public String[][] GenerarHidatoUsuari(Integer fil, Integer col){
         return new String[1][1];
@@ -232,4 +221,6 @@ public class Generacio {
     public String[][] GenerarHidatoAlgorisme(String tcela, String tadj, String dif){
         return new String[1][1];
     }
+
+
 }

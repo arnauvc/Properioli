@@ -25,7 +25,6 @@ public class Gestor {
 
     private Vector<String> parametres;
 
-
     public Integer VisualitzaHidatos() {
         //Aqui caldra invocar la capa de presentacio per fer display dels hidatos
         //I retornara el nombre total d'hidatos
@@ -75,11 +74,15 @@ public class Gestor {
         //partidaactiva.SetTauler(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
         partidaactiva.Generar();//Que s'hauria de dir, RESOLDRELamaquina
     }
-    public void Reprendre(Vector<String> v) throws Exception {
 
+    /**
+     * Recupera la partida que l'ususari tingui guardada
+     * @param v Conte el nom de l'usuari a la posicio 0
+     * @throws Exception Si l'usuari no te cap partida guardada
+     */
+    public void Reprendre(Vector<String> v) throws Exception {
         partidaactiva = pg.Obtenirpartida(v.get(0),1);//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
         partidaactiva.ReprendrePartida();
-
     }
     public void GuardarPartida(){
 

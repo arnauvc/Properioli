@@ -18,7 +18,7 @@ public class Ajuda {
         matajuda = new String[t.getNumFiles()][t.getNumColum()]; //El tauler amb celes incorrectes
         matsolucio = new String[t.getNumFiles()][t.getNumColum()]; //El tauler resolt
 
-        matsolucio = r.ResoldreHidato();
+        //matsolucio = r.ResoldreHidato();
 
         
         matajuda = mattauler;

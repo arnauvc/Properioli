@@ -23,7 +23,7 @@ public class Partida {
 	private Ajuda a = new Ajuda();
 	private CtrlPresJugada ctj = new CtrlPresJugada();
 	private Error e = new Error();
-	private Usuari u;
+	//private Usuari u = new Usuari();
 	private Integer idhidato;
 	private String dif; //Dificultat
 	private Integer torn;
@@ -166,6 +166,7 @@ public class Partida {
 		this.taulerU = taulerU;
 	}
 	public void SetNom(String nom){
+		Usuari u = new Usuari(nom);
 		u.SetNom(nom);
 	}
 	public double GetTemps(){

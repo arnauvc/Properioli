@@ -16,16 +16,14 @@ public class Jugada {
         Integer max, min, nfil, ncol;
         min = 1;
         max = maxim; //g.GetValorMaxim();
-        System.out.printf("maxim: %d\n", max);
         nfil = t.getNumFiles();
         ncol = t.getNumColum();
-        System.out.printf("nfil: %d\n, ncol: %d\n", nfil, ncol);
-        if (numcasella <= min && numcasella > max) invalid = true;
+        System.out.printf("MAXIM: %d\n", max);
+        if (numcasella <= min || numcasella > max) invalid = true;
         else{
             for (int i = 0; i < t.getNumFiles(); i++){
                 for (int j = 0; j < t.getNumColum(); j++){
                     if (Integer.toString(numcasella).equals(t.consultarValCela(i,j))){
-                        System.out.printf("Valor cela: %s\n: ", t.consultarValCela(i,j));
                         invalid = true;
                     }
 

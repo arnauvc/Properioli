@@ -18,7 +18,6 @@ public class Jugada {
         max = maxim; //g.GetValorMaxim();
         nfil = t.getNumFiles();
         ncol = t.getNumColum();
-        System.out.printf("MAXIM: %d\n", max);
         if (numcasella <= min || numcasella > max) invalid = true;
         else{
             for (int i = 0; i < t.getNumFiles(); i++){
@@ -32,14 +31,8 @@ public class Jugada {
         }
 
         if (coordx < 0 && coordx >= t.getNumFiles()) invalid = true;
-        if (t.consultarValCela(coordx,coordy).equals("#")){
-            //System.out.printf("Valor cela: %s\n: ", t.consultarValCela(i,j));
-            invalid = true;
-        }
-        if (t.consultarValCela(coordx,coordy).equals("*")){
-            //System.out.printf("Valor cela: %s\n: ", t.consultarValCela(i,j));
-            invalid = true;
-        }
+        if (t.consultarValCela(coordx,coordy).equals("#")) invalid = true;
+        if (t.consultarValCela(coordx,coordy).equals("*")) invalid = true;
         if (coordy < 0 && coordy >= t.getNumColum()) invalid = true;
 
 

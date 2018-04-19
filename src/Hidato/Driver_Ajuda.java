@@ -3,6 +3,7 @@ package Hidato;
 import java.util.*;
 
 public class Driver_Ajuda {
+    //NO EL FEU SERVIR
     public void TestClass(){
         Scanner input = new Scanner(System.in);
 

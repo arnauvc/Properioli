@@ -20,19 +20,22 @@ public class Ajuda {
 
         //La idea es comparar el tauler actual amb la resolucio, i la diferencia es la matajuda
         //Esta a mitges
-
+        
         //matsolucio = r.ResoldreHidato();
-
-        for (int i = 0; i < t.getNumFiles(); ++i) {
-            for (int j = 0; j < t.getNumColum(); ++j) {
+        
+        /*
+        
+        matajuda = tauler;
+        for (int i = 0; i < t.getNumFiles(); i++){
+            for (int j = 0; j < t.getNumColum(); j++){
                 mattauler[i][j] = t.consultarValCela(i, j);
+                if (mattauler[i][j] != "*" && mattauler[i][j] != "#" && mattauler[i][j] != "?") {
+                    if (mattauler[i][j] != matsolucio[i][j]) matajuda[i][j] += "I";
+                }
             }
         }
-
-
-        matajuda = mattauler;
-
-
+        
+        */
 
 
 

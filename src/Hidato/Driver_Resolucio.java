@@ -14,7 +14,7 @@ public class Driver_Resolucio {
     private Generacio g = new Generacio();
 
     public void Prova() {
-        String[][] tauler = g.GenerarHidato("Q", "C", "FACIL");
+        String[][] tauler = g.GenerarHidato("Q", "C", "NORMAL");
         /*Integer k = 1;
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
@@ -33,6 +33,7 @@ public class Driver_Resolucio {
         System.out.println("_-_-_-_-_-_-_-_-_-_-_-_-_");
         String[][] s = r.ResoltreHidato(tauler, "C");
         if (s != null) {
+            System.out.println("_-_-_-_-_-_-_-_-_-_-_-_-_");
             for (int i = 0; i < s.length; i++) {
                 for (int j = 0; j < s[i].length; j++) {
                     System.out.print(s[i][j]);

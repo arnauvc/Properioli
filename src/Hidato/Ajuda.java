@@ -18,26 +18,18 @@ public class Ajuda {
         matajuda = new String[t.getNumFiles()][t.getNumColum()]; //El tauler amb celes incorrectes
         matsolucio = new String[t.getNumFiles()][t.getNumColum()]; //El tauler resolt
 
-        //La idea es comparar el tauler actual amb la resolucio, i la diferencia es la matajuda
-        //Esta a mitges
+        matsolucio = r.ResoldreHidato();
+
         
-        //matsolucio = r.ResoldreHidato();
-        
-        /*
-        
-        matajuda = tauler;
+        matajuda = mattauler;
         for (int i = 0; i < t.getNumFiles(); i++){
             for (int j = 0; j < t.getNumColum(); j++){
                 mattauler[i][j] = t.consultarValCela(i, j);
-                if (mattauler[i][j] != "*" && mattauler[i][j] != "#" && mattauler[i][j] != "?") {
-                    if (mattauler[i][j] != matsolucio[i][j]) matajuda[i][j] += "I";
+                if (!mattauler[i][j].equals("*") && !mattauler[i][j].equals("#") && !mattauler[i][j].equals("?")) {
+                    if (!mattauler[i][j].equals(matsolucio[i][j])) matajuda[i][j] += "I";
                 }
             }
         }
-        
-        */
-
-
 
         return matajuda;
     }

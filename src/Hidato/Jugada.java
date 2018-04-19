@@ -8,29 +8,39 @@ public class Jugada {
     private Integer coordx;
     private Integer coordy;
     private boolean invalid;
-    private Generacio g = new Generacio();
+    private Generacio g;
 
 
-    public void ComprovaJugada(Tauler t){
+    public void ComprovaJugada(Tauler t, Integer maxim){
 
         Integer max, min, nfil, ncol;
         min = 1;
-        max = g.GetValorMaxim();
+        max = maxim; //g.GetValorMaxim();
         nfil = t.getNumFiles();
         ncol = t.getNumColum();
-        if (numcasella <= min && numcasella > max) invalid = true;
+        System.out.printf("MAXIM: %d\n", max);
+        if (numcasella <= min || numcasella > max) invalid = true;
         else{
             for (int i = 0; i < t.getNumFiles(); i++){
                 for (int j = 0; j < t.getNumColum(); j++){
-                    if (numcasella.equals(t.consultarValCela(i,j))) invalid = true;
-                    if (t.consultarValCela(i,j).equals("#")) invalid = true;
-                    if (t.consultarValCela(i,j).equals("*")) invalid = true;
+                    if (Integer.toString(numcasella).equals(t.consultarValCela(i,j))){
+                        invalid = true;
+                    }
+
                 }
             }
         }
 
         if (coordx < 0 && coordx >= t.getNumFiles()) invalid = true;
-        else if (coordy < 0 && coordy >= t.getNumColum()) invalid = true;
+        if (t.consultarValCela(coordx,coordy).equals("#")){
+            //System.out.printf("Valor cela: %s\n: ", t.consultarValCela(i,j));
+            invalid = true;
+        }
+        if (t.consultarValCela(coordx,coordy).equals("*")){
+            //System.out.printf("Valor cela: %s\n: ", t.consultarValCela(i,j));
+            invalid = true;
+        }
+        if (coordy < 0 && coordy >= t.getNumColum()) invalid = true;
 
 
 

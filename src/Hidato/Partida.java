@@ -6,6 +6,8 @@ import Hidato.Jugada;
 import Hidato.Ajuda;
 import Hidato.Usuari;
 
+import java.util.List;
+
 
 public class Partida {
 
@@ -21,13 +23,14 @@ public class Partida {
 	private Ajuda a = new Ajuda();
 	private CtrlPresJugada ctj = new CtrlPresJugada();
 	private Error e = new Error();
-	private Usuari u;
+	//private Usuari u = new Usuari();
 	private Integer idhidato;
 	private String dif; //Dificultat
 	private Integer torn;
 	private Integer fil;
 	private Integer col;
 	private String[][] taulerU;
+	private Integer maxim;
 
 
 	public Partida(){}
@@ -62,6 +65,7 @@ public class Partida {
 		String[][] hidato;
 
 		hidato = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
+		maxim = g.GetValorMaxim();
 		t.CrearTauler(GetCela(), GetAdjacencia(), hidato);
 
 		r.start(); //Inicia el rellotge
@@ -89,6 +93,15 @@ public class Partida {
 		boolean aux = false;
 
 		while (!finalitzat && !completat){
+
+			for (int i = 0; i < t.getNumFiles(); ++i) {
+				for (int l = 0; l < t.getNumColum(); ++l) {
+					if (l > 0) System.out.print(",");
+					System.out.print(t.consultarValCela(i, l));
+				}
+				System.out.println();
+			}
+
 			ctj.InteraccioJugada(j);
 			j.SetInvalid(aux);
 			j.GetJugada();
@@ -96,7 +109,7 @@ public class Partida {
 				num = j.GetNumero();
 				x = j.GetX();
 				y = j.GetY();
-                j.ComprovaJugada(t);
+                j.ComprovaJugada(t, maxim);
                 if (j.GetInvalid()) e.PrintError(1);
 				if (!j.GetInvalid()) {
                     ++torn;
@@ -116,6 +129,7 @@ public class Partida {
 				ajuda = true;
 				String[][] hidato_ajuda;
 				hidato_ajuda = a.GetAjuda(t);
+				System.out.println("Ajuda!");
 				for (int i = 0; i < t.getNumFiles(); i++){
 					for (int k = 0; k < t.getNumColum(); k++){
 						if (k > 0) System.out.print(",");
@@ -123,6 +137,7 @@ public class Partida {
 					}
 					System.out.println();
 				}
+				System.out.println();
 			}
 
 		}
@@ -151,6 +166,7 @@ public class Partida {
 		this.taulerU = taulerU;
 	}
 	public void SetNom(String nom){
+		Usuari u = new Usuari(nom);
 		u.SetNom(nom);
 	}
 	public double GetTemps(){

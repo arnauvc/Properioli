@@ -124,6 +124,8 @@ public class CtrlPresGestor {
             hidato = input.nextLine();
         }
         return Tauler;
+
+
     }
 
 

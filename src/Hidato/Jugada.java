@@ -1,6 +1,8 @@
 package Hidato;
 
 import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Jugada {
     private String jugada;
@@ -40,15 +42,19 @@ public class Jugada {
 
     }
 
-    public void Parametres(String jugada, Integer numero, Integer x, Integer y){
-        SetJugada(jugada);
-        SetNumero(numero);
-        SetX(x);
-        SetY(y);
+    public void Parametres(Vector<String> v){
+        SetJugada(v.get(0));
+        if (GetJugada().equals("NUMERO")){
+            SetNumero(Integer.parseInt(v.get(1)));
+            SetX(Integer.parseInt(v.get(2)));
+            SetY(Integer.parseInt(v.get(3)));
+        }
+
+
+
     }
 
     public void SetJugada(String jugada){
-        //Si jugada = AJUDA o GUARDAR, no cal cap mes Set
         this.jugada = jugada;
     }
     public String GetJugada(){

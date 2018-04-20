@@ -83,7 +83,9 @@ public class Gestor {
     }
     public void GuardarPartida(){
 
+
     }
+
     public void ActulitzarRanking(Integer id, Double temps){
         r.Actualitzar(id, temps);
     }

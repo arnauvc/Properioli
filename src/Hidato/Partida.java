@@ -58,15 +58,22 @@ public class Partida {
 	public void Generar(){
 		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
+		for (int i = 0; i < t.getNumFiles(); ++i) {
+			for (int l = 0; l < t.getNumColum(); ++l) {
+				if (l > 0) System.out.print(",");
+				System.out.print(t.consultarValCela(i, l));
+			}
+			System.out.println();
+		}
 	}
 	
 	public void IniciaPartida(){
 		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
-		String[][] hidato;
 
-		hidato = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
+
+		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
 		maxim = g.GetValorMaxim();
-		t.CrearTauler(GetCela(), GetAdjacencia(), hidato);
+		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
 
 		r.start(); //Inicia el rellotge
 		finalitzat = false;
@@ -118,11 +125,18 @@ public class Partida {
 
 				//if (ja no hi han interrogants) completat = true;
 			}
-			else if (j.GetJugada().equals("GUARDAR")){
+			else if (j.GetJugada().equals("GUARDAR")) {
 				r.stop();
 				guardat = true; //L'unic que fa es invalidar el temps
 				reguardat = true; //Es per avisar al Ctrl que l'usuari ha guardat
 				finalitzat = true;
+			}
+
+			else if (j.GetJugada().equals("SORTIR")) finalitzat = true;
+			else if (j.GetJugada().equals("RESET")){
+				t = new Tauler();
+				t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
+				ajuda = true;
 			}
 			else if (j.GetJugada().equals("AJUDA")){
 				r.stop();
@@ -141,6 +155,7 @@ public class Partida {
 			}
 
 		}
+
 
 		//Partida completada
 		if (completat && !guardat && !ajuda){
@@ -222,6 +237,9 @@ public class Partida {
 	}
 	public boolean GetCompletat(){
 		return completat;
+	}
+	public void SetFinalitzat(boolean finalitzat){
+		this.finalitzat = finalitzat;
 	}
 	public boolean GetAjuda(){
 		return ajuda;

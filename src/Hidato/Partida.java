@@ -58,6 +58,8 @@ public class Partida {
 	public void Generar(){
 		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
+		/*
+		Per comprovar que funciona:
 		for (int i = 0; i < t.getNumFiles(); ++i) {
 			for (int l = 0; l < t.getNumColum(); ++l) {
 				if (l > 0) System.out.print(",");
@@ -65,6 +67,7 @@ public class Partida {
 			}
 			System.out.println();
 		}
+		*/
 	}
 	
 	public void IniciaPartida(){

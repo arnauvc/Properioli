@@ -72,7 +72,7 @@ public class Gestor {
         partidaactiva.SetFiles(Integer.parseInt(p.get(3)));
         partidaactiva.SetColumnes(Integer.parseInt(p.get(4)));
         //partidaactiva.SetDificultat(p.get(5));
-        //partidaactiva.SetTauler(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
+        partidaactiva.SetTaulerU(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
         partidaactiva.Generar();//Que s'hauria de dir, RESOLDRELamaquina
     }
     public void Reprendre(Vector<String> v) throws Exception {

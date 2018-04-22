@@ -321,7 +321,20 @@ public class Resolucio{
         if (distancia == 1) {
             System.out.println("HOLA JODER");
             if (valor1 == valor2-1) {
-                camins.add(cami);
+                for (int f = 0; f < cami.size(); f++) {
+                    System.out.print(cami.get(f).getKey());System.out.print(",");
+                    System.out.print(cami.get(f).getValue());System.out.print(" ");
+                }
+                System.out.println(" ");
+                System.out.println("CAMINS");
+                camins.add((ArrayList<Pair<Integer, Integer>>) cami.clone());
+                for (int f = 0; f < camins.size(); f++) {
+                    for (int l = 0; l < camins.get(f).size(); l++) {
+                        System.out.print(camins.get(f).get(l).getKey());System.out.print(",");
+                        System.out.print(camins.get(f).get(l).getValue());System.out.print(" ");
+                    }
+                    System.out.println("");
+                }
                 return true;
             }
             return false;
@@ -445,7 +458,7 @@ public class Resolucio{
 
     private boolean Emplenar(ArrayList<Pair<Integer, Integer>> posicions, Integer valor) {
         for (int i = 0; i < posicions.size(); i++) {
-            if (solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] == String.valueOf(0)) {
+            if (solucio[posicions.get(i).getKey()][posicions.get(i).getValue()].equals(String.valueOf(0))) {
                 solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] = String.valueOf(valor);
                 valor++;
             }
@@ -464,15 +477,17 @@ public class Resolucio{
 
     private void LaBona(Integer valor, Iterator<ArrayList<ArrayList<Pair<Integer, Integer>>>> it, Iterator<Pair<Pair<Integer, Integer>, Integer>> itsl) {
         if (it.hasNext() && itsl.hasNext()) {
-            Integer valor_aux = itsl.next().getValue();
-            ArrayList<ArrayList<Pair<Integer, Integer>>> llista = it.next();
+            Integer valor_aux = itsl.next().getValue();                             //FER QUE AUX VALGUI EL PRIMER VALOR DEL CAMI QUE S'HA DE RECORRER
+            ArrayList<ArrayList<Pair<Integer, Integer>>> llista = it.next();           //MIRAR CRIDA A LaBona
             System.out.println(llista.size());
             System.out.println("....................");
             for (int i = 0; i < llista.size(); i++) {
                 if (Emplenar(llista.get(i), valor)) {
                     LaBona(valor_aux, it, itsl);
                 }
-                else Buidar(llista.get(i));
+                else {
+                    Buidar(llista.get(i));
+                }
             }
         }
         else return;
@@ -488,8 +503,8 @@ public class Resolucio{
         cami = new ArrayList<Pair<Integer, Integer>>();
         for (int i = 0; i < sl.size()-1; i++) {
             distancia = sl.get(i+1).getValue() - sl.get(i).getValue();
-            cami = new ArrayList<Pair<Integer, Integer>>();
-            camins = new ArrayList<ArrayList<Pair<Integer, Integer>>>();
+            cami.clear();
+            camins.clear();
             if (distancia != 1) {
                 if (!TrobarSolucio(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia)) {
                     solucio = null;
@@ -507,9 +522,12 @@ public class Resolucio{
                         }
                         System.out.println("CANVI DE LINIA");
                     }*/
+                    System.out.println(sl.get(i).getValue());
+                    System.out.println(sl.get(i+1).getValue());
+                    System.out.println("*******************************");
                     System.out.println(camins.size());
                     System.out.println("'''''''''''''''''''''''''''''''''''");
-                    multicamins.add(camins);
+                    multicamins.add((ArrayList<ArrayList<Pair<Integer, Integer>>>) camins.clone());
                 }
             }
         }
@@ -519,7 +537,14 @@ public class Resolucio{
             itrm = multicamins.iterator();
             itrsl = sl.iterator();
             if (itrm.hasNext() && itrsl.hasNext()) {
-                LaBona((itrsl.next().getValue()) + 1, itrm, itrsl);
+                Integer aux = itrsl.next().getValue();
+                Integer aux2;
+                while (itrsl.hasNext()) {
+                    aux2 = itrsl.next().getValue();
+                    if ((aux2-aux) > 1) break;
+                    aux = aux2;
+                }
+                LaBona(aux+1, itrm, itrsl);
             }
         }
         /*for (int i = 0; i < multicamins.size(); i++) {

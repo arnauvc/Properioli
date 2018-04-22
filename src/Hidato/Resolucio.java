@@ -443,11 +443,17 @@ public class Resolucio{
         Collections.sort(sl, c);
     }
 
-    private void Emplenar(ArrayList<Pair<Integer, Integer>> posicions, Integer valor) {
+    private boolean Emplenar(ArrayList<Pair<Integer, Integer>> posicions, Integer valor) {
         for (int i = 0; i < posicions.size(); i++) {
-            solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] = String.valueOf(valor);
-            valor++;
+            if (solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] == String.valueOf(0)) {
+                solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] = String.valueOf(valor);
+                valor++;
+            }
+            else {
+                return false;
+            }
         }
+        return true;
     }
 
     private void Buidar(ArrayList<Pair<Integer, Integer>> posicions) {
@@ -457,15 +463,19 @@ public class Resolucio{
     }
 
     private void LaBona(Integer valor, Iterator<ArrayList<ArrayList<Pair<Integer, Integer>>>> it, Iterator<Pair<Pair<Integer, Integer>, Integer>> itsl) {
-        for (int i = 0; i < it.next().size(); i++) {
-            if (it.hasNext()) {
-                ArrayList<Pair<Integer, Integer>> aux = it.next().get(i);
-                Emplenar(aux, valor);
-                LaBona(valor + 1, it, itsl);
-                Buidar(aux);
+        if (it.hasNext() && itsl.hasNext()) {
+            Integer valor_aux = itsl.next().getValue();
+            ArrayList<ArrayList<Pair<Integer, Integer>>> llista = it.next();
+            System.out.println(llista.size());
+            System.out.println("....................");
+            for (int i = 0; i < llista.size(); i++) {
+                if (Emplenar(llista.get(i), valor)) {
+                    LaBona(valor_aux, it, itsl);
+                }
+                else Buidar(llista.get(i));
             }
-            else return;
         }
+        else return;
     }
 
     public String[][] ResoltreHidato (String[][] t, String adjacencia) {
@@ -497,15 +507,18 @@ public class Resolucio{
                         }
                         System.out.println("CANVI DE LINIA");
                     }*/
+                    System.out.println(camins.size());
+                    System.out.println("'''''''''''''''''''''''''''''''''''");
                     multicamins.add(camins);
                 }
             }
         }
+        System.out.println(multicamins.size());
+        System.out.println("???????????????????????????????");
         if (solucio != null) {
             itrm = multicamins.iterator();
             itrsl = sl.iterator();
             if (itrm.hasNext() && itrsl.hasNext()) {
-                System.out.println(itrm.next().size());
                 LaBona((itrsl.next().getValue()) + 1, itrm, itrsl);
             }
         }

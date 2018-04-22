@@ -32,7 +32,7 @@ public class Driver_Resolucio {
         }
         System.out.println("_-_-_-_-_-_-_-_-_-_-_-_-_");
         String[][] s = r.ResoltreHidato(tauler, "C");
-        /*if (s != null) {
+        if (s != null) {
             System.out.println("_-_-_-_-_-_-_-_-_-_-_-_-_");
             for (int i = 0; i < s.length; i++) {
                 for (int j = 0; j < s[i].length; j++) {
@@ -41,6 +41,6 @@ public class Driver_Resolucio {
                 }
                 System.out.println("");
             }
-        }*/
+        }
     }
 }

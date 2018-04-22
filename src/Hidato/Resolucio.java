@@ -443,13 +443,28 @@ public class Resolucio{
         Collections.sort(sl, c);
     }
 
+    private void Emplenar(ArrayList<Pair<Integer, Integer>> posicions, Integer valor) {
+        for (int i = 0; i < posicions.size(); i++) {
+            solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] = String.valueOf(valor);
+            valor++;
+        }
+    }
+
+    private void Buidar(ArrayList<Pair<Integer, Integer>> posicions) {
+        for (int i = 0; i < posicions.size(); i++) {
+            solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] = String.valueOf(0);
+        }
+    }
+
     private void LaBona(Integer valor, Iterator<ArrayList<ArrayList<Pair<Integer, Integer>>>> it, Iterator<Pair<Pair<Integer, Integer>, Integer>> itsl) {
         for (int i = 0; i < it.next().size(); i++) {
-            //ArrayList<Pair<Integer, Integer>> aux = new ArrayList<Pair<Integer, Integer>>();
-            //aux = it.next().get(i);
-            //Emplenar(aux);
-            //LaBona(itsl.next().getValue(), it, itsl);
-            //Buidar(aux);
+            if (it.hasNext()) {
+                ArrayList<Pair<Integer, Integer>> aux = it.next().get(i);
+                Emplenar(aux, valor);
+                LaBona(valor + 1, it, itsl);
+                Buidar(aux);
+            }
+            else return;
         }
     }
 
@@ -489,7 +504,10 @@ public class Resolucio{
         if (solucio != null) {
             itrm = multicamins.iterator();
             itrsl = sl.iterator();
-            LaBona(itrsl.next().getValue(), itrm, itrsl);
+            if (itrm.hasNext() && itrsl.hasNext()) {
+                System.out.println(itrm.next().size());
+                LaBona((itrsl.next().getValue()) + 1, itrm, itrsl);
+            }
         }
         /*for (int i = 0; i < multicamins.size(); i++) {
             for (int j = 0; j < multicamins.get(i).size(); j++) {

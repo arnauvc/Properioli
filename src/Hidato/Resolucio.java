@@ -11,11 +11,12 @@ public class Resolucio{
     private String[][] solucio;
     private String adj = new String();
     private ArrayList<Pair<Pair<Integer, Integer>, Integer>> sl;
-    private ArrayList<ArrayList<ArrayList<Pair<Integer, Integer>>>> multicamins;
-    private ArrayList<ArrayList<Pair<Integer, Integer>>> camins;
+    private ArrayList<ArrayList<ArrayList<Pair<Integer, Integer>>>> multicamins; //per tots els camins entre tots els cumeros, multicamins<camins>
+    private ArrayList<ArrayList<Pair<Integer, Integer>>> camins; //per tots els camins entre x i y, camins<cami>
     private int espais;
-    private Iterator<ArrayList<ArrayList<ArrayList<Pair<Integer, Integer>>>>> itr;
-    private ArrayList<Pair<Integer, Integer>> cami;
+    private Iterator<ArrayList<ArrayList<Pair<Integer, Integer>>>> itrm;
+    private Iterator<Pair<Pair<Integer, Integer>, Integer>> itrsl;
+    private ArrayList<Pair<Integer, Integer>> cami; //per cada cami entre x i y, cami<Pair<Integer,Integer>>
 
     private static boolean isNumeric(String cadena){
         try {
@@ -321,15 +322,6 @@ public class Resolucio{
             System.out.println("HOLA JODER");
             if (valor1 == valor2-1) {
                 camins.add(cami);
-                for (int f = 0; f < camins.size(); f++) {
-                    for (int l = 0; l < camins.get(f).size(); l++) {   ////ES BORREN ELS CAMINS, MIRAR PERQUUE COLLONS ES BORREN
-                        System.out.print(camins.get(f).get(l).getKey());
-                        System.out.print(",");
-                        System.out.print(camins.get(f).get(l).getValue());
-                        System.out.println("");
-                    }
-                    System.out.println("CANVI DE LINIA");
-                }
                 return true;
             }
             return false;
@@ -451,6 +443,16 @@ public class Resolucio{
         Collections.sort(sl, c);
     }
 
+    private void LaBona(Integer valor, Iterator<ArrayList<ArrayList<Pair<Integer, Integer>>>> it, Iterator<Pair<Pair<Integer, Integer>, Integer>> itsl) {
+        for (int i = 0; i < it.next().size(); i++) {
+            //ArrayList<Pair<Integer, Integer>> aux = new ArrayList<Pair<Integer, Integer>>();
+            //aux = it.next().get(i);
+            //Emplenar(aux);
+            //LaBona(itsl.next().getValue(), it, itsl);
+            //Buidar(aux);
+        }
+    }
+
     public String[][] ResoltreHidato (String[][] t, String adjacencia) {
         adj = adjacencia;
         solucio = new String[t.length][t[0].length];
@@ -470,10 +472,26 @@ public class Resolucio{
                     System.out.println("");
                     break;
                 }
-                else multicamins.add(camins);
+                else {
+                    /*for (int f = 0; f < camins.size(); f++) { //No imprimeix res pero comprovo el tamany de camins i es el correcte
+                        for (int l = 0; l < camins.get(f).size(); l++) {
+                            System.out.print(camins.get(f).get(l).getKey());
+                            System.out.print(",");
+                            System.out.print(camins.get(f).get(l).getValue());
+                            System.out.println("");
+                        }
+                        System.out.println("CANVI DE LINIA");
+                    }*/
+                    multicamins.add(camins);
+                }
             }
         }
-        for (int i = 0; i < multicamins.size(); i++) {
+        if (solucio != null) {
+            itrm = multicamins.iterator();
+            itrsl = sl.iterator();
+            LaBona(itrsl.next().getValue(), itrm, itrsl);
+        }
+        /*for (int i = 0; i < multicamins.size(); i++) {
             for (int j = 0; j < multicamins.get(i).size(); j++) {
                 for (int k = 0; k < multicamins.get(i).get(j).size(); k++) {
                     System.out.print(multicamins.get(i).get(j).get(k).getKey());
@@ -483,7 +501,7 @@ public class Resolucio{
                 }
             }
             System.out.println("----");
-        }
+        }*/
         return solucio;
     }
 }

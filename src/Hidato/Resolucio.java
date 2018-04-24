@@ -310,6 +310,38 @@ public class Resolucio{
         return true;
     }*/
 
+    private boolean EsCorrecte(Integer valor, int f, int c) {
+        if (adj.equals("C")) {
+            if (f < solucio.length-1) {
+                if (solucio[f+1][c].equals(String.valueOf(valor))) return true;
+            }
+            if (f > 0) {
+                if (solucio[f-1][c].equals(String.valueOf(valor))) return true;
+            }
+            if (c > 0) {
+                if (solucio[f][c-1].equals(String.valueOf(valor))) return true;
+            }
+            if (c < solucio[0].length-1) {
+                if (solucio[f][c+1].equals(String.valueOf(valor))) return true;
+            }
+        }
+        else {
+            if (f > 0 && c > 0) {
+                if (solucio[f-1][c-1].equals(String.valueOf(valor))) return true;
+            }
+            if (f < solucio.length-1 && c < solucio[0].length-1) {
+                if (solucio[f+1][c+1].equals(String.valueOf(valor))) return true;
+            }
+            if (f < solucio.length-1 && c > 0) {
+                if (solucio[f+1][c-1].equals(String.valueOf(valor))) return true;
+            }
+            if (f > 0 && c < solucio[0].length-1) {
+                if (solucio[f-1][c+1].equals(String.valueOf(valor))) return true;
+            }
+        }
+        return false;
+    }
+
     private boolean TrobarSolucio (Integer i, Integer j, Integer valor1, Integer i2, Integer j2, Integer valor2, int distancia) {
         for (int f = 0; f < solucio.length; f++) {
             for (int l = 0; l < solucio[f].length; l++) {
@@ -319,9 +351,8 @@ public class Resolucio{
         }
         System.out.println("-------------------------");
         if (distancia == 1) {
-            System.out.println("HOLA JODER");
             if (valor1 == valor2-1) {
-                camins.add(cami);
+                if (EsCorrecte(valor2, cami.get(cami.size()-1).getKey(), cami.get(cami.size()-1).getValue()))camins.add((ArrayList<Pair<Integer, Integer>>) cami.clone());
                 return true;
             }
             return false;
@@ -443,39 +474,57 @@ public class Resolucio{
         Collections.sort(sl, c);
     }
 
-    private boolean Emplenar(ArrayList<Pair<Integer, Integer>> posicions, Integer valor) {
-        for (int i = 0; i < posicions.size(); i++) {
-            if (solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] == String.valueOf(0)) {
+    private boolean Emplenar(ArrayList<Pair<Integer, Integer>> posicions, Integer valor, ArrayList<Pair<Integer, Integer>> posicionsoc) {
+        System.out.println("ELS NUMEROS SON.... ");
+        ArrayList<Pair<Integer, Integer>> aux = new ArrayList<Pair<Integer, Integer>>();
+        for (int i = 1; i < posicions.size(); i++) {
+            if (solucio[posicions.get(i).getKey()][posicions.get(i).getValue()].equals(String.valueOf(0))) {
+                aux.add(new Pair<>(posicions.get(i).getKey(), posicions.get(i).getValue()));
                 solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] = String.valueOf(valor);
+                System.out.print("(");System.out.print(posicions.get(i).getKey());System.out.print(",");System.out.print(posicions.get(i).getValue());System.out.print(")");System.out.print(solucio[posicions.get(i).getKey()][posicions.get(i).getValue()]); System.out.print(" ");
                 valor++;
             }
             else {
+                if (!aux.isEmpty()) posicionsoc = (ArrayList<Pair<Integer, Integer>>) aux.clone();
                 return false;
             }
         }
+        if (!aux.isEmpty()) posicionsoc = (ArrayList<Pair<Integer, Integer>>) aux.clone();
         return true;
     }
 
     private void Buidar(ArrayList<Pair<Integer, Integer>> posicions) {
-        for (int i = 0; i < posicions.size(); i++) {
+        for (int i = 1; i < posicions.size(); i++) {
             solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] = String.valueOf(0);
         }
     }
 
-    private void LaBona(Integer valor, Iterator<ArrayList<ArrayList<Pair<Integer, Integer>>>> it, Iterator<Pair<Pair<Integer, Integer>, Integer>> itsl) {
-        if (it.hasNext() && itsl.hasNext()) {
-            Integer valor_aux = itsl.next().getValue();
-            ArrayList<ArrayList<Pair<Integer, Integer>>> llista = it.next();
-            System.out.println(llista.size());
-            System.out.println("....................");
-            for (int i = 0; i < llista.size(); i++) {
-                if (Emplenar(llista.get(i), valor)) {
-                    LaBona(valor_aux, it, itsl);
+    private boolean LaBona(int j, ArrayList<Pair<Integer, Integer>> posicions_ocupades) {
+        if (j == multicamins.size()) return true;
+        ArrayList<ArrayList<Pair<Integer, Integer>>> llista = (ArrayList<ArrayList<Pair<Integer, Integer>>>) multicamins.get(j).clone();
+        System.out.println(llista.size());
+        System.out.println("....................");
+        Integer valor = Integer.valueOf(solucio[llista.get(0).get(0).getKey()][llista.get(0).get(0).getValue()]);
+        ArrayList<Pair<Integer, Integer>> aux = null;
+        for (int i = 0; i < llista.size(); i++) {
+            if (Emplenar(llista.get(i), valor+1, posicions_ocupades)) {
+                System.out.println("HE ENTRAT AMB");
+                System.out.println(valor+1);
+                j=j+1;
+                if (!LaBona(j, aux)) {
+                    System.out.println("AIXO NO VA");
+                    j=j-1;
+
+                    if (posicions_ocupades != null) Buidar(posicions_ocupades);
                 }
-                else Buidar(llista.get(i));
+                else return true;
+            }
+            else {
+                System.out.println("HOLA VAIG A BUIDAR");
+                if (posicions_ocupades != null) Buidar(posicions_ocupades);
             }
         }
-        else return;
+        return false;
     }
 
     public String[][] ResoltreHidato (String[][] t, String adjacencia) {
@@ -488,9 +537,10 @@ public class Resolucio{
         cami = new ArrayList<Pair<Integer, Integer>>();
         for (int i = 0; i < sl.size()-1; i++) {
             distancia = sl.get(i+1).getValue() - sl.get(i).getValue();
-            cami = new ArrayList<Pair<Integer, Integer>>();
-            camins = new ArrayList<ArrayList<Pair<Integer, Integer>>>();
+            cami.clear();
+            camins.clear();
             if (distancia != 1) {
+                cami.add(new Pair<>(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue()));
                 if (!TrobarSolucio(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia)) {
                     solucio = null;
                     System.out.println("NO HE TROBAT SOLUCIO");
@@ -498,41 +548,14 @@ public class Resolucio{
                     break;
                 }
                 else {
-                    /*for (int f = 0; f < camins.size(); f++) { //No imprimeix res pero comprovo el tamany de camins i es el correcte
-                        for (int l = 0; l < camins.get(f).size(); l++) {
-                            System.out.print(camins.get(f).get(l).getKey());
-                            System.out.print(",");
-                            System.out.print(camins.get(f).get(l).getValue());
-                            System.out.println("");
-                        }
-                        System.out.println("CANVI DE LINIA");
-                    }*/
-                    System.out.println(camins.size());
-                    System.out.println("'''''''''''''''''''''''''''''''''''");
-                    multicamins.add(camins);
+                    multicamins.add((ArrayList<ArrayList<Pair<Integer, Integer>>>) camins.clone());
                 }
             }
         }
-        System.out.println(multicamins.size());
-        System.out.println("???????????????????????????????");
         if (solucio != null) {
-            itrm = multicamins.iterator();
-            itrsl = sl.iterator();
-            if (itrm.hasNext() && itrsl.hasNext()) {
-                LaBona((itrsl.next().getValue()) + 1, itrm, itrsl);
-            }
+            ArrayList<Pair<Integer, Integer>> p = null;
+            if (!LaBona(0, p)) System.out.println("NO TROBO SOL");
         }
-        /*for (int i = 0; i < multicamins.size(); i++) {
-            for (int j = 0; j < multicamins.get(i).size(); j++) {
-                for (int k = 0; k < multicamins.get(i).get(j).size(); k++) {
-                    System.out.print(multicamins.get(i).get(j).get(k).getKey());
-                    System.out.print(",");
-                    System.out.print(multicamins.get(i).get(j).get(k).getValue());
-                    System.out.println("");
-                }
-            }
-            System.out.println("----");
-        }*/
         return solucio;
     }
 }

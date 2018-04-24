@@ -14,7 +14,7 @@ public class Driver_Resolucio {
     private Generacio g = new Generacio();
 
     public void Prova() {
-        String[][] tauler = g.GenerarHidato("Q", "C", "FACIL");
+        String[][] tauler = g.GenerarHidato("Q", "C", "NORMAL");
         /*Integer k = 1;
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {

@@ -23,6 +23,7 @@ public class Partida {
 	private Ajuda a = new Ajuda();
 	private CtrlPresJugada ctj = new CtrlPresJugada();
 	private Error e = new Error();
+	private Resolucio re = new Resolucio();
 	//private Usuari u = new Usuari();
 	private Integer idhidato;
 	private String dif; //Dificultat
@@ -58,6 +59,9 @@ public class Partida {
 	public void Generar(){
 		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
+		String[][] hidato_resolt = new String[t.getNumFiles()][t.getNumColum()];
+		hidato_resolt = re.ResoltreHidato(taulerU, GetAdjacencia());
+
 		/*
 		Per comprovar que funciona:
 		for (int i = 0; i < t.getNumFiles(); ++i) {
@@ -101,6 +105,7 @@ public class Partida {
 		Jugada j = new Jugada();
 		Integer num, x, y;
 		boolean aux = false;
+		String[][] hidato_resolt = re.ResoltreHidato(taulerU, GetAdjacencia());
 
 		while (!finalitzat && !completat){
 
@@ -125,8 +130,10 @@ public class Partida {
                     ++torn;
 				    t.ModificaCeldaV(Integer.toString(num), x, y);
                 }
+                if (ComprovarPartidaFinalitzada(hidato_resolt)) {
+					completat = true;
+				}
 
-				//if (ja no hi han interrogants) completat = true;
 			}
 			else if (j.GetJugada().equals("GUARDAR")) {
 				r.stop();
@@ -145,8 +152,8 @@ public class Partida {
 				r.stop();
 				ajuda = true;
 				String[][] hidato_ajuda;
-				hidato_ajuda = a.GetAjuda(t);
-				System.out.println("Ajuda!");
+				hidato_ajuda = a.GetAjuda(t, hidato_resolt);
+				System.out.println("Ajuda:");
 				for (int i = 0; i < t.getNumFiles(); i++){
 					for (int k = 0; k < t.getNumColum(); k++){
 						if (k > 0) System.out.print(",");
@@ -176,6 +183,18 @@ public class Partida {
 	}
 
 
+	public boolean ComprovarPartidaFinalitzada(String[][] matriu_solucio){
+		String[][] matriu_tauler = new String[t.getNumFiles()][t.getNumColum()];
+		for (int i = 0; i < t.getNumFiles(); i++){
+			for (int j = 0; j < t.getNumColum(); j++){
+				matriu_tauler[i][j] = t.consultarValCela(i, j);
+				if (!matriu_tauler[i][j].equals("*") && !matriu_tauler[i][j].equals("#")) {
+					if (!matriu_tauler[i][j].equals(matriu_solucio[i][j])) return false;
+				}
+			}
+		}
+		return true;
+	}
 
 	public void SetTauler(Tauler t){
 		this.t = t;
@@ -183,6 +202,7 @@ public class Partida {
 	public void SetTaulerU(String[][] taulerU){
 		this.taulerU = taulerU;
 	}
+	public String[][] GetTaulerU(){ return taulerU; }
 	public void SetNom(String nom){
 		Usuari u = new Usuari(nom);
 		u.SetNom(nom);

@@ -6,19 +6,16 @@ import Hidato.Cela;
 import Hidato.Tauler;
 
 public class Ajuda {
-    private Resolucio r;
     private String[][] matajuda;
     private String[][] mattauler;
     private String[][] matsolucio;
 
-    public String[][] GetAjuda(Tauler t){
+    public String[][] GetAjuda(Tauler t, String[][] hidato){
         List<List<Cela>> tauler = null;
         tauler = t.getCelas();
         mattauler = new String[t.getNumFiles()][t.getNumColum()]; //El tauler actual
         matajuda = new String[t.getNumFiles()][t.getNumColum()]; //El tauler amb celes incorrectes
-        matsolucio = new String[t.getNumFiles()][t.getNumColum()]; //El tauler resolt
-
-        //matsolucio = r.ResoldreHidato();
+        matsolucio = hidato; //El tauler resolt
 
         
         matajuda = mattauler;

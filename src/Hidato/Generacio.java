@@ -79,7 +79,7 @@ public class Generacio {
     }
 
     public String[][] GenerarHidato(String Tipuscela, String Tipusadj, String Dif) {
-        if (Dif.equals("F")){
+        if (Dif.equals("FACIL")){
             nfiles = NumeroAleatori(3, 6);
             ncolumnes = NumeroAleatori(3, 6);
             ProbNumero = 45;

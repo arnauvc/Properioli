@@ -5,11 +5,11 @@ import Hidato.Driver_Resolucio;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        /*Driver_Resolucio dr = new Driver_Resolucio();
-        dr.Prova();*/
+        Driver_Resolucio dr = new Driver_Resolucio();
+        dr.Prova();
 
-        CtrlPresGestor cpg = new CtrlPresGestor();
-        cpg.Inicia();
+        /*CtrlPresGestor cpg = new CtrlPresGestor();
+        cpg.Inicia();*/
 
 
         /*Driver_Ajuda da = new Driver_Ajuda();

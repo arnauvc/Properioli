@@ -6,7 +6,7 @@ import java.io.*;
 
 public class Jugada {
     private String jugada;
-    private Integer numcasella;
+    private String numcasella;
     private Integer coordx;
     private Integer coordy;
     private boolean invalid;
@@ -20,17 +20,22 @@ public class Jugada {
         max = maxim; //g.GetValorMaxim();
         nfil = t.getNumFiles();
         ncol = t.getNumColum();
-        if (numcasella <= min || numcasella > max) invalid = true;
-        else{
-            for (int i = 0; i < t.getNumFiles(); i++){
-                for (int j = 0; j < t.getNumColum(); j++){
-                    if (Integer.toString(numcasella).equals(t.consultarValCela(i,j))){
-                        invalid = true;
-                    }
+        if (!numcasella.equals("?")){
+            if (Integer.parseInt(numcasella) <= min || Integer.parseInt(numcasella) > max) invalid = true;
+            else{
+                for (int i = 0; i < t.getNumFiles(); i++){
+                    for (int j = 0; j < t.getNumColum(); j++){
+                        if (numcasella.equals(t.consultarValCela(i,j))){
+                            invalid = true;
+                        }
 
+                    }
                 }
             }
         }
+
+
+
 
         if (coordx < 0 && coordx >= t.getNumFiles()) invalid = true;
         if (t.consultarValCela(coordx,coordy).equals("#")) invalid = true;
@@ -45,7 +50,7 @@ public class Jugada {
     public void Parametres(Vector<String> v){
         SetJugada(v.get(0));
         if (GetJugada().equals("NUMERO")){
-            SetNumero(Integer.parseInt(v.get(1)));
+            SetNumero(v.get(1));
             SetX(Integer.parseInt(v.get(2)));
             SetY(Integer.parseInt(v.get(3)));
         }
@@ -60,10 +65,10 @@ public class Jugada {
     public String GetJugada(){
         return jugada;
     }
-    public void SetNumero(Integer num){
+    public void SetNumero(String num){
         this.numcasella = num;
     }
-    public Integer GetNumero(){
+    public String GetNumero(){
         return numcasella;
     }
     public void SetX(Integer x){

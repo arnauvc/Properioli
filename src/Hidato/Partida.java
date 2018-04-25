@@ -103,7 +103,8 @@ public class Partida {
 
 	public void TranscursPartida(){
 		Jugada j = new Jugada();
-		Integer num, x, y;
+		Integer x, y;
+		String num;
 		boolean aux = false;
 		String[][] hidato_resolt = re.ResoltreHidato(taulerU, GetAdjacencia());
 
@@ -128,7 +129,7 @@ public class Partida {
                 if (j.GetInvalid()) e.PrintError(1);
 				if (!j.GetInvalid()) {
                     ++torn;
-				    t.ModificaCeldaV(Integer.toString(num), x, y);
+				    t.ModificaCeldaV(num, x, y);
                 }
                 if (ComprovarPartidaFinalitzada(hidato_resolt)) {
 					completat = true;
@@ -248,6 +249,12 @@ public class Partida {
 	}
 	public void SetAdjacencia(String adj){
 		t.SetAdjacencia(adj);
+	}
+	public Integer GetMaxim(){
+		return maxim;
+	}
+	public void SetMaxim(Integer maxim){
+		this.maxim = maxim;
 	}
 	public boolean GetReguardat(){
 		return reguardat;

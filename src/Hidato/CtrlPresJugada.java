@@ -14,7 +14,7 @@ public class CtrlPresJugada {
         Scanner input = new Scanner(System.in);
         Vector<String> v = new Vector<String>();
         String jugada;
-        Integer numero = null;
+        String numero = null;
         Integer x = null;
         Integer y = null;
 
@@ -30,7 +30,7 @@ public class CtrlPresJugada {
         v.add(0, jugada);
         if (jugada.equals("NUMERO")) {
             System.out.println("Insereix numero de casella: ");
-            numero = input.nextInt();
+            numero = input.nextLine();
 
 
             System.out.println("Insereix coordenades de fila: ");
@@ -39,7 +39,7 @@ public class CtrlPresJugada {
             System.out.println("Insereix coordenades de columna: ");
             y = input.nextInt();
 
-            v.add(1, Integer.toString(numero));
+            v.add(1, numero);
             v.add(2, Integer.toString(x));
             v.add(3, Integer.toString(y));
 

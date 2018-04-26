@@ -4,7 +4,6 @@ import Hidato.Tauler;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
-
 import java.io.BufferedWriter;
 import java.util.*;
 
@@ -345,18 +344,18 @@ public class Resolucio{
     }
 
     private boolean TrobarSolucio (Integer i, Integer j, Integer valor1, Integer i2, Integer j2, Integer valor2, int distancia) {
-        for (int f = 0; f < solucio.length; f++) {
+        /*for (int f = 0; f < solucio.length; f++) {
             for (int l = 0; l < solucio[f].length; l++) {
                 System.out.print(solucio[f][l]);System.out.print(" ");
             }
             System.out.println("");
         }
-        System.out.println("-------------------------");
+        System.out.println("-------------------------");*/
         if (distancia == 1) {
             if (valor1 == valor2-1) {
                 if (EsCorrecte(valor2, cami.get(cami.size()-1).getKey(), cami.get(cami.size()-1).getValue())) {
                     camins.add((ArrayList<Pair<Integer, Integer>>) cami.clone());
-                    System.out.println("CAMI:");
+                    /*System.out.println("CAMI:");
                     for (int f = 0; f < cami.size(); f++) {
                         System.out.print(cami.get(f).getKey() + "," + cami.get(f).getValue() + " ");
                     }
@@ -367,9 +366,9 @@ public class Resolucio{
                             System.out.print(camins.get(f).get(l).getKey() + "," + camins.get(f).get(l).getValue() + " ");
                         }
                         System.out.println();
-                    }
+                    }*/
                 }
-                System.out.println();
+                //System.out.println();
                 return true;
             }
             return false;
@@ -492,14 +491,14 @@ public class Resolucio{
     }
 
     private Pair<Boolean,ArrayList<Pair<Integer, Integer>>> Emplenar(ArrayList<Pair<Integer, Integer>> posicions, Integer valor) {
-        System.out.println("ELS NUMEROS SON.... ");
+        //System.out.println("ELS NUMEROS SON.... ");
         ArrayList<Pair<Integer, Integer>> aux = new ArrayList<Pair<Integer, Integer>>();
         for (int i = 1; i < posicions.size(); i++) {
-            System.out.print("(");System.out.print(posicions.get(i).getKey());System.out.print(",");System.out.print(posicions.get(i).getValue());System.out.print(")");System.out.print(solucio[posicions.get(i).getKey()][posicions.get(i).getValue()]); System.out.print(" ");
+            //System.out.print("(");System.out.print(posicions.get(i).getKey());System.out.print(",");System.out.print(posicions.get(i).getValue());System.out.print(")");System.out.print(solucio[posicions.get(i).getKey()][posicions.get(i).getValue()]); System.out.print(" ");
             if (solucio[posicions.get(i).getKey()][posicions.get(i).getValue()].equals(String.valueOf(0))) {
                 aux.add(new Pair<>(posicions.get(i).getKey(), posicions.get(i).getValue()));
                 solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] = String.valueOf(valor);
-                System.out.print("(");System.out.print(posicions.get(i).getKey());System.out.print(",");System.out.print(posicions.get(i).getValue());System.out.print(")");System.out.print(solucio[posicions.get(i).getKey()][posicions.get(i).getValue()]); System.out.print(" ");
+                //System.out.print("(");System.out.print(posicions.get(i).getKey());System.out.print(",");System.out.print(posicions.get(i).getValue());System.out.print(")");System.out.print(solucio[posicions.get(i).getKey()][posicions.get(i).getValue()]); System.out.print(" ");
                 valor++;
             }
             else return new Pair<Boolean, ArrayList<Pair<Integer, Integer>>>(false, (ArrayList<Pair<Integer, Integer>>) aux.clone());
@@ -508,7 +507,7 @@ public class Resolucio{
     }
 
     private void Buidar(ArrayList<Pair<Integer, Integer>> posicions) {
-        for (int i = 1; i < posicions.size(); i++) {
+        for (int i = 0; i < posicions.size(); i++) {
             solucio[posicions.get(i).getKey()][posicions.get(i).getValue()] = String.valueOf(0);
         }
     }
@@ -516,8 +515,8 @@ public class Resolucio{
     private boolean LaBona(int j) {
         if (j == multicamins.size()) return true;
         ArrayList<ArrayList<Pair<Integer, Integer>>> llista = (ArrayList<ArrayList<Pair<Integer, Integer>>>) multicamins.get(j).clone();
-        System.out.println(llista.size());
-        System.out.println("....................");
+        //System.out.println(llista.size());
+        //System.out.println("....................");
         Integer valor = Integer.valueOf(solucio[llista.get(0).get(0).getKey()][llista.get(0).get(0).getValue()]);
         ArrayList<Pair<Integer, Integer>> posicions_ocupades;
         Pair<Boolean, ArrayList<Pair<Integer, Integer>>> aux;
@@ -525,35 +524,35 @@ public class Resolucio{
             aux = Emplenar(llista.get(i), valor+1);
             posicions_ocupades = aux.getValue();
             if (aux.getKey()) {
-                System.out.println("TAMANY POSICIONS OCUPADES: " + posicions_ocupades.size());
+                /*System.out.println("TAMANY POSICIONS OCUPADES: " + posicions_ocupades.size());
                 System.out.println("HE EMPLENAT EL CAMI....");
                 for (int k = 0; k < posicions_ocupades.size(); k++) {
                         System.out.print(posicions_ocupades.get(k).getKey());
                         System.out.print(",");
                         System.out.print(posicions_ocupades.get(k).getValue());
-                }
+                }*/
                 j=j+1;
                 if (!LaBona(j)) {
-                    System.out.println("AIXO NO VA");
+                    //System.out.println("AIXO NO VA");
                     j=j-1;
-                    for (int k = 0; k < posicions_ocupades.size(); k++) {
+                    /*for (int k = 0; k < posicions_ocupades.size(); k++) {
                         System.out.print(posicions_ocupades.get(k).getKey());
                         System.out.print(",");
                         System.out.print(posicions_ocupades.get(k).getValue());
                         System.out.print(" ");
-                    }
+                    }*/
                     Buidar(posicions_ocupades);
                 }
                 else return true;
             }
             else {
-                System.out.println("AIXO VA BUID");
+                /*System.out.println("AIXO VA BUID");
                 for (int k = 0; k < posicions_ocupades.size(); k++) {
                     System.out.print(posicions_ocupades.get(k).getKey());
                     System.out.print(",");
                     System.out.print(posicions_ocupades.get(k).getValue());
                     System.out.print(" ");
-                }
+                }*/
                 Buidar(posicions_ocupades);
             }
         }

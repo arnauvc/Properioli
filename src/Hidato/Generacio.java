@@ -84,7 +84,7 @@ public class Generacio {
             ncolumnes = NumeroAleatori(3, 6);
             ProbNumero = 45;
         }
-        else if (Dif.equals("NORMAL")){
+        else if (Dif.equals("N")){
             nfiles = NumeroAleatori(7, 8);
             ncolumnes = NumeroAleatori(7,8);
             ProbNumero = 25;

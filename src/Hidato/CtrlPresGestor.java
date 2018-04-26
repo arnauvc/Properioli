@@ -121,6 +121,11 @@ public class CtrlPresGestor {
         }
         return Tauler;
     }
+
+    public void Interrupcio(String s){
+
+    }
+
     public void Inicia() throws Exception {
         Vector<String> v = new Vector<String>();
         Scanner input = new Scanner(System.in);

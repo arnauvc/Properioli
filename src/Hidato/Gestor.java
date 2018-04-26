@@ -84,7 +84,8 @@ public class Gestor {
         partidaactiva = pg.Obtenirpartida(v.get(0),1);//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
         partidaactiva.ReprendrePartida();
     }
-    public void GuardarPartida(){
+    public void GuardarPartida()
+    {
 
     }
     public void ActulitzarRanking(Integer id, Double temps){

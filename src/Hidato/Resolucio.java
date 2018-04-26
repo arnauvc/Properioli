@@ -4,7 +4,6 @@ import Hidato.Tauler;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
 import javafx.util.Pair;
-
 import java.io.BufferedWriter;
 import java.util.*;
 

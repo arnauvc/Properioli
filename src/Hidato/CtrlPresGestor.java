@@ -107,19 +107,24 @@ public class CtrlPresGestor {
         return res;
     }
     private String [][] LlegirTauler(Integer nfil, Integer ncol){
-        //No funcionen encara
+        //Ja funciona
 
         String[][] Tauler = new String[nfil][ncol];
         Scanner input = new Scanner(System.in);
-        String hidato = input.nextLine();
+
+
         for(int i = 0; i < nfil; i++) {
+            String hidato[] = input.nextLine().split(",");
+
             for (int j = 0; j < ncol; j++) {
-                if (hidato.charAt(j) != ',') Tauler[i][j] = String.valueOf(hidato.charAt(j));
+                Tauler[i][j] = hidato[j];
             }
 
-            hidato = input.nextLine();
+
         }
         return Tauler;
+
+
     }
 
     public void Interrupcio(String s){

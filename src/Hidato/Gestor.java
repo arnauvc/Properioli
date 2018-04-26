@@ -71,7 +71,7 @@ public class Gestor {
         partidaactiva.SetFiles(Integer.parseInt(p.get(3)));
         partidaactiva.SetColumnes(Integer.parseInt(p.get(4)));
         //partidaactiva.SetDificultat(p.get(5));
-        //partidaactiva.SetTauler(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
+        partidaactiva.SetTaulerU(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
         partidaactiva.Generar();//Que s'hauria de dir, RESOLDRELamaquina
     }
 
@@ -87,7 +87,19 @@ public class Gestor {
     public void GuardarPartida()
     {
 
+
     }
+
+    public void Interrupcio(String s, String[][] tauleraux){
+        if (s.equals("GUARDAR")){
+            try {
+                    pg.GuardarPartida("Marc", partidaactiva, tauleraux);
+            } catch (Exception e) {
+                System.out.print("Error al guardar la partida");
+            }
+        }
+    }
+
     public void ActulitzarRanking(Integer id, Double temps){
         r.Actualitzar(id, temps);
     }

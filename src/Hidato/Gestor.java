@@ -86,12 +86,10 @@ public class Gestor {
 
     }
 
-    public void Interrupcio(String s){
-        System.out.println("Entro a Interrupcio");
+    public void Interrupcio(String s, String[][] tauleraux){
         if (s.equals("GUARDAR")){
-            System.out.println("Entro al if GUARDAR");
             try {
-                    pg.GuardarPartida("Marc", partidaactiva, partidaactiva.GetTaulerG());
+                    pg.GuardarPartida("Marc", partidaactiva, tauleraux);
             } catch (Exception e) {
                 System.out.print("Error al guardar la partida");
             }

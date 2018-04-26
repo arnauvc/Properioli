@@ -49,9 +49,9 @@ public class CtrlPresJugada {
 
     }
 
-    public void AvisaGestor(){
+    public void AvisaGestor(String[][] tauler){
         Gestor g = new Gestor();
-        g.Interrupcio(v.get(0)); //v.get(0) conte la jugada
+        g.Interrupcio(v.get(0), tauler); //v.get(0) conte la jugada
     }
 
 

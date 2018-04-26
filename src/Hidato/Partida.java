@@ -147,13 +147,12 @@ public class Partida {
                         taulerguardat[i][l] = t.consultarValCela(i, l);
                     }
                 }
-
-                System.out.println("Entro al if GUARDAR de Partida");
+                
                 r.stop();
                 guardat = true; //L'unic que fa es invalidar el temps
                 reguardat = true; //Es per avisar al Ctrl que l'usuari ha guardat
                 finalitzat = true;
-                ctj.AvisaGestor();
+                ctj.AvisaGestor(taulerguardat);
 			}
 
 			else if (j.GetJugada().equals("SORTIR")) finalitzat = true;

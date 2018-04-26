@@ -312,33 +312,30 @@ public class Resolucio{
     }*/
 
     private boolean EsCorrecte(Integer valor, int f, int c) {
-        if (adj.equals("C")) {
-            if (f < solucio.length-1) {
-                if (solucio[f+1][c].equals(String.valueOf(valor))) return true;
-            }
-            if (f > 0) {
-                if (solucio[f-1][c].equals(String.valueOf(valor))) return true;
-            }
-            if (c > 0) {
-                if (solucio[f][c-1].equals(String.valueOf(valor))) return true;
-            }
-            if (c < solucio[0].length-1) {
-                if (solucio[f][c+1].equals(String.valueOf(valor))) return true;
-            }
+
+        if (f < solucio.length-1) {
+            if (solucio[f+1][c].equals(String.valueOf(valor))) return true;
         }
-        else {
-            if (f > 0 && c > 0) {
-                if (solucio[f-1][c-1].equals(String.valueOf(valor))) return true;
-            }
-            if (f < solucio.length-1 && c < solucio[0].length-1) {
-                if (solucio[f+1][c+1].equals(String.valueOf(valor))) return true;
-            }
-            if (f < solucio.length-1 && c > 0) {
-                if (solucio[f+1][c-1].equals(String.valueOf(valor))) return true;
-            }
-            if (f > 0 && c < solucio[0].length-1) {
-                if (solucio[f-1][c+1].equals(String.valueOf(valor))) return true;
-            }
+        if (f > 0) {
+            if (solucio[f-1][c].equals(String.valueOf(valor))) return true;
+        }
+        if (c > 0) {
+            if (solucio[f][c-1].equals(String.valueOf(valor))) return true;
+        }
+        if (c < solucio[0].length-1) {
+            if (solucio[f][c+1].equals(String.valueOf(valor))) return true;
+        }
+        if (f > 0 && c > 0) {
+            if (solucio[f-1][c-1].equals(String.valueOf(valor))) return true;
+        }
+        if (f < solucio.length-1 && c < solucio[0].length-1) {
+            if (solucio[f+1][c+1].equals(String.valueOf(valor))) return true;
+        }
+        if (f < solucio.length-1 && c > 0) {
+            if (solucio[f+1][c-1].equals(String.valueOf(valor))) return true;
+        }
+        if (f > 0 && c < solucio[0].length-1) {
+            if (solucio[f-1][c+1].equals(String.valueOf(valor))) return true;
         }
         return false;
     }

@@ -9,10 +9,10 @@ public class CtrlPresJugada {
     private void UsageJugada(){
         System.out.println("Usage: String {GUARDAR, AJUDA, NUMERO, SORTIR, RESET}");
     }
+    Vector<String> v = new Vector<>();
 
-    public void InteraccioJugada(Jugada j){
+    public void InteraccioJugada(Jugada j, Tauler t){
         Scanner input = new Scanner(System.in);
-        Vector<String> v = new Vector<String>();
         String jugada;
         String numero = null;
         Integer x = null;
@@ -45,13 +45,13 @@ public class CtrlPresJugada {
 
         }
 
-        else if (jugada.equals("GUARDAR") || jugada.equals("SORTIR")){
-            Gestor g = new Gestor();
-            //g.Interrupcio(v.get(0)); //v.get(0) conte la jugada
-        }
-
         j.Parametres(v);
 
+    }
+
+    public void AvisaGestor(){
+        Gestor g = new Gestor();
+        g.Interrupcio(v.get(0)); //v.get(0) conte la jugada
     }
 
 

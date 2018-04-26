@@ -31,6 +31,7 @@ public class Partida {
 	private Integer fil;
 	private Integer col;
 	private String[][] taulerU;
+	private String[][] taulerguardat;
 	private Integer maxim;
 
 
@@ -81,6 +82,7 @@ public class Partida {
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
 		maxim = g.GetValorMaxim();
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
+		idhidato = 1;
 
 		r.start(); //Inicia el rellotge
 		finalitzat = false;
@@ -118,7 +120,7 @@ public class Partida {
 				System.out.println();
 			}
 
-			ctj.InteraccioJugada(j);
+			ctj.InteraccioJugada(j, t);
 			j.SetInvalid(aux);
 			j.GetJugada();
 			if (j.GetJugada().equals("NUMERO")){
@@ -137,10 +139,21 @@ public class Partida {
 
 			}
 			else if (j.GetJugada().equals("GUARDAR")) {
-				r.stop();
-				guardat = true; //L'unic que fa es invalidar el temps
-				reguardat = true; //Es per avisar al Ctrl que l'usuari ha guardat
-				finalitzat = true;
+				//Preparar el tauler[][] per a PartidesGuardades
+                taulerguardat = new String[t.getNumFiles()][t.getNumColum()];
+
+                for (int i = 0; i < t.getNumFiles(); ++i) {
+                    for (int l = 0; l < t.getNumColum(); ++l) {
+                        taulerguardat[i][l] = t.consultarValCela(i, l);
+                    }
+                }
+
+                System.out.println("Entro al if GUARDAR de Partida");
+                r.stop();
+                guardat = true; //L'unic que fa es invalidar el temps
+                reguardat = true; //Es per avisar al Ctrl que l'usuari ha guardat
+                finalitzat = true;
+                ctj.AvisaGestor();
 			}
 
 			else if (j.GetJugada().equals("SORTIR")) finalitzat = true;
@@ -203,7 +216,11 @@ public class Partida {
 	public void SetTaulerU(String[][] taulerU){
 		this.taulerU = taulerU;
 	}
+	public void SetTaulerG(String[][] taulerguardat){
+	    this.taulerguardat = taulerguardat;
+    }
 	public String[][] GetTaulerU(){ return taulerU; }
+	public String[][] GetTaulerG(){ return taulerguardat; }
 	public void SetNom(String nom){
 		Usuari u = new Usuari(nom);
 		u.SetNom(nom);

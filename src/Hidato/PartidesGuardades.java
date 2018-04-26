@@ -11,7 +11,7 @@ public class PartidesGuardades {
     private BufferedWriter escriptor;
     private Scanner x;
     private LlegirEscriure LE = new LlegirEscriure();
-    private String path = new String("C:\\Users\\nilmc\\Desktop\\");
+    private String path = new String("/home/marc/FIB/");
 
 
     public void GuardarPartida(String nom_usuari, Partida p, String[][] Tauler) throws Exception {

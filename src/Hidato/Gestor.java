@@ -86,6 +86,18 @@ public class Gestor {
 
     }
 
+    public void Interrupcio(String s){
+        System.out.println("Entro a Interrupcio");
+        if (s.equals("GUARDAR")){
+            System.out.println("Entro al if GUARDAR");
+            try {
+                    pg.GuardarPartida("Marc", partidaactiva, partidaactiva.GetTaulerG());
+            } catch (Exception e) {
+                System.out.print("Error al guardar la partida");
+            }
+        }
+    }
+
     public void ActulitzarRanking(Integer id, Double temps){
         r.Actualitzar(id, temps);
     }

@@ -6,7 +6,7 @@ import Hidato.Jugada;
 import Hidato.Ajuda;
 import Hidato.Usuari;
 
-import java.util.List;
+import java.util.*;
 
 
 public class Partida {
@@ -33,6 +33,7 @@ public class Partida {
 	private String[][] taulerU;
 	private String[][] taulerguardat;
 	private Integer maxim;
+	private String nomusuari;
 
 
 	public Partida(){}
@@ -45,7 +46,8 @@ public class Partida {
 	}
 
 
-	public void PartidaBiblioteca(){
+
+	public void PartidaBiblioteca() throws Exception{
 		//Quan l'usuari tria un hidato que esta a la biblioteca i el vol resoldre
 		r.start();
 		finalitzat = false;
@@ -60,29 +62,26 @@ public class Partida {
 	public void Generar(){
 		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
+        Random rand = new Random();
+        idhidato = rand.nextInt(50) + 1;
+
 		String[][] hidato_resolt = new String[t.getNumFiles()][t.getNumColum()];
 		hidato_resolt = re.ResoltreHidato(taulerU, GetAdjacencia());
+		ctj.MostrarResolucio(hidato_resolt, t);
 
-		/*
-		Per comprovar que funciona:
-		for (int i = 0; i < t.getNumFiles(); ++i) {
-			for (int l = 0; l < t.getNumColum(); ++l) {
-				if (l > 0) System.out.print(",");
-				System.out.print(t.consultarValCela(i, l));
-			}
-			System.out.println();
-		}
-		*/
 	}
 	
-	public void IniciaPartida(){
+	public void IniciaPartida() throws Exception {
 		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
 
 
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
 		maxim = g.GetValorMaxim();
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
-		idhidato = 1;
+		SetFiles(t.getNumFiles());
+		SetColumnes(t.getNumColum());
+        Random rand = new Random();
+        idhidato = rand.nextInt(50) + 1;
 
 		r.start(); //Inicia el rellotge
 		finalitzat = false;
@@ -94,16 +93,19 @@ public class Partida {
 		TranscursPartida();
 
 	}
-	public void ReprendrePartida(){
+	public void ReprendrePartida() throws Exception {
 		//Quan l'usuari carrega la partida que tenia guardada
 		finalitzat = false;
 		completat = false;
+		guardat = true;
 		reguardat = false;
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
+        SetFiles(t.getNumFiles());
+        SetColumnes(t.getNumColum());
 		TranscursPartida();
 	}
 
-	public void TranscursPartida(){
+	public void TranscursPartida() throws Exception {
 		Jugada j = new Jugada();
 		Integer x, y;
 		String num;
@@ -112,13 +114,8 @@ public class Partida {
 
 		while (!finalitzat && !completat){
 
-			for (int i = 0; i < t.getNumFiles(); ++i) {
-				for (int l = 0; l < t.getNumColum(); ++l) {
-					if (l > 0) System.out.print(",");
-					System.out.print(t.consultarValCela(i, l));
-				}
-				System.out.println();
-			}
+		    ctj.MostrarTauler(t);
+
 
 			ctj.InteraccioJugada(j, t);
 			j.SetInvalid(aux);
@@ -129,7 +126,7 @@ public class Partida {
 				y = j.GetY();
                 j.ComprovaJugada(t, maxim);
                 if (j.GetInvalid()) e.PrintError(1);
-				if (!j.GetInvalid()) {
+				else if (!j.GetInvalid()) {
                     ++torn;
 				    t.ModificaCeldaV(num, x, y);
                 }
@@ -147,12 +144,12 @@ public class Partida {
                         taulerguardat[i][l] = t.consultarValCela(i, l);
                     }
                 }
-                
                 r.stop();
                 guardat = true; //L'unic que fa es invalidar el temps
                 reguardat = true; //Es per avisar al Ctrl que l'usuari ha guardat
                 finalitzat = true;
-                ctj.AvisaGestor(taulerguardat);
+                //exception per al gestor
+                throw new Exception();
 			}
 
 			else if (j.GetJugada().equals("SORTIR")) finalitzat = true;
@@ -166,15 +163,7 @@ public class Partida {
 				ajuda = true;
 				String[][] hidato_ajuda;
 				hidato_ajuda = a.GetAjuda(t, hidato_resolt);
-				System.out.println("Ajuda:");
-				for (int i = 0; i < t.getNumFiles(); i++){
-					for (int k = 0; k < t.getNumColum(); k++){
-						if (k > 0) System.out.print(",");
-						System.out.print(hidato_ajuda[i][k]);
-					}
-					System.out.println();
-				}
-				System.out.println();
+				ctj.MostrarAjuda(hidato_ajuda, t);
 			}
 
 		}
@@ -184,8 +173,7 @@ public class Partida {
 		if (completat && !guardat && !ajuda){
 			r.stop();
 			temps = r.GetTime();
-			System.out.printf("Has trigat: %f\n", temps);
-			System.out.println("Has guanyat!");
+			ctj.MostrarPuntuacio(temps);
 
 		}
 
@@ -223,7 +211,11 @@ public class Partida {
 	public void SetNom(String nom){
 		Usuari u = new Usuari(nom);
 		u.SetNom(nom);
+		nomusuari = nom;
 	}
+	public String GetNom(){
+	    return nomusuari;
+    }
 	public double GetTemps(){
 		return temps;
 	}

@@ -49,9 +49,42 @@ public class CtrlPresJugada {
 
     }
 
-    public void AvisaGestor(String[][] tauler){
-        Gestor g = new Gestor();
-        g.Interrupcio(v.get(0), tauler); //v.get(0) conte la jugada
+
+    public void MostrarPuntuacio(Double temps){
+        System.out.printf("Has trigat: %f\n", temps);
+        System.out.println("Has guanyat!");
+    }
+
+    public void MostrarResolucio(String[][] hidato_resolt, Tauler t){
+        for (int i = 0; i < t.getNumFiles(); ++i) {
+            for (int l = 0; l < t.getNumColum(); ++l) {
+                if (l > 0) System.out.print(",");
+                System.out.print(hidato_resolt[i][l]);
+            }
+            System.out.println();
+        }
+    }
+
+    public void MostrarTauler(Tauler t){
+        for (int i = 0; i < t.getNumFiles(); ++i) {
+            for (int l = 0; l < t.getNumColum(); ++l) {
+                if (l > 0) System.out.print(",");
+                System.out.print(t.consultarValCela(i, l));
+            }
+            System.out.println();
+        }
+    }
+
+    public void MostrarAjuda(String[][] hidato_ajuda, Tauler t){
+        System.out.println("Ajuda:");
+        for (int i = 0; i < t.getNumFiles(); i++){
+            for (int k = 0; k < t.getNumColum(); k++){
+                if (k > 0) System.out.print(",");
+                System.out.print(hidato_ajuda[i][k]);
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
 

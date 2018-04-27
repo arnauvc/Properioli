@@ -97,6 +97,7 @@ public class Partida {
 		//Quan l'usuari carrega la partida que tenia guardada
 		finalitzat = false;
 		completat = false;
+		guardat = true;
 		reguardat = false;
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
         SetFiles(t.getNumFiles());

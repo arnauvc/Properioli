@@ -59,7 +59,7 @@ public class CtrlPresJugada {
         for (int i = 0; i < t.getNumFiles(); ++i) {
             for (int l = 0; l < t.getNumColum(); ++l) {
                 if (l > 0) System.out.print(",");
-                System.out.print(t.consultarValCela(i, l));
+                System.out.print(hidato_resolt[i][l]);
             }
             System.out.println();
         }

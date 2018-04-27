@@ -2,8 +2,6 @@ package Hidato;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Iterator;
 
 public class Tauler {
     private Integer id;
@@ -17,12 +15,86 @@ public class Tauler {
     private String adjacencia;
     private Cela cela;
     private Error e = new Error();
+    private Integer vals;
+    boolean b;
 
     private void mostrarfila(List<Cela> a){
         for(int i = 0; i < a.size(); ++i){
             System.out.print(a.get(i).getValor());
             if(i < a.size()-1) System.out.print(",");
         }
+    }
+
+    private boolean arriba(int val, int i, int j){
+        if(consultarValidaCela(i-1,j)) {
+            if(consultarValCela(i-1, j).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i-1, j));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean abajo(int val, int i, int j){
+        if(consultarValidaCela(i+1,j)) {
+            if(consultarValCela(i+1, j).equals("?")) return false;
+            vals = Integer.parseInt(consultarValCela(i+1, j));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean izquierda(int val, int i, int j){
+        if(consultarValidaCela(i-1,j)) {
+            if (consultarValCela(i - 1, j).equals("?")) return false;
+            vals = Integer.parseInt(consultarValCela(i - 1, j));
+            if (vals == val-1 || vals == val-1) return true;
+        }
+        return false;
+    }
+
+    private boolean derecha(int val, int i, int j){
+        if(consultarValidaCela(i,j+1)) {
+            if(consultarValCela(i, j+1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i, j+1));
+            if(vals == val-1 || vals == val+1) return true;
+            }
+        return false;
+    }
+
+    private boolean arriba_derecha(int val, int i, int j ){
+        if(consultarValidaCela(i-1,j+1)){
+            if(consultarValCela(i-1, j+1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i-1, j+1));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean arriba_izquierda(int val,int i, int j){
+        if(consultarValidaCela(i-1,j-1)){
+            if(consultarValCela(i-1, j-1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i-1, j-1));
+             if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean abajo_derecha(int val,int i, int j){
+        if(consultarValidaCela(i+1,j+1)){
+            if(consultarValCela(i+1, j+1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i+1, j+1));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean abajo_izquierda(int val, int i, int j){
+        if(consultarValidaCela(i+1,j-1)){
+            if(consultarValCela(i+1, j-1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i+1, j-1));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
     }
 
     private boolean miraerror(String x, int i, int j){
@@ -34,623 +106,192 @@ public class Tauler {
                 //controlo lo q ues la parte  de dentro del tablero
                 if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
                     //abajo
-                    if(consultarValidaCela(i+1,j)) {
-                        b = true;
-                        if(consultarValCela(i+1, j).equals("?")) b = false;
-                        if(b){
-                            vals = Integer.parseInt(consultarValCela(i+1, j));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(abajo(vali,i,j)) return true;
                     //arriba
-                    if(consultarValidaCela(i-1,j)) {
-                        b = true;
-                        if(consultarValCela(i-1, j).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i-1, j));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(arriba(vali,i,j)) return true;
                     //derecha
-                    if(consultarValidaCela(i,j+1)) {
-                        b = true;
-                        if(consultarValCela(i, j+1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i, j+1));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(derecha(vali,i,j)) return true;
                     //izquierda
-                    if(consultarValidaCela(i,j-1)){
-                        b = true;
-                        if(consultarValCela(i, j-1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i, j-1));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(izquierda(vali,i,j)) return true;
                 }
                 //contorlo la primera fila
                 else if(i == 0){
-                    System.out.println("Entro aqui2");
                     if(j == 0){
                         //abajo
-                        if(consultarValidaCela(i+1,j)) {
-                            b = true;
-                            if(consultarValCela(i+1, j).equals("?")) b = false;
-                            if(b){
-                                vals = Integer.parseInt(consultarValCela(i+1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo(vali,i,j)) return true;
                         //derecha
-                        if(consultarValidaCela(i,j+1)) {
-                            b = true;
-                            if(consultarValCela(i, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j+1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(derecha(vali,i,j)) return true;
                     }
                     else if(j > 0 &&  j < numColum-1){
                         //abajo
-                        if(consultarValidaCela(i+1,j)) {
-                            b = true;
-                            if(consultarValCela(i+1, j).equals("?")) b = false;
-                            if(b){
-                                vals = Integer.parseInt(consultarValCela(i+1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo(vali,i,j)) return true;
                         //derecha
-                        if(consultarValidaCela(i,j+1)) {
-                            b = true;
-                            if(consultarValCela(i, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j+1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(derecha(vali,i,j)) return true;
                         //izquierda
-                        if(consultarValidaCela(i,j-1)){
-                            b = true;
-                            if(consultarValCela(i, j-1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j-1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(izquierda(vali,i,j)) return true;
                     }
                     else if(j == numColum-1){
                         //abajo
-                        if(consultarValidaCela(i+1,j)) {
-                            b = true;
-                            if(consultarValCela(i+1, j).equals("?")) b = false;
-                            if(b){
-                                vals = Integer.parseInt(consultarValCela(i+1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo(vali,i,j)) return true;
                         //izquierda
-                        if(consultarValidaCela(i,j-1)){
-                            b = true;
-                            if(consultarValCela(i, j-1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j-1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(izquierda(vali,i,j)) return true;
                     }
                 }
                 //controlo la ultima fila
                 else if(i == numFiles-1){
-                    System.out.println("Entro aqui3");
                     if(j == 0){
                         //arriba
-                        if(consultarValidaCela(i-1,j)) {
-                            b = true;
-                            if(consultarValCela(i-1, j).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i-1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(arriba(vali,i,j)) return true;
                         //derecha
-                        if(consultarValidaCela(i,j+1)) {
-                            b = true;
-                            if(consultarValCela(i, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j+1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(derecha(vali,i,j)) return true;
                     }
                     else if(j > 0 && j < numColum-1){
                         //arriba
-                        if(consultarValidaCela(i-1,j)) {
-                            b = true;
-                            if(consultarValCela(i-1, j).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i-1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(arriba(vali,i,j)) return true;
                         //derecha
-                        if(consultarValidaCela(i,j+1)) {
-                            b = true;
-                            if(consultarValCela(i, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j+1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(derecha(vali,i,j)) return true;
                         //izquierda
-                        if(consultarValidaCela(i,j-1)){
-                            b = true;
-                            if(consultarValCela(i, j-1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j-1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(izquierda(vali,i,j)) return true;
                     }
                     else if(j == numColum-1){
                         //arriba
-                        if(consultarValidaCela(i-1,j)) {
-                            b = true;
-                            if(consultarValCela(i-1, j).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i-1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(arriba(vali,i,j)) return true;
                         //izquierda
-                        if(consultarValidaCela(i,j-1)){
-                            b = true;
-                            if(consultarValCela(i, j-1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j-1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(izquierda(vali,i,j)) return true;
                     }
                 }
                 //controlo lo ques la primera columna
                 else if(i > 0 && i < numFiles-1 && j == 0){
-                    System.out.println("Entro aqui4");
                     //abajo
-                    if(consultarValidaCela(i+1,j)) {
-                        b = true;
-                        if(consultarValCela(i+1, j).equals("?")) b = false;
-                        if(b){
-                            vals = Integer.parseInt(consultarValCela(i+1, j));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(abajo(vali,i,j)) return true;
                     //arriba
-                    if(consultarValidaCela(i-1,j)) {
-                        b = true;
-                        if(consultarValCela(i-1, j).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i-1, j));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(arriba(vali,i,j)) return true;
                     //derecha
-                    if(consultarValidaCela(i,j+1)) {
-                        b = true;
-                        if(consultarValCela(i, j+1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i, j+1));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(derecha(vali,i,j)) return true;
                 }
                 //controlo lo que es la ultima columna
                 else if(i > 0 && i < numFiles-1 && j == numColum-1){
                     System.out.println("Entro aqui5");
                     //abajo
-                    if(consultarValidaCela(i+1,j)) {
-                        b = true;
-                        if(consultarValCela(i+1, j).equals("?")) b = false;
-                        if(b){
-                            vals = Integer.parseInt(consultarValCela(i+1, j));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(abajo(vali,i,j)) return true;
                     //arriba
-                    if(consultarValidaCela(i-1,j)) {
-                        b = true;
-                        if(consultarValCela(i-1, j).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i-1, j));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(arriba(vali,i,j)) return true;
                     //izquierda
-                    if(consultarValidaCela(i,j-1)){
-                        b = true;
-                        if(consultarValCela(i, j-1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i, j-1));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(izquierda(vali,i,j)) return true;
                 }
             }
             else if(this.adjacencia.equals("CA")){
                 //controlo lo q ues la parte  de dentro del tablero
                 if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
                     //abajo
-                    if(consultarValidaCela(i+1,j)) {
-                        b = true;
-                        if(consultarValCela(i+1, j).equals("?")) b = false;
-                        if(b){
-                            vals = Integer.parseInt(consultarValCela(i+1, j));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(abajo(vali,i,j)) return true;
                     //arriba
-                    if(consultarValidaCela(i-1,j)) {
-                        b = true;
-                        if(consultarValCela(i-1, j).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i-1, j));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(arriba(vali,i,j)) return true;
                     //derecha
-                    if(consultarValidaCela(i,j+1)) {
-                        b = true;
-                        if(consultarValCela(i, j+1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i, j+1));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(derecha(vali,i,j)) return true;
                     //izquierda
-                    if(consultarValidaCela(i,j-1)){
-                        b = true;
-                        if(consultarValCela(i, j-1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i, j-1));
-                            //System.out.println(vals);
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
-                    //diagonal abajo izquierda
-                    if(consultarValidaCela(i+1,j-1)){
-                        b = true;
-                        if(consultarValCela(i+1, j-1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i+1, j-1));
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(izquierda(vali,i,j)) return true;
+                    //diagonal abajo izquierda8
+                    if(abajo_izquierda(vali,i,j)) return true;
                     //diagonal abajo derecha
-                    if(consultarValidaCela(i+1,j+1)){
-                        b = true;
-                        if(consultarValCela(i+1, j+1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i+1, j+1));
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(abajo_derecha(vali,i,j)) return true;
                     //diagonale arriba izquierda
-                    if(consultarValidaCela(i-1,j-1)){
-                        b = true;
-                        if(consultarValCela(i-1, j-1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i-1, j-1));
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(arriba_izquierda(vali,i,j)) return true;
                     //diagonal arriba derecha
-                    if(consultarValidaCela(i-1,j+1)){
-                        b = true;
-                        if(consultarValCela(i-1, j+1).equals("?")) b = false;
-                        if(b){
-                            vals =  Integer.parseInt(consultarValCela(i-1, j+1));
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
-                    }
+                    if(arriba_derecha(vali,i,j))return true;
                 }
                 //contorlo la primera fila
                 else if(i == 0){
                     if(j == 0){
                         //abajo
-                        if(consultarValidaCela(i+1,j)) {
-                            b = true;
-                            if(consultarValCela(i+1, j).equals("?")) b = false;
-                            if(b){
-                                vals = Integer.parseInt(consultarValCela(i+1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo(vali,i,j)) return true;
                         //derecha
-                        if(consultarValidaCela(i,j+1)) {
-                            b = true;
-                            if(consultarValCela(i, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j+1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(derecha(vali,i,j)) return true;
                         //diagonal abajo derecha
-                        if(consultarValidaCela(i+1,j+1)){
-                            b = true;
-                            if(consultarValCela(i+1, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i+1, j+1));
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo_derecha(vali,i,j)) return true;
                     }
                     else if(j > 0 &&  j < numColum-1){
                         //abajo
-                        if(consultarValidaCela(i+1,j)) {
-                            b = true;
-                            if(consultarValCela(i+1, j).equals("?")) b = false;
-                            if(b){
-                                vals = Integer.parseInt(consultarValCela(i+1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo(vali,i,j)) return true;
                         //derecha
-                        if(consultarValidaCela(i,j+1)) {
-                            b = true;
-                            if(consultarValCela(i, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j+1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(derecha(vali,i,j)) return true;
                         //izquierda
-                        if(consultarValidaCela(i,j-1)){
-                            b = true;
-                            if(consultarValCela(i, j-1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j-1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(izquierda(vali,i,j)) return true;
                         //diagonal abajo izquierda
-                        if(consultarValidaCela(i+1,j-1)){
-                            b = true;
-                            if(consultarValCela(i+1, j-1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i+1, j-1));
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo_izquierda(vali,i,j)) return true;
                         //diagonal abajo derecha
-                        if(consultarValidaCela(i+1,j+1)){
-                            b = true;
-                            if(consultarValCela(i+1, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i+1, j+1));
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo_derecha(vali,i,j)) return true;
                     }
                     else if(j == numColum-1){
                         //abajo
-                        if(consultarValidaCela(i+1,j)) {
-                            b = true;
-                            if(consultarValCela(i+1, j).equals("?")) b = false;
-                            if(b){
-                                vals = Integer.parseInt(consultarValCela(i+1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo(vali,i,j)) return true;
                         //izquierda
-                        if(consultarValidaCela(i,j-1)){
-                            b = true;
-                            if(consultarValCela(i, j-1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j-1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(izquierda(vali,i,j)) return true;
                         //diagonal abajo izquierda
-                        if(consultarValidaCela(i+1,j-1)){
-                            b = true;
-                            if(consultarValCela(i+1, j-1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i+1, j-1));
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(abajo_izquierda(vali,i,j)) return true;
                     }
                 }
                 //controlo la ultima fila
                 else if(i == numFiles-1){
                     if(j == 0){
                         //arriba
-                        if(consultarValidaCela(i-1,j)) {
-                            b = true;
-                            if(consultarValCela(i-1, j).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i-1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(arriba(vali,i,j)) return true;
                         //derecha
-                        if(consultarValidaCela(i,j+1)) {
-                            b = true;
-                            if(consultarValCela(i, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j+1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(derecha(vali,i,j)) return true;
                         //diagonal arriba derecha
-                        if(consultarValidaCela(i-1,j+1)){
-                            b = true;
-                            if(consultarValCela(i-1, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i-1, j+1));
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(arriba_derecha(vali,i,j))return true;
                     }
                     else if(j > 0 && j < numColum-1){
                         //arriba
-                        if(consultarValidaCela(i-1,j)) {
-                            b = true;
-                            if(consultarValCela(i-1, j).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i-1, j));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(arriba(vali,i,j)) return true;
                         //derecha
-                        if(consultarValidaCela(i,j+1)) {
-                            b = true;
-                            if(consultarValCela(i, j+1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j+1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(derecha(vali,i,j)) return true;
                         //izquierda
-                        if(consultarValidaCela(i,j-1)){
-                            b = true;
-                            if(consultarValCela(i, j-1).equals("?")) b = false;
-                            if(b){
-                                vals =  Integer.parseInt(consultarValCela(i, j-1));
-                                //System.out.println(vals);
-                                if(vals == vali-1 || vals == vali+1) return true;
-                            }
-                        }
+                        if(izquierda(vali,i,j)) return true;
                         //diagonale arriba izquierda
-                        else if(consultarValidaCela(i-1,j-1)){
-                            vals =  Integer.parseInt(consultarValCela(i-1, j-1));
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
+                        if(arriba_izquierda(vali,i,j)) return true;
                         //diagonal arriba derecha
-                        else if(consultarValidaCela(i-1,j+1)){
-                            vals =  Integer.parseInt(consultarValCela(i-1, j+1));
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
+                        if(arriba_derecha(vali,i,j))return true;
                     }
                     else if(j == numColum-1){
                         //arriba
-                        if(consultarValidaCela(i-1,j)) {
-                            vals =  Integer.parseInt(consultarValCela(i-1, j));
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
+                        if(arriba(vali,i,j)) return true;
                         //izquierda
-                        else if(consultarValidaCela(i,j-1)){
-                            vals =  Integer.parseInt(consultarValCela(i, j+1));
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
+                        if(izquierda(vali,i,j)) return true;
                         //diagonale arriba izquierda
-                        else if(consultarValidaCela(i-1,j-1)){
-                            vals =  Integer.parseInt(consultarValCela(i-1, j-1));
-                            if(vals == vali-1 || vals == vali+1) return true;
-                        }
+                        if(arriba_izquierda(vali,i,j)) return true;
                     }
                 }
                 //controlo lo ques la primera columna
                 else if(i > 0 && i < numFiles-1 && j == 0){
-                    if(consultarValidaCela(i+1,j)) {
-                        //abajo
-                        vals = Integer.parseInt(consultarValCela(i+1, j));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
+                    //abajo
+                    if(abajo(vali,i,j)) return true;
                     //arriba
-                    else if(consultarValidaCela(i-1,j)) {
-                        vals =  Integer.parseInt(consultarValCela(i-1, j));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
+                    if(arriba(vali,i,j)) return true;
                     //derecha
-                    else if(consultarValidaCela(i,j+1)) {
-                        vals =  Integer.parseInt(consultarValCela(i, j+1));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
+                    if(derecha(vali,i,j)) return true;
                     //diagonal abajo derecha
-                    else if(consultarValidaCela(i+1,j+1)){
-                        vals =  Integer.parseInt(consultarValCela(i+1, j+1));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
+                    if(abajo_derecha(vali,i,j)) return true;
                     //diagonal arriba derecha
-                    else if(consultarValidaCela(i-1,j+1)){
-                        vals =  Integer.parseInt(consultarValCela(i-1, j+1));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
-
+                    if(arriba_derecha(vali,i,j)) return true;
                 }
                 //controlo lo que es la ultima columna
                 else if(i > 0 && i < numFiles-1 && j == numColum-1){
                     //arriba
-                    if(consultarValidaCela(i+1,j)) {
-                        vals = Integer.parseInt(consultarValCela(i+1, j));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
+                    if(arriba(vali,i,j)) return true;
                     //abajo
-                    else if(consultarValidaCela(i-1,j)) {
-                        vals =  Integer.parseInt(consultarValCela(i-1, j));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
+                    if(abajo(vali,i,j)) return true;
                     //izquierda
-                    else if(consultarValidaCela(i,j-1)){
-                        vals =  Integer.parseInt(consultarValCela(i, j+1));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
+                    if(izquierda(vali,i,j)) return true;
                     //diagonal abajo izquierda
-                    else if(consultarValidaCela(i+1,j-1)){
-                        vals =  Integer.parseInt(consultarValCela(i+1, j-1));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
+                    if(abajo_izquierda(vali,i,j)) return true;
                     //diagonale arriba izquierda
-                    else if(consultarValidaCela(i-1,j-1)){
-                        vals =  Integer.parseInt(consultarValCela(i-1, j-1));
-                        if(vals == vali-1 || vals == vali+1) return true;
-                    }
+                    if(arriba_izquierda(vali,i,j)) return true;
                 }
             }
         }
         else if (this.tipuscela.equals("T")){
+
 
 
 
@@ -802,8 +443,6 @@ public class Tauler {
 
     public void MostrarTauler() {
         List<Cela> aux = new ArrayList<Cela>();
-        //System.out.println(numFiles);
-        //System.out.println(Celas.size());
         for (int i = 0; i < Celas.size(); ++i) {
             aux = Celas.get(i);
             mostrarfila(aux);

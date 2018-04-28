@@ -66,7 +66,7 @@ public class Partida {
         idhidato = rand.nextInt(50) + 1;
 
 		String[][] hidato_resolt = new String[t.getNumFiles()][t.getNumColum()];
-		hidato_resolt = re.ResoltreHidato(taulerU, GetAdjacencia());
+		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
 		ctj.MostrarResolucio(hidato_resolt, t);
 
 	}
@@ -110,7 +110,7 @@ public class Partida {
 		Integer x, y;
 		String num;
 		boolean aux = false;
-		String[][] hidato_resolt = re.ResoltreHidato(taulerU, GetAdjacencia());
+		String[][] hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
 
 		while (!finalitzat && !completat){
 

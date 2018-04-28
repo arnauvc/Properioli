@@ -13,6 +13,9 @@ public class PartidesGuardades {
     private LlegirEscriure LE = new LlegirEscriure();
     private String path = new String("/home/marc/FIB/");
 
+    public void SetPath(String path) {
+        this.path = path;
+    }
 
     public void GuardarPartida(String nom_usuari, Partida p, String[][] Tauler) throws Exception {
         String s = new String(path);

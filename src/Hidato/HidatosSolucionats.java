@@ -15,6 +15,10 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
     private LlegirEscriure LE = new LlegirEscriure();
     private String path = new String("C:\\Users\\nilmc\\Desktop\\");
 
+    public void SetPath(String path) {
+        this.path = path;
+    }
+
     public void GuardarHidato(Integer idhidato, Tauler t, ArrayList<Pair<Pair<Integer, Integer>, String>> solucio) throws Exception {//Te un tauler Tau com a parametre
         String s = new String(path);
         s += String.valueOf(idhidato);

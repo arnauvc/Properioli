@@ -61,7 +61,7 @@ public class Driver_Resolucio {
                         case 4:
                             if (tauler == null) System.out.println("Primer has de generar un tauler!");
                             else {
-                                s = r.ResoltreHidato(tauler, tadj);
+                                s = r.ResoltreHidato(tauler, tcela, tadj);
                             }
                             break;
                         case 5:

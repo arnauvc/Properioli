@@ -41,15 +41,25 @@ public class Gestor {
 
         partidaactiva.SetNom(v.get(0));
         partidaactiva.SetTauler(t);
-        partidaactiva.PartidaBiblioteca();
+        try{
+            partidaactiva.PartidaBiblioteca();
+        } catch (Exception e){
+            GuardarPartida();
+        }
+
     }
     public void Aleatori(Vector<String> v){
-        Partida p = new Partida();
-        p.SetCela(v.get(1));
-        p.SetAdjacencia(v.get(2));
-        p.SetDificultat(v.get(3));
-        p.IniciaPartida();
-        partidaactiva = p;
+        //Partida p = new Partida();
+        partidaactiva.SetNom(v.get(0));
+        partidaactiva.SetCela(v.get(1));
+        partidaactiva.SetAdjacencia(v.get(2));
+        partidaactiva.SetDificultat(v.get(3));
+        try{
+            partidaactiva.IniciaPartida();
+        } catch (Exception e){
+            GuardarPartida();
+        }
+
     }
     public void Parametres(Vector<String> p){
         //parametres = p; //{nomusuari,tipuscela, tipusadj, numfil, numcol}
@@ -75,29 +85,22 @@ public class Gestor {
         partidaactiva.Generar();//Que s'hauria de dir, RESOLDRELamaquina
     }
 
-    /**
-     * Recupera la partida que l'ususari tingui guardada
-     * @param v Conte el nom de l'usuari a la posicio 0
-     * @throws Exception Si l'usuari no te cap partida guardada
-     */
-    public void Reprendre(Vector<String> v) throws Exception {
-        partidaactiva = pg.Obtenirpartida(v.get(0),1);//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
-        partidaactiva.ReprendrePartida();
-    }
-    public void GuardarPartida()
-    {
 
-
-    }
-
-    public void Interrupcio(String s, String[][] tauleraux){
-        if (s.equals("GUARDAR")){
-            try {
-                    pg.GuardarPartida("Marc", partidaactiva, tauleraux);
-            } catch (Exception e) {
-                System.out.print("Error al guardar la partida");
-            }
+        partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
+        try{
+            partidaactiva.ReprendrePartida();
+        } catch (Exception e){
+            GuardarPartida();
         }
+    }
+    public void GuardarPartida(){
+        try {
+            pg.GuardarPartida(partidaactiva.GetNom(), partidaactiva, partidaactiva.GetTaulerG());
+        } catch (Exception e) {
+            System.out.print("Error al guardar la partida");
+
+        }
+
     }
 
     public void ActulitzarRanking(Integer id, Double temps){

@@ -44,7 +44,8 @@ public class LlegirEscriure {
         try {
             x = new Scanner(new File(nom));
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("No hi ha cap partida guardada amb aquest nom d'usuari");
         }
         return x;
     }

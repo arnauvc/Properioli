@@ -49,33 +49,69 @@ public class Generacio {
         }
         if(!Check(i,j)) return false;
         else{
-            //hidato.add(new Pair<>(new Pair<>(i, j), Integer.toString(contador)));
+            System.out.printf("El contador es: %d de %f" , contador, maxceles*fillfactor);
+            System.out.println();
+
+            //Assigna el numero correcte a la cela correcte del tauler
             tauler[i][j]=Integer.toString(contador);
 
             HashSet<Pair<Integer,Integer>> visitades = new HashSet<>();
+
+            //Calcula qui son els veins de la cela (i,j), en funcio del tipus de cela i adjacencia
             Vector<Pair<Pair<Integer, Integer>, Integer>> prob = Veins(new Pair<>(i,j));
 
+            //Escull la seguent cela a analitzar en funcio d'una probabilitat
             Pair<Integer, Integer> nextcela = NextPos(new Pair<>(i, j), prob);
+
+            //Marca la cela com a visitada
             visitades.add(nextcela);
+
+            //Augmenta el contador, es a dir, el valor del numero a afegir
             Integer cont = ++contador;
+
+            //Mentre no hagi acabat, fa el bucle
             while(!Generar1(nextcela.getKey(),nextcela.getValue(), cont)){
+
+                //Si el numero de celes visitades es superior o igual al numero de veins
+                //Es a dir, has provat tots els veins possibles i cap funciona, reseteges la cela
+                //posant-la a # i retornes false
                 if(visitades.size() >= numadj){
                     tauler[i][j]="#";
+                    for (int in = 0; in < nfiles; ++in){
+                        if (in > 0) System.out.println();
+                        for (int jn = 0; jn < ncolumnes; ++jn){
+                            if (jn > 0) System.out.printf(",%s", tauler[in][jn]);
+                            else System.out.print(tauler[in][jn]);
+                        }
+                    }
+                    System.out.println();
+                    System.out.println();
                     return false;
                 }
+                System.out.printf("El contador es: %d de %f" , contador, maxceles*fillfactor);
+                System.out.println();
+                //Recalcula el vector de probabilitats
                 Recalcular(nextcela,prob);
+
+                //No recordo que fotia aixo
                 for(int t = 0; t < 4; ++t){
                     prob.get(t).getKey();
                 }
+
+                //Calculem la nova cela
                 nextcela = NextPos(new Pair<>(i, j), prob);
+
+                //Marca la nova cela com a visitada
                 visitades.add(nextcela);
+                System.out.println(visitades.size());
             }
             return true;
+
         }
     }
 
     /**
-     * Buida en tauler en funcio de ProbBlanc per tal que l'usuari pugui jugar l'hidato
+     * Buida el tauler en funcio de ProbBlanc per tal que l'usuari pugui jugar l'hidato
      */
     private void Buidar(){
         for(int l = 0; l < nfiles; ++l){
@@ -105,6 +141,7 @@ public class Generacio {
         Pair<Integer, Integer> p;
         prob.get(0).getKey();
         Integer in = r.nextInt(100);
+        //Double dd = r.nextDouble(100);
         if(in < prob.get(0).getValue()) p = prob.get(0).getKey();//TOP
         else if (in < prob.get(0).getValue() + prob.get(1).getValue())p = prob.get(1).getKey();//RIGHT
         else if (in < prob.get(0).getValue() + prob.get(1).getValue() + prob.get(2).getValue())p = prob.get(2).getKey();//BOT
@@ -218,4 +255,44 @@ public class Generacio {
     public Integer GetNumColumnes(){
         return ncolumnes;
     }
+
+
+
+
+
+
+    private Integer amplada;
+    private Integer altura;
+    private Double ratio;
+
+    private Integer numero_maxim_celes = 10;
+
+    /*
+    ////////////////////*
+    UNA CELA:
+    -Integer CoordI
+    -Integer CoordJ
+    -String Valor
+    -String Adjecencia
+
+    ////////////////////
+    */
+
+
+    ArrayList<Cela> Cami_del_hidato = new ArrayList<Cela>();
+
+
+    public void Generador(){
+        for(int i = 0; i < numero_maxim_celes; ++i) {
+            //
+        }
+    }
+
+
+    public void aspect_ratio(){
+        ratio = Double.valueOf(amplada/altura);
+    }
+
+
+
 }

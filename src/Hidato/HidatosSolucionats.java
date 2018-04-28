@@ -147,13 +147,18 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
                 if (s.charAt(j) == ',') {
                     i++;
                     if (i == 1) {
-                        pi = Integer.parseInt(s.substring(l, j-1));
+                        System.out.println("HE TROBAT UNA COMA");
+                        pi = Integer.parseInt(s.substring(l, j));
+                        System.out.println(pi);
                         l = j+1;
                     }
                     else if (i == 2) {
-                        pj = Integer.parseInt(s.substring(l, j-1));
+                        System.out.println("HE TROBAT UNA COMA");
+                        pj = Integer.parseInt(s.substring(l, j));
+                        System.out.println(pj);
                         l = j+1;
                         valor = new String(s.substring(l));
+                        System.out.println(valor);
                     }
                 }
             }

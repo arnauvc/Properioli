@@ -13,11 +13,12 @@ public class Test_HS {
     Generacio g = new Generacio();
     HidatosSolucionats hs = new HidatosSolucionats();
     Tauler t =  new Tauler();
+    Tauler tau = new Tauler();
     Resolucio r = new Resolucio();
     String[][] tauler = null;
     ArrayList<Pair<Pair<Integer, Integer>, String>> s = new ArrayList<Pair<Pair<Integer, Integer>, String>>();
     ArrayList<Pair<Pair<Integer, Integer>, String>> solucio = new ArrayList<Pair<Pair<Integer, Integer>, String>>();
-
+    @Test
     public void Provar() {
         tauler = g.GenerarHidato("Q", "C", "NORMAL");
         solucio.add(new Pair<Pair<Integer, Integer>, String>(new Pair<Integer, Integer>(1, 1), String.valueOf(2)));
@@ -31,12 +32,10 @@ public class Test_HS {
             e.printStackTrace();
         }
         try {
-             s = hs.CarregarSolucio(1, 1);
+             tau = hs.CarregarHidato(1);
         } catch (Exception e) {
             System.out.println("AIXO NO CARREGA");
         }
-        for (int i = 0; i < s.size(); i++) {
-            System.out.println("(" + s.get(i).getKey().getKey() + "," + s.get(i).getKey().getValue() + ")" + s.get(i).getValue());
-        }
+        tau.MostrarTauler();
     }
 }

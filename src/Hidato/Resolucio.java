@@ -312,7 +312,6 @@ public class Resolucio{
     }*/
 
     private boolean EsCorrecte(Integer valor, int f, int c) {
-        if (adj.equals("C")) {
             if (f < solucio.length-1) {
                 if (solucio[f+1][c].equals(String.valueOf(valor))) return true;
             }
@@ -325,8 +324,7 @@ public class Resolucio{
             if (c < solucio[0].length-1) {
                 if (solucio[f][c+1].equals(String.valueOf(valor))) return true;
             }
-        }
-        else {
+        if(valor.equals("CA")) {
             if (f > 0 && c > 0) {
                 if (solucio[f-1][c-1].equals(String.valueOf(valor))) return true;
             }

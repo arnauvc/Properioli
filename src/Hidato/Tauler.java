@@ -103,7 +103,7 @@ public class Tauler {
         boolean b = true;
         if(this.tipuscela.equals("Q")){
             if(this.adjacencia.equals("C")){
-                //controlo lo q ues la parte  de dentro del tablero
+                //controlo lo que es la parte  de dentro del tablero
                 if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
                     //abajo
                     if(abajo(vali,i,j)) return true;
@@ -291,7 +291,46 @@ public class Tauler {
             }
         }
         else if (this.tipuscela.equals("T")){
+            boolean pari = false;
+            boolean parj = false;
+            if(j%2 == 0 || j == 1) parj = true;
+            if(i%2 == 0 || i == 1) pari = true;
+                //controlo lo que es la parte  de dentro del tablero
+                if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
+                    if((pari && parj) || (!pari && !parj)) {
+                        if (arriba(vali, i, j)) return true;
+                    }
+                    else if((pari && !parj) || (!pari && parj)) {
+                        if(abajo(vali, i, j)) return true;
+                    }
 
+                    if(derecha(vali,i,j)) return true;
+
+                    if(izquierda(vali,i,j)) return true;
+            }
+            if(i == 0){
+                if(j == 0) {
+                    if(derecha(vali,i,j)) return true;
+                }
+
+                else if(j > 0 && j < numColum-1){
+                    if(!parj && abajo(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                }
+                else if(j == numColum-1){
+                    if(izquierda(vali,i,j)) return true;
+                    if(!parj && abajo(vali,i,j)) return true;
+                }
+            }
+
+
+
+        /*si la i es par y la j es par la base esta arriba
+          si la i es par y la j impar la base esta abajo
+          si la i es impar y la j par la base esta abajo
+          si la i es impar y la j impar la base arriba
+          */
 
 
 

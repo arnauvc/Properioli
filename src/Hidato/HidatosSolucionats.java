@@ -32,9 +32,9 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         escriptor.newLine();
         escriptor.write(t.GetTiposAdj());
         escriptor.newLine();
-        escriptor.write(t.getNumFiles());
+        escriptor.write(String.valueOf(t.getNumFiles()));
         escriptor.newLine();
-        escriptor.write(t.getNumColum());
+        escriptor.write(String.valueOf(t.getNumColum()));
         escriptor.newLine();
         tauler = t.getCelas();
         for (int i = 0; i < t.getNumFiles(); i++) {
@@ -142,29 +142,29 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         Integer pj = null;
         int l = 0;
         i = 0;
+        String aux = new String();
         while (!s.equals("-")) {
             for (int j = 0; j < s.length(); j++) {
                 if (s.charAt(j) == ',') {
                     i++;
                     if (i == 1) {
-                        System.out.println("HE TROBAT UNA COMA");
-                        pi = Integer.parseInt(s.substring(l, j));
-                        System.out.println(pi);
-                        l = j+1;
+                        pi = Integer.parseInt(aux);
+                        aux = "";
                     }
                     else if (i == 2) {
-                        System.out.println("HE TROBAT UNA COMA");
-                        pj = Integer.parseInt(s.substring(l, j));
-                        System.out.println(pj);
-                        l = j+1;
-                        valor = new String(s.substring(l));
-                        System.out.println(valor);
+                        pj = Integer.parseInt(aux);
+                        aux = "";
+                        valor = new String(s.substring(j+1));
                     }
                 }
+                else aux += s.charAt(j);
             }
+            aux = "";
+            i = 0;
             p = new Pair<Integer, Integer>(pi, pj);
             solucio.add(new Pair<Pair<Integer, Integer>, String>(p, valor));
             if (x.hasNext()) s = x.nextLine();
+            System.out.println(s);
         }
         return solucio;
     }

@@ -8,11 +8,11 @@ public class Main {
         /*Driver_Resolucio dr = new Driver_Resolucio();
         dr.Prova();*/
 
-        /*CtrlPresGestor cpg = new CtrlPresGestor();
-        cpg.Inicia();*/
+        CtrlPresGestor cpg = new CtrlPresGestor();
+        cpg.Inicia();
 
-        Test_HS test_hs = new Test_HS();
-        test_hs.Provar();
+        /*Test_HS test_hs = new Test_HS();
+        test_hs.Provar();*/
 
 
         /*Driver_Ajuda da = new Driver_Ajuda();

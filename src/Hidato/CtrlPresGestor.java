@@ -140,12 +140,30 @@ public class CtrlPresGestor {
         String tipusadj;
         String nomusuari;
         String tipusdificultat;
+        String path;
+        boolean segur = false;
 
         System.out.println("Benvingut a Hidato!");
         System.out.println("Insereix el teu nom: ");
         nomusuari = input.nextLine();
         System.out.println("Hola " + nomusuari);
         v.add(0,nomusuari);
+
+        while(!segur) {
+            System.out.println("Tria la direccio desti per a guardar o carregar arxius:\nIMPORTANT! Ha de ser una direccio valida! ");
+            path = input.nextLine();
+            System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
+            String siono = input.nextLine();
+            while(!siono.equals("SI") && !siono.equals("NO")){
+                System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
+                siono = input.nextLine();
+            }
+            if (siono.equals("SI")) {
+                v.add(1, path);
+                segur = true;
+            }
+
+        }
 
         tipuspartida = TPartida();
 
@@ -154,6 +172,7 @@ public class CtrlPresGestor {
             String tipushidato = input.nextLine();
 
             while(!tipushidato.equals("BIBLIOTECA") && !tipushidato.equals("ALEATORI")) {
+                System.out.println("Vols carregar un hidato de la BIBLIOTECA o un ALEATORI? ");
                 tipushidato = input.nextLine();
             }
             if(tipushidato.equals("BIBLIOTECA")){
@@ -169,9 +188,9 @@ public class CtrlPresGestor {
                 }
                 else tipusadj = "C";
                 tipusdificultat = TDificultat();
-                v.add(1,tipuscela);
-                v.add(2,tipusadj);
-                v.add(3,tipusdificultat);
+                v.add(2,tipuscela);
+                v.add(3,tipusadj);
+                v.add(4,tipusdificultat);
                 //tcela, tadj, tdificultat
                 g.Aleatori(v);
             }
@@ -185,16 +204,16 @@ public class CtrlPresGestor {
                 tipusadj = TAdj();
             }
             else tipusadj = "C";
-            v.add(1,tipuscela);
-            v.add(2,tipusadj);
+            v.add(2,tipuscela);
+            v.add(3,tipusadj);
             Vector<String> vres = NFilCol();
-            v.add(3,vres.get(0));
-            v.add(4,vres.get(1));
+            v.add(4,vres.get(0));
+            v.add(5,vres.get(1));
             tipusdificultat = TDificultat();
-            v.add(5,tipusdificultat);
+            v.add(6,tipusdificultat);
             String[][] tau = LlegirTauler(Integer.parseInt(vres.get(0)), Integer.parseInt(vres.get(1)));
             //g.Parametres(v);
-            g.Generar(v,tau);//V{nomusuari,tipuscela, tipusadj, numfil, numcol, dificultat}
+            g.Generar(v,tau);//V{nomusuari, path, tipuscela, tipusadj, numfil, numcol, dificultat}
 
             /*
             //Tipus 2. No interactiu. Com el pdf de mostra
@@ -207,6 +226,7 @@ public class CtrlPresGestor {
         }
         else if(tipuspartida.equals("REPRENDRE")){
             try {
+                //nomusuari, path
                 g.Reprendre(v);
             }
             catch (Exception e){

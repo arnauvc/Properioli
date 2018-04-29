@@ -63,7 +63,7 @@ public class Partida {
 		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
         Random rand = new Random();
-        idhidato = rand.nextInt(50) + 1;
+        idhidato = rand.nextInt(100) + 1;
 
 		String[][] hidato_resolt = new String[t.getNumFiles()][t.getNumColum()];
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
@@ -81,7 +81,7 @@ public class Partida {
 		SetFiles(t.getNumFiles());
 		SetColumnes(t.getNumColum());
         Random rand = new Random();
-        idhidato = rand.nextInt(50) + 1;
+        idhidato = rand.nextInt(100) + 1;
 
 		r.start(); //Inicia el rellotge
 		finalitzat = false;

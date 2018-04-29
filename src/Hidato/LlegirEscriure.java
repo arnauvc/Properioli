@@ -13,7 +13,7 @@ public class LlegirEscriure {
                 fitxer.createNewFile();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                System.out.println("Direccio desti invalida!");
             }
         }
         try {
@@ -21,7 +21,7 @@ public class LlegirEscriure {
             else filew = new FileWriter(fitxer, true);
             escriptor = new BufferedWriter(filew);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Direccio desti invalida!");
         }
         return escriptor;
     }

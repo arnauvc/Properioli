@@ -67,10 +67,10 @@ public class CtrlPresGestor {
         Integer numhidato;
         System.out.println("Selecciona el numero del hidato: ");
         numhidato = Integer.parseInt(input.nextLine());
-        while (numhidato < 0 || numhidato >= totalhidatos) {
+        /*while (numhidato < 0 || numhidato >= totalhidatos) {
             System.out.println("Selecciona el numero del hidato: ");
             numhidato = Integer.parseInt(input.nextLine());
-        }
+        }*/
         return numhidato;
     }
     private Vector<String> NFilCol(){

@@ -33,6 +33,7 @@ public class Gestor {
     }
     public void JugarHidato(Vector<String> v , Integer idhidato) throws Exception {
         //Es selecciona de la biblioteca l'hidato amb id nhidato
+        hs.SetPath(v.get(1));
         Tauler t = hs.CarregarHidato(idhidato);
         //Partida pa = new Partida();
         //pa.SetTauler(t);
@@ -55,8 +56,9 @@ public class Gestor {
         partidaactiva.SetCela(v.get(2));
         partidaactiva.SetAdjacencia(v.get(3));
         partidaactiva.SetDificultat(v.get(4));
+        hs.SetPath(v.get(1));
         try{
-            partidaactiva.IniciaPartida();
+            partidaactiva.IniciaPartida(hs);
         } catch (Exception e){
             GuardarPartida(v.get(1));
         }

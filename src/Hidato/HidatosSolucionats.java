@@ -24,6 +24,7 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         s += String.valueOf(idhidato);
         s += ".txt";
         List<List<Cela>> tauler = null;
+
         //Afegir el string s al string global que seria el path
         escriptor = LE.ObrirFitxerEscriptura(s, true);
         escriptor.write(String.valueOf(idhidato));
@@ -37,6 +38,7 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         escriptor.write(String.valueOf(t.getNumColum()));
         escriptor.newLine();
         tauler = t.getCelas();
+
         for (int i = 0; i < t.getNumFiles(); i++) {
             for (int j = 0; j < t.getNumColum(); j++) {
                 escriptor.write((tauler.get(i).get(j)).getValor());

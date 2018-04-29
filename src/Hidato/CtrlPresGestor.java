@@ -179,7 +179,11 @@ public class CtrlPresGestor {
                 Integer totalhidatos = g.VisualitzaHidatos();//Li demana per poder fer display dels hidatos de la biblioteca
                 //L'usuari ara veuria tots els hidatos i en triaria un
                 Integer idhidato = NHidato(totalhidatos); //Tria l'hidato que vol
-                g.JugarHidato(v, idhidato);//Aqui ja l'envia a jugar
+                try {
+                    g.JugarHidato(v, idhidato);//Aqui ja l'envia a jugar
+                }catch (Exception e){
+                    System.out.println("No hi ha cap hidato amb aquest numero");
+                }
             }
             else if (tipushidato.equals("ALEATORI")){
                 tipuscela = TCela();

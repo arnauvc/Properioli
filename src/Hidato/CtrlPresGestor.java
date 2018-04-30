@@ -149,7 +149,7 @@ public class CtrlPresGestor {
         System.out.println("Hola " + nomusuari);
         v.add(0,nomusuari);
 
-        while(!segur) {
+        /*while(!segur) {
             System.out.println("Tria la direccio desti per a guardar o carregar arxius:\nIMPORTANT! Ha de ser una direccio valida! ");
             path = input.nextLine();
             System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
@@ -163,7 +163,7 @@ public class CtrlPresGestor {
                 segur = true;
             }
 
-        }
+        }*/
 
         tipuspartida = TPartida();
 

@@ -1,5 +1,8 @@
 package Hidato;
 
+
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,7 @@ public class Tauler {
     private Error e = new Error();
     private Integer vals;
     boolean b;
+
 
     private void mostrarfila(List<Cela> a){
         for(int i = 0; i < a.size(); ++i){
@@ -296,7 +300,7 @@ public class Tauler {
             if(j%2 == 0 || j == 1) parj = true;
             if(i%2 == 0 || i == 1) pari = true;
                 //controlo lo que es la parte  de dentro del tablero
-                if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
+            if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
                     if((pari && parj) || (!pari && !parj)) {
                         if (arriba(vali, i, j)) return true;
                     }
@@ -308,7 +312,7 @@ public class Tauler {
 
                     if(izquierda(vali,i,j)) return true;
             }
-            if(i == 0){
+            else if(i == 0){
                 if(j == 0) {
                     if(derecha(vali,i,j)) return true;
                 }
@@ -323,19 +327,102 @@ public class Tauler {
                     if(!parj && abajo(vali,i,j)) return true;
                 }
             }
-
-
-
-        /*si la i es par y la j es par la base esta arriba
+            else if(i == numFiles-1) {
+                if (j == 0) {
+                    if (pari) {
+                        if (abajo(vali, i, j)) return true;
+                    }
+                    if (izquierda(vali, i, j)) return true;
+                }
+                else if (j > 0 && j < numColum - 1) {
+                    if ((pari && parj) || (!pari && !parj)) {
+                        if (arriba(vali, i, j)) return true;
+                    }
+                    if (izquierda(vali, i, j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                }
+                else if (j == numFiles - 1) {
+                    if ((pari && parj) || (!pari && !parj)) {
+                        if (arriba(vali, i, j)) return true;
+                    }
+                    if (izquierda(vali, i, j)) return true;
+                }
+            }
+            else if(i > 0 && i < numFiles-1){
+                if(j == 0){
+                    if(pari && arriba(vali,i,j)) return true;
+                    if(!pari && abajo(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                }
+                else if(j == numFiles-1){
+                    if(((pari && parj) || (!pari && !parj)) &&arriba(vali,i,j)) return true;
+                    else if(((!pari && parj) || (pari && !parj)) && abajo(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                }
+            }
+            /*si la i es par y la j es par la base esta arriba
           si la i es par y la j impar la base esta abajo
           si la i es impar y la j par la base esta abajo
           si la i es impar y la j impar la base arriba
           */
+        }
+        if(this.tipuscela.equals("H")){
+            if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
+                if(arriba(vali,i,j)) return true;
+                if(abajo(vali,i,j)) return true;
+                if(derecha(vali,i,j)) return true;
+                if(izquierda(vali,i,j)) return true;
+                if(arriba_izquierda(vali,i,j)) return true;
+                if(abajo_izquierda(vali,i,j)) return true;
+            }
+            else if(i == 0){
+                if(j == 0) {
+                    if(derecha(vali,i,j)) return true;
+                    if(abajo(vali,i,j)) return true;
+                }
+                else if(j > 0 && j < numColum-1){
+                    if(abajo(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                    if(abajo_izquierda(vali,i,j)) return true;
+                }
+                else if(j == numColum-1){
+                    if(abajo(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(abajo_izquierda(vali,i,j)) return true;
+                }
+            }
+            else if(i == numFiles-1){
+                if(j == 0) {
+                    if(derecha(vali,i,j)) return true;
+                    if(arriba(vali,i,j)) return true;
+                }
+                else if(j > 0 && j < numColum-1){
+                    if(arriba(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                    if(arriba_izquierda(vali,i,j)) return true;
+                }
+                else if(j == numColum-1){
+                    if(arriba(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(arriba_izquierda(vali,i,j)) return true;
+                }
+            }
+            else if(i > 0 && i < numFiles && j == 0){
+                    if(arriba(vali,i,j)) return true;
+                    if(abajo(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+            }
 
-
-
-
-
+            else if(i > 0 && i < numFiles && j == numColum-1){
+                if(arriba(vali,i,j)) return true;
+                if(abajo(vali,i,j)) return true;
+                if(derecha(vali,i,j)) return true;
+                if(izquierda(vali,i,j)) return true;
+                if(arriba_izquierda(vali,i,j)) return true;
+                if(abajo_izquierda(vali,i,j)) return true;
+            }
 
         }
         return false;
@@ -344,11 +431,13 @@ public class Tauler {
 
 
     //constructora
+
     public Tauler(){}
     public Tauler(Integer numtauler) {//Obliguem a que sempre que es crei una instancia de Tauler, se li proporcioni un id
         this.id = numtauler;
     }
 
+    @Test
     public void CrearTauler(String ticela, String adj, String[][] matriu){
         this.tipuscela = ticela;
         this.adjacencia = adj;
@@ -406,44 +495,55 @@ public class Tauler {
 
 
     //Consultora
+    @Test
     public Integer GetId() {
         return id;
     }
 
+    @Test
     public Integer getNumFiles(){return numFiles;}
 
+    @Test
     public Integer getNumColum(){return numColum;}
 
+    @Test
     public Integer GetNumCelasTotal() {
         return numcelestotal;
     }
 
+    @Test
     public Integer GetNumCelesOcupadas() {
         return numcelesocupades;
     }
 
+    @Test
     public Integer GetNumCelesBuides() {
         return numcelesbuides;
     }
 
+    @Test
     public String GetTiposAdj() {
         return adjacencia;
     }
 
+    @Test
     public String getTipuscela() {
         return tipuscela;
     }
 
+    @Test
     public List<List<Cela>> getCelas() {
         return Celas;
     }
 
     //consulturas cela
+    @Test
     public String consultarValCela(int x, int y){
         cela = Celas.get(x).get(y);
         return cela.getValor();
     }
 
+    @Test
     public boolean consultarValidaCela(int x, int y){
         cela = Celas.get(x).get(y);
         return cela.isValida();
@@ -451,7 +551,9 @@ public class Tauler {
 
 
 
+
     //Modificadoras
+    @Test
     public void ModificaCeldaV(String x, int posi, int posj) {
         boolean b = false;
         if(x.equals("?")){
@@ -472,14 +574,17 @@ public class Tauler {
 
     }
 
+    @Test
     public void SetAdjacencia(String  ad){
         this.adjacencia = ad;
     }
 
+    @Test
     public void SetTipuscela(String ce){
         this.tipuscela = ce;
     }
 
+    @Test
     public void MostrarTauler() {
         List<Cela> aux = new ArrayList<Cela>();
         for (int i = 0; i < Celas.size(); ++i) {

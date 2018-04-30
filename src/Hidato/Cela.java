@@ -1,6 +1,10 @@
 package Hidato;
 
+
+
 import java.util.ArrayList;
+import java.util.List;
+
 
 public class Cela{
 	private String tipus;
@@ -8,11 +12,12 @@ public class Cela{
 	private boolean visible;
 
 	private String valor;
+	private List<Cela> adjacentes = new ArrayList<Cela>();
 
 
 	//Constructora
 
-	public Cela(){};
+	public Cela(){}
 
 	public Cela(String tip, String val, boolean vis, boolean vali){
 		this.tipus = tip;
@@ -25,6 +30,7 @@ public class Cela{
 	public String getValor() {
 		return valor;
 	}
+
 
 	public boolean isValida() {
 		return valida;

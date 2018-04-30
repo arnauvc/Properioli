@@ -1,12 +1,176 @@
 package Hidato;
 
 
+import javafx.scene.Camera;
 import javafx.util.Pair;
 
 import java.util.*;
 import java.lang.Exception;
 
 public class Generacio {
+
+    //private Double ratio;
+    private Integer MinI=50;
+    private Integer MinJ=50;
+    private Integer MaxI=50;
+    private Integer MaxJ=50;
+    private Integer numero_maxim_celes=0;
+    private Integer ProbBlanc;
+
+    private String[][] tauler;
+    private String[][] solucio;
+
+    public String[][] GenerarHidato(String Tipuscela, String Tipusadj, String Dificultat){
+        Cela cela_inicial;
+        HashSet< Pair<Integer,Integer> > celes_ocupades = new HashSet<>() ;
+        ArrayList<Cela> Cami_del_hidato = new ArrayList<>();
+        switch (Tipuscela){
+            case "Q":
+                cela_inicial = new Quadrada(50,50,Tipusadj);
+                break;
+            case "T":
+                cela_inicial = new Triangular(50,50, Tipusadj);
+                break;
+            case "H":
+                cela_inicial = new Hexagonal(50,50, Tipusadj);
+                break;
+            default:
+                cela_inicial = new Quadrada(50,50, Tipusadj);
+                break;
+        }
+
+        switch (Dificultat){
+            case "F":
+                numero_maxim_celes = NumeroAleatori(3,5)*NumeroAleatori(3,5);
+                ProbBlanc = 40;
+                break;
+            case "N":
+                numero_maxim_celes = NumeroAleatori(6,8)*NumeroAleatori(6,8);
+                ProbBlanc = 60;
+                break;
+            case "D":
+                numero_maxim_celes = NumeroAleatori(9,11)*NumeroAleatori(9,11);
+                ProbBlanc = 70;
+                break;
+            default:
+                numero_maxim_celes = 20;
+                ProbBlanc = 50;
+                break;
+        }
+
+        System.out.printf("Numero maxim de celes: %d", numero_maxim_celes);
+        System.out.println();
+
+        cela_inicial.SetCoordI(50);
+        cela_inicial.SetCoordJ(50);
+
+        cela_inicial.ModificarValor(Integer.toString(1));
+        System.out.printf("Cela: %d , %d ", cela_inicial.GetCoordJ(), cela_inicial.GetCoordI());
+        System.out.println();
+        Cami_del_hidato.add(cela_inicial);
+        celes_ocupades.add(new Pair<>(cela_inicial.GetCoordI(), cela_inicial.GetCoordJ()));
+        UpdateMinMax(cela_inicial);
+
+        for(int numero = 2; numero < numero_maxim_celes; ++numero){
+            String direccio; // Vertical o Horitzontal
+            System.out.printf("Num Files: %d", GetNumFiles());
+            System.out.println();
+            System.out.printf("Num Columnes: %d", GetNumColumnes());
+            System.out.println();
+            System.out.printf("Aspect Ratio: %f", aspect_ratio());
+            System.out.println();
+            if(aspect_ratio() > 1) direccio = "H";
+            else direccio = "V";
+            ArrayList<Cela> veins_meus = cela_inicial.Veins(direccio);
+            //Vector ordenat per probabilitat
+
+            Integer tamany = 0;
+            while(tamany < veins_meus.size()){
+
+                if(!celes_ocupades.contains(new Pair<>(veins_meus.get(tamany).GetCoordI(),veins_meus.get(tamany).GetCoordJ())) ){
+                    cela_inicial = veins_meus.get(tamany);
+                    break;
+                }
+                ++tamany;
+            }
+            //falta escollir quina cela agafarem en funcio de la forma del hidato
+            //cela_inicial = veins_meus.get(0);//Assumin que volem sempre la 0
+
+
+            cela_inicial.ModificarValor(Integer.toString(numero));
+            System.out.printf("Cela: %d , %d ", cela_inicial.GetCoordJ(), cela_inicial.GetCoordI());
+            System.out.println();
+            celes_ocupades.add(new Pair<>(cela_inicial.GetCoordI(),cela_inicial.GetCoordJ()));
+            UpdateMinMax(cela_inicial);
+            Cami_del_hidato.add(cela_inicial);
+        }
+        System.out.printf("Numero de files: %d", GetNumFiles());
+        System.out.println();
+        System.out.printf("Numero de columnes: %d", GetNumColumnes());
+
+        tauler = new String[GetNumFiles()][GetNumColumnes()];
+        solucio = new String[GetNumFiles()][GetNumColumnes()];
+
+        System.out.println();
+        for(int l = 0; l < GetNumFiles(); ++l){
+            for(int k = 0; k < GetNumColumnes(); ++k) {
+                tauler[l][k] = "#";
+                solucio[l][k] = "#";
+            }
+        }
+        System.out.println();
+
+        System.out.printf("MinI: %d , MinJ: %d , MaxI: %d , MaxJ: %d ", MinI, MinJ, MaxI, MaxJ);
+        System.out.println();
+
+        for(Cela c: Cami_del_hidato){
+            System.out.printf("Coordenades cela: %d , %d ", c.GetCoordJ()-MinJ, c.GetCoordI()-MinI);
+            System.out.println();
+            tauler[c.GetCoordJ()-MinJ][c.GetCoordI()-MinI] = c.getValor();
+            solucio[c.GetCoordJ()-MinJ][c.GetCoordI()-MinI] = c.getValor();
+        }
+
+        //Buidar el tauler
+        Random ran = new Random();
+        for(int l = 0; l < GetNumFiles(); ++l){
+            for(int k = 0; k < GetNumColumnes(); ++k){
+                if(!tauler[l][k].equals("#") && !tauler[l][k].equals("1") && !tauler[l][k].equals(Integer.toString(numero_maxim_celes-1))){
+                    Integer ra = ran.nextInt(100);
+                    if(ra < ProbBlanc){
+                        tauler[l][k]="?";
+                    }
+                }
+            }
+        }
+
+        return tauler;
+    }
+
+    private void UpdateMinMax(Cela celaini){
+        if(celaini.GetCoordI() > MaxI) MaxI = celaini.GetCoordI();
+        if(celaini.GetCoordI() < MinI) MinI = celaini.GetCoordI();
+        if(celaini.GetCoordJ() > MaxJ) MaxJ = celaini.GetCoordJ();
+        if(celaini.GetCoordJ() < MinJ) MinJ = celaini.GetCoordJ();
+    }
+
+    private Integer NumeroAleatori(Integer min, Integer max){
+        Random r = new Random();
+        return r.nextInt(max-min) + min;
+    }
+
+    private Double aspect_ratio(){ return (double) (GetNumFiles() / GetNumColumnes()); }
+
+    public Integer GetNumFiles(){ return (MaxJ-MinJ)+1; }
+
+    public Integer GetNumColumnes(){ return (MaxI-MinI)+1; }
+
+    public String[][]GetSolucio(){ return solucio; }
+
+    public Integer GetValorMaxim(){
+        return numero_maxim_celes-1;
+    }
+
+    /*
 
     private Random r = new Random();
 
@@ -25,23 +189,12 @@ public class Generacio {
     private Integer ProbNumero;
     private Integer ProbBlanc;
 
-    /** Comprova la validesa de la nova cela
-     *
-     * @param i Coordenada i del tauler
-     * @param j Coordenada j del tauler
-     * @return Cert si la cela[i][j] esta dins del tauler, i no pren per valor "#"
-     */
+
     private boolean Check(Integer i, Integer j){
         return (i < nfiles && i >= 0) && (j < ncolumnes && j >= 0) && (tauler[i][j].equals("#"));
     }
 
-    /** Genera un hidato resolt.
-     *
-     * @param i Coordenada i del tauler
-     * @param j Coordenada j del tauler
-     * @param contador Valor que ha de prendre la cela[i][j]
-     * @return Cert si s'ha generat correctament un hidato
-     */
+
     private boolean Generar1(Integer i, Integer j, Integer contador){
         if(contador > maxceles*fillfactor){
             ValorMaxim = contador-1;
@@ -110,9 +263,7 @@ public class Generacio {
         }
     }
 
-    /**
-     * Buida el tauler en funcio de ProbBlanc per tal que l'usuari pugui jugar l'hidato
-     */
+
     private void Buidar(){
         for(int l = 0; l < nfiles; ++l){
             for(int k = 0; k < ncolumnes; ++k){
@@ -213,16 +364,7 @@ public class Generacio {
                 tauler[i][j] = "#";
             }
         }
-        /*
-        System.out.println("NFiles i NColumnes");
-        System.out.printf("%d , %d", nfiles, ncolumnes);
-        System.out.println();
-        System.out.printf("Fillfactor: %f", fillfactor);
-        System.out.println();
-        System.out.println("Cela ini");
-        System.out.printf("%d , %d", Iini, Jini);
-        System.out.println();
-        */
+
         if(Generar1(Iini,Jini, 1)){
             //Genera una copia del tauler
             solucio = new String[nfiles][ncolumnes];
@@ -257,41 +399,7 @@ public class Generacio {
     }
 
 
-
-
-
-
-    private Integer amplada;
-    private Integer altura;
-    private Double ratio;
-
-    private Integer numero_maxim_celes = 10;
-
-    /*
-    ////////////////////*
-    UNA CELA:
-    -Integer CoordI
-    -Integer CoordJ
-    -String Valor
-    -String Adjecencia
-
-    ////////////////////
     */
-
-
-    ArrayList<Cela> Cami_del_hidato = new ArrayList<Cela>();
-
-
-    public void Generador(){
-        for(int i = 0; i < numero_maxim_celes; ++i) {
-            //
-        }
-    }
-
-
-    public void aspect_ratio(){
-        ratio = Double.valueOf(amplada/altura);
-    }
 
 
 

@@ -40,4 +40,44 @@ public class Cela{
 		this.valor = x;
 	}
 
+
+	////////////////////////
+	//////	EXTENSIO ///////
+	////////////////////////
+
+
+	protected Integer CoordI;
+	protected Integer CoordJ;
+	protected String Adjacencia;
+
+
+	public void SetCoordI(Integer i){
+		CoordI = i;
+	}
+
+	public Integer GetCoordI(){
+		return CoordI;
+	}
+
+	public void SetCoordJ(Integer j){
+		CoordJ = j;
+	}
+
+	public Integer GetCoordJ(){
+		return CoordJ;
+	}
+
+	public String GetAdjacencia(){
+		return Adjacencia;
+	}
+
+	public void SetAdjacencia(String adj){
+		this.Adjacencia = adj;
+	}
+
+	protected ArrayList<Cela> Veins(String direccio) {
+		return null;
+	}
+
+
 }

@@ -122,25 +122,28 @@ public class Partida {
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
 
 		//Passar String[][] hidato_resolt -> ArrayList<>solucio
-		ArrayList<Pair<Pair<Integer, Integer>, String>> solucio = new ArrayList<>();
-		for (int i = 0; i < hidato_resolt.length; i++){
-			for (int j = 0; j < hidato_resolt[i].length; j++){
-				Pair<Integer, Integer> p = new Pair<>(i, j);
-				String hr = hidato_resolt[i][j];
-				solucio.add(new Pair<>(p, hr));
+		if (hidato_resolt != null) {
+			ArrayList<Pair<Pair<Integer, Integer>, String>> solucio = new ArrayList<>();
+			for (int i = 0; i < hidato_resolt.length; i++) {
+				for (int j = 0; j < hidato_resolt[i].length; j++) {
+					Pair<Integer, Integer> p = new Pair<>(i, j);
+					String hr = hidato_resolt[i][j];
+					solucio.add(new Pair<>(p, hr));
+				}
 			}
-		}
-		hs.SetPath(path);
-		hs.GuardarHidato(idhidato, t, solucio);
+			hs.SetPath(path);
+			hs.GuardarHidato(idhidato, t, solucio);
 
-		r.start(); //Inicia el rellotge
-		finalitzat = false;
-		completat = false;
-		ajuda = false;
-		guardat = false;
-		reguardat = false;
-		torn = 1;
-		TranscursPartida();
+			r.start(); //Inicia el rellotge
+			finalitzat = false;
+			completat = false;
+			ajuda = false;
+			guardat = false;
+			reguardat = false;
+			torn = 1;
+			TranscursPartida();
+		}
+		else e.PrintError(2);
 
 	}
 	public void ReprendrePartida() throws Exception {

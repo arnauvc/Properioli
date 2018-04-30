@@ -8,7 +8,7 @@ public class Error {
                 missatge = "Posicio invalida!";
                 break;
             case 2:
-                missatge = "Missatge d'exemple del codi 2";
+                missatge = "No hi ha solucio, ha fallat Generacio";
                 break;
             default:
                 missatge = "Codi d'error no reconegut";

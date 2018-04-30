@@ -15,12 +15,12 @@ public class Generacio {
     private Integer MaxI=50;
     private Integer MaxJ=50;
     private Integer numero_maxim_celes=0;
-    private Integer ProbBlanc;
 
     private String[][] tauler;
     private String[][] solucio;
 
     public String[][] GenerarHidato(String Tipuscela, String Tipusadj, String Dificultat){
+        Integer ProbBlanc;
         Cela cela_inicial;
         HashSet< Pair<Integer,Integer> > celes_ocupades = new HashSet<>() ;
         ArrayList<Cela> Cami_del_hidato = new ArrayList<>();
@@ -42,11 +42,11 @@ public class Generacio {
         switch (Dificultat){
             case "F":
                 numero_maxim_celes = NumeroAleatori(3,5)*NumeroAleatori(3,5);
-                ProbBlanc = 40;
+                ProbBlanc = 70;
                 break;
             case "N":
                 numero_maxim_celes = NumeroAleatori(6,8)*NumeroAleatori(6,8);
-                ProbBlanc = 60;
+                ProbBlanc = 70;
                 break;
             case "D":
                 numero_maxim_celes = NumeroAleatori(9,11)*NumeroAleatori(9,11);
@@ -57,75 +57,70 @@ public class Generacio {
                 ProbBlanc = 50;
                 break;
         }
-
-        System.out.printf("Numero maxim de celes: %d", numero_maxim_celes);
-        System.out.println();
-
         cela_inicial.SetCoordI(50);
         cela_inicial.SetCoordJ(50);
 
         cela_inicial.ModificarValor(Integer.toString(1));
-        System.out.printf("Cela: %d , %d ", cela_inicial.GetCoordJ(), cela_inicial.GetCoordI());
-        System.out.println();
+        //System.out.printf("Cela: %d , %d ", cela_inicial.GetCoordJ(), cela_inicial.GetCoordI());
+        //System.out.println();
         Cami_del_hidato.add(cela_inicial);
         celes_ocupades.add(new Pair<>(cela_inicial.GetCoordI(), cela_inicial.GetCoordJ()));
         UpdateMinMax(cela_inicial);
-
+        Random rat = new Random();
         for(int numero = 2; numero < numero_maxim_celes; ++numero){
+
+
             String direccio; // Vertical o Horitzontal
-            System.out.printf("Num Files: %d", GetNumFiles());
-            System.out.println();
-            System.out.printf("Num Columnes: %d", GetNumColumnes());
-            System.out.println();
-            System.out.printf("Aspect Ratio: %f", aspect_ratio());
-            System.out.println();
-            if(aspect_ratio() > 1) direccio = "H";
+            if(aspect_ratio() >= 1) direccio = "H";
+            else if (aspect_ratio() == 1){
+                if(rat.nextInt(2) < 1) direccio = "H";
+                else direccio = "V";
+            }
             else direccio = "V";
             ArrayList<Cela> veins_meus = cela_inicial.Veins(direccio);
-            //Vector ordenat per probabilitat
+
+            /*
+            ArrayList<Cela> veins_meus = cela_inicial.Veins();
+            Integer posi = rat.nextInt(veins_meus.size());
+            Integer con = 0;
+            while(con < veins_meus.size()){
+                if(!celes_ocupades.contains(new Pair<>(veins_meus.get(posi).GetCoordI(),veins_meus.get(posi).GetCoordJ())) ){
+                    cela_inicial = veins_meus.get(posi);
+                    break;
+                }
+                posi = rat.nextInt(veins_meus.size());
+                ++con;
+            }
+            */
 
             Integer tamany = 0;
             while(tamany < veins_meus.size()){
-
                 if(!celes_ocupades.contains(new Pair<>(veins_meus.get(tamany).GetCoordI(),veins_meus.get(tamany).GetCoordJ())) ){
                     cela_inicial = veins_meus.get(tamany);
                     break;
                 }
                 ++tamany;
             }
-            //falta escollir quina cela agafarem en funcio de la forma del hidato
-            //cela_inicial = veins_meus.get(0);//Assumin que volem sempre la 0
 
 
             cela_inicial.ModificarValor(Integer.toString(numero));
-            System.out.printf("Cela: %d , %d ", cela_inicial.GetCoordJ(), cela_inicial.GetCoordI());
-            System.out.println();
             celes_ocupades.add(new Pair<>(cela_inicial.GetCoordI(),cela_inicial.GetCoordJ()));
             UpdateMinMax(cela_inicial);
             Cami_del_hidato.add(cela_inicial);
         }
-        System.out.printf("Numero de files: %d", GetNumFiles());
-        System.out.println();
-        System.out.printf("Numero de columnes: %d", GetNumColumnes());
 
         tauler = new String[GetNumFiles()][GetNumColumnes()];
         solucio = new String[GetNumFiles()][GetNumColumnes()];
 
-        System.out.println();
+        //Inicialitzar tauler i taulersolucio (matrius)
         for(int l = 0; l < GetNumFiles(); ++l){
             for(int k = 0; k < GetNumColumnes(); ++k) {
                 tauler[l][k] = "#";
                 solucio[l][k] = "#";
             }
         }
-        System.out.println();
-
-        System.out.printf("MinI: %d , MinJ: %d , MaxI: %d , MaxJ: %d ", MinI, MinJ, MaxI, MaxJ);
-        System.out.println();
-
+        //Passar de graf a matriu
         for(Cela c: Cami_del_hidato){
-            System.out.printf("Coordenades cela: %d , %d ", c.GetCoordJ()-MinJ, c.GetCoordI()-MinI);
-            System.out.println();
             tauler[c.GetCoordJ()-MinJ][c.GetCoordI()-MinI] = c.getValor();
             solucio[c.GetCoordJ()-MinJ][c.GetCoordI()-MinI] = c.getValor();
         }
@@ -142,6 +137,7 @@ public class Generacio {
                 }
             }
         }
+        //Aqui va la funcio de posar * pels buits
 
         return tauler;
     }

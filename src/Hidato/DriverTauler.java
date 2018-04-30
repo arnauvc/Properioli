@@ -9,6 +9,7 @@ public class DriverTauler {
     private List<List<Cela>> aux = new ArrayList<List<Cela>>();
     private List<Tauler> tab = new ArrayList<Tauler>();
     private String[][] m;
+    private Cela cela;
 
 
     private void mostraropcionesini(){
@@ -51,7 +52,6 @@ public class DriverTauler {
                 t.CrearTauler(tipo,adj,m);
                 tab.add(t);
             }
-
             else if(funcio == 2){
                 //get tauler
                 System.out.println("Para mirar el numero de filas pulse 1:");
@@ -79,7 +79,6 @@ public class DriverTauler {
                     funcion2 = s.nextInt();
                 }
             }
-
             else if(funcio == 3){
                 System.out.println("Para cambiar una cela pulse 1");
                 System.out.println("Para cambiar el tipo de adjacencia pulse 2");
@@ -97,11 +96,58 @@ public class DriverTauler {
                         t.ModificaCeldaV(valor,posi,posj);
                         t.MostrarTauler();
                     }
+                    else if(funcion2 == 2){
+                        String tipoadj;
+                        tipoadj = t.GetTiposAdj();
+                        if(tipoadj.equals("CA")) System.out.println("Ahora mismo  la adyacencia es " + tipoadj + "(costats + angles) dime el nuevo tipo");
+                        else System.out.println("Ahora mismo  la adyacencia es " + tipoadj + "(costats) dime el nuevo tipo");
+                        tipoadj = s.next();
+                        t.SetAdjacencia(tipoadj);
+                    }
+                    else if(funcion2 == 3){
+                        String tipoc;
+                        tipoc = t.getTipuscela();
+                        if(tipoc.equals("T"))  System.out.println("Ahora mismo  la adyacencia es " + tipoc + "(Triangular) dime el nuevo tipo");
+                        else if(tipoc.equals("Q")) System.out.println("Ahora mismo  la adyacencia es " + tipoc + "(Cuadrada) dime el nuevo tipo");
+                        else System.out.println("Ahora mismo  la adyacencia es " + tipoc + "(Hexagonal) dime el nuevo tipo");
+                        tipoc = s.next();
+                        t.SetTipuscela(tipoc);
+                    }
                     funcion2 = s.nextInt();
+
                 }
             }
-            if(funcio == 8) t.MostrarTauler();
+            else if(funcio == 4){
+                System.out.println("Para consultar el valor de la cela 1");
+                System.out.println("Para consultar si una cela es valida pulse uno pulse 2");
+                System.out.println("Para consultar si una cela es visible pulse uno pulse 3");
+                System.out.println("Salir 0");
+                funcion2 = s.nextInt();
+                System.out.println("Escrbie la posicion de la cela");
+                int x, y;
+                x = s.nextInt();
+                y = s.nextInt();
+                cela = new Cela();
+                cela = t.getcela(x,y);
+                while(funcion2 != 0){
+                    if(funcion2 == 1){
+                        if(cela.isValida()) System.out.println(cela.getValor());
+                        else System.out.println("Esta cela no tiene valor porque no es valida");
+                    }
+                    else if(funcion2 == 2){
+                        if(cela.isValida()) System.out.println("Es valida");
+                        else System.out.println("No es valida");
+                    }
+                    else if(funcion2 == 3){
+                        if(cela.isVisible()) System.out.println("Es visible");
+                        else System.out.println("No es visible");
+                    }
+                }
+            }
+
+            else if(funcio == 8) t.MostrarTauler();
             System.out.println("Que desea seguir haciendo ahora?");
+            mostraropcionesini();
             funcio = s.nextInt();
 
         }

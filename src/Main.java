@@ -1,6 +1,5 @@
 import Hidato.CtrlPresGestor;
-import Hidato.Driver_Ajuda;
-import Hidato.Driver_Resolucio;
+import Hidato.DriverPartida;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -14,9 +13,8 @@ public class Main {
         /*Test_HS test_hs = new Test_HS();
         test_hs.Provar();*/
 
+        /*DriverPartida dp = new DriverPartida();
+        dp.Test();*/
 
-        /*Driver_Ajuda da = new Driver_Ajuda();
-        da.TestClass();
-        */
     }
 }

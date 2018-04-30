@@ -53,12 +53,12 @@ public class Gestor {
     public void Aleatori(Vector<String> v){
         //Partida p = new Partida();
         partidaactiva.SetNom(v.get(0));
+        partidaactiva.SetPath(v.get(1));
         partidaactiva.SetCela(v.get(2));
         partidaactiva.SetAdjacencia(v.get(3));
         partidaactiva.SetDificultat(v.get(4));
-        hs.SetPath(v.get(1));
         try{
-            partidaactiva.IniciaPartida(hs);
+            partidaactiva.IniciaPartida();
         } catch (Exception e){
             GuardarPartida(v.get(1));
         }

@@ -26,7 +26,6 @@ public class Partida {
 	private Error e = new Error();
 	private Resolucio re = new Resolucio();
 	private HidatosSolucionats hs = new HidatosSolucionats();
-	//private Usuari u = new Usuari();
 	private Integer idhidato;
 	private String dif; //Dificultat
 	private Integer torn;
@@ -37,6 +36,7 @@ public class Partida {
 	private String[][] hidato_resolt;
 	private Integer maxim;
 	private String nomusuari;
+	private String path;
 
 
 	public Partida(){}
@@ -108,7 +108,7 @@ public class Partida {
 
 	}
 	
-	public void IniciaPartida(HidatosSolucionats hs) throws Exception {
+	public void IniciaPartida() throws Exception {
 		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
 
 
@@ -130,7 +130,7 @@ public class Partida {
 				solucio.add(new Pair<>(p, hr));
 			}
 		}
-
+		hs.SetPath(path);
 		hs.GuardarHidato(idhidato, t, solucio);
 
 		r.start(); //Inicia el rellotge
@@ -313,6 +313,9 @@ public class Partida {
 	}
 	public void SetMaxim(Integer maxim){
 		this.maxim = maxim;
+	}
+	public void SetPath(String path){
+		this.path = path;
 	}
 	public boolean GetReguardat(){
 		return reguardat;

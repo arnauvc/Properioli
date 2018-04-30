@@ -166,7 +166,6 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
             p = new Pair<Integer, Integer>(pi, pj);
             solucio.add(new Pair<Pair<Integer, Integer>, String>(p, valor));
             if (x.hasNext()) s = x.nextLine();
-            System.out.println(s);
         }
         return solucio;
     }

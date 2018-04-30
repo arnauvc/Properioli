@@ -47,7 +47,6 @@ public class CtrlPresGestor {
         }
         return tipusadj;
     }
-
     private String TDificultat(){
         Scanner input = new Scanner(System.in);
         String tipusdificultat;
@@ -61,7 +60,6 @@ public class CtrlPresGestor {
         }
         return tipusdificultat;
     }
-
     private Integer NHidato(Integer totalhidatos){
         Scanner input = new Scanner(System.in);
         Integer numhidato;
@@ -93,7 +91,6 @@ public class CtrlPresGestor {
         vres.add(1, Integer.toString(ncolumnes));
         return vres;
     }
-
     private Vector<String> Params(){
         //No funciona encara
 
@@ -109,7 +106,6 @@ public class CtrlPresGestor {
         }
         return res;
     }
-
     private String [][] LlegirTauler(Integer nfil, Integer ncol){
         //Ja funciona
 
@@ -131,6 +127,9 @@ public class CtrlPresGestor {
 
     }
 
+    public void Interrupcio(String s){
+
+    }
 
     public void Inicia() throws Exception {
         Vector<String> v = new Vector<String>();
@@ -238,4 +237,5 @@ public class CtrlPresGestor {
             }
         }
     }
+
 }

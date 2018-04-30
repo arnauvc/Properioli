@@ -6,13 +6,13 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class Driver_Generacio {
+public class TestUnitari_Generacio {
 
     @Test
-    public void HidatoHexagonalFacil()  {
+    public void HidatoHexagonalAmbInputIncorrecteDificil()  {
         Generacio gen = new Generacio();
         String[][] tauler;
-        tauler = gen.GenerarHidato("H","C","F");
+        tauler = gen.GenerarHidato("H","CA","D");
         Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
     }
 
@@ -25,18 +25,10 @@ public class Driver_Generacio {
     }
 
     @Test
-    public void HidatoQuadratCostatsFacil()  {
+    public void HidatoHexagonalFacil()  {
         Generacio gen = new Generacio();
         String[][] tauler;
-        tauler = gen.GenerarHidato("Q","C","F");
-        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
-    }
-
-    @Test
-    public void HidatoQuadratCostatsDificil()  {
-        Generacio gen = new Generacio();
-        String[][] tauler;
-        tauler = gen.GenerarHidato("Q","C","D");
+        tauler = gen.GenerarHidato("H","C","F");
         Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
     }
 
@@ -49,10 +41,18 @@ public class Driver_Generacio {
     }
 
     @Test
-    public void HidatoTriangularFacil()  {
+    public void HidatoQuadratCostatsDificil()  {
         Generacio gen = new Generacio();
         String[][] tauler;
-        tauler = gen.GenerarHidato("T","C","F");
+        tauler = gen.GenerarHidato("Q","C","D");
+        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
+    }
+
+    @Test
+    public void HidatoQuadratCostatsFacil()  {
+        Generacio gen = new Generacio();
+        String[][] tauler;
+        tauler = gen.GenerarHidato("Q","C","F");
         Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
     }
 
@@ -64,7 +64,13 @@ public class Driver_Generacio {
         Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
     }
 
-
+    @Test
+    public void HidatoTriangularFacil()  {
+        Generacio gen = new Generacio();
+        String[][] tauler;
+        tauler = gen.GenerarHidato("T","C","F");
+        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
+    }
 
     public void Print(String[][] tauler, Integer nfiles, Integer ncolumnes){
         for (int i = 0; i < nfiles; ++i){

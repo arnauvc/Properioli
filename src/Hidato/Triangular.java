@@ -26,7 +26,7 @@ public class Triangular extends Cela{
             veins_meus.add(new Triangular(CoordI,CoordJ-1,Adjacencia));//BOTTOM 1
             veins_meus.add(new Triangular(CoordI+1,CoordJ,Adjacencia));//RIGHT 2
         }
-        else{
+        else if ((CoordI%2 != 0 && CoordJ%2 == 0) || (CoordI%2 == 0 && CoordJ%2 != 0)){
             veins_meus.add(new Triangular(CoordI-1,CoordJ,Adjacencia));//LEFT
             veins_meus.add(new Triangular(CoordI,CoordJ+1,Adjacencia));//TOP
             veins_meus.add(new Triangular(CoordI+1,CoordJ,Adjacencia));//RIGHT

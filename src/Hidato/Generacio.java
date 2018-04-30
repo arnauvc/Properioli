@@ -9,7 +9,6 @@ import java.lang.Exception;
 
 public class Generacio {
 
-    //private Double ratio;
     private Integer MinI=50;
     private Integer MinJ=50;
     private Integer MaxI=50;
@@ -45,11 +44,11 @@ public class Generacio {
                 ProbBlanc = 70;
                 break;
             case "N":
-                numero_maxim_celes = NumeroAleatori(6,8)*NumeroAleatori(6,8);
+                numero_maxim_celes = NumeroAleatori(6,7)*NumeroAleatori(6,7);
                 ProbBlanc = 70;
                 break;
             case "D":
-                numero_maxim_celes = NumeroAleatori(9,11)*NumeroAleatori(9,11);
+                numero_maxim_celes = NumeroAleatori(8,9)*NumeroAleatori(8,9);
                 ProbBlanc = 70;
                 break;
             default:
@@ -61,8 +60,6 @@ public class Generacio {
         cela_inicial.SetCoordJ(50);
 
         cela_inicial.ModificarValor(Integer.toString(1));
-        //System.out.printf("Cela: %d , %d ", cela_inicial.GetCoordJ(), cela_inicial.GetCoordI());
-        //System.out.println();
         Cami_del_hidato.add(cela_inicial);
         celes_ocupades.add(new Pair<>(cela_inicial.GetCoordI(), cela_inicial.GetCoordJ()));
         UpdateMinMax(cela_inicial);
@@ -102,7 +99,6 @@ public class Generacio {
                 ++tamany;
             }
 
-
             cela_inicial.ModificarValor(Integer.toString(numero));
             celes_ocupades.add(new Pair<>(cela_inicial.GetCoordI(),cela_inicial.GetCoordJ()));
             UpdateMinMax(cela_inicial);
@@ -138,7 +134,6 @@ public class Generacio {
             }
         }
         //Aqui va la funcio de posar * pels buits
-
         return tauler;
     }
 

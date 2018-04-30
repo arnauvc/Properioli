@@ -59,6 +59,7 @@ public class Gestor {
         try{
             partidaactiva.IniciaPartida();
         } catch (Exception e){
+            e.printStackTrace(); //Linea de codi per depurar errors, despres es treu
             GuardarPartida(v.get(1));
         }
 

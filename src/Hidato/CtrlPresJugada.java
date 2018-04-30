@@ -96,13 +96,16 @@ public class CtrlPresJugada {
     }
 
     public void MostrarResolucio(String[][] hidato_resolt, Tauler t){
-        for (int i = 0; i < t.getNumFiles(); ++i) {
-            for (int l = 0; l < t.getNumColum(); ++l) {
-                if (l > 0) System.out.print(",");
-                System.out.print(hidato_resolt[i][l]);
+        if (hidato_resolt != null) {
+            for (int i = 0; i < t.getNumFiles(); ++i) {
+                for (int l = 0; l < t.getNumColum(); ++l) {
+                    if (l > 0) System.out.print(",");
+                    System.out.print(hidato_resolt[i][l]);
+                }
+                System.out.println();
             }
-            System.out.println();
         }
+        else System.out.println("No hi ha solucio");
     }
 
     public void MostrarTauler(Tauler t){

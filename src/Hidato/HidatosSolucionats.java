@@ -15,11 +15,16 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
     private LlegirEscriure LE = new LlegirEscriure();
     private String path = new String("C:\\Users\\nilmc\\Desktop\\");
 
+    public void SetPath(String path) {
+        this.path = path;
+    }
+
     public void GuardarHidato(Integer idhidato, Tauler t, ArrayList<Pair<Pair<Integer, Integer>, String>> solucio) throws Exception {//Te un tauler Tau com a parametre
         String s = new String(path);
         s += String.valueOf(idhidato);
         s += ".txt";
         List<List<Cela>> tauler = null;
+
         //Afegir el string s al string global que seria el path
         escriptor = LE.ObrirFitxerEscriptura(s, true);
         escriptor.write(String.valueOf(idhidato));
@@ -28,11 +33,12 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         escriptor.newLine();
         escriptor.write(t.GetTiposAdj());
         escriptor.newLine();
-        escriptor.write(t.getNumFiles());
+        escriptor.write(String.valueOf(t.getNumFiles()));
         escriptor.newLine();
-        escriptor.write(t.getNumColum());
+        escriptor.write(String.valueOf(t.getNumColum()));
         escriptor.newLine();
         tauler = t.getCelas();
+
         for (int i = 0; i < t.getNumFiles(); i++) {
             for (int j = 0; j < t.getNumColum(); j++) {
                 escriptor.write((tauler.get(i).get(j)).getValor());
@@ -138,24 +144,29 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         Integer pj = null;
         int l = 0;
         i = 0;
+        String aux = new String();
         while (!s.equals("-")) {
             for (int j = 0; j < s.length(); j++) {
                 if (s.charAt(j) == ',') {
                     i++;
                     if (i == 1) {
-                        pi = Integer.parseInt(s.substring(l, j-1));
-                        l = j+1;
+                        pi = Integer.parseInt(aux);
+                        aux = "";
                     }
                     else if (i == 2) {
-                        pj = Integer.parseInt(s.substring(l, j-1));
-                        l = j+1;
-                        valor = new String(s.substring(l));
+                        pj = Integer.parseInt(aux);
+                        aux = "";
+                        valor = new String(s.substring(j+1));
                     }
                 }
+                else aux += s.charAt(j);
             }
+            aux = "";
+            i = 0;
             p = new Pair<Integer, Integer>(pi, pj);
             solucio.add(new Pair<Pair<Integer, Integer>, String>(p, valor));
             if (x.hasNext()) s = x.nextLine();
+            System.out.println(s);
         }
         return solucio;
     }

@@ -11,6 +11,7 @@ public class Resolucio{
 
     private String[][] solucio;
     private String adj = new String();
+    private String tcela = new String();
     private ArrayList<Pair<Pair<Integer, Integer>, Integer>> sl;
     private ArrayList<ArrayList<ArrayList<Pair<Integer, Integer>>>> multicamins; //per tots els camins entre tots els cumeros, multicamins<camins>
     private ArrayList<ArrayList<Pair<Integer, Integer>>> camins; //per tots els camins entre x i y, camins<cami>
@@ -312,36 +313,282 @@ public class Resolucio{
     }*/
 
     private boolean EsCorrecte(Integer valor, int f, int c) {
-            if (f < solucio.length-1) {
-                if (solucio[f+1][c].equals(String.valueOf(valor))) return true;
-            }
-            if (f > 0) {
-                if (solucio[f-1][c].equals(String.valueOf(valor))) return true;
-            }
-            if (c > 0) {
-                if (solucio[f][c-1].equals(String.valueOf(valor))) return true;
-            }
-            if (c < solucio[0].length-1) {
-                if (solucio[f][c+1].equals(String.valueOf(valor))) return true;
-            }
-        if(valor.equals("CA")) {
-            if (f > 0 && c > 0) {
-                if (solucio[f-1][c-1].equals(String.valueOf(valor))) return true;
-            }
-            if (f < solucio.length-1 && c < solucio[0].length-1) {
-                if (solucio[f+1][c+1].equals(String.valueOf(valor))) return true;
-            }
-            if (f < solucio.length-1 && c > 0) {
-                if (solucio[f+1][c-1].equals(String.valueOf(valor))) return true;
-            }
-            if (f > 0 && c < solucio[0].length-1) {
-                if (solucio[f-1][c+1].equals(String.valueOf(valor))) return true;
-            }
+
+        if (f < solucio.length-1) {
+            if (solucio[f+1][c].equals(String.valueOf(valor))) return true;
+        }
+        if (f > 0) {
+            if (solucio[f-1][c].equals(String.valueOf(valor))) return true;
+        }
+        if (c > 0) {
+            if (solucio[f][c-1].equals(String.valueOf(valor))) return true;
+        }
+        if (c < solucio[0].length-1) {
+            if (solucio[f][c+1].equals(String.valueOf(valor))) return true;
+        }
+        if (f > 0 && c > 0) {
+            if (solucio[f-1][c-1].equals(String.valueOf(valor))) return true;
+        }
+        if (f < solucio.length-1 && c < solucio[0].length-1) {
+            if (solucio[f+1][c+1].equals(String.valueOf(valor))) return true;
+        }
+        if (f < solucio.length-1 && c > 0) {
+            if (solucio[f+1][c-1].equals(String.valueOf(valor))) return true;
+        }
+        if (f > 0 && c < solucio[0].length-1) {
+            if (solucio[f-1][c+1].equals(String.valueOf(valor))) return true;
         }
         return false;
     }
 
-    private boolean TrobarSolucio (Integer i, Integer j, Integer valor1, Integer i2, Integer j2, Integer valor2, int distancia) {
+    private boolean EsCorrecteH(Integer valor, int f, int c) {
+        if (f < solucio.length-1) {
+            if (solucio[f+1][c].equals(String.valueOf(valor))) return true;
+        }
+        if (f > 0) {
+            if (solucio[f-1][c].equals(String.valueOf(valor))) return true;
+        }
+        if (c > 0) {
+            if (solucio[f][c-1].equals(String.valueOf(valor))) return true;
+        }
+        if (c < solucio[0].length-1) {
+            if (solucio[f][c+1].equals(String.valueOf(valor))) return true;
+        }
+        if (f > 0 && c > 0) {
+            if (solucio[f-1][c-1].equals(String.valueOf(valor))) return true;
+        }
+        if (f < solucio.length-1 && c > 0) {
+            if (solucio[f+1][c-1].equals(String.valueOf(valor))) return true;
+        }
+        return false;
+    }
+
+    private boolean EsCorrecteT(Integer valor, int f, int c) {
+        if (f%2 == 0) {
+            if(c%2 == 0) {
+                if (f < solucio.length-1) {
+                    if (solucio[f+1][c].equals(String.valueOf(valor))) return true;
+                }
+            }
+            else {
+                if (f > 0) {
+                    if (solucio[f-1][c].equals(String.valueOf(valor))) return true;
+                }
+            }
+        }
+        else {
+            if(c%2 != 0) {
+                if (f < solucio.length-1) {
+                    if (solucio[f+1][c].equals(String.valueOf(valor))) return true;
+                }
+            }
+            else {
+                if (f > 0) {
+                    if (solucio[f-1][c].equals(String.valueOf(valor))) return true;
+                }
+            }
+        }
+        if (c > 0) {
+            if (solucio[f][c-1].equals(String.valueOf(valor))) return true;
+        }
+        if (c < solucio[0].length-1) {
+            if (solucio[f][c+1].equals(String.valueOf(valor))) return true;
+        }
+        return false;
+    }
+
+    private boolean TrobarSolucioT (Integer i, Integer j, Integer valor1, Integer i2, Integer j2, Integer valor2, int distancia) {
+        /*for (int f = 0; f < solucio.length; f++) {
+            for (int l = 0; l < solucio[f].length; l++) {
+                System.out.print(solucio[f][l]);System.out.print(" ");
+            }
+            System.out.println("");
+        }
+        System.out.println("-------------------------");*/
+        if (distancia == 1) {
+            if (valor1 == valor2-1) {
+                if (EsCorrecteT(valor2, cami.get(cami.size()-1).getKey(), cami.get(cami.size()-1).getValue())) {
+                    camins.add((ArrayList<Pair<Integer, Integer>>) cami.clone());
+                    /*System.out.println("CAMI:");
+                    for (int f = 0; f < cami.size(); f++) {
+                        System.out.print(cami.get(f).getKey() + "," + cami.get(f).getValue() + " ");
+                    }
+                    System.out.println();
+                    System.out.println("CAMINS QUE PORTEM:");
+                    for (int f = 0; f < camins.size(); f++) {
+                        for (int l = 0; l < camins.get(f).size(); l++) {
+                            System.out.print(camins.get(f).get(l).getKey() + "," + camins.get(f).get(l).getValue() + " ");
+                        }
+                        System.out.println();
+                    }*/
+                }
+                //System.out.println();
+                return true;
+            }
+            return false;
+        }
+        else {
+            if (i%2 == 0) {
+                if (j%2 == 0) {
+                    if ((i < solucio.length-1) && (solucio[i + 1][j].equals(String.valueOf(0)))) {
+                        solucio[i + 1][j] = String.valueOf(valor1 + 1);
+                        cami.add(new Pair<Integer, Integer>((Integer)i+1, (Integer)j));
+                        distancia -= 1;
+                        if (!TrobarSolucioT(i + 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                        distancia += 1;
+                        solucio[i + 1][j] = String.valueOf(0);
+                        cami.remove(new Pair<Integer, Integer>((Integer)i+1, (Integer)j));
+                    }
+                }
+                else {
+                    if (i > 0 && solucio[i - 1][j].equals(String.valueOf(0))) {
+                        solucio[i - 1][j] = String.valueOf(valor1 + 1);
+                        cami.add(new Pair<Integer, Integer>((Integer)i-1, (Integer)j));
+                        distancia -= 1;
+                        if (!TrobarSolucioT(i - 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                        distancia += 1;
+                        solucio[i - 1][j] = String.valueOf(0);
+                        cami.remove(new Pair<Integer, Integer>((Integer)i-1, (Integer)j));
+                    }
+                }
+            }
+            else {
+                if (j%2 != 0) {
+                    if ((i < solucio.length-1) && (solucio[i + 1][j].equals(String.valueOf(0)))) {
+                        solucio[i + 1][j] = String.valueOf(valor1 + 1);
+                        cami.add(new Pair<Integer, Integer>((Integer)i+1, (Integer)j));
+                        distancia -= 1;
+                        if (!TrobarSolucioT(i + 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                        distancia += 1;
+                        solucio[i + 1][j] = String.valueOf(0);
+                        cami.remove(new Pair<Integer, Integer>((Integer)i+1, (Integer)j));
+                    }
+                }
+                else {
+                    if (i > 0 && solucio[i - 1][j].equals(String.valueOf(0))) {
+                        solucio[i - 1][j] = String.valueOf(valor1 + 1);
+                        cami.add(new Pair<Integer, Integer>((Integer)i-1, (Integer)j));
+                        distancia -= 1;
+                        if (!TrobarSolucioT(i - 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                        distancia += 1;
+                        solucio[i - 1][j] = String.valueOf(0);
+                        cami.remove(new Pair<Integer, Integer>((Integer)i-1, (Integer)j));
+                    }
+                }
+            }
+
+            if (j < solucio[0].length-1 && solucio[i][j + 1].equals(String.valueOf(0))) {
+                solucio[i][j + 1] = String.valueOf(valor1 + 1);
+                cami.add(new Pair<Integer, Integer>((Integer)i, (Integer)j+1));
+                distancia -= 1;
+                if (!TrobarSolucioT(i, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                distancia += 1;
+                solucio[i][j + 1] = String.valueOf(0);
+                cami.remove(new Pair<Integer, Integer>((Integer)i, (Integer)j+1));
+            }
+            if (j > 0 && solucio[i][j - 1].equals(String.valueOf(0))) {
+                solucio[i][j - 1] = String.valueOf(valor1 + 1);
+                cami.add(new Pair<Integer, Integer>((Integer)i, (Integer)j-1));
+                distancia -= 1;
+                if (!TrobarSolucioT(i, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                distancia += 1;
+                solucio[i][j - 1] = String.valueOf(0);
+                cami.remove(new Pair<Integer, Integer>((Integer)i, (Integer)j-1));
+            }
+        }
+        return true;
+    }
+
+    private boolean TrobarSolucioH (Integer i, Integer j, Integer valor1, Integer i2, Integer j2, Integer valor2, int distancia) {
+        /*for (int f = 0; f < solucio.length; f++) {
+            for (int l = 0; l < solucio[f].length; l++) {
+                System.out.print(solucio[f][l]);System.out.print(" ");
+            }
+            System.out.println("");
+        }
+        System.out.println("-------------------------");*/
+        if (distancia == 1) {
+            if (valor1 == valor2-1) {
+                if (EsCorrecteH(valor2, cami.get(cami.size()-1).getKey(), cami.get(cami.size()-1).getValue())) {
+                    camins.add((ArrayList<Pair<Integer, Integer>>) cami.clone());
+                    /*System.out.println("CAMI:");
+                    for (int f = 0; f < cami.size(); f++) {
+                        System.out.print(cami.get(f).getKey() + "," + cami.get(f).getValue() + " ");
+                    }
+                    System.out.println();
+                    System.out.println("CAMINS QUE PORTEM:");
+                    for (int f = 0; f < camins.size(); f++) {
+                        for (int l = 0; l < camins.get(f).size(); l++) {
+                            System.out.print(camins.get(f).get(l).getKey() + "," + camins.get(f).get(l).getValue() + " ");
+                        }
+                        System.out.println();
+                    }*/
+                }
+                //System.out.println();
+                return true;
+            }
+            return false;
+        }
+        else {
+            if (i > 0 && solucio[i - 1][j].equals(String.valueOf(0))) {
+                solucio[i - 1][j] = String.valueOf(valor1 + 1);
+                cami.add(new Pair<Integer, Integer>((Integer)i-1, (Integer)j));
+                distancia -= 1;
+                if (!TrobarSolucioH(i - 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                distancia += 1;
+                solucio[i - 1][j] = String.valueOf(0);
+                cami.remove(new Pair<Integer, Integer>((Integer)i-1, (Integer)j));
+            }
+            if (j < solucio[0].length-1 && solucio[i][j + 1].equals(String.valueOf(0))) {
+                solucio[i][j + 1] = String.valueOf(valor1 + 1);
+                cami.add(new Pair<Integer, Integer>((Integer)i, (Integer)j+1));
+                distancia -= 1;
+                if (!TrobarSolucioH(i, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                distancia += 1;
+                solucio[i][j + 1] = String.valueOf(0);
+                cami.remove(new Pair<Integer, Integer>((Integer)i, (Integer)j+1));
+            }
+            if (j > 0 && solucio[i][j - 1].equals(String.valueOf(0))) {
+                solucio[i][j - 1] = String.valueOf(valor1 + 1);
+                cami.add(new Pair<Integer, Integer>((Integer)i, (Integer)j-1));
+                distancia -= 1;
+                if (!TrobarSolucioH(i, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                distancia += 1;
+                solucio[i][j - 1] = String.valueOf(0);
+                cami.remove(new Pair<Integer, Integer>((Integer)i, (Integer)j-1));
+            }
+            if ((i < solucio.length-1) && (solucio[i + 1][j].equals(String.valueOf(0)))) {
+                solucio[i + 1][j] = String.valueOf(valor1 + 1);
+                cami.add(new Pair<Integer, Integer>((Integer)i+1, (Integer)j));
+                distancia -= 1;
+                if (!TrobarSolucioH(i + 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                distancia += 1;
+                solucio[i + 1][j] = String.valueOf(0);
+                cami.remove(new Pair<Integer, Integer>((Integer)i+1, (Integer)j));
+            }
+            if((i < solucio.length-1 && j > 0 ) && solucio[i + 1][j - 1].equals(String.valueOf(0))) {
+                solucio[i + 1][j - 1] = String.valueOf(valor1 + 1);
+                cami.add(new Pair<Integer, Integer>((Integer)i+1, (Integer)j-1));
+                distancia -= 1;
+                if (!TrobarSolucioH(i + 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                distancia += 1;
+                solucio[i + 1][j - 1] = String.valueOf(0);
+                cami.remove(new Pair<Integer, Integer>((Integer)i+1, (Integer)j-1));
+            }
+            if((i > 0 && j > 0) && solucio[i - 1][j - 1].equals(String.valueOf(0))) {
+                solucio[i - 1][j - 1] = String.valueOf(valor1 + 1);
+                cami.add(new Pair<Integer, Integer>((Integer)i-1, (Integer)j-1));
+                distancia -= 1;
+                if (!TrobarSolucioH(i - 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                distancia += 1;
+                solucio[i - 1][j - 1] = String.valueOf(0);
+                cami.remove(new Pair<Integer, Integer>((Integer)i-1, (Integer)j-1));
+            }
+        }
+        return true;
+    }
+
+    private boolean TrobarSolucioQ (Integer i, Integer j, Integer valor1, Integer i2, Integer j2, Integer valor2, int distancia) {
         /*for (int f = 0; f < solucio.length; f++) {
             for (int l = 0; l < solucio[f].length; l++) {
                 System.out.print(solucio[f][l]);System.out.print(" ");
@@ -377,7 +624,7 @@ public class Resolucio{
                 cami.add(new Pair<Integer, Integer>((Integer)i-1, (Integer)j));
                 distancia -= 1;
                 espais--;
-                if (!TrobarSolucio(i - 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                if (!TrobarSolucioQ(i - 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
                 distancia += 1;
                 espais++;
                 solucio[i - 1][j] = String.valueOf(0);
@@ -388,7 +635,7 @@ public class Resolucio{
                 cami.add(new Pair<Integer, Integer>((Integer)i, (Integer)j+1));
                 distancia -= 1;
                 espais--;
-                if (!TrobarSolucio(i, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                if (!TrobarSolucioQ(i, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
                 distancia += 1;
                 espais++;
                 solucio[i][j + 1] = String.valueOf(0);
@@ -399,7 +646,7 @@ public class Resolucio{
                 cami.add(new Pair<Integer, Integer>((Integer)i, (Integer)j-1));
                 distancia -= 1;
                 espais--;
-                if (!TrobarSolucio(i, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                if (!TrobarSolucioQ(i, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
                 distancia += 1;
                 espais++;
                 solucio[i][j - 1] = String.valueOf(0);
@@ -410,7 +657,7 @@ public class Resolucio{
                 cami.add(new Pair<Integer, Integer>((Integer)i+1, (Integer)j));
                 distancia -= 1;
                 espais--;
-                if (!TrobarSolucio(i + 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                if (!TrobarSolucioQ(i + 1, j, valor1 + 1, i2, j2, valor2, distancia)) return false;
                 distancia += 1;
                 espais++;
                 solucio[i + 1][j] = String.valueOf(0);
@@ -422,7 +669,7 @@ public class Resolucio{
                     cami.add(new Pair<Integer, Integer>((Integer)i+1, (Integer)j+1));
                     distancia -= 1;
                     espais--;
-                    if (!TrobarSolucio(i + 1, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                    if (!TrobarSolucioQ(i + 1, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
                     distancia += 1;
                     espais++;
                     solucio[i + 1][j + 1] = String.valueOf(0);
@@ -433,7 +680,7 @@ public class Resolucio{
                     cami.add(new Pair<Integer, Integer>((Integer)i+1, (Integer)j-1));
                     distancia -= 1;
                     espais--;
-                    if (!TrobarSolucio(i + 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                    if (!TrobarSolucioQ(i + 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
                     distancia += 1;
                     espais++;
                     solucio[i + 1][j - 1] = String.valueOf(0);
@@ -444,7 +691,7 @@ public class Resolucio{
                     cami.add(new Pair<Integer, Integer>((Integer)i-1, (Integer)j-1));
                     distancia -= 1;
                     espais--;
-                    if (!TrobarSolucio(i - 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                    if (!TrobarSolucioQ(i - 1, j - 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
                     distancia += 1;
                     espais++;
                     solucio[i - 1][j - 1] = String.valueOf(0);
@@ -455,7 +702,7 @@ public class Resolucio{
                     cami.add(new Pair<Integer, Integer>((Integer)i-1, (Integer)j+1));
                     distancia -= 1;
                     espais--;
-                    if (!TrobarSolucio(i - 1, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
+                    if (!TrobarSolucioQ(i - 1, j + 1, valor1 + 1, i2, j2, valor2, distancia)) return false;
                     distancia += 1;
                     espais++;
                     solucio[i - 1][j + 1] = String.valueOf(0);
@@ -557,28 +804,66 @@ public class Resolucio{
         return false;
     }
 
-    public String[][] ResoltreHidato (String[][] t, String adjacencia) {
+    public String[][] ResoltreHidato (String[][] t, String tcela, String adjacencia) {
         adj = adjacencia;
+        this.tcela = tcela;
         solucio = new String[t.length][t[0].length];
         ObtenirNumeros(t);
         int distancia = 0;
         multicamins = new ArrayList<ArrayList<ArrayList<Pair<Integer, Integer>>>>();
         camins = new ArrayList<ArrayList<Pair<Integer, Integer>>>();
         cami = new ArrayList<Pair<Integer, Integer>>();
-        for (int i = 0; i < sl.size()-1; i++) {
-            distancia = sl.get(i+1).getValue() - sl.get(i).getValue();
-            cami.clear();
-            camins.clear();
-            if (distancia != 1) {
-                cami.add(new Pair<>(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue()));
-                if (!TrobarSolucio(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia)) {
-                    solucio = null;
-                    System.out.println("NO HE TROBAT SOLUCIO");
-                    System.out.println("");
-                    break;
+        if (tcela.equals("Q")) {
+            for (int i = 0; i < sl.size() - 1; i++) {
+                distancia = sl.get(i + 1).getValue() - sl.get(i).getValue();
+                cami.clear();
+                camins.clear();
+                if (distancia != 1) {
+                    cami.add(new Pair<>(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue()));
+                    if (!TrobarSolucioQ(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia)) {
+                        solucio = null;
+                        System.out.println("NO HE TROBAT SOLUCIO");
+                        System.out.println("");
+                        break;
+                    } else {
+                        multicamins.add((ArrayList<ArrayList<Pair<Integer, Integer>>>) camins.clone());
+                    }
                 }
-                else {
-                    multicamins.add((ArrayList<ArrayList<Pair<Integer, Integer>>>) camins.clone());
+            }
+        }
+        else if (tcela.equals("H")) {
+            for (int i = 0; i < sl.size() - 1; i++) {
+                distancia = sl.get(i + 1).getValue() - sl.get(i).getValue();
+                cami.clear();
+                camins.clear();
+                if (distancia != 1) {
+                    cami.add(new Pair<>(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue()));
+                    if (!TrobarSolucioH(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia)) {
+                        solucio = null;
+                        System.out.println("NO HE TROBAT SOLUCIO");
+                        System.out.println("");
+                        break;
+                    } else {
+                        multicamins.add((ArrayList<ArrayList<Pair<Integer, Integer>>>) camins.clone());
+                    }
+                }
+            }
+        }
+        else if (tcela.equals("T")) {
+            for (int i = 0; i < sl.size() - 1; i++) {
+                distancia = sl.get(i + 1).getValue() - sl.get(i).getValue();
+                cami.clear();
+                camins.clear();
+                if (distancia != 1) {
+                    cami.add(new Pair<>(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue()));
+                    if (!TrobarSolucioT(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia)) {
+                        solucio = null;
+                        System.out.println("NO HE TROBAT SOLUCIO");
+                        System.out.println("");
+                        break;
+                    } else {
+                        multicamins.add((ArrayList<ArrayList<Pair<Integer, Integer>>>) camins.clone());
+                    }
                 }
             }
         }

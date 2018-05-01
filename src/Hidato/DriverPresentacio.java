@@ -35,8 +35,8 @@ public class DriverPresentacio {
                 dt.Inicia();*/
                 break;
             case 6:
-                /*TestUnitari_Generacio tg = new TestUnitari_Generacio();
-                tg.SuiteTestosGeneracio();*/
+                TestUnitari_Generacio tg = new TestUnitari_Generacio();
+                tg.SuiteTestosGeneracio();
                 break;
             case 7:
                 Test_HS test_hs = new Test_HS();

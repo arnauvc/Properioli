@@ -22,6 +22,8 @@ public class Test_HS {
     ArrayList<Pair<Pair<Integer, Integer>, String>> solucio = new ArrayList<Pair<Pair<Integer, Integer>, String>>();
     @Test
     public void Provar() {
+        String path = "../";
+        hs.SetPath(path);
         tauler = g.GenerarHidato("Q", "C", "NORMAL");
         solucio.add(new Pair<Pair<Integer, Integer>, String>(new Pair<Integer, Integer>(1, 1), String.valueOf(2)));
         solucio.add(new Pair<Pair<Integer, Integer>, String>(new Pair<Integer, Integer>(2, 3), String.valueOf(4)));
@@ -39,5 +41,6 @@ public class Test_HS {
             System.out.println("AIXO NO CARREGA");
         }
         tau.MostrarTauler();
+
     }
 }

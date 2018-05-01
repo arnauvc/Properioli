@@ -1,0 +1,15 @@
+Algoritme de Generacio d'Hidatos:
+
+Els hidato es generen a partir d'un graf de celes capat. Estructuralment es comporta com una matriu.
+Per tal d'evitar situacions com la del exemple seguent, s'utilitza un sistema de backtrack per tal que el cami hamiltonia no es quedi encallat.
+Exemple: (Assumim que volem un cami de llargada > 9)
+	# # # # #
+	# 1 8 7 #
+	# 2 9 6 #
+	# 3 4 5 #
+	# # # # #
+
+L'algoritme de decisio de la seguent_cela va en funcio d'un vector de probabilitats que depen del aspect_ratio(altura/amplada) del graf.
+Futures implementacions tindran en compte la densitat del graf per zones.
+
+Un cop es te el cami hamiltonia complet es traspasa a una matriu de strings per ser tractat posteriorment per altres classes que en fas us.

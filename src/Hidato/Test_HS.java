@@ -1,3 +1,5 @@
+package Hidato;
+
 import Hidato.Generacio;
 import Hidato.HidatosSolucionats;
 import Hidato.Resolucio;
@@ -32,7 +34,7 @@ public class Test_HS {
             e.printStackTrace();
         }
         try {
-             tau = hs.CarregarHidato(1);
+            tau = hs.CarregarHidato(1);
         } catch (Exception e) {
             System.out.println("AIXO NO CARREGA");
         }

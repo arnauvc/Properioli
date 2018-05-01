@@ -153,13 +153,12 @@ public class Tauler {
 
     public void MostrarTauler() {//no funciona correctament
         List<Cela> aux = new ArrayList<Cela>();
-        System.out.println(numFiles);
-        System.out.println(Celas.size());
+        //System.out.println(numFiles);
+        //System.out.println(Celas.size());
         for (int i = 0; i < Celas.size(); ++i) {
             aux = Celas.get(i);
             mostrarfila(aux);
             System.out.println();
         }
     }
-
 }

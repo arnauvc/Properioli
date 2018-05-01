@@ -11,17 +11,6 @@ public class TestUnitari_Generacio {
     Resolucio res = new Resolucio();
 
     @Test
-    public void HidatoHexagonalAmbInputIncorrecteDificil()  {
-        Generacio gen = new Generacio();
-        String[][] tauler;
-        tauler = gen.GenerarHidato("H","CA","D");
-        Print(tauler, tauler.length, tauler[0].length);
-        String[][] solucio;
-        solucio = res.ResoltreHidato(tauler, "H", "CA" );
-        Print(solucio, tauler.length, tauler[0].length);
-    }
-
-    @Test
     public void HidatoHexagonalDificl()  {
         Generacio gen = new Generacio();
         String[][] tauler;

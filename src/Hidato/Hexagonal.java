@@ -15,8 +15,9 @@ public class Hexagonal extends Cela{
     }
 
     @Override
-    public void Veins() {
-        this.Probabilitat = new Double[]{0.15, 0.15, 0.15, 0.15, 0.15, 0.15};
+    public void Veins(String direccio) {
+
+        this.Probabilitat = new Double[]{0.165, 0.165, 0.165, 0.165, 0.165, 0.165};
         veins_meus.add(new Hexagonal(CoordI-1, CoordJ-1,Adjacencia));//TOP+LEFT 0
         veins_meus.add(new Hexagonal(CoordI, CoordJ-1,Adjacencia));//TOP 1
         veins_meus.add(new Hexagonal(CoordI-1, CoordJ,Adjacencia));//LEFT 2
@@ -56,7 +57,7 @@ public class Hexagonal extends Cela{
         return nextcela;
     }
 
-
+/*
     @Override
     public ArrayList<Cela> Veins(String direccio) {
         veins_meus.clear();
@@ -113,4 +114,5 @@ public class Hexagonal extends Cela{
 
         return veins_ordenats;
     }
+    */
 }

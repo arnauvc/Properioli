@@ -81,40 +81,28 @@ public class Cela{
 	public void SetAdjacencia(String adj){
 		this.Adjacencia = adj;
 	}
-
+	/*
 	protected ArrayList<Cela> Veins(String direccio) {
 		return null;
 	}
-
-	protected void Veins(){}
+	*/
+	protected void Veins(String direccio){}
 
 
 	protected Cela NextCela() {
 		return null;
 	}
 
-	protected boolean UpdateProbabilitat(Integer numero){
-		System.out.printf("Torn: %d ", numero);
-		System.out.println();
-		System.out.println("Probabilitat abans de modificar:");
-		for(Integer j = 0; j < Probabilitat.length; ++j){
-			System.out.printf("Probabilitat: %f ", Probabilitat[j]);
-		}
-		System.out.println();
-		System.out.println("Proabilitat despres de modificar");
-
+	protected boolean UpdateProbabilitat(){
 		Double d = Probabilitat[PosicioNextCela];
 		Probabilitat[PosicioNextCela] = 0.0;
 		++NumeroProbabilitats0;
-		if(NumeroProbabilitats0 == Probabilitat.length) return false;
+		if(NumeroProbabilitats0 >= Probabilitat.length) return false;
 		for(Integer i = 0; i < Probabilitat.length; ++i){
-			if(Probabilitat[i] != (double) 0){
-				Probabilitat[i] += d/(Probabilitat.length-NumeroProbabilitats0);
-				System.out.printf("Probabilitat: %f ", Probabilitat[i]);
+			if(Probabilitat[i] != 0.0) {
+				Probabilitat[i] += d / (Probabilitat.length - NumeroProbabilitats0);
 			}
-			else System.out.printf("Probabilitat: %f ", Probabilitat[i]);
 		}
-		System.out.println();
 		return true;
 	}
 

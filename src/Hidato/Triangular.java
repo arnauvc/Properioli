@@ -16,9 +16,18 @@ public class Triangular extends Cela{
     }
 
     @Override
-    public void Veins() {
+    public void Veins(String direccio) {
         veins_meus.clear();
-        this.Probabilitat = new Double[]{0.3, 0.3, 0.3};
+        if(direccio.equals("H")){
+            this.Probabilitat = new Double[]{0.396, 0.198, 0.396};
+        }
+        else if(direccio.equals("V")){
+            this.Probabilitat = new Double[]{0.165, 0.66, 0.165};
+        }
+        else {
+            this.Probabilitat = new Double[]{0.33, 0.33, 0.33};
+        }
+
         if ((CoordI % 2 == 0 && CoordJ % 2 == 0) || (CoordI % 2 != 0 && CoordJ % 2 != 0)) {
             veins_meus.add(new Triangular(CoordI - 1, CoordJ, Adjacencia));//LEFT 0
             veins_meus.add(new Triangular(CoordI, CoordJ + 1, Adjacencia));//BOTTOM 1
@@ -49,6 +58,7 @@ public class Triangular extends Cela{
         return nextcela;
     }
 
+    /*
     @Override
     public ArrayList<Cela> Veins(String direccio) {
         veins_meus.clear();
@@ -83,4 +93,5 @@ public class Triangular extends Cela{
 
         return veins_ordenats;
     }
+    */
 }

@@ -1,7 +1,5 @@
 package Hidato;
 
-
-import javafx.scene.Camera;
 import javafx.util.Pair;
 
 import java.util.*;
@@ -18,30 +16,54 @@ public class Generacio {
     private String[][] tauler;
     private String[][] solucio;
 
-    private Integer numero;
+    private Integer numero = 0;
+    private Integer maxfila;
+    private Integer maxcolumna;
 
     HashSet< Pair<Integer,Integer> > celes_ocupades = new HashSet<>() ;//(J,I)
     ArrayList<Cela> Cami_del_hidato = new ArrayList<>();
 
+    private boolean CheckCela(Cela cel){
+
+        if(celes_ocupades.contains(new Pair<>(cel.GetCoordJ(),cel.GetCoordI()))
+            || cel.CoordJ < 0 ||cel.CoordI < 0 || cel.CoordJ > maxfila || cel.CoordI > maxcolumna){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
 
     private boolean GeneradorRecursiu(Cela cela_inicial){
         if(numero > numero_maxim_celes){return true;}
-        if(celes_ocupades.contains(new Pair<>(cela_inicial.GetCoordJ(),cela_inicial.GetCoordI())) || cela_inicial.CoordJ < 0 ||cela_inicial.CoordI < 0){return false; }
+        if(!CheckCela(cela_inicial)) return false;
         else{
 
             cela_inicial.ModificarValor(Integer.toString(numero));
             Cami_del_hidato.add(cela_inicial);
             celes_ocupades.add(new Pair<>(cela_inicial.GetCoordJ(),cela_inicial.GetCoordI()));
+
+
             UpdateMinMax(cela_inicial);
             //Calcula qui son els veins de la cela (i,j), en funcio del tipus de cela i adjacencia
             //Escull la seguent cela a analitzar en funcio d'una probabilitat
             ++numero;
-            cela_inicial.Veins();
+
+            String direccio;
+            if(aspect_ratio() > 1) direccio = "H";
+            else if (aspect_ratio() == 1) direccio = "D";
+            else direccio = "V";
+
+            cela_inicial.Veins(direccio);
+
             Cela cela_nova = cela_inicial.NextCela();
             while(!GeneradorRecursiu(cela_nova)){
-                if(!cela_inicial.UpdateProbabilitat(numero)){//False quan ja no tens mes celes disponibles
+                if(!cela_inicial.UpdateProbabilitat()){//False quan ja no tens mes celes disponibles
                     --numero;
                     Cami_del_hidato.remove(Cami_del_hidato.size()-1);
+                    if(celes_ocupades.remove(new Pair<>(cela_inicial.GetCoordJ(),cela_inicial.GetCoordI()))){
+                    }
                     return false;
                 }
                 cela_nova = cela_inicial.NextCela();
@@ -70,79 +92,53 @@ public class Generacio {
 
         switch (Dificultat){
             case "F":
-                numero_maxim_celes = NumeroAleatori(3,5)*NumeroAleatori(3,5);
+                numero_maxim_celes = NumeroAleatori(9,30);
                 ProbBlanc = 70;
+                maxfila =7;
+                maxcolumna = 7;
                 break;
             case "N":
-                numero_maxim_celes = NumeroAleatori(6,7)*NumeroAleatori(6,7);
+                numero_maxim_celes = NumeroAleatori(31,50);
+                maxfila = 9;
+                maxcolumna = 9;
                 ProbBlanc = 70;
                 break;
             case "D":
-                numero_maxim_celes = NumeroAleatori(8,9)*NumeroAleatori(8,9);
-                ProbBlanc = 70;
+                numero_maxim_celes = NumeroAleatori(51,90);
+                maxfila =11;
+                maxcolumna = 11;
+                ProbBlanc = 50;
                 break;
             default:
-                numero_maxim_celes = 20;
+                numero_maxim_celes = 25;
+                maxfila =6;
+                maxcolumna = 6;
                 ProbBlanc = 50;
                 break;
         }
         UpdateMinMax(cela_inicial);
         numero = 1;
         if(GeneradorRecursiu(cela_inicial)){
-            System.out.println("TOT BE");
-            System.out.println();
 
-            //Inicialitzar tauler i taulersolucio (matrius)
-            /*
-            Integer MinJParell = MinJ;
-            Integer MinIParell = MinI;
-            Integer NumFilesNou = GetNumFiles();
-            Integer NumColumnesNou = GetNumColumnes();
-            if(GetNumFiles()%2 != 0 && GetNumColumnes()%2 == 0){
-                MinJParell = MinJ-1;
-                NumFilesNou += 1;
-            }
-            else if(GetNumFiles()%2 == 0 && GetNumColumnes()%2 != 0){
-                MinIParell = MinI-1;
-                NumColumnesNou += 1;
-            }
-
-            System.out.printf("GetNumFiles: %s",GetNumFiles());
-            System.out.println();
-            System.out.printf("GetNumColumnes: %s",GetNumColumnes());
-            System.out.println();
-            System.out.printf("NumFilesNou: %s",NumFilesNou);
-            System.out.println();
-            System.out.printf("NumColumnesNou: %s",NumColumnesNou);
-            System.out.println();
-            */
             //Inicialitza la matriu
             tauler = new String[GetNumFiles()][GetNumColumnes()];
             solucio = new String[GetNumFiles()][GetNumColumnes()];
-
-
-            //Posa tot a #
-            for(int l = 0; l < GetNumFiles(); ++l){
-                for(int k = 0; k < GetNumColumnes(); ++k) {
-                    tauler[l][k] = "#";
-                    solucio[l][k] = "#";
-                }
-            }
             //Passar de graf a matriu
 
             for(Cela c: Cami_del_hidato){
                 tauler[c.GetCoordJ()][c.GetCoordI()] = c.getValor();
                 solucio[c.GetCoordJ()][c.GetCoordI()] = c.getValor();
-
-                //tauler[c.GetCoordJ()-MinJ][c.GetCoordI()-MinI] = c.getValor();
-                //solucio[c.GetCoordJ()-MinJ][c.GetCoordI()-MinI] = c.getValor();
             }
 
             //Buidar el tauler
             Random ran = new Random();
             for(int l = 0; l < GetNumFiles(); ++l){
                 for(int k = 0; k < GetNumColumnes(); ++k){
-                    if(!tauler[l][k].equals("#") && !tauler[l][k].equals("1") && !tauler[l][k].equals(Integer.toString(numero_maxim_celes-1))){
+                    if(tauler[l][k] == null){
+                        tauler[l][k] = "#";
+                        solucio[l][k] = "#";
+                    }
+                    if(!tauler[l][k].equals("#") && !tauler[l][k].equals("1") && !tauler[l][k].equals(Integer.toString(numero_maxim_celes))){
                         Integer ra = ran.nextInt(100);
                         if(ra < ProbBlanc){
                             tauler[l][k]="?";
@@ -151,33 +147,41 @@ public class Generacio {
                 }
             }
 
-            System.out.printf("TIPUS: %s  ADJACENCIA: %s DIFICULTAT: %s", Tipuscela, Tipusadj, Dificultat);
-            System.out.println();
             //Aqui va la funcio de posar * pels buits
             return tauler;
         }
         else{
-            System.out.println("CACA DURA");
-            System.out.println();
             return new String[0][0];
         }
     }
 
+    private void UpdateMinMax(Cela celaini){
+        if(celaini.GetCoordI() > MaxI) MaxI = celaini.GetCoordI();
+        if(celaini.GetCoordI() < MinI) MinI = celaini.GetCoordI();
+        if(celaini.GetCoordJ() > MaxJ) MaxJ = celaini.GetCoordJ();
+        if(celaini.GetCoordJ() < MinJ) MinJ = celaini.GetCoordJ();
+    }
 
-     /*
-            ArrayList<Cela> veins_meus = cela_inicial.Veins();
-            Integer posi = rat.nextInt(veins_meus.size());
-            Integer con = 0;
-            while(con < veins_meus.size()){
-                if(!celes_ocupades.contains(new Pair<>(veins_meus.get(posi).GetCoordI(),veins_meus.get(posi).GetCoordJ())) ){
-                    cela_inicial = veins_meus.get(posi);
-                    break;
-                }
-                posi = rat.nextInt(veins_meus.size());
-                ++con;
-            }
-            */
+    private Integer NumeroAleatori(Integer min, Integer max){
+        Random r = new Random();
+        return r.nextInt(max-min) + min;
+    }
 
+    private Double aspect_ratio(){ return (double) (GetNumFiles() / GetNumColumnes()); }
+
+    private Integer GetNumFiles(){ return (MaxJ-MinJ)+1; }
+
+    private Integer GetNumColumnes(){ return (MaxI-MinI)+1; }
+
+    public String[][]GetSolucio(){ return solucio; }
+
+    public Integer GetValorMaxim(){
+        return numero_maxim_celes-1;
+    }
+
+
+
+    // VERSIO 1//////////////////////////////////////////////////////////
 
     /*
     public String[][] GenerarHidato(String Tipuscela, String Tipusadj, String Dificultat){
@@ -286,7 +290,7 @@ public class Generacio {
         //Aqui va la funcio de posar * pels buits
         return tauler;
     }
-    */
+
 
 
     private void UpdateMinMax(Cela celaini){
@@ -312,6 +316,10 @@ public class Generacio {
     public Integer GetValorMaxim(){
         return numero_maxim_celes-1;
     }
+    */
+
+
+    // VERSIO 2//////////////////////////////////////////////////////////
 
     /*
 

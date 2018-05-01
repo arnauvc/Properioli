@@ -8,20 +8,17 @@ import org.junit.runners.MethodSorters;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestUnitari_Generacio {
 
-    @Test
-    public void HidatoHexagonalAmbInputIncorrecteDificil()  {
-        Generacio gen = new Generacio();
-        String[][] tauler;
-        tauler = gen.GenerarHidato("H","CA","D");
-        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
-    }
+    Resolucio res = new Resolucio();
 
     @Test
     public void HidatoHexagonalDificl()  {
         Generacio gen = new Generacio();
         String[][] tauler;
         tauler = gen.GenerarHidato("H","C","D");
-        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
+        Print(tauler, tauler.length, tauler[0].length);
+        String[][] solucio;
+        solucio = res.ResoltreHidato(tauler, "H", "C" );
+        Print(solucio, tauler.length, tauler[0].length);
     }
 
     @Test
@@ -29,7 +26,21 @@ public class TestUnitari_Generacio {
         Generacio gen = new Generacio();
         String[][] tauler;
         tauler = gen.GenerarHidato("H","C","F");
-        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
+        Print(tauler, tauler.length, tauler[0].length);
+        String[][] solucio;
+        solucio = res.ResoltreHidato(tauler, "H", "C" );
+        Print(solucio, tauler.length, tauler[0].length);
+    }
+
+    @Test
+    public void HidatoQuadratCostatsAnglesDificil()  {
+        Generacio gen = new Generacio();
+        String[][] tauler;
+        tauler = gen.GenerarHidato("Q","CA","D");
+        Print(tauler, tauler.length, tauler[0].length);
+        String[][] solucio;
+        solucio = res.ResoltreHidato(tauler, "Q", "CA" );
+        Print(solucio, tauler.length, tauler[0].length);
     }
 
     @Test
@@ -37,7 +48,10 @@ public class TestUnitari_Generacio {
         Generacio gen = new Generacio();
         String[][] tauler;
         tauler = gen.GenerarHidato("Q","CA","F");
-        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
+        Print(tauler, tauler.length, tauler[0].length);
+        String[][] solucio;
+        solucio = res.ResoltreHidato(tauler, "Q", "CA" );
+        Print(solucio, tauler.length, tauler[0].length);
     }
 
     @Test
@@ -45,7 +59,10 @@ public class TestUnitari_Generacio {
         Generacio gen = new Generacio();
         String[][] tauler;
         tauler = gen.GenerarHidato("Q","C","D");
-        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
+        Print(tauler, tauler.length, tauler[0].length);
+        String[][] solucio;
+        solucio = res.ResoltreHidato(tauler, "Q", "C" );
+        Print(solucio, tauler.length, tauler[0].length);
     }
 
     @Test
@@ -53,7 +70,10 @@ public class TestUnitari_Generacio {
         Generacio gen = new Generacio();
         String[][] tauler;
         tauler = gen.GenerarHidato("Q","C","F");
-        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
+        Print(tauler, tauler.length, tauler[0].length);
+        String[][] solucio;
+        solucio = res.ResoltreHidato(tauler, "Q", "C" );
+        Print(solucio, tauler.length, tauler[0].length);
     }
 
     @Test
@@ -61,7 +81,10 @@ public class TestUnitari_Generacio {
         Generacio gen = new Generacio();
         String[][] tauler;
         tauler = gen.GenerarHidato("T","C","D");
-        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
+        Print(tauler, tauler.length, tauler[0].length);
+        String[][] solucio;
+        solucio = res.ResoltreHidato(tauler, "T", "C" );
+        Print(solucio, tauler.length, tauler[0].length);
     }
 
     @Test
@@ -69,15 +92,18 @@ public class TestUnitari_Generacio {
         Generacio gen = new Generacio();
         String[][] tauler;
         tauler = gen.GenerarHidato("T","C","F");
-        Print(tauler, gen.GetNumFiles(), gen.GetNumColumnes());
+        Print(tauler, tauler.length, tauler[0].length);
+        String[][] solucio;
+        solucio = res.ResoltreHidato(tauler, "T", "C" );
+        Print(solucio, solucio.length, solucio[0].length);
     }
 
-    public void Print(String[][] tauler, Integer nfiles, Integer ncolumnes){
+    public void Print(String[][] matriu, Integer nfiles, Integer ncolumnes){
         for (int i = 0; i < nfiles; ++i){
             if (i > 0) System.out.println();
             for (int j = 0; j < ncolumnes; ++j){
-                if (j > 0) System.out.printf(",%s", tauler[i][j]);
-                else System.out.print(tauler[i][j]);
+                if (j > 0) System.out.printf(",%s", matriu[i][j]);
+                else System.out.print(matriu[i][j]);
             }
         }
         System.out.println();

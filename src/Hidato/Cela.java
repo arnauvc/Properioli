@@ -1,6 +1,8 @@
 package Hidato;
 
 import java.util.ArrayList;
+import javafx.util.Pair;
+import java.util.Vector;
 
 public class Cela{
 	private String tipus;
@@ -50,6 +52,11 @@ public class Cela{
 	protected Integer CoordJ;
 	protected String Adjacencia;
 
+	protected Double[] Probabilitat;
+
+	protected Integer PosicioNextCela = -1;
+	protected Integer NumeroProbabilitats0 = 0;
+
 
 	public void SetCoordI(Integer i){
 		CoordI = i;
@@ -74,16 +81,30 @@ public class Cela{
 	public void SetAdjacencia(String adj){
 		this.Adjacencia = adj;
 	}
-
+	/*
 	protected ArrayList<Cela> Veins(String direccio) {
 		return null;
 	}
+	*/
+	protected void Veins(String direccio){}
 
-	/*
-	protected ArrayList<Cela> Veins() {
+
+	protected Cela NextCela() {
 		return null;
 	}
-	*/
+
+	protected boolean UpdateProbabilitat(){
+		Double d = Probabilitat[PosicioNextCela];
+		Probabilitat[PosicioNextCela] = 0.0;
+		++NumeroProbabilitats0;
+		if(NumeroProbabilitats0 >= Probabilitat.length) return false;
+		for(Integer i = 0; i < Probabilitat.length; ++i){
+			if(Probabilitat[i] != 0.0) {
+				Probabilitat[i] += d / (Probabilitat.length - NumeroProbabilitats0);
+			}
+		}
+		return true;
+	}
 
 
 }

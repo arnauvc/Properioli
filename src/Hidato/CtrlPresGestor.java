@@ -108,7 +108,7 @@ public class CtrlPresGestor {
     }
     private String [][] LlegirTauler(Integer nfil, Integer ncol){
         //Ja funciona
-
+        System.out.println("Genera el hidato:");
         String[][] Tauler = new String[nfil][ncol];
         Scanner input = new Scanner(System.in);
 
@@ -212,8 +212,6 @@ public class CtrlPresGestor {
             Vector<String> vres = NFilCol();
             v.add(4,vres.get(0));
             v.add(5,vres.get(1));
-            tipusdificultat = TDificultat();
-            v.add(6,tipusdificultat);
             String[][] tau = LlegirTauler(Integer.parseInt(vres.get(0)), Integer.parseInt(vres.get(1)));
             //g.Parametres(v);
             g.Generar(v,tau);//V{nomusuari, path, tipuscela, tipusadj, numfil, numcol, dificultat}

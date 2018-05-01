@@ -2,6 +2,7 @@ package Hidato;
 
 import javafx.util.Pair;
 
+import javax.swing.text.html.MinimalHTMLWriter;
 import java.util.*;
 import java.lang.Exception;
 
@@ -44,17 +45,18 @@ public class Generacio {
             Cami_del_hidato.add(cela_inicial);
             celes_ocupades.add(new Pair<>(cela_inicial.GetCoordJ(),cela_inicial.GetCoordI()));
 
-
-            UpdateMinMax(cela_inicial);
-            //Calcula qui son els veins de la cela (i,j), en funcio del tipus de cela i adjacencia
-            //Escull la seguent cela a analitzar en funcio d'una probabilitat
+            //UpdateMinMax(cela_inicial);
             ++numero;
 
             String direccio;
-            if(aspect_ratio() > 1) direccio = "H";
-            else if (aspect_ratio() == 1) direccio = "D";
+            if(aspect_ratio() > 1.0) direccio = "H";
+            else if (aspect_ratio() == 1.0) direccio = "D";
             else direccio = "V";
-
+            Integer MinIAntic = MinI;
+            Integer MinJAntic = MinJ;
+            Integer MaxIAntic = MaxI;
+            Integer MaxJAntic = MaxJ;
+            UpdateMinMax(cela_inicial);
             cela_inicial.Veins(direccio);
 
             Cela cela_nova = cela_inicial.NextCela();
@@ -62,8 +64,12 @@ public class Generacio {
                 if(!cela_inicial.UpdateProbabilitat()){//False quan ja no tens mes celes disponibles
                     --numero;
                     Cami_del_hidato.remove(Cami_del_hidato.size()-1);
-                    if(celes_ocupades.remove(new Pair<>(cela_inicial.GetCoordJ(),cela_inicial.GetCoordI()))){
-                    }
+                    celes_ocupades.remove(new Pair<>(cela_inicial.GetCoordJ(),cela_inicial.GetCoordI()));
+                    MinI = MinIAntic;
+                    MinJ = MinJAntic;
+                    MaxI = MaxIAntic;
+                    MaxJ = MaxJAntic;
+
                     return false;
                 }
                 cela_nova = cela_inicial.NextCela();
@@ -94,20 +100,39 @@ public class Generacio {
             case "F":
                 numero_maxim_celes = NumeroAleatori(9,30);
                 ProbBlanc = 70;
-                maxfila =7;
-                maxcolumna = 7;
+                if(numero_maxim_celes < 17){
+                    maxfila = 5;
+                    maxcolumna = 6;
+                }
+                else{
+                    maxfila =7;
+                    maxcolumna = 7;
+                }
                 break;
             case "N":
-                numero_maxim_celes = NumeroAleatori(31,50);
-                maxfila = 9;
-                maxcolumna = 9;
+                numero_maxim_celes = NumeroAleatori(31,60);
+                if(numero_maxim_celes < 48){
+                    maxfila = 8;
+                    maxcolumna = 8;
+                }
+                else{
+                    maxfila = 9;
+                    maxcolumna = 9;
+                }
                 ProbBlanc = 70;
                 break;
             case "D":
-                numero_maxim_celes = NumeroAleatori(51,90);
-                maxfila =11;
-                maxcolumna = 11;
-                ProbBlanc = 50;
+                numero_maxim_celes = NumeroAleatori(61,90);
+                if(numero_maxim_celes < 75){
+                    maxfila = 10;
+                    maxcolumna = 10;
+                }
+                else{
+                    maxfila =11;
+                    maxcolumna = 11;
+                }
+
+                ProbBlanc = 55;
                 break;
             default:
                 numero_maxim_celes = 25;

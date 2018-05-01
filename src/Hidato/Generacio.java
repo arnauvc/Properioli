@@ -372,7 +372,7 @@ public class Generacio {
 
         return tauler;
     }
-    
+
     public String[][]GetSolucio(){
         return solucio;
     }

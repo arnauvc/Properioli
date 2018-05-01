@@ -120,6 +120,7 @@ public class Partida {
         Random rand = new Random();
         idhidato = rand.nextInt(50) + 1;
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
+		ctj.MostrarResolucio(hidato_resolt, t);
 
 		//Passar String[][] hidato_resolt -> ArrayList<>solucio
 		if (hidato_resolt != null) {
@@ -132,7 +133,7 @@ public class Partida {
 				}
 			}
 			hs.SetPath(path);
-			hs.GuardarHidato(idhidato, t, solucio);
+			//hs.GuardarHidato(idhidato, t, solucio);
 
 			r.start(); //Inicia el rellotge
 			finalitzat = false;
@@ -143,7 +144,7 @@ public class Partida {
 			torn = 1;
 			TranscursPartida();
 		}
-		else e.PrintError(2);
+		else e.PrintError(2	);
 
 	}
 	public void ReprendrePartida() throws Exception {

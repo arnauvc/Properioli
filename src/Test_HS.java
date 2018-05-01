@@ -3,7 +3,7 @@ import Hidato.HidatosSolucionats;
 import Hidato.Resolucio;
 import Hidato.Tauler;
 import javafx.util.Pair;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;

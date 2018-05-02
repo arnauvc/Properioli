@@ -1,0 +1,5 @@
+1. L'usuari resol un hidato generat per la IA
+2. L'usuari genera un hidato i la IA el resol
+3. L'usuari guarda una partida
+4. L'usuari carrega una partida guardada
+5. L'usuari carrega un hidato guardat a la biblioteca d'hidatos

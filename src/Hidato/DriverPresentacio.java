@@ -31,8 +31,8 @@ public class DriverPresentacio {
                 dp.Test();
                 break;
             case 5:
-                /*DriverTauler dt = new DriverTauler();
-                dt.Inicia();*/
+                DriverTauler dt = new DriverTauler();
+                dt.inicia();
                 break;
             case 6:
                 TestUnitari_Generacio tg = new TestUnitari_Generacio();

@@ -1,0 +1,9 @@
+Limitacions:
+
+- L'algorisme de Resolucio pot trigar un cert temps en resoldre hidatos de dificultat dificil.
+
+- L'usuari amb nom "nomusuari" nomes pot tenir una partida guardada, es a dir, nomes te 1 slot de guardat.
+
+- Quan generacio crea un hidato, en algunes posicions afegeix numeros per ajudar a l'usuari, aquests numeros l'usuari pot modificar-los, no afecta a cap altre classe, nomes al seu tauler.
+
+- Les adjacencies dels hidatos hexagonals podrien ser incorrectes en algun cas.

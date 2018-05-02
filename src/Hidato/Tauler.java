@@ -1,15 +1,13 @@
 package Hidato;
 
+
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Iterator;
 
 public class Tauler {
-    /*private enum TipusCela{
-        TRIANGLE, QUADRAT, HEXAGON
-    }*/
-    private Integer id;//Numero que identifica l'hidato inequivocament
+    private Integer id;
     private List<List<Cela>> Celas = new ArrayList<List<Cela>>();
     private String tipuscela;
     private Integer numFiles;
@@ -20,16 +18,425 @@ public class Tauler {
     private String adjacencia;
     private Cela cela;
     private Error e = new Error();
+    private Integer vals;
+    boolean b;
+
+
+    private void mostrarfila(List<Cela> a){
+        for(int i = 0; i < a.size(); ++i){
+            System.out.print(a.get(i).getValor());
+            if(i < a.size()-1) System.out.print(",");
+        }
+
+    }
+
+    private boolean arriba(int val, int i, int j){
+        if(consultarValidaCela(i-1,j)) {
+            if(consultarValCela(i-1, j).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i-1, j));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean abajo(int val, int i, int j){
+        if(consultarValidaCela(i+1,j)) {
+            if(consultarValCela(i+1, j).equals("?")) return false;
+            vals = Integer.parseInt(consultarValCela(i+1, j));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean izquierda(int val, int i, int j){
+        if(consultarValidaCela(i,j-1)) {
+            if (consultarValCela(i, j-1).equals("?")) return false;
+            vals = Integer.parseInt(consultarValCela(i, j-1));
+            if (vals == val-1 || vals == val-1) return true;
+        }
+        return false;
+    }
+
+    private boolean derecha(int val, int i, int j){
+        if(consultarValidaCela(i,j+1)) {
+            if(consultarValCela(i, j+1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i, j+1));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean arriba_derecha(int val, int i, int j ){
+        if(consultarValidaCela(i-1,j+1)){
+            if(consultarValCela(i-1, j+1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i-1, j+1));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean arriba_izquierda(int val,int i, int j){
+        if(consultarValidaCela(i-1,j-1)){
+            if(consultarValCela(i-1, j-1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i-1, j-1));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean abajo_derecha(int val,int i, int j){
+        if(consultarValidaCela(i+1,j+1)){
+            if(consultarValCela(i+1, j+1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i+1, j+1));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+
+    private boolean abajo_izquierda(int val, int i, int j){
+        if(consultarValidaCela(i+1,j-1)){
+            if(consultarValCela(i+1, j-1).equals("?")) return false;
+            vals =  Integer.parseInt(consultarValCela(i+1, j-1));
+            if(vals == val-1 || vals == val+1) return true;
+        }
+        return false;
+    }
+    /*
+    private boolean miraerror(String x, int i, int j){
+        int vali = Integer.parseInt(x);
+        int vals;
+        boolean b = true;
+        if(this.tipuscela.equals("Q")){
+            if(this.adjacencia.equals("C")){
+                //controlo lo que es la parte  de dentro del tablero
+                if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
+                    //abajo
+                    if(abajo(vali,i,j)) return true;
+                    //arriba
+                    if(arriba(vali,i,j)) return true;
+                    //derecha
+                    if(derecha(vali,i,j)) return true;
+                    //izquierda
+                    if(izquierda(vali,i,j)) return true;
+                }
+                //contorlo la primera fila
+                else if(i == 0){
+                    if(j == 0){
+                        //abajo
+                        if(abajo(vali,i,j)) return true;
+                        //derecha
+                        if(derecha(vali,i,j)) return true;
+                    }
+                    else if(j > 0 &&  j < numColum-1){
+                        //abajo
+                        if(abajo(vali,i,j)) return true;
+                        //derecha
+                        if(derecha(vali,i,j)) return true;
+                        //izquierda
+                        if(izquierda(vali,i,j)) return true;
+                    }
+                    else if(j == numColum-1){
+                        //abajo
+                        if(abajo(vali,i,j)) return true;
+                        //izquierda
+                        if(izquierda(vali,i,j)) return true;
+                    }
+                }
+                //controlo la ultima fila
+                else if(i == numFiles-1){
+                    if(j == 0){
+                        //arriba
+                        if(arriba(vali,i,j)) return true;
+                        //derecha
+                        if(derecha(vali,i,j)) return true;
+                    }
+                    else if(j > 0 && j < numColum-1){
+                        //arriba
+                        if(arriba(vali,i,j)) return true;
+                        //derecha
+                        if(derecha(vali,i,j)) return true;
+                        //izquierda
+                        if(izquierda(vali,i,j)) return true;
+                    }
+                    else if(j == numColum-1){
+                        //arriba
+                        if(arriba(vali,i,j)) return true;
+                        //izquierda
+                        if(izquierda(vali,i,j)) return true;
+                    }
+                }
+                //controlo lo ques la primera columna
+                else if(i > 0 && i < numFiles-1 && j == 0){
+                    //abajo
+                    if(abajo(vali,i,j)) return true;
+                    //arriba
+                    if(arriba(vali,i,j)) return true;
+                    //derecha
+                    if(derecha(vali,i,j)) return true;
+                }
+                //controlo lo que es la ultima columna
+                else if(i > 0 && i < numFiles-1 && j == numColum-1){
+                    System.out.println("Entro aqui5");
+                    //abajo
+                    if(abajo(vali,i,j)) return true;
+                    //arriba
+                    if(arriba(vali,i,j)) return true;
+                    //izquierda
+                    if(izquierda(vali,i,j)) return true;
+                }
+            }
+            else if(this.adjacencia.equals("CA")){
+                //controlo lo q ues la parte  de dentro del tablero
+                if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
+                    //abajo
+                    if(abajo(vali,i,j)) return true;
+                    //arriba
+                    if(arriba(vali,i,j)) return true;
+                    //derecha
+                    if(derecha(vali,i,j)) return true;
+                    //izquierda
+                    if(izquierda(vali,i,j)) return true;
+                    //diagonal abajo izquierda8
+                    if(abajo_izquierda(vali,i,j)) return true;
+                    //diagonal abajo derecha
+                    if(abajo_derecha(vali,i,j)) return true;
+                    //diagonale arriba izquierda
+                    if(arriba_izquierda(vali,i,j)) return true;
+                    //diagonal arriba derecha
+                    if(arriba_derecha(vali,i,j))return true;
+                }
+                //contorlo la primera fila
+                else if(i == 0){
+                    if(j == 0){
+                        //abajo
+                        if(abajo(vali,i,j)) return true;
+                        //derecha
+                        if(derecha(vali,i,j)) return true;
+                        //diagonal abajo derecha
+                        if(abajo_derecha(vali,i,j)) return true;
+                    }
+                    else if(j > 0 &&  j < numColum-1){
+                        //abajo
+                        if(abajo(vali,i,j)) return true;
+                        //derecha
+                        if(derecha(vali,i,j)) return true;
+                        //izquierda
+                        if(izquierda(vali,i,j)) return true;
+                        //diagonal abajo izquierda
+                        if(abajo_izquierda(vali,i,j)) return true;
+                        //diagonal abajo derecha
+                        if(abajo_derecha(vali,i,j)) return true;
+                    }
+                    else if(j == numColum-1){
+                        //abajo
+                        if(abajo(vali,i,j)) return true;
+                        //izquierda
+                        if(izquierda(vali,i,j)) return true;
+                        //diagonal abajo izquierda
+                        if(abajo_izquierda(vali,i,j)) return true;
+                    }
+                }
+                //controlo la ultima fila
+                else if(i == numFiles-1){
+                    if(j == 0){
+                        //arriba
+                        if(arriba(vali,i,j)) return true;
+                        //derecha
+                        if(derecha(vali,i,j)) return true;
+                        //diagonal arriba derecha
+                        if(arriba_derecha(vali,i,j))return true;
+                    }
+                    else if(j > 0 && j < numColum-1){
+                        //arriba
+                        if(arriba(vali,i,j)) return true;
+                        //derecha
+                        if(derecha(vali,i,j)) return true;
+                        //izquierda
+                        if(izquierda(vali,i,j)) return true;
+                        //diagonale arriba izquierda
+                        if(arriba_izquierda(vali,i,j)) return true;
+                        //diagonal arriba derecha
+                        if(arriba_derecha(vali,i,j))return true;
+                    }
+                    else if(j == numColum-1){
+                        //arriba
+                        if(arriba(vali,i,j)) return true;
+                        //izquierda
+                        if(izquierda(vali,i,j)) return true;
+                        //diagonale arriba izquierda
+                        if(arriba_izquierda(vali,i,j)) return true;
+                    }
+                }
+                //controlo lo ques la primera columna
+                else if(i > 0 && i < numFiles-1 && j == 0){
+                    //abajo
+                    if(abajo(vali,i,j)) return true;
+                    //arriba
+                    if(arriba(vali,i,j)) return true;
+                    //derecha
+                    if(derecha(vali,i,j)) return true;
+                    //diagonal abajo derecha
+                    if(abajo_derecha(vali,i,j)) return true;
+                    //diagonal arriba derecha
+                    if(arriba_derecha(vali,i,j)) return true;
+                }
+                //controlo lo que es la ultima columna
+                else if(i > 0 && i < numFiles-1 && j == numColum-1){
+                    //arriba
+                    if(arriba(vali,i,j)) return true;
+                    //abajo
+                    if(abajo(vali,i,j)) return true;
+                    //izquierda
+                    if(izquierda(vali,i,j)) return true;
+                    //diagonal abajo izquierda
+                    if(abajo_izquierda(vali,i,j)) return true;
+                    //diagonale arriba izquierda
+                    if(arriba_izquierda(vali,i,j)) return true;
+                }
+            }
+        }
+        else if (this.tipuscela.equals("T")){
+            boolean pari = false;
+            boolean parj = false;
+            if(j%2 == 0 || j == 1) parj = true;
+            if(i%2 == 0 || i == 1) pari = true;
+            //controlo lo que es la parte  de dentro del tablero
+            if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
+                if((pari && parj) || (!pari && !parj)) {
+                    if (abajo(vali, i, j)) return true;
+                }
+                else if((pari && !parj) || (!pari && parj)) {
+                    if(arriba(vali, i, j)) return true;
+                }
+                if(derecha(vali,i,j)) return true;
+                if(izquierda(vali,i,j)) return true;
+            }
+            else if(i == 0){
+                if(j == 0) {
+                    if(abajo(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                }
+                else if(j > 0 && j < numColum-1){
+                    if(parj && abajo(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                }
+                else if(j == numColum-1){
+                    if(izquierda(vali,i,j)) return true;
+                    if(parj && abajo(vali,i,j)) return true;
+                }
+            }
+            else if(i == numFiles-1) {
+                if (j == 0) {
+                    if (!pari) {
+                        if (arriba(vali, i, j)) return true;
+                    }
+                    if (derecha(vali, i, j)) return true;
+                }
+                else if (j > 0 && j < numColum - 1) {
+                    if ((!pari && parj) || (!pari && parj)) {
+                        if (arriba(vali, i, j)) return true;
+                    }
+                    if (izquierda(vali, i, j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                }
+                else if (j == numFiles - 1) {
+                    if ((pari && !parj) || (!pari && parj)) {
+                        if (arriba(vali, i, j)) return true;
+                    }
+                    if (izquierda(vali, i, j)) return true;
+                }
+            }
+            else if(i > 0 && i < numFiles-1){
+                if(j == 0){
+                    if(!pari && arriba(vali,i,j)) return true;
+                    if(pari && abajo(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                }
+                else if(j == numFiles-1){
+                    if(((pari && !parj) || (!pari && parj)) &&arriba(vali,i,j)) return true;
+                    else if(((pari && parj) || (!pari && !parj)) && abajo(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                }
+            }
+            /*si la i es par y la j es par la base esta abajo
+            si la i es par y la j impar la base esta arriba
+            si la i es impar y la j par la base esta arriba
+            si la i es impar y la j impar la base abajo
+          */
+       /* }
+        if(this.tipuscela.equals("H")){
+            if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
+                if(arriba(vali,i,j)) return true;
+                if(abajo(vali,i,j)) return true;
+                if(derecha(vali,i,j)) return true;
+                if(izquierda(vali,i,j)) return true;
+                if(arriba_izquierda(vali,i,j)) return true;
+                if(abajo_izquierda(vali,i,j)) return true;
+            }
+            else if(i == 0){
+                if(j == 0) {
+                    if(derecha(vali,i,j)) return true;
+                    if(abajo(vali,i,j)) return true;
+                }
+                else if(j > 0 && j < numColum-1){
+                    if(abajo(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                    if(abajo_izquierda(vali,i,j)) return true;
+                }
+                else if(j == numColum-1){
+                    if(abajo(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(abajo_izquierda(vali,i,j)) return true;
+                }
+            }
+            else if(i == numFiles-1){
+                if(j == 0) {
+                    if(derecha(vali,i,j)) return true;
+                    if(arriba(vali,i,j)) return true;
+                }
+                else if(j > 0 && j < numColum-1){
+                    System.out.println("HOLAAAAAA "+ vali + i +j);
+                    if(arriba(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(derecha(vali,i,j)) return true;
+                    if(arriba_izquierda(vali,i,j)) return true;
+                }
+                else if(j == numColum-1){
+                    if(arriba(vali,i,j)) return true;
+                    if(izquierda(vali,i,j)) return true;
+                    if(arriba_izquierda(vali,i,j)) return true;
+                }
+            }
+            else if(i > 0 && i < numFiles && j == 0){
+                if(arriba(vali,i,j)) return true;
+                if(abajo(vali,i,j)) return true;
+                if(derecha(vali,i,j)) return true;
+            }
+            else if(i > 0 && i < numFiles && j == numColum-1){
+                if(arriba(vali,i,j)) return true;
+                if(abajo(vali,i,j)) return true;
+                if(derecha(vali,i,j)) return true;
+                if(izquierda(vali,i,j)) return true;
+                if(arriba_izquierda(vali,i,j)) return true;
+                if(abajo_izquierda(vali,i,j)) return true;
+            }
+        }
+        return false;
+    }*/
+
 
 
     //constructora
+
     public Tauler(){}
     public Tauler(Integer numtauler) {//Obliguem a que sempre que es crei una instancia de Tauler, se li proporcioni un id
         this.id = numtauler;
     }
 
-    public void CrearTauler(String ticela, String adj, String[][] matriu)//
-    {
+
+    public void CrearTauler(String ticela, String adj, String[][] matriu){
         this.tipuscela = ticela;
         this.adjacencia = adj;
         this.numFiles = matriu.length;
@@ -82,83 +489,110 @@ public class Tauler {
         this.numcelesocupades = numcelesocu;
     }
 
-    private void mostrarfila(List<Cela> a){
-        for(int i = 0; i < a.size(); ++i){
-            System.out.print(a.get(i).getValor());
-            if(i < a.size()-1) System.out.print(",");
-        }
-    }
+
 
 
     //Consultora
+
     public Integer GetId() {
         return id;
     }
 
+    @Test
     public Integer getNumFiles(){return numFiles;}
 
+    @Test
     public Integer getNumColum(){return numColum;}
 
+    @Test
     public Integer GetNumCelasTotal() {
         return numcelestotal;
     }
 
+    @Test
     public Integer GetNumCelesOcupadas() {
         return numcelesocupades;
     }
 
+    @Test
     public Integer GetNumCelesBuides() {
         return numcelesbuides;
     }
 
+    @Test
     public String GetTiposAdj() {
         return adjacencia;
     }
 
+    @Test
     public String getTipuscela() {
         return tipuscela;
     }
 
+    @Test
     public List<List<Cela>> getCelas() {
         return Celas;
     }
 
+    public Cela getcela(int x, int y){
+        return Celas.get(x).get(y);
+    }
+
     //consulturas cela
+    @Test
     public String consultarValCela(int x, int y){
         cela = Celas.get(x).get(y);
         return cela.getValor();
     }
 
+    @Test
     public boolean consultarValidaCela(int x, int y){
         cela = Celas.get(x).get(y);
-        return cela.isValida();
+        if (cela.isValida()) return true;
+        else return false;
     }
+
 
 
 
     //Modificadoras
+    @Test
     public void ModificaCeldaV(String x, int posi, int posj) {
+        boolean b = false;
+        if(x.equals("?")) {
+            --this.numcelesocupades;
+            ++this.numcelesbuides;
+        }
+        else {
+            ++this.numcelesocupades;
+            --this.numcelesbuides;
+            //b = miraerror(x,posi,posj);
+            b = true;
+        }
         cela = Celas.get(posi).get(posj);
         cela.ModificarValor(x);
+        //else System.out.println("No és possible posar un núnmero que no té números adjacentes al seu costat");
 
     }
 
+    @Test
     public void SetAdjacencia(String  ad){
         this.adjacencia = ad;
     }
 
+    @Test
     public void SetTipuscela(String ce){
         this.tipuscela = ce;
     }
 
-    public void MostrarTauler() {//no funciona correctament
+    @Test
+    public void MostrarTauler() {
         List<Cela> aux = new ArrayList<Cela>();
-        //System.out.println(numFiles);
-        //System.out.println(Celas.size());
         for (int i = 0; i < Celas.size(); ++i) {
             aux = Celas.get(i);
             mostrarfila(aux);
             System.out.println();
         }
     }
+
 }

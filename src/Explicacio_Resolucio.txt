@@ -1,0 +1,8 @@
+Resolucio: Afegim tots els numero ja posats del tauler a una llista on guardem la seva posicio
+i el valor d'aquesta posicio dins el tauler, despres ordenem aquesta llista per valor de mes
+petit a mes gran. Recorrem aquesta llista i fem DFS sobre els X i Y els quals Y-X > 1. Acotem
+el DFS per la distancia entre aquests 2 valors i quan arribem a que la distancia es 1 llavors
+mirem si al voltant de la posicio a la que estem (depenguent de les adjacencies) esta el valor Y
+que busquem, si esta l'afegim a els camins entre X i Y. Despres fem backtraking sobre aquests
+camins, i si un falla tornem a la parella anterior i agafem el cami seguent i aixi fins trobar la
+solucio, si n'hi ha.

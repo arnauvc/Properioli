@@ -17,7 +17,7 @@ public class CtrlPresGestor {
         String tipuspartida = input.nextLine();
 
         while (!tipuspartida.equals("RESOLDRE") && !tipuspartida.equals("GENERAR") && !tipuspartida.equals("REPRENDRE")) {
-            System.out.println("Selecciona si vols RESOLDRE,GENERAR o REPRENDRE un Hidato: ");
+            System.out.println("Selecciona si vols RESOLDRE, GENERAR o REPRENDRE un Hidato: ");
             tipuspartida = input.nextLine();
         }
         return tipuspartida;

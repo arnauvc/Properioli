@@ -59,7 +59,6 @@ public class Gestor {
         try{
             partidaactiva.IniciaPartida();
         } catch (Exception e){
-            e.printStackTrace(); //Linea de codi per depurar errors, despres es treu
             GuardarPartida(v.get(1));
         }
 
@@ -101,6 +100,7 @@ public class Gestor {
     public void GuardarPartida(String path){
         pg.SetPath(path);
         try {
+            System.out.println("Partida guardada");
             pg.GuardarPartida(partidaactiva.GetNom(), partidaactiva, partidaactiva.GetTaulerG());
         } catch (Exception e) {
             System.out.print("Error al guardar la partida");

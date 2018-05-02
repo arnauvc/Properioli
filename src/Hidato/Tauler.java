@@ -27,6 +27,7 @@ public class Tauler {
             System.out.print(a.get(i).getValor());
             if(i < a.size()-1) System.out.print(",");
         }
+
     }
 
     private boolean arriba(int val, int i, int j){
@@ -48,9 +49,9 @@ public class Tauler {
     }
 
     private boolean izquierda(int val, int i, int j){
-        if(consultarValidaCela(i-1,j)) {
-            if (consultarValCela(i - 1, j).equals("?")) return false;
-            vals = Integer.parseInt(consultarValCela(i - 1, j));
+        if(consultarValidaCela(i,j-1)) {
+            if (consultarValCela(i, j-1).equals("?")) return false;
+            vals = Integer.parseInt(consultarValCela(i, j-1));
             if (vals == val-1 || vals == val-1) return true;
         }
         return false;
@@ -61,7 +62,7 @@ public class Tauler {
             if(consultarValCela(i, j+1).equals("?")) return false;
             vals =  Integer.parseInt(consultarValCela(i, j+1));
             if(vals == val-1 || vals == val+1) return true;
-            }
+        }
         return false;
     }
 
@@ -78,7 +79,7 @@ public class Tauler {
         if(consultarValidaCela(i-1,j-1)){
             if(consultarValCela(i-1, j-1).equals("?")) return false;
             vals =  Integer.parseInt(consultarValCela(i-1, j-1));
-             if(vals == val-1 || vals == val+1) return true;
+            if(vals == val-1 || vals == val+1) return true;
         }
         return false;
     }
@@ -100,7 +101,7 @@ public class Tauler {
         }
         return false;
     }
-
+    /*
     private boolean miraerror(String x, int i, int j){
         int vali = Integer.parseInt(x);
         int vals;
@@ -299,50 +300,51 @@ public class Tauler {
             boolean parj = false;
             if(j%2 == 0 || j == 1) parj = true;
             if(i%2 == 0 || i == 1) pari = true;
-                //controlo lo que es la parte  de dentro del tablero
+            //controlo lo que es la parte  de dentro del tablero
             if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
-                    if((pari && parj) || (!pari && !parj)) {
-                        if (arriba(vali, i, j)) return true;
-                    }
-                    else if((pari && !parj) || (!pari && parj)) {
-                        if(abajo(vali, i, j)) return true;
-                    }
+                if((pari && parj) || (!pari && !parj)) {
+                    if (abajo(vali, i, j)) return true;
+                }
+                else if((pari && !parj) || (!pari && parj)) {
+                    if(arriba(vali, i, j)) return true;
+                }
 
-                    if(derecha(vali,i,j)) return true;
+                if(derecha(vali,i,j)) return true;
 
-                    if(izquierda(vali,i,j)) return true;
+                if(izquierda(vali,i,j)) return true;
             }
             else if(i == 0){
                 if(j == 0) {
+                    if(abajo(vali,i,j)) return true;
                     if(derecha(vali,i,j)) return true;
                 }
 
                 else if(j > 0 && j < numColum-1){
-                    if(!parj && abajo(vali,i,j)) return true;
+                    if(parj && abajo(vali,i,j)) return true;
                     if(izquierda(vali,i,j)) return true;
                     if(derecha(vali,i,j)) return true;
                 }
                 else if(j == numColum-1){
                     if(izquierda(vali,i,j)) return true;
-                    if(!parj && abajo(vali,i,j)) return true;
+                    if(parj && abajo(vali,i,j)) return true;
                 }
             }
             else if(i == numFiles-1) {
                 if (j == 0) {
-                    if (pari) {
-                        if (abajo(vali, i, j)) return true;
+                    if (!pari) {
+                        if (arriba(vali, i, j)) return true;
                     }
-                    if (izquierda(vali, i, j)) return true;
+                    if (derecha(vali, i, j)) return true;
                 }
                 else if (j > 0 && j < numColum - 1) {
-                    if ((pari && parj) || (!pari && !parj)) {
+                    if ((!pari && parj) || (!pari && parj)) {
                         if (arriba(vali, i, j)) return true;
                     }
                     if (izquierda(vali, i, j)) return true;
                     if(derecha(vali,i,j)) return true;
                 }
                 else if (j == numFiles - 1) {
-                    if ((pari && parj) || (!pari && !parj)) {
+                    if ((pari && !parj) || (!pari && parj)) {
                         if (arriba(vali, i, j)) return true;
                     }
                     if (izquierda(vali, i, j)) return true;
@@ -350,22 +352,22 @@ public class Tauler {
             }
             else if(i > 0 && i < numFiles-1){
                 if(j == 0){
-                    if(pari && arriba(vali,i,j)) return true;
-                    if(!pari && abajo(vali,i,j)) return true;
+                    if(!pari && arriba(vali,i,j)) return true;
+                    if(pari && abajo(vali,i,j)) return true;
                     if(derecha(vali,i,j)) return true;
                 }
                 else if(j == numFiles-1){
-                    if(((pari && parj) || (!pari && !parj)) &&arriba(vali,i,j)) return true;
-                    else if(((!pari && parj) || (pari && !parj)) && abajo(vali,i,j)) return true;
+                    if(((pari && !parj) || (!pari && parj)) &&arriba(vali,i,j)) return true;
+                    else if(((pari && parj) || (!pari && !parj)) && abajo(vali,i,j)) return true;
                     if(izquierda(vali,i,j)) return true;
                 }
             }
-            /*si la i es par y la j es par la base esta arriba
-          si la i es par y la j impar la base esta abajo
-          si la i es impar y la j par la base esta abajo
-          si la i es impar y la j impar la base arriba
+            /*si la i es par y la j es par la base esta abajo
+            si la i es par y la j impar la base esta arriba
+            si la i es impar y la j par la base esta arriba
+            si la i es impar y la j impar la base abajo
           */
-        }
+       /* }
         if(this.tipuscela.equals("H")){
             if(i > 0 && j > 0 && i < numFiles-1 && j < numColum-1){
                 if(arriba(vali,i,j)) return true;
@@ -398,6 +400,7 @@ public class Tauler {
                     if(arriba(vali,i,j)) return true;
                 }
                 else if(j > 0 && j < numColum-1){
+                    System.out.println("HOLAAAAAA "+ vali + i +j);
                     if(arriba(vali,i,j)) return true;
                     if(izquierda(vali,i,j)) return true;
                     if(derecha(vali,i,j)) return true;
@@ -410,9 +413,9 @@ public class Tauler {
                 }
             }
             else if(i > 0 && i < numFiles && j == 0){
-                    if(arriba(vali,i,j)) return true;
-                    if(abajo(vali,i,j)) return true;
-                    if(derecha(vali,i,j)) return true;
+                if(arriba(vali,i,j)) return true;
+                if(abajo(vali,i,j)) return true;
+                if(derecha(vali,i,j)) return true;
             }
 
             else if(i > 0 && i < numFiles && j == numColum-1){
@@ -426,7 +429,7 @@ public class Tauler {
 
         }
         return false;
-    }
+    }*/
 
 
 
@@ -437,7 +440,7 @@ public class Tauler {
         this.id = numtauler;
     }
 
-    @Test
+
     public void CrearTauler(String ticela, String adj, String[][] matriu){
         this.tipuscela = ticela;
         this.adjacencia = adj;
@@ -495,7 +498,7 @@ public class Tauler {
 
 
     //Consultora
-    @Test
+
     public Integer GetId() {
         return id;
     }
@@ -536,6 +539,10 @@ public class Tauler {
         return Celas;
     }
 
+    public Cela getcela(int x, int y){
+        return Celas.get(x).get(y);
+    }
+
     //consulturas cela
     @Test
     public String consultarValCela(int x, int y){
@@ -546,7 +553,8 @@ public class Tauler {
     @Test
     public boolean consultarValidaCela(int x, int y){
         cela = Celas.get(x).get(y);
-        return cela.isValida();
+        if (cela.isValida()) return true;
+        else return false;
     }
 
 
@@ -556,21 +564,19 @@ public class Tauler {
     @Test
     public void ModificaCeldaV(String x, int posi, int posj) {
         boolean b = false;
-        if(x.equals("?")){
+        if(x.equals("?")) {
             --this.numcelesocupades;
             ++this.numcelesbuides;
-            b = true;
         }
         else {
             ++this.numcelesocupades;
             --this.numcelesbuides;
-            b = miraerror(x,posi,posj);
+            //b = miraerror(x,posi,posj);
+            b = true;
         }
-        if(b){
-            cela = Celas.get(posi).get(posj);
-            cela.ModificarValor(x);
-        }
-        else System.out.println("No es posible poner un núnmero que no tiene núnmeros adjacentes a su lado");
+        cela = Celas.get(posi).get(posj);
+         cela.ModificarValor(x);
+        //else System.out.println("No és possible posar un núnmero que no té números adjacentes al seu costat");
 
     }
 

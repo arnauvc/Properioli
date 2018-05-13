@@ -12,4 +12,13 @@ public class Menu3Jo {
     private JTextField textField3;
     private JTextField textField4;
     private JButton Generar;
+    public JPanel Finestra;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Menu3Jo");
+        frame.setContentPane(new Menu3Jo().Finestra);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
 }

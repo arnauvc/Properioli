@@ -17,16 +17,37 @@ public class Menu3Maquina {
     public JPanel Finestra;
     private Generacio g;
     public String[][] tauler;
+    public String tcelaM;
+    public String tadjM;
+    public String dif;
 
     public Menu3Maquina() {
         Generar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 g = new Generacio();
-                String tcela = textField1.getText();
-                String tadj = textField2.getText();
-                String dif = textField3.getText();
-                tauler = g.GenerarHidato(tcela, tadj, dif);
+                tcelaM = textField1.getText();
+                tadjM = textField2.getText();
+                dif = textField3.getText();
+                if (!tcelaM.isEmpty() && !tadjM.isEmpty() && !dif.isEmpty()) {
+                    tauler = g.GenerarHidato(tcelaM, tadjM, dif);
+                    JFrame frameF = new JFrame("Menu3Final");
+                    frameF.setResizable(false);
+                    frameF.setContentPane(new Menu3Final().Finestra);
+                    frameF.setLocationRelativeTo(null);
+                    frameF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frameF.pack();
+                    frameF.setVisible(true);
+                }
+                else {
+                    JFrame frame = new JFrame("Error_dades");
+                    frame.setResizable(false);
+                    frame.setContentPane(new Error_dades().panel1);
+                    frame.setLocationRelativeTo(null);
+                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                    frame.pack();
+                    frame.setVisible(true);
+                }
             }
         });
     }

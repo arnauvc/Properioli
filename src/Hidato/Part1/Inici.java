@@ -8,8 +8,10 @@ import java.util.*;
 public class Inici{
     private JButton examinarButton;
     private JPanel Window;
-    private JTextField Username;
     private JLabel Titol;
+    private JLabel Image;
+    private JTextField textField1;
+    private JButton següentButton;
     JFileChooser chooser;
 
     public Inici() {
@@ -30,15 +32,13 @@ public class Inici{
         });
     }
 
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Inici");
         frame.setContentPane(new Inici().Window);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        /*ImageIcon image = new ImageIcon("./src/HidatoFeliç.png");
-        JLabel label = new JLabel("", image, JLabel.CENTER);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(label, BorderLayout.CENTER);*/
+
     }
 }

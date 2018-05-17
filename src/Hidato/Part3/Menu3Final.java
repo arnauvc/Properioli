@@ -1,5 +1,6 @@
 package Hidato.Part3;
 
+import Hidato.CtrlPresGestor;
 import Hidato.HidatosSolucionats;
 import Hidato.Resolucio;
 import Hidato.Part3.Menu3Maquina;
@@ -21,11 +22,11 @@ public class Menu3Final {
         menúButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Resolucio r = new Resolucio();
+                CtrlPresGestor g = new CtrlPresGestor();
                 Menu3Maquina m3m = new Menu3Maquina();
                 String[][] aux;
                 ArrayList<Pair<Pair<Integer, Integer>, String>> solucio = new ArrayList<Pair<Pair<Integer, Integer>, String>>();
-                aux = r.ResoltreHidato(m3m.tauler, m3m.tcelaM, m3m.tadjM);
+                aux = g.CtrlResoldreHidato(m3m.tauler, m3m.tcelaM, m3m.tadjM);
                 for (int i = 0; i < aux.length; i++) {
                     for (int j = 0; j < aux[i].length; j++) {
                         if (!aux[i][j].equals(m3m.tauler[i][j])) {
@@ -34,14 +35,7 @@ public class Menu3Final {
                         }
                     }
                 }
-                Tauler t = new Tauler();
-                t.CrearTauler(m3m.tcelaM, m3m.tadjM, m3m.tauler);
-                HidatosSolucionats hs = new HidatosSolucionats();
-                try {
-                    hs.GuardarHidato(1,t, solucio); //Canviar l'1 per l'id que toqui
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                g.CtrlGuardarHidato(m3m.tcelaM, m3m.tadjM, m3m.tauler, solucio);
             }
         });
     }

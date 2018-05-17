@@ -1,8 +1,10 @@
 package Hidato;
 
 import Hidato.Gestor;
+import javafx.util.Pair;
 
 import java.text.StringCharacterIterator;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.ObjectInputStream;
 import java.util.Vector;
@@ -235,5 +237,20 @@ public class CtrlPresGestor {
             }
         }
     }
+    //AFEGIT PER CONTROLAR PART3
+    public String[][] CtrlGenerarHidato(String tcela, String tadj, String dif) {
+        String[][] tauler;
+        tauler = g.GestorGenerarHidato(tcela, tadj, dif);
+        return tauler.clone();
+    }
 
+    public String[][] CtrlResoldreHidato(String[][] tauler, String tcela, String tadj) {
+        String[][] aux;
+        aux = g.GestorResoldreHidato(tauler, tcela, tadj);
+        return aux.clone();
+    }
+
+    public void CtrlGuardarHidato(String tcela, String tadj, String[][] tauler, ArrayList<Pair<Pair<Integer, Integer>, String>> solucio) {
+        g.GestorGuardarHidato(tcela, tadj, tauler, solucio);
+    }
 }

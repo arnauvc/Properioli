@@ -7,12 +7,15 @@ import Hidato.Ranking;
 import Hidato.Usuari;
 import Hidato.Partida;
 import Hidato.Generacio;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Vector;
 
 
 import Hidato.ComprovarHidato;
+import javafx.util.Pair;
 
 
 public class Gestor {
@@ -112,4 +115,32 @@ public class Gestor {
     public void ActulitzarRanking(Integer id, Double temps){
         r.Actualitzar(id, temps);
     }
+
+    //AFEGIT EXTRA PER CONTROLAR PART3
+    public String[][] GestorGenerarHidato(String tcela, String tadj, String dif) {
+        Generacio g = new Generacio();
+        String[][] tauler;
+        tauler = g.GenerarHidato(tcela, tadj, dif);
+        return tauler.clone();
+    }
+
+    public String[][] GestorResoldreHidato(String[][] tauler, String tcela, String tadj) {
+        Resolucio r = new Resolucio();
+        String[][] aux;
+        aux = r.ResoltreHidato(tauler, tcela, tadj);
+        return aux.clone();
+    }
+
+    public void GestorGuardarHidato(String tcela, String tadj, String[][] tauler, ArrayList<Pair<Pair<Integer, Integer>, String>> solucio) {
+        Tauler t = new Tauler();
+        t.CrearTauler(tcela, tadj, tauler);
+        HidatosSolucionats hs = new HidatosSolucionats();
+        try {
+            hs.GuardarHidato(1,t, solucio); //Canviar l'1 per l'id que toqui
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
 }
+
+

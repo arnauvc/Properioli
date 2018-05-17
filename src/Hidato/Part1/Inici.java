@@ -3,6 +3,7 @@ package Hidato.Part1;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.io.File;
 import java.util.*;
 
 public class Inici{
@@ -12,6 +13,8 @@ public class Inici{
     private JLabel Image;
     private JTextField username;
     private JButton seguentButton;
+    private String path;
+    private String nom;
     JFileChooser chooser;
 
     public Inici() {
@@ -24,9 +27,11 @@ public class Inici{
 
                 chooser.setAcceptAllFileFilterUsed(false);
                 chooser.showSaveDialog(null);
-                System.out.println("getCurrentDirectory(): " +  chooser.getCurrentDirectory());
-                System.out.println("getSelectedFile() : " +  chooser.getSelectedFile());
-
+                chooser.getCurrentDirectory();
+                File newLoc = chooser.getSelectedFile();
+                path = newLoc.getAbsolutePath();
+                path += "/";
+                System.out.printf("El path es: %s\n", path);
             }
 
 
@@ -34,6 +39,8 @@ public class Inici{
         seguentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                nom = username.getText();
+                System.out.printf("El nom es: %s\n",nom);
                 System.exit(0);
             }
         });
@@ -47,5 +54,12 @@ public class Inici{
         frame.pack();
         frame.setVisible(true);
 
+    }
+
+    public String GetPath(){
+        return path;
+    }
+    public String GetNom(){
+        return nom;
     }
 }

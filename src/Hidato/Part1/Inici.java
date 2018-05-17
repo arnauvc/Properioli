@@ -10,8 +10,8 @@ public class Inici{
     private JPanel Window;
     private JLabel Titol;
     private JLabel Image;
-    private JTextField textField1;
-    private JButton següentButton;
+    private JTextField username;
+    private JButton seguentButton;
     JFileChooser chooser;
 
     public Inici() {
@@ -29,6 +29,13 @@ public class Inici{
 
             }
 
+
+        });
+        seguentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
         });
     }
 

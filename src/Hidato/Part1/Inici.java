@@ -1,5 +1,7 @@
 package Hidato.Part1;
 
+import Hidato.CtrlPresGestor;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -48,6 +50,7 @@ public class Inici{
 
 
     public static void main(String[] args) {
+        CtrlPresGestor cg = new CtrlPresGestor();
         JFrame frame = new JFrame("Inici");
         frame.setContentPane(new Inici().Window);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

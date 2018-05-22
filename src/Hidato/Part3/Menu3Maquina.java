@@ -1,7 +1,6 @@
 package Hidato.Part3;
 
 import Hidato.CtrlPresGestor;
-import Hidato.Generacio;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,24 +20,29 @@ public class Menu3Maquina {
     public String tcelaM;
     public String tadjM;
     public String dif;
+    private static JFrame frame;
 
     public Menu3Maquina() {
         Generar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                g = new CtrlPresGestor();
                 tcelaM = textField1.getText();
                 tadjM = textField2.getText();
                 dif = textField3.getText();
                 if (!tcelaM.isEmpty() && !tadjM.isEmpty() && !dif.isEmpty()) {
                     tauler = g.CtrlGenerarHidato(tcelaM, tadjM, dif);
+                    g.SetTauler(tauler, tcelaM, tadjM);
+                    Menu3Final m3f = new Menu3Final();
                     JFrame frameF = new JFrame("Menu3Final");
                     frameF.setResizable(false);
-                    frameF.setContentPane(new Menu3Final().Finestra);
+                    frameF.setContentPane(m3f.Finestra);
                     frameF.setLocationRelativeTo(null);
                     frameF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     frameF.pack();
                     frameF.setVisible(true);
+                    m3f.SetG(g);
+                    m3f.SetF(frameF);
+                    Menu3Maquina.frame.dispose();
                 }
                 else {
                     JFrame frame = new JFrame("Error_dades");
@@ -53,11 +57,15 @@ public class Menu3Maquina {
         });
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Menu3Maquina");
-        frame.setContentPane(new Menu3Maquina().Finestra);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+    public void SetG(CtrlPresGestor g) {
+        this.g = g;
+    }
+
+    public void SetF(JFrame f) {
+        this.frame = f;
+    }
+
+    public JFrame GetF() {
+        return frame;
     }
 }

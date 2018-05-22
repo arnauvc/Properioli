@@ -19,7 +19,7 @@ public class Menu3Jo {
     public String tadjJ;
     public String files;
     public String columnes;
-
+    private static JFrame frame;
 
     public Menu3Jo() {
         Generar.addActionListener(new ActionListener() {
@@ -30,13 +30,15 @@ public class Menu3Jo {
                 files = textField3.getText();
                 columnes = textField4.getText();
                 if (!tcelaJ.isEmpty() && !tadjJ.isEmpty() && !files.isEmpty() && !columnes.isEmpty()) {
+                    Menu3Final m3f = new Menu3Final();
                     JFrame frameF = new JFrame("Menu3Final");
                     frameF.setResizable(false);
-                    frameF.setContentPane(new Menu3Final().Finestra);
+                    frameF.setContentPane(m3f.Finestra);
                     frameF.setLocationRelativeTo(null);
                     frameF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                     frameF.pack();
                     frameF.setVisible(true);
+                    Menu3Jo.frame.dispose();
                 }
                 else {
                     JFrame frame = new JFrame("Error_dades");
@@ -51,11 +53,11 @@ public class Menu3Jo {
         });
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Menu3Jo");
-        frame.setContentPane(new Menu3Jo().Finestra);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+    public void SetF(JFrame f) {
+        this.frame = f;
+    }
+
+    public JFrame GetF() {
+        return frame;
     }
 }

@@ -1,17 +1,18 @@
 package Hidato;
 
-import Hidato.Gestor;
 import javafx.util.Pair;
 
 import java.text.StringCharacterIterator;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.ObjectInputStream;
 import java.util.Vector;
 
 public class CtrlPresGestor {
 
     private Gestor g = new Gestor();
+    private String[][] taulerG;
+    private String tcelaG;
+    private String tadjG;
 
     private String TPartida(){
         Scanner input = new Scanner(System.in);
@@ -252,5 +253,24 @@ public class CtrlPresGestor {
 
     public void CtrlGuardarHidato(String tcela, String tadj, String[][] tauler, ArrayList<Pair<Pair<Integer, Integer>, String>> solucio) {
         g.GestorGuardarHidato(tcela, tadj, tauler, solucio);
+    }
+
+    public void SetTauler(String[][] tauler, String tcela, String tadj) {
+        taulerG = tauler;
+        tcelaG = tcela;
+        tadjG = tadj;
+
+    }
+
+    public String[][] GetTauler() {
+        return taulerG.clone();
+    }
+
+    public String GetTcela() {
+        return tcelaG;
+    }
+
+    public String GetTadj() {
+        return tadjG;
     }
 }

@@ -4,9 +4,7 @@ import Hidato.CtrlPresGestor;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.awt.*;
 import java.io.File;
-import java.util.*;
 
 public class Inici{
     private JButton examinarButton;

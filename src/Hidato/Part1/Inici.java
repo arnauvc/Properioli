@@ -18,6 +18,7 @@ public class Inici{
     private String path;
     private String nom;
     private static JFrame frame;
+    private CtrlPresGestor cg;
     JFileChooser chooser;
 
     public Inici() {
@@ -42,7 +43,8 @@ public class Inici{
         seguentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                nom = username.getText();
+                cg.SetNom(username.getText());
+                cg.SetPath(path);
                 System.out.printf("El nom es: %s\n",nom);
                 String[] s = new String[0];
                 Menu2.main(s);
@@ -53,7 +55,6 @@ public class Inici{
 
 
     public static void main(String[] args) {
-        CtrlPresGestor cg = new CtrlPresGestor();
         frame = new JFrame("Inici");
         frame.setContentPane(new Inici().Window);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -15,6 +15,7 @@ public class Menu3Jo {
     private JTextField textField4;
     private JButton Generar;
     public JPanel Finestra;
+    private JButton Endarrere;
     public String tcelaJ;
     public String tadjJ;
     public String files;
@@ -30,25 +31,21 @@ public class Menu3Jo {
                 files = textField3.getText();
                 columnes = textField4.getText();
                 if (!tcelaJ.isEmpty() && !tadjJ.isEmpty() && !files.isEmpty() && !columnes.isEmpty()) {
-                    Menu3Final m3f = new Menu3Final();
-                    JFrame frameF = new JFrame("Menu3Final");
-                    frameF.setResizable(false);
-                    frameF.setContentPane(m3f.Finestra);
-                    frameF.setLocationRelativeTo(null);
-                    frameF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frameF.pack();
-                    frameF.setVisible(true);
                     Menu3Jo.frame.dispose();
                 }
                 else {
-                    JFrame frame = new JFrame("Error_dades");
-                    frame.setResizable(false);
-                    frame.setContentPane(new Error_dades().panel1);
-                    frame.setLocationRelativeTo(null);
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frame.pack();
-                    frame.setVisible(true);
+                    Error_dades er = new Error_dades();
+                    er.main();
                 }
+            }
+        });
+        Endarrere.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Menu3 m3 = new Menu3();
+                String[] h = new String[0];
+                m3.main(h);
+                Menu3Jo.frame.dispose();
             }
         });
     }
@@ -59,5 +56,16 @@ public class Menu3Jo {
 
     public JFrame GetF() {
         return frame;
+    }
+
+    public void main() {
+        JFrame frame = new JFrame("Menu3Jo");
+        frame.setResizable(false);
+        frame.setContentPane(new Menu3Jo().Finestra);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        this.SetF(frame);
     }
 }

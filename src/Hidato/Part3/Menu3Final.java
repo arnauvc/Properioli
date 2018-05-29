@@ -50,4 +50,15 @@ public class Menu3Final {
     public JFrame GetF() {
         return frame;
     }
+
+    public void main() {
+        JFrame frame = new JFrame("Menu3Final");
+        frame.setResizable(false);
+        frame.setContentPane(new Menu3Final().Finestra);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        this.SetF(frame);
+    }
 }

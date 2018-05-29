@@ -15,6 +15,7 @@ public class Menu3Maquina {
     private JTextField textField3;
     private JButton Generar;
     public JPanel Finestra;
+    private JButton Endarrere;
     private CtrlPresGestor g;
     public String[][] tauler;
     public String tcelaM;
@@ -33,26 +34,23 @@ public class Menu3Maquina {
                     tauler = g.CtrlGenerarHidato(tcelaM, tadjM, dif);
                     g.SetTauler(tauler, tcelaM, tadjM);
                     Menu3Final m3f = new Menu3Final();
-                    JFrame frameF = new JFrame("Menu3Final");
-                    frameF.setResizable(false);
-                    frameF.setContentPane(m3f.Finestra);
-                    frameF.setLocationRelativeTo(null);
-                    frameF.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frameF.pack();
-                    frameF.setVisible(true);
+                    m3f.main();
                     m3f.SetG(g);
-                    m3f.SetF(frameF);
                     Menu3Maquina.frame.dispose();
                 }
                 else {
-                    JFrame frame = new JFrame("Error_dades");
-                    frame.setResizable(false);
-                    frame.setContentPane(new Error_dades().panel1);
-                    frame.setLocationRelativeTo(null);
-                    frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    frame.pack();
-                    frame.setVisible(true);
+                    Error_dades er = new Error_dades();
+                    er.main();
                 }
+            }
+        });
+        Endarrere.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Menu3 m3 = new Menu3();
+                String[] h = new String[0];
+                m3.main(h);
+                Menu3Maquina.frame.dispose();
             }
         });
     }
@@ -67,5 +65,16 @@ public class Menu3Maquina {
 
     public JFrame GetF() {
         return frame;
+    }
+
+    public void main() {
+        JFrame frame = new JFrame("Menu3Maquina");
+        frame.setResizable(false);
+        frame.setContentPane(new Menu3Maquina().Finestra);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+        this.SetF(frame);
     }
 }

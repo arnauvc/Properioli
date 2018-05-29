@@ -5,7 +5,7 @@ import javax.swing.*;
 public class Error_dades {
     public JPanel panel1;
 
-    public static void main(String[] args) {
+    public static void main() {
         JFrame frame = new JFrame("Error_dades");
         frame.setResizable(false);
         frame.setContentPane(new Error_dades().panel1);

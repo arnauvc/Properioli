@@ -1,8 +1,10 @@
 package Hidato.Part1;
 
 import Hidato.CtrlPresGestor;
+import Hidato.Part2.Menu2;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 
@@ -15,6 +17,7 @@ public class Inici{
     private JButton seguentButton;
     private String path;
     private String nom;
+    private static JFrame frame;
     JFileChooser chooser;
 
     public Inici() {
@@ -41,7 +44,9 @@ public class Inici{
             public void actionPerformed(ActionEvent e) {
                 nom = username.getText();
                 System.out.printf("El nom es: %s\n",nom);
-                System.exit(0);
+                String[] s = new String[0];
+                Menu2.main(s);
+                frame.setVisible(false);
             }
         });
     }
@@ -49,12 +54,13 @@ public class Inici{
 
     public static void main(String[] args) {
         CtrlPresGestor cg = new CtrlPresGestor();
-        JFrame frame = new JFrame("Inici");
+        frame = new JFrame("Inici");
         frame.setContentPane(new Inici().Window);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
         frame.pack();
         frame.setVisible(true);
-
+        //frame.setSize(300,300);
     }
 
     public String GetPath(){

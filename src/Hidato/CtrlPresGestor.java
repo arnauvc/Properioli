@@ -13,6 +13,8 @@ public class CtrlPresGestor {
     private String[][] taulerG;
     private String tcelaG;
     private String tadjG;
+    private String pathG;
+    private String nomG;
 
     private String TPartida(){
         Scanner input = new Scanner(System.in);
@@ -272,5 +274,14 @@ public class CtrlPresGestor {
 
     public String GetTadj() {
         return tadjG;
+    }
+
+
+    //AFEGIT PER CONTROLAR PART 1
+    public void SetPath(String path){
+        pathG = path;
+    }
+    public void SetNom(String nom){
+        nomG = nom;
     }
 }

@@ -1,6 +1,7 @@
 package Hidato.Part3;
 
 import Hidato.CtrlPresGestor;
+import Hidato.part4.HexagonPattern;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

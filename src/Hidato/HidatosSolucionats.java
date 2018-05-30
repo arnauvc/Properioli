@@ -85,7 +85,6 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         String aux = new String();
         aux = x.nextLine();
         tcela = String.valueOf(aux.charAt(0));
-        System.out.printf("TCELA = %s\n", tcela);
         String files = new String();
         String columnes = new String();
         boolean fi = false;
@@ -93,7 +92,6 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         while (!fi) {
             if (aux.charAt(i) != ',') {
                 tadj += aux.charAt(i);
-                System.out.printf("TADJ = %s\n", tadj);
             }
             else fi = true;
             i++;
@@ -102,14 +100,12 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         while (!fi) {
             if (aux.charAt(i) != ',') {
                 files += aux.charAt(i);
-                System.out.printf("NFILES = %s\n", files);
             }
             else fi = true;
             i++;
         }
         while (i < aux.length()) {
             columnes += aux.charAt(i);
-            System.out.printf("NCOLS = %s\n", columnes);
         }
         Integer f = new Integer(Integer.parseInt(files));
         Integer c = new Integer(Integer.parseInt(columnes));
@@ -129,7 +125,6 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         }
         return tauler.clone();
     }
-
 
     public Tauler CarregarHidato(Integer idhidato) throws Exception {
         String s = new String(path);

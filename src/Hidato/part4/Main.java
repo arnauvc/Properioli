@@ -14,12 +14,12 @@ class Main {
         */
         int n = 2;
         if(n == 1) {
-            Hexagon hexPattern = new Hexagon(5,5);
+            //Hexagon hexPattern = new Hexagon(5,5);
             JFrame frame = new JFrame();
             frame.setTitle("Juego");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             //frame.setLocation(new Point(700, 300));
-            frame.add(hexPattern);
+            //frame.add(hexPattern);
             frame.setSize(1000, 1000);
             frame.setResizable(false);
             frame.setVisible(true);

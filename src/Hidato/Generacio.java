@@ -78,7 +78,7 @@ public class Generacio {
         return true;
     }
 
-    public String[][] GenerarHidato(String Tipuscela, String Tipusadj, String Dificultat){
+    public String[][] GenerarHidato(String Tipuscela, String Tipusadj, String Dificultat) {
         Integer ProbBlanc;
         Cela cela_inicial;
         switch (Tipuscela){

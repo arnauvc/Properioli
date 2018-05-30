@@ -113,6 +113,7 @@ public class Partida {
 
 
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
+
 		maxim = g.GetValorMaxim();
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
 		SetFiles(t.getNumFiles());

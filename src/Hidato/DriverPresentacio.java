@@ -12,6 +12,7 @@ public class DriverPresentacio {
         System.out.println("Si vols executar el driver de Tauler prem 5");
         System.out.println("Si vols executar el test de Generacio prem 6");
         System.out.println("Si vols executar el test de HidatosSolucionats prem 7");
+        System.out.println("Si vols resoldre un hidato de un fitxer de text prem 8");
         accio = lector.nextLine();
         switch (Integer.parseInt(accio)){
             case 1:
@@ -42,6 +43,9 @@ public class DriverPresentacio {
                 Test_HS test_hs = new Test_HS();
                 test_hs.Provar();
                 break;
+            case 8:
+                DriverResoldreFitxer drf = new DriverResoldreFitxer();
+                drf.ResolHidatoFitxer();
         }
     }
 }

@@ -21,7 +21,7 @@ public class DriverResoldreFitxer {
         path = input.nextLine();
         System.out.println("Insereix el nom del fitxer (sense el .txt):");
         nomfitxer = input.nextLine();
-
+        hs.SetPath(path);
         try {
             hidato = hs.LlegirHidato(nomfitxer);
         } catch (Exception e) {
@@ -32,6 +32,17 @@ public class DriverResoldreFitxer {
         tcela = hs.Getcela();
         tadj = hs.Getadj();
 
+        System.out.println("Hidato llegit:");
+        System.out.println();
+
+        for (int l = 0; l < hidato.length; l++){
+            for (int j = 0; j < hidato[0].length; j++){
+                if (j > 0) System.out.print(",");
+                System.out.print(hidato[l][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
         solucio = r.ResoltreHidato(hidato, tcela, tadj);
 
         System.out.println("Solucio:");

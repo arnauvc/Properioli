@@ -79,19 +79,22 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         LE.TancarFitxerEscriptura(escriptor);
     }
 
-    public String[][] LlegirHidato(String s) throws Exception {
+    public String[][] LlegirHidato(String nomfitxer) throws Exception {
+        String s = new String(path);
+        s += nomfitxer;
         s += ".txt";
         x = LE.ObrirFitxerLectura(s);
-        String aux = new String();
+        String aux = "";
         aux = x.nextLine();
         tcela = String.valueOf(aux.charAt(0));
         String files = new String();
         String columnes = new String();
         boolean fi = false;
         int i = 2;
+        tadj = "";
         while (!fi) {
             if (aux.charAt(i) != ',') {
-                tadj += aux.charAt(i);
+                if (aux.charAt(i) == 'C' || aux.charAt(i) == 'A') tadj += aux.charAt(i);
             }
             else fi = true;
             i++;
@@ -104,25 +107,26 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
             else fi = true;
             i++;
         }
+
         while (i < aux.length()) {
             columnes += aux.charAt(i);
+            ++i;
         }
         Integer f = new Integer(Integer.parseInt(files));
         Integer c = new Integer(Integer.parseInt(columnes));
-        i = 0;
-        int k = 0;
+
         String[][] tauler = new String[f][c];
-        while (x.hasNext()) {
-            aux = x.nextLine();
+        for(i = 0; i < f; i++) {
+            String hidato[] = x.nextLine().split(",");
+
             for (int j = 0; j < c; j++) {
-                if (aux.charAt(j) != ',') {
-                    tauler[i][k] = String.valueOf(aux.charAt(j));
-                    k++;
-                }
+                tauler[i][j] = hidato[j];
             }
-            k = 0;
-            i++;
+
+
         }
+
+
         return tauler.clone();
     }
 

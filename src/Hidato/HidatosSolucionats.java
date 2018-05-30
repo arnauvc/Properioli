@@ -14,10 +14,16 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
     private Scanner x;
     private LlegirEscriure LE = new LlegirEscriure();
     private String path = new String("C:\\Users\\nilmc\\Desktop\\");
+    private String tcela;
+    private String tadj;
 
     public void SetPath(String path) {
         this.path = path;
     }
+
+    public String Getcela() {return tcela;}
+
+    public String Getadj() {return tadj;}
 
     public void GuardarHidato(Integer idhidato, Tauler t, ArrayList<Pair<Pair<Integer, Integer>, String>> solucio) throws Exception {//Te un tauler Tau com a parametre
         String s = new String(path);
@@ -71,6 +77,53 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         }
         escriptor.write("-");escriptor.newLine();
         LE.TancarFitxerEscriptura(escriptor);
+    }
+
+    public String[][] LlegirHidato(String s) throws Exception {
+        s += ".txt";
+        x = LE.ObrirFitxerLectura(s);
+        String aux = new String();
+        aux = x.nextLine();
+        tcela = String.valueOf(aux.charAt(0));
+        String files = new String();
+        String columnes = new String();
+        boolean fi = false;
+        int i = 2;
+        while (!fi) {
+            if (aux.charAt(i) != ',') {
+                tadj += aux.charAt(i);
+            }
+            else fi = true;
+            i++;
+        }
+        fi = false;
+        while (!fi) {
+            if (aux.charAt(i) != ',') {
+                files += aux.charAt(i);
+            }
+            else fi = true;
+            i++;
+        }
+        while (i < aux.length()) {
+            columnes += aux.charAt(i);
+        }
+        Integer f = new Integer(Integer.parseInt(files));
+        Integer c = new Integer(Integer.parseInt(columnes));
+        i = 0;
+        int k = 0;
+        String[][] tauler = new String[f][c];
+        while (x.hasNext()) {
+            aux = x.nextLine();
+            for (int j = 0; j < c; j++) {
+                if (aux.charAt(j) != ',') {
+                    tauler[i][k] = String.valueOf(aux.charAt(j));
+                    k++;
+                }
+            }
+            k = 0;
+            i++;
+        }
+        return tauler.clone();
     }
 
     public Tauler CarregarHidato(Integer idhidato) throws Exception {

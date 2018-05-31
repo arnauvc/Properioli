@@ -5,7 +5,9 @@
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
     </constraints>
-    <properties/>
+    <properties>
+      <opaque value="true"/>
+    </properties>
     <border type="none"/>
     <children>
       <component id="7b7f5" class="javax.swing.JButton" binding="menúButton" default-binding="true">

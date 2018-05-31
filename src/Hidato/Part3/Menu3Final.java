@@ -1,6 +1,7 @@
 package Hidato.Part3;
 
 import Hidato.CtrlPresGestor;
+import Hidato.Part2.Menu2;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -34,6 +35,9 @@ public class Menu3Final {
                     }
                 }
                 g.CtrlGuardarHidato(tcela, tadj, tauler, solucio);
+                Menu2 m2 = new Menu2();
+                String[] s = new String[0];
+                m2.main(s);
                 Menu3Final.frame.dispose();
             }
         });

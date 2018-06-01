@@ -308,9 +308,7 @@ public class Tauler {
                 else if((pari && !parj) || (!pari && parj)) {
                     if(arriba(vali, i, j)) return true;
                 }
-
                 if(derecha(vali,i,j)) return true;
-
                 if(izquierda(vali,i,j)) return true;
             }
             else if(i == 0){
@@ -318,7 +316,6 @@ public class Tauler {
                     if(abajo(vali,i,j)) return true;
                     if(derecha(vali,i,j)) return true;
                 }
-
                 else if(j > 0 && j < numColum-1){
                     if(parj && abajo(vali,i,j)) return true;
                     if(izquierda(vali,i,j)) return true;
@@ -417,7 +414,6 @@ public class Tauler {
                 if(abajo(vali,i,j)) return true;
                 if(derecha(vali,i,j)) return true;
             }
-
             else if(i > 0 && i < numFiles && j == numColum-1){
                 if(arriba(vali,i,j)) return true;
                 if(abajo(vali,i,j)) return true;
@@ -426,7 +422,6 @@ public class Tauler {
                 if(arriba_izquierda(vali,i,j)) return true;
                 if(abajo_izquierda(vali,i,j)) return true;
             }
-
         }
         return false;
     }*/
@@ -575,7 +570,7 @@ public class Tauler {
             b = true;
         }
         cela = Celas.get(posi).get(posj);
-         cela.ModificarValor(x);
+        cela.ModificarValor(x);
         //else System.out.println("No és possible posar un núnmero que no té números adjacentes al seu costat");
 
     }

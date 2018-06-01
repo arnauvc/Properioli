@@ -26,7 +26,6 @@ public class Partida {
 	private Error e = new Error();
 	private Resolucio re = new Resolucio();
 	private HidatosSolucionats hs = new HidatosSolucionats();
-	//private Usuari u = new Usuari();
 	private Integer idhidato;
 	private String dif; //Dificultat
 	private Integer torn;
@@ -37,6 +36,7 @@ public class Partida {
 	private String[][] hidato_resolt;
 	private Integer maxim;
 	private String nomusuari;
+	private String path;
 
 
 	public Partida(){}
@@ -108,11 +108,12 @@ public class Partida {
 
 	}
 	
-	public void IniciaPartida(HidatosSolucionats hs) throws Exception {
+	public void IniciaPartida() throws Exception {
 		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
 
 
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
+
 		maxim = g.GetValorMaxim();
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
 		SetFiles(t.getNumFiles());
@@ -122,25 +123,28 @@ public class Partida {
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
 
 		//Passar String[][] hidato_resolt -> ArrayList<>solucio
-		ArrayList<Pair<Pair<Integer, Integer>, String>> solucio = new ArrayList<>();
-		for (int i = 0; i < hidato_resolt.length; i++){
-			for (int j = 0; j < hidato_resolt[i].length; j++){
-				Pair<Integer, Integer> p = new Pair<>(i, j);
-				String hr = hidato_resolt[i][j];
-				solucio.add(new Pair<>(p, hr));
+		if (hidato_resolt != null) {
+			ArrayList<Pair<Pair<Integer, Integer>, String>> solucio = new ArrayList<>();
+			for (int i = 0; i < hidato_resolt.length; i++) {
+				for (int j = 0; j < hidato_resolt[i].length; j++) {
+					Pair<Integer, Integer> p = new Pair<>(i, j);
+					String hr = hidato_resolt[i][j];
+					solucio.add(new Pair<>(p, hr));
+				}
 			}
+			hs.SetPath(path);
+			hs.GuardarHidato(idhidato, t, solucio);
+
+			r.start(); //Inicia el rellotge
+			finalitzat = false;
+			completat = false;
+			ajuda = false;
+			guardat = false;
+			reguardat = false;
+			torn = 1;
+			TranscursPartida();
 		}
-
-		hs.GuardarHidato(idhidato, t, solucio);
-
-		r.start(); //Inicia el rellotge
-		finalitzat = false;
-		completat = false;
-		ajuda = false;
-		guardat = false;
-		reguardat = false;
-		torn = 1;
-		TranscursPartida();
+		else e.PrintError(2	);
 
 	}
 	public void ReprendrePartida() throws Exception {
@@ -313,6 +317,9 @@ public class Partida {
 	}
 	public void SetMaxim(Integer maxim){
 		this.maxim = maxim;
+	}
+	public void SetPath(String path){
+		this.path = path;
 	}
 	public boolean GetReguardat(){
 		return reguardat;

@@ -13,15 +13,15 @@ public class DriverTauler {
 
 
     private void mostraropcionesini(){
-        System.out.println("Para crear un tablero pulse: 1");
-        System.out.println("Para mirar los get en tauler pulse: 2");
-        System.out.println("Para mirar los set tauler pulse: 3");
-        System.out.println("Para mirar los get en cela pulse: 4");
-        System.out.println("Para consultar pulse: 5");
-        System.out.println("Para modificaciones pulse: 6");
-        System.out.println("Para selecionar un tablero: 7");
-        System.out.println("Para mostar un tablero pulse :8");
-        System.out.println("Para salir: 0");
+        System.out.println("Per crear un tauler premi: 1");
+        System.out.println("Per mirar els get del tauler premi: 2");
+        System.out.println("Per mirar els set del tauler premi: 3");
+        System.out.println("Per mirar els get de la cel·la premi: 4");
+        //System.out.println("Per consultar premi: 5");
+        //System.out.println("Per modificacions premi: 6");
+        System.out.println("Per seleccionar un tauler: 7");
+        System.out.println("Per mostar un tauler premi :8");
+        System.out.println("Per sortir premi: 0");
     }
 
 
@@ -38,7 +38,7 @@ public class DriverTauler {
                 t = new Tauler(tab.size()+1);
                 int nfiles,ncolum;
                 String tipo, adj;
-                System.out.println("Escriba el tipo, ajd, numfiles, numcolumnas, y matriz");
+                System.out.println("Escrigui el tipus de cel·la, l'adjacència, el número de files, el número de columnes, i la matriu");
                 tipo = s.next();
                 adj = s.next();
                 nfiles = s.nextInt();
@@ -54,62 +54,63 @@ public class DriverTauler {
             }
             else if(funcio == 2){
                 //get tauler
-                System.out.println("Para mirar el numero de filas pulse 1:");
-                System.out.println("Para mirar el numero de columnas pulse 2:");
-                System.out.println("Para miar el numero de celas totales pulse 3:");
-                System.out.println("Para mirar el numero de celas ocupadas pulse 4:");
-                System.out.println("Para mirar el numero de celas vacias pulse: 5");
-                System.out.println("Para miarr el tipo de adjacencia: 6");
-                System.out.println("Para mirar el tipo de cela: 7");
-                System.out.println("Para copiar toda la matriz pulse: 8");
-                System.out.println("Salir: 0");
+                System.out.println("Per mirar el número de files premi 1:");
+                System.out.println("Per mirar el número de columnes premi 2:");
+                System.out.println("Per mirar el número de cel·les totals premi 3:");
+                System.out.println("Per mirar el número de cel·les ocupades premi 4:");
+                System.out.println("Per mirar el número de cel·les buides premi: 5");
+                System.out.println("Per mirar el tipus d'adjacència premi: 6");
+                System.out.println("Per mirar el tipus de cel·la premi: 7");
+                System.out.println("Per copiar tota la matriu premi: 8");
+                System.out.println("Per sortir premi: 0");
                 funcion2 = s.nextInt();
                 while(funcion2 != 0){
-                    if(funcion2 == 1) System.out.println("Numero de files: "+ t.getNumFiles());
-                    else if(funcion2 == 2) System.out.println("Numero de columnas: " + t.getNumColum());
-                    else if(funcion2 == 3) System.out.println("Numero de celas totales: " + t.GetNumCelasTotal());
-                    else if(funcion2 == 4) System.out.println("Numero de  celas ocupadas: " + t.GetNumCelesOcupadas());
-                    else if(funcion2 == 5) System.out.println("Numero de celas vacias: " + t.GetNumCelesBuides());
-                    else if(funcion2 == 6) System.out.println("Tipo de adjacencia: " + t.GetTiposAdj());
-                    else if(funcion2 == 7) System.out.println("Tipo cela: " + t.getTipuscela());
+                    if(funcion2 == 1) System.out.println("Número de files: "+ t.getNumFiles());
+                    else if(funcion2 == 2) System.out.println("Número de columnes: " + t.getNumColum());
+                    else if(funcion2 == 3) System.out.println("Número de cel·les totals: " + t.GetNumCelasTotal());
+                    else if(funcion2 == 4) System.out.println("Número de  cel·les ocupades: " + t.GetNumCelesOcupadas());
+                    else if(funcion2 == 5) System.out.println("Número de cel·les buides: " + t.GetNumCelesBuides());
+                    else if(funcion2 == 6) System.out.println("Tipus d'adjacència: " + t.GetTiposAdj());
+                    else if(funcion2 == 7) System.out.println("Tipus cel·la: " + t.getTipuscela());
                     else if(funcion2 == 8) {
-                        System.out.println("toda la matriz, no hay q mostar");
+                        System.out.println("Còpia tota la matriu no hi ha res que mostrar");
                         aux = t.getCelas();
                     }
                     funcion2 = s.nextInt();
                 }
             }
             else if(funcio == 3){
-                System.out.println("Para cambiar una cela pulse 1");
-                System.out.println("Para cambiar el tipo de adjacencia pulse 2");
-                System.out.println("para cambiar el tipo de cela pulse 3");
-                System.out.println("Salir: 0");
+                System.out.println("Per canviar una cel·la premi 1");
+                System.out.println("Per canviar el tipus d'adjacència premi 2");
+                System.out.println("Per canviar el tipus de cel·la premi 3");
+                System.out.println("Per sortir premi: 0");
                 funcion2 = s.nextInt();
                 while(funcion2 != 0){
                     if(funcion2 == 1){
                         String valor;
                         int posi, posj;
-                        System.out.println("Escriba el valor, la poscion i, la poiscion j de la cela");
+                        System.out.println("Escrigui el valor, la posició i, la posició j de la cel·la");
                         valor = s.next();
                         posi = s.nextInt();
                         posj = s.nextInt();
+                        //5System.out.println(valor + posi + posj);
                         t.ModificaCeldaV(valor,posi,posj);
                         t.MostrarTauler();
                     }
                     else if(funcion2 == 2){
                         String tipoadj;
                         tipoadj = t.GetTiposAdj();
-                        if(tipoadj.equals("CA")) System.out.println("Ahora mismo  la adyacencia es " + tipoadj + "(costats + angles) dime el nuevo tipo");
-                        else System.out.println("Ahora mismo  la adyacencia es " + tipoadj + "(costats) dime el nuevo tipo");
+                        if(tipoadj.equals("CA")) System.out.println("Ara mateix l'adjacència és " + tipoadj + "(costats + angles) diga'm el nou tipus");
+                        else System.out.println("Ara mateix l'adjacència és " + tipoadj + "(costats) diga'm el nou tipus");
                         tipoadj = s.next();
                         t.SetAdjacencia(tipoadj);
                     }
                     else if(funcion2 == 3){
                         String tipoc;
                         tipoc = t.getTipuscela();
-                        if(tipoc.equals("T"))  System.out.println("Ahora mismo  la adyacencia es " + tipoc + "(Triangular) dime el nuevo tipo");
-                        else if(tipoc.equals("Q")) System.out.println("Ahora mismo  la adyacencia es " + tipoc + "(Cuadrada) dime el nuevo tipo");
-                        else System.out.println("Ahora mismo  la adyacencia es " + tipoc + "(Hexagonal) dime el nuevo tipo");
+                        if(tipoc.equals("T"))  System.out.println("Ara mateix l'adjacència és " + tipoc + "(Triangular) diga'm el nou tipus");
+                        else if(tipoc.equals("Q")) System.out.println("Ara mateix l'adjacència és " + tipoc + "(Quadrada) diga'm el nou tipus");
+                        else System.out.println("Ara mateix l'adjacència és " + tipoc + "(Hexagonal) diga'm el nou tipus");
                         tipoc = s.next();
                         t.SetTipuscela(tipoc);
                     }
@@ -118,12 +119,12 @@ public class DriverTauler {
                 }
             }
             else if(funcio == 4){
-                System.out.println("Para consultar el valor de la cela 1");
-                System.out.println("Para consultar si una cela es valida pulse uno pulse 2");
-                System.out.println("Para consultar si una cela es visible pulse uno pulse 3");
-                System.out.println("Salir 0");
+                System.out.println("Per consultar el valor de la cel·la premi 1");
+                System.out.println("Per consultar si una cel·la és vàlida premi 2");
+                System.out.println("Per consultar si una cell·a és visible premi 3");
+                System.out.println("Per sortir premi 0");
                 funcion2 = s.nextInt();
-                System.out.println("Escrbie la posicion de la cela");
+                System.out.println("Escrigui la posició de la cel·la");
                 int x, y;
                 x = s.nextInt();
                 y = s.nextInt();
@@ -132,21 +133,30 @@ public class DriverTauler {
                 while(funcion2 != 0){
                     if(funcion2 == 1){
                         if(cela.isValida()) System.out.println(cela.getValor());
-                        else System.out.println("Esta cela no tiene valor porque no es valida");
+                        else System.out.println("Aquesta cel·la no té valor perquè no és vàlida");
                     }
                     else if(funcion2 == 2){
-                        if(cela.isValida()) System.out.println("Es valida");
-                        else System.out.println("No es valida");
+                        if(cela.isValida()) System.out.println("Aquesta cel·la és vàlida");
+                        else System.out.println("Aquesta cel·la no és vàlida");
                     }
                     else if(funcion2 == 3){
-                        if(cela.isVisible()) System.out.println("Es visible");
-                        else System.out.println("No es visible");
+                        if(cela.isVisible()) System.out.println("Aquesta cel·la és visible");
+                        else System.out.println("Aquesta cel·la no és visible");
                     }
+                    funcion2 = s.nextInt();
+                }
+            }
+
+            else if(funcio == 7){
+                System.out.println("EL número màxim de taulers és: " + tab.size());
+                if(tab.size() > 0) {
+                    int i = s.nextInt();
+                    t = tab.get(i);
                 }
             }
 
             else if(funcio == 8) t.MostrarTauler();
-            System.out.println("Que desea seguir haciendo ahora?");
+            System.out.println("Què desitja continuar fent ara?");
             mostraropcionesini();
             funcio = s.nextInt();
 

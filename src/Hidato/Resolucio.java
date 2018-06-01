@@ -820,10 +820,11 @@ public class Resolucio{
                 camins.clear();
                 if (distancia != 1) {
                     cami.add(new Pair<>(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue()));
-                    if (!TrobarSolucioQ(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia)) {
+                    TrobarSolucioQ(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia);
+                    if (camins.isEmpty()) {
                         solucio = null;
-                        System.out.println("NO HE TROBAT SOLUCIO");
-                        System.out.println("");
+                        //System.out.println("NO HE TROBAT SOLUCIO");
+                        //System.out.println("");
                         break;
                     } else {
                         multicamins.add((ArrayList<ArrayList<Pair<Integer, Integer>>>) camins.clone());
@@ -838,10 +839,11 @@ public class Resolucio{
                 camins.clear();
                 if (distancia != 1) {
                     cami.add(new Pair<>(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue()));
-                    if (!TrobarSolucioH(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia)) {
+                    TrobarSolucioH(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia);
+                    if (camins.isEmpty()) {
                         solucio = null;
-                        System.out.println("NO HE TROBAT SOLUCIO");
-                        System.out.println("");
+                        //System.out.println("NO HE TROBAT SOLUCIO");
+                        //System.out.println("");
                         break;
                     } else {
                         multicamins.add((ArrayList<ArrayList<Pair<Integer, Integer>>>) camins.clone());
@@ -856,10 +858,11 @@ public class Resolucio{
                 camins.clear();
                 if (distancia != 1) {
                     cami.add(new Pair<>(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue()));
-                    if (!TrobarSolucioT(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia)) {
+                    TrobarSolucioT(sl.get(i).getKey().getKey(), sl.get(i).getKey().getValue(), sl.get(i).getValue(), sl.get(i + 1).getKey().getKey(), sl.get(i + 1).getKey().getValue(), sl.get(i + 1).getValue(), distancia);
+                    if (camins.isEmpty()) {
                         solucio = null;
-                        System.out.println("NO HE TROBAT SOLUCIO");
-                        System.out.println("");
+                        //System.out.println("NO HE TROBAT SOLUCIO");
+                        //System.out.println("");
                         break;
                     } else {
                         multicamins.add((ArrayList<ArrayList<Pair<Integer, Integer>>>) camins.clone());

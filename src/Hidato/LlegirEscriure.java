@@ -13,7 +13,7 @@ public class LlegirEscriure {
                 fitxer.createNewFile();
             }
             catch (Exception e) {
-                System.out.println("Direccio desti invalida!");
+                //System.out.println("Direccio desti invalida!");
             }
         }
         try {
@@ -21,7 +21,7 @@ public class LlegirEscriure {
             else filew = new FileWriter(fitxer, true);
             escriptor = new BufferedWriter(filew);
         } catch (IOException e) {
-            System.out.println("Direccio desti invalida!");
+            //System.out.println("Direccio desti invalida!");
         }
         return escriptor;
     }
@@ -45,7 +45,7 @@ public class LlegirEscriure {
             x = new Scanner(new File(nom));
         } catch (FileNotFoundException e) {
             //e.printStackTrace();
-            System.out.println("No hi ha cap partida guardada amb aquest nom d'usuari");
+            //System.out.println("No hi ha cap partida guardada amb aquest nom d'usuari");
         }
         return x;
     }

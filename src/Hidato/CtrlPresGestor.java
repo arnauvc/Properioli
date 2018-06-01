@@ -1,15 +1,21 @@
 package Hidato;
 
-import Hidato.Gestor;
+import javafx.util.Pair;
 
 import java.text.StringCharacterIterator;
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.ObjectInputStream;
 import java.util.Vector;
 
 public class CtrlPresGestor {
 
     private Gestor g = new Gestor();
+    private String[][] taulerG;
+    private String[][] taulerresol;
+    private String tcelaG;
+    private String tadjG;
+    private String pathG;
+    private String nomG;
 
     private String TPartida(){
         Scanner input = new Scanner(System.in);
@@ -17,7 +23,7 @@ public class CtrlPresGestor {
         String tipuspartida = input.nextLine();
 
         while (!tipuspartida.equals("RESOLDRE") && !tipuspartida.equals("GENERAR") && !tipuspartida.equals("REPRENDRE")) {
-            System.out.println("Selecciona si vols RESOLDRE,GENERAR o REPRENDRE un Hidato: ");
+            System.out.println("Selecciona si vols RESOLDRE, GENERAR o REPRENDRE un Hidato: ");
             tipuspartida = input.nextLine();
         }
         return tipuspartida;
@@ -47,7 +53,6 @@ public class CtrlPresGestor {
         }
         return tipusadj;
     }
-
     private String TDificultat(){
         Scanner input = new Scanner(System.in);
         String tipusdificultat;
@@ -61,7 +66,6 @@ public class CtrlPresGestor {
         }
         return tipusdificultat;
     }
-
     private Integer NHidato(Integer totalhidatos){
         Scanner input = new Scanner(System.in);
         Integer numhidato;
@@ -93,7 +97,6 @@ public class CtrlPresGestor {
         vres.add(1, Integer.toString(ncolumnes));
         return vres;
     }
-
     private Vector<String> Params(){
         //No funciona encara
 
@@ -109,10 +112,9 @@ public class CtrlPresGestor {
         }
         return res;
     }
-
     private String [][] LlegirTauler(Integer nfil, Integer ncol){
         //Ja funciona
-
+        System.out.println("Genera el hidato:");
         String[][] Tauler = new String[nfil][ncol];
         Scanner input = new Scanner(System.in);
 
@@ -131,6 +133,15 @@ public class CtrlPresGestor {
 
     }
 
+    //identificar que esta jugando o creando.
+    private boolean crear = false;
+    //crear
+    private int fila;
+    private int columna;
+
+    public void Interrupcio(String s){
+
+    }
 
     public void Inicia() throws Exception {
         Vector<String> v = new Vector<String>();
@@ -213,8 +224,6 @@ public class CtrlPresGestor {
             Vector<String> vres = NFilCol();
             v.add(4,vres.get(0));
             v.add(5,vres.get(1));
-            tipusdificultat = TDificultat();
-            v.add(6,tipusdificultat);
             String[][] tau = LlegirTauler(Integer.parseInt(vres.get(0)), Integer.parseInt(vres.get(1)));
             //g.Parametres(v);
             g.Generar(v,tau);//V{nomusuari, path, tipuscela, tipusadj, numfil, numcol, dificultat}
@@ -238,4 +247,89 @@ public class CtrlPresGestor {
             }
         }
     }
+
+
+
+
+    //AFEGIT PER CONTROLAR PART3
+    public void CtrlGenerarHidato(String tcela, String tadj, String dif) {
+        tcelaG = tcela;
+        tadjG = tadj;
+        taulerG = g.GestorGenerarHidato(tcela, tadj, dif);
+    }
+
+    public String[][] CtrlResoldreHidato(String[][] tauler, String tcela, String tadj) {
+        String[][] aux;
+        aux = g.GestorResoldreHidato(tauler, tcela, tadj);
+        return aux.clone();
+    }
+
+    public void CtrlGuardarHidato(String tcela, String tadj, String[][] tauler, ArrayList<Pair<Pair<Integer, Integer>, String>> solucio) {
+        g.GestorGuardarHidato(tcela, tadj, tauler, solucio);
+    }
+
+    public void SetTipusTauler(String tcela, String tadj) {
+        tcelaG = tcela;
+        tadjG = tadj;
+
+    }
+
+    public void setcela(String cela){
+        tcelaG = cela;
+    }
+
+    public void setTadjG(String adj){
+        tadjG = adj;
+    }
+
+    public String[][] GetTauler() {
+        return taulerG.clone();
+    }
+
+    public String GetTcela() {
+        return tcelaG;
+    }
+
+    public String GetTadj() {
+        return tadjG;
+    }
+
+    public void SetCrear(boolean crear){
+        this.crear = crear;
+    }
+
+    public void setFilaColumna(int f, int c){
+        this.fila = f;
+        this.columna = c;
+    }
+
+
+
+
+    //AFEGIT PER CONTROLAR PART 1
+    public void SetPath(String path){
+        pathG = path;
+    }
+    public void SetNom(String nom){
+        nomG = nom;
+    }
+
+    //para el numero 4
+    public boolean isCrear(){
+        return this.crear;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public void SetTauler(String[][] tau){
+        this.taulerG = tau.clone();
+        taulerresol = g.GestorResoldreHidato(taulerG, tcelaG, tadjG);
+    }
+
 }

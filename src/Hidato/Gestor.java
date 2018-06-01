@@ -7,12 +7,15 @@ import Hidato.Ranking;
 import Hidato.Usuari;
 import Hidato.Partida;
 import Hidato.Generacio;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Vector;
 
 
 import Hidato.ComprovarHidato;
+import javafx.util.Pair;
 
 
 public class Gestor {
@@ -24,7 +27,6 @@ public class Gestor {
     private HidatosSolucionats hs = new HidatosSolucionats();
 
     private Vector<String> parametres;
-
 
     public Integer VisualitzaHidatos() {
         //Aqui caldra invocar la capa de presentacio per fer display dels hidatos
@@ -53,12 +55,12 @@ public class Gestor {
     public void Aleatori(Vector<String> v){
         //Partida p = new Partida();
         partidaactiva.SetNom(v.get(0));
+        partidaactiva.SetPath(v.get(1));
         partidaactiva.SetCela(v.get(2));
         partidaactiva.SetAdjacencia(v.get(3));
         partidaactiva.SetDificultat(v.get(4));
-        hs.SetPath(v.get(1));
         try{
-            partidaactiva.IniciaPartida(hs);
+            partidaactiva.IniciaPartida();
         } catch (Exception e){
             GuardarPartida(v.get(1));
         }
@@ -87,8 +89,10 @@ public class Gestor {
         partidaactiva.SetTaulerU(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
         partidaactiva.Generar();//Que s'hauria de dir, RESOLDRELamaquina
     }
+
     public void Reprendre(Vector<String> v) throws Exception {
         pg.SetPath(v.get(1));
+
         partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
         try{
             partidaactiva.ReprendrePartida();
@@ -99,9 +103,11 @@ public class Gestor {
     public void GuardarPartida(String path){
         pg.SetPath(path);
         try {
+            System.out.println("Partida guardada");
             pg.GuardarPartida(partidaactiva.GetNom(), partidaactiva, partidaactiva.GetTaulerG());
         } catch (Exception e) {
             System.out.print("Error al guardar la partida");
+
         }
 
     }
@@ -109,4 +115,34 @@ public class Gestor {
     public void ActulitzarRanking(Integer id, Double temps){
         r.Actualitzar(id, temps);
     }
+
+    //AFEGIT EXTRA PER CONTROLAR PART3
+    public String[][] GestorGenerarHidato(String tcela, String tadj, String dif) {
+        Generacio g = new Generacio();
+        String[][] tauler;
+        tauler = g.GenerarHidato(tcela, tadj, dif);
+        return tauler.clone();
+    }
+
+    public String[][] GestorResoldreHidato(String[][] tauler, String tcela, String tadj) {
+        Resolucio r = new Resolucio();
+        String[][] aux;
+        aux = r.ResoltreHidato(tauler, tcela, tadj);
+        return aux.clone();
+    }
+
+    public void GestorGuardarHidato(String tcela, String tadj, String[][] tauler, ArrayList<Pair<Pair<Integer, Integer>, String>> solucio) {
+        Tauler t = new Tauler();
+        t.CrearTauler(tcela, tadj, tauler);
+        HidatosSolucionats hs = new HidatosSolucionats();
+        try {
+            hs.GuardarHidato(1,t, solucio); //Canviar l'1 per l'id que toqui
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+    }
+
+
 }
+
+

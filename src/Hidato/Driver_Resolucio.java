@@ -42,7 +42,7 @@ public class Driver_Resolucio {
                             tcela = input.nextLine();
                             System.out.println("Selecciona tipus de d'Adjacencia [C | CA]");
                             tadj = input.nextLine();
-                            System.out.println("Selecciona la dificultat [FACIL | NORMAL | DIFICIL]");
+                            System.out.println("Selecciona la dificultat [F | N | D]");
                             dif = input.nextLine();
                             tauler = g.GenerarHidato(tcela, tadj, dif);
                             break;

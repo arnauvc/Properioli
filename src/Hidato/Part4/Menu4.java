@@ -13,11 +13,13 @@ public class Menu4 {
 
     private static String tcela;
     private static boolean crear;
+    private static boolean tsol;
     private static JFrame frame;
 
 
     private static void configurar() {
         tcela = Inici.cg.GetTcela();
+        tsol = Inici.cg.isTso();
         crear = Inici.cg.isCrear();
         frame = new JFrame();
         frame.setTitle("Juego");
@@ -40,7 +42,7 @@ public class Menu4 {
             frame.add(tri);
         }
         else if(tcela.equals("Q")){
-            Cuadrado cua = new Cuadrado(crear);
+            Cuadrado cua = new Cuadrado(crear, tsol);
             frame.add(cua);
         }
     }

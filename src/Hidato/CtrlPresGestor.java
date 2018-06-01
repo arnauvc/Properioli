@@ -133,8 +133,9 @@ public class CtrlPresGestor {
 
     }
 
-    //identificar que esta jugando o creando.
+    //identificar que esta jugando o creando y si muestra la solción.
     private boolean crear = false;
+    private boolean tso = false;
     //crear
     private int fila;
     private int columna;
@@ -328,8 +329,26 @@ public class CtrlPresGestor {
     }
 
     public void SetTauler(String[][] tau){
+        for(int i = 0; i < tau.length;++i){
+            for(int j = 0; j < tau[0].length;++j){
+                System.out.print(tau[i][j]);
+            }
+            System.out.println();
+        }
         this.taulerG = tau.clone();
         taulerresol = g.GestorResoldreHidato(taulerG, tcelaG, tadjG);
+    }
+
+    public void settsol(boolean ts){
+        this.tso = ts;
+    }
+
+    public boolean isTso() {
+        return tso;
+    }
+
+    public String[][] getTaulersol(){
+        return this.taulerresol.clone();
     }
 
 }

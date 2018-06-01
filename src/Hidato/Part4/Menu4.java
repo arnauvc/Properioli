@@ -14,7 +14,7 @@ public class Menu4 {
     private static String tcela;
     private static boolean crear;
     private static boolean tsol;
-    private static JFrame frame;
+    public static JFrame frame;
 
 
     private static void configurar() {

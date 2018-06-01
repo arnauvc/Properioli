@@ -20,6 +20,7 @@ public class Menufinal {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 Inici.cg.settsol(true);
+                Inici.cg.SetCrear(false);
                 String[] s = new String[0];
                 Menu4.main(s);
             }

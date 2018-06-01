@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Cuadrado extends JPanel {
+public class Cuadrado extends JPanel{
     private final int ROWS;
     private final int COLUMNS;
     private JButton[][] cuabuton;
@@ -30,7 +30,7 @@ public class Cuadrado extends JPanel {
         tsol = ts;
         if (!crear) {
             if(!ts) tauler = Inici.cg.GetTauler();
-            else Inici.cg.getTaulersol();
+            else tauler = Inici.cg.getTaulersol();
             ROWS = tauler.length;
             COLUMNS = tauler[0].length;
             System.out.println(ROWS);
@@ -134,6 +134,7 @@ public class Cuadrado extends JPanel {
                     Inici.cg.SetTauler(tauler);
                     String[] s = new String[0];
                     Menufinal.main(s);
+                    Menu4.frame.dispose();
 
                 }
             });
@@ -143,6 +144,7 @@ public class Cuadrado extends JPanel {
 
     private void jugar() {
         for (int row = 0; row < ROWS; row++) {
+            offsetX = 0;
             for (int col = 0; col < COLUMNS; col++) {
                 int finalRow = row;
                 int finalCol = col;

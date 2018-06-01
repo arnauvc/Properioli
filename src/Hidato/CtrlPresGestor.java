@@ -329,14 +329,20 @@ public class CtrlPresGestor {
     }
 
     public void SetTauler(String[][] tau){
-        for(int i = 0; i < tau.length;++i){
+        /*for(int i = 0; i < tau.length;++i){
             for(int j = 0; j < tau[0].length;++j){
                 System.out.print(tau[i][j]);
             }
             System.out.println();
-        }
+        }*/
         this.taulerG = tau.clone();
         taulerresol = g.GestorResoldreHidato(taulerG, tcelaG, tadjG);
+        for(int i = 0; i < taulerresol.length;++i){
+            for(int j = 0; j < taulerresol[0].length;++j){
+                System.out.print(taulerresol[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     public void settsol(boolean ts){

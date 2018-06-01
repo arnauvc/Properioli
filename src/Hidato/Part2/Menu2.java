@@ -19,6 +19,9 @@ public class Menu2 {
         jugarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String[] s = new String[0];
+                Menu22.main(s);
+                Menu2.frame.dispose();
                 System.out.println("hola bitcheees");
             }
         });
@@ -38,6 +41,7 @@ public class Menu2 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String[] s = new String[0];
+                Menu2.frame.dispose();
                 Menu3.main(s);
             }
         });

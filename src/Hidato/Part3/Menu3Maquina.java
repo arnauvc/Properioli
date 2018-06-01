@@ -1,7 +1,9 @@
 package Hidato.Part3;
 
 import Hidato.CtrlPresGestor;
-import Hidato.part4.HexagonPattern;
+import Hidato.Part1.Inici;
+import Hidato.Part4.HexagonPattern;
+import Hidato.Part4.Menu4;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +27,7 @@ public class Menu3Maquina {
     private static JFrame frame;
 
     public Menu3Maquina() {
+        g = new CtrlPresGestor();
         Generar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -32,11 +35,11 @@ public class Menu3Maquina {
                 tadjM = textField2.getText();
                 dif = textField3.getText();
                 if (!tcelaM.isEmpty() && !tadjM.isEmpty() && !dif.isEmpty()) {
-                    tauler = g.CtrlGenerarHidato(tcelaM, tadjM, dif);
-                    g.SetTauler(tauler, tcelaM, tadjM);
+                    Inici.cg.CtrlGenerarHidato(tcelaM, tadjM, dif);
+                    System.out.println(tcelaM);
+                    Inici.cg.setcela(tcelaM);
                     Menu3Final m3f = new Menu3Final();
                     m3f.main();
-                    m3f.SetG(g);
                     Menu3Maquina.frame.dispose();
                 }
                 else {

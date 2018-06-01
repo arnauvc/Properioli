@@ -11,6 +11,7 @@ public class CtrlPresGestor {
 
     private Gestor g = new Gestor();
     private String[][] taulerG;
+    private String[][] taulerresol;
     private String tcelaG;
     private String tadjG;
     private String pathG;
@@ -132,6 +133,12 @@ public class CtrlPresGestor {
 
     }
 
+    //identificar que esta jugando o creando.
+    private boolean crear = false;
+    //crear
+    private int fila;
+    private int columna;
+
     public void Interrupcio(String s){
 
     }
@@ -153,7 +160,7 @@ public class CtrlPresGestor {
         System.out.println("Hola " + nomusuari);
         v.add(0,nomusuari);
 
-        /*while(!segur) {
+        while(!segur) {
             System.out.println("Tria la direccio desti per a guardar o carregar arxius:\nIMPORTANT! Ha de ser una direccio valida! ");
             path = input.nextLine();
             System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
@@ -167,7 +174,7 @@ public class CtrlPresGestor {
                 segur = true;
             }
 
-        }*/
+        }
 
         tipuspartida = TPartida();
 
@@ -240,11 +247,15 @@ public class CtrlPresGestor {
             }
         }
     }
+
+
+
+
     //AFEGIT PER CONTROLAR PART3
-    public String[][] CtrlGenerarHidato(String tcela, String tadj, String dif) {
-        String[][] tauler;
-        tauler = g.GestorGenerarHidato(tcela, tadj, dif);
-        return tauler.clone();
+    public void CtrlGenerarHidato(String tcela, String tadj, String dif) {
+        tcelaG = tcela;
+        tadjG = tadj;
+        taulerG = g.GestorGenerarHidato(tcela, tadj, dif);
     }
 
     public String[][] CtrlResoldreHidato(String[][] tauler, String tcela, String tadj) {
@@ -257,11 +268,18 @@ public class CtrlPresGestor {
         g.GestorGuardarHidato(tcela, tadj, tauler, solucio);
     }
 
-    public void SetTauler(String[][] tauler, String tcela, String tadj) {
-        taulerG = tauler;
+    public void SetTipusTauler(String tcela, String tadj) {
         tcelaG = tcela;
         tadjG = tadj;
 
+    }
+
+    public void setcela(String cela){
+        tcelaG = cela;
+    }
+
+    public void setTadjG(String adj){
+        tadjG = adj;
     }
 
     public String[][] GetTauler() {
@@ -276,6 +294,17 @@ public class CtrlPresGestor {
         return tadjG;
     }
 
+    public void SetCrear(boolean crear){
+        this.crear = crear;
+    }
+
+    public void setFilaColumna(int f, int c){
+        this.fila = f;
+        this.columna = c;
+    }
+
+
+
 
     //AFEGIT PER CONTROLAR PART 1
     public void SetPath(String path){
@@ -284,4 +313,23 @@ public class CtrlPresGestor {
     public void SetNom(String nom){
         nomG = nom;
     }
+
+    //para el numero 4
+    public boolean isCrear(){
+        return this.crear;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public void SetTauler(String[][] tau){
+        this.taulerG = tau.clone();
+        taulerresol = g.GestorResoldreHidato(taulerG, tcelaG, tadjG);
+    }
+
 }

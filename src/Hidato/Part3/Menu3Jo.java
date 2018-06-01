@@ -1,5 +1,8 @@
 package Hidato.Part3;
 
+import Hidato.Part1.Inici;
+import Hidato.Part4.Menu4;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +12,10 @@ public class Menu3Jo {
     private JLabel Tadj;
     private JLabel Files;
     private JLabel Columnes;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
+    private JTextField tipoc;
+    private JTextField tipoadj;
+    private JTextField nfiles;
+    private JTextField ncolum;
     private JButton Generar;
     public JPanel Finestra;
     private JButton Endarrere;
@@ -26,12 +29,20 @@ public class Menu3Jo {
         Generar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tcelaJ = textField1.getText();
-                tadjJ = textField2.getText();
-                files = textField3.getText();
-                columnes = textField4.getText();
+                tcelaJ = tipoc.getText();
+                tadjJ = tipoadj.getText();
+                files = nfiles.getText();
+                columnes = ncolum.getText();
                 if (!tcelaJ.isEmpty() && !tadjJ.isEmpty() && !files.isEmpty() && !columnes.isEmpty()) {
+                    //Inici.cg.setcela(tcelaJ);
+                    //Inici.cg.setTadjG(tadjJ);
+                    Inici.cg.SetTipusTauler(tcelaJ,tadjJ);
+                    Inici.cg.setFilaColumna(Integer.valueOf(files),Integer.valueOf(columnes));
+                    Inici.cg.SetCrear(true);
+                    System.out.println(tcelaJ+ " " + tadjJ);
                     Menu3Jo.frame.dispose();
+                    String[] s = new String[0];
+                    Menu4.main(s);
                 }
                 else {
                     Error_dades er = new Error_dades();

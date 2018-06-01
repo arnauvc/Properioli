@@ -18,10 +18,11 @@ public class Inici{
     private String path;
     private String nom;
     private static JFrame frame;
-    private CtrlPresGestor cg;
+    public static CtrlPresGestor cg;
     JFileChooser chooser;
 
     public Inici() {
+        cg = new CtrlPresGestor();
         examinarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

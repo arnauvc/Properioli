@@ -1,6 +1,7 @@
 package Hidato.Part3;
 
 import Hidato.CtrlPresGestor;
+import Hidato.Part4.Menu4;
 import javafx.util.Pair;
 
 import javax.swing.*;
@@ -35,6 +36,13 @@ public class Menu3Final {
                 }
                 g.CtrlGuardarHidato(tcela, tadj, tauler, solucio);
                 Menu3Final.frame.dispose();
+            }
+        });
+        jugarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String[] s = new String[0];
+                Menu4.main(s);
             }
         });
     }

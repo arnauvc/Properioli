@@ -133,8 +133,9 @@ public class CtrlPresGestor {
 
     }
 
-    //identificar que esta jugando o creando.
+    //identificar que esta jugando o creando y si muestra la solción.
     private boolean crear = false;
+    private boolean tso = false;
     //crear
     private int fila;
     private int columna;
@@ -160,7 +161,7 @@ public class CtrlPresGestor {
         System.out.println("Hola " + nomusuari);
         v.add(0,nomusuari);
 
-        /*while(!segur) {
+        while(!segur) {
             System.out.println("Tria la direccio desti per a guardar o carregar arxius:\nIMPORTANT! Ha de ser una direccio valida! ");
             path = input.nextLine();
             System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
@@ -174,7 +175,7 @@ public class CtrlPresGestor {
                 segur = true;
             }
 
-        }*/
+        }
 
         tipuspartida = TPartida();
 
@@ -328,8 +329,26 @@ public class CtrlPresGestor {
     }
 
     public void SetTauler(String[][] tau){
+        for(int i = 0; i < tau.length;++i){
+            for(int j = 0; j < tau[0].length;++j){
+                System.out.print(tau[i][j]);
+            }
+            System.out.println();
+        }
         this.taulerG = tau.clone();
         taulerresol = g.GestorResoldreHidato(taulerG, tcelaG, tadjG);
+    }
+
+    public void settsol(boolean ts){
+        this.tso = ts;
+    }
+
+    public boolean isTso() {
+        return tso;
+    }
+
+    public String[][] getTaulersol(){
+        return this.taulerresol.clone();
     }
 
 }

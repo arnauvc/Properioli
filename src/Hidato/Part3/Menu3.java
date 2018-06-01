@@ -1,6 +1,7 @@
 package Hidato.Part3;
 
 import Hidato.CtrlPresGestor;
+import Hidato.Part1.Inici;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +11,7 @@ public class Menu3 {
     private JPanel Finestra1;
     private JButton Màquina;
     private JButton Jo;
-    public static CtrlPresGestor g;
+    //public static CtrlPresGestor g;
     private static JFrame frame;
 
     public Menu3() {
@@ -19,7 +20,7 @@ public class Menu3 {
             public void actionPerformed(ActionEvent e) {
                 Menu3Maquina m3m = new Menu3Maquina();
                 m3m.main();
-                m3m.SetG(g);
+                m3m.SetG(Inici.cg);
                 Menu3.frame.dispose();
             }
         });
@@ -41,6 +42,6 @@ public class Menu3 {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        g = new CtrlPresGestor();
+        //g = new CtrlPresGestor();
     }
 }

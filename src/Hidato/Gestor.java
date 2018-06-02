@@ -22,7 +22,7 @@ public class Gestor {
 
 	//private Error e;
 	private Ranking r;
-    private Partida partidaactiva = new Partida();
+    private Partida partidaactiva;/*new Partida()*/;
     private PartidesGuardades pg = new PartidesGuardades();
     private HidatosSolucionats hs = new HidatosSolucionats();
 
@@ -52,15 +52,17 @@ public class Gestor {
         }
 
     }
-    public void Aleatori(Vector<String> v){
-        //Partida p = new Partida();
+    public void Aleatori(Vector<String> v, String[][] ti){
+        Partida pa =  new Partida();
+        partidaactiva = pa;
+        System.out.println(v.get(0));
         partidaactiva.SetNom(v.get(0));
         partidaactiva.SetPath(v.get(1));
         partidaactiva.SetCela(v.get(2));
         partidaactiva.SetAdjacencia(v.get(3));
         partidaactiva.SetDificultat(v.get(4));
         try{
-            partidaactiva.IniciaPartida();
+            partidaactiva.IniciaPartida(ti);
         } catch (Exception e){
             GuardarPartida(v.get(1));
         }
@@ -76,7 +78,7 @@ public class Gestor {
         //Aixo ho podriem posar amb una constructora tot junt estil
         //partidaactiva = new Partida(p.get(0),p.get(1),p.get(2),Integer.parseInt(p.get(3)),Integer.parseInt(p.get(4)) )
     }
-    public void Generar(Vector<String> p, String[][] tauler){
+    public void Generar(Vector<String> p, String[][] tauler, String[][] tsolucion){
         //partidaactiva.SetTauler(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
         Partida pa = new Partida();
         partidaactiva = pa;
@@ -87,7 +89,7 @@ public class Gestor {
         partidaactiva.SetColumnes(Integer.parseInt(p.get(5)));
         //partidaactiva.SetDificultat(p.get(5));
         partidaactiva.SetTaulerU(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
-        partidaactiva.Generar();//Que s'hauria de dir, RESOLDRELamaquina
+        partidaactiva.Generar(tsolucion);//Que s'hauria de dir, RESOLDRELamaquina
     }
 
     public void Reprendre(Vector<String> v) throws Exception {
@@ -117,11 +119,11 @@ public class Gestor {
     }
 
     //AFEGIT EXTRA PER CONTROLAR PART3
-    public String[][] GestorGenerarHidato(String tcela, String tadj, String dif) {
+    public void GestorGenerarHidato(String tcela, String tadj, String dif, String Nomu, String Path) {
         Generacio g = new Generacio();
         String[][] tauler;
         tauler = g.GenerarHidato(tcela, tadj, dif);
-        return tauler.clone();
+        //return tauler.clone();
     }
 
     public String[][] GestorResoldreHidato(String[][] tauler, String tcela, String tadj) {

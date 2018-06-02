@@ -86,7 +86,6 @@ public class CtrlPresJugada {
         }
 
         j.Parametres(v);
-
     }
 
 

@@ -144,119 +144,34 @@ public class CtrlPresGestor {
 
     }
 
-    public void Inicia() throws Exception {
-        Vector<String> v = new Vector<String>();
-        Scanner input = new Scanner(System.in);
-        String tipuspartida;
-        String tipuscela;
-        String tipusadj;
-        String nomusuari;
-        String tipusdificultat;
-        String path;
-        boolean segur = false;
-
-        System.out.println("Benvingut a Hidato!");
-        System.out.println("Insereix el teu nom: ");
-        nomusuari = input.nextLine();
-        System.out.println("Hola " + nomusuari);
-        v.add(0,nomusuari);
-
-        while(!segur) {
-            System.out.println("Tria la direccio desti per a guardar o carregar arxius:\nIMPORTANT! Ha de ser una direccio valida! ");
-            path = input.nextLine();
-            System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
-            String siono = input.nextLine();
-            while(!siono.equals("SI") && !siono.equals("NO")){
-                System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
-                siono = input.nextLine();
-            }
-            if (siono.equals("SI")) {
-                v.add(1, path);
-                segur = true;
-            }
-
-        }
-
-        tipuspartida = TPartida();
-
-        if (tipuspartida.equals("RESOLDRE")) {
-            System.out.println("Vols carregar un hidato de la BIBLIOTECA o un ALEATORI? ");
-            String tipushidato = input.nextLine();
-
-            while(!tipushidato.equals("BIBLIOTECA") && !tipushidato.equals("ALEATORI")) {
-                System.out.println("Vols carregar un hidato de la BIBLIOTECA o un ALEATORI? ");
-                tipushidato = input.nextLine();
-            }
-            if(tipushidato.equals("BIBLIOTECA")){
-                Integer totalhidatos = g.VisualitzaHidatos();//Li demana per poder fer display dels hidatos de la biblioteca
-                //L'usuari ara veuria tots els hidatos i en triaria un
-                Integer idhidato = NHidato(totalhidatos); //Tria l'hidato que vol
-                try {
-                    g.JugarHidato(v, idhidato);//Aqui ja l'envia a jugar
-                }catch (Exception e){
-                    System.out.println("No hi ha cap hidato amb aquest numero");
-                }
-            }
-            else if (tipushidato.equals("ALEATORI")){
-                tipuscela = TCela();
-                if(tipuscela.equals("Q")){
-                    tipusadj = TAdj();
-                }
-                else tipusadj = "C";
-                tipusdificultat = TDificultat();
-                v.add(2,tipuscela);
-                v.add(3,tipusadj);
-                v.add(4,tipusdificultat);
-                //tcela, tadj, tdificultat
-                g.Aleatori(v);
-            }
-        }
-        else if (tipuspartida.equals("GENERAR")){
-
-            //Tipus 1. Interactiu amb l'usuari
-
-            tipuscela = TCela();
-            if(tipuscela.equals("Q")){
-                tipusadj = TAdj();
-            }
-            else tipusadj = "C";
-            v.add(2,tipuscela);
-            v.add(3,tipusadj);
-            Vector<String> vres = NFilCol();
-            v.add(4,vres.get(0));
-            v.add(5,vres.get(1));
-            String[][] tau = LlegirTauler(Integer.parseInt(vres.get(0)), Integer.parseInt(vres.get(1)));
-            //g.Parametres(v);
-            g.Generar(v,tau);//V{nomusuari, path, tipuscela, tipusadj, numfil, numcol, dificultat}
-
-            /*
-            //Tipus 2. No interactiu. Com el pdf de mostra
-
-            Vector<String> parametres = Params();
-            String[][] Tauler = LlegirTauler(Integer.parseInt(parametres.get(2)), Integer.parseInt(parametres.get(3)));
-            //g.Parametres(parametres);
-            g.Generar(parametres, Tauler);
-            */
-        }
-        else if(tipuspartida.equals("REPRENDRE")){
-            try {
-                //nomusuari, path
-                g.Reprendre(v);
-            }
-            catch (Exception e){
-                System.out.println("No tens cap partida guardada");
-            }
-        }
+    //AFEGIT PER CONTROLAR PART3
+    public void CtrlGenerarHidato() {
+        Vector<String> p = new Vector<>();
+        p.add(0,nomG);
+        p.add(1,pathG);
+        p.add(2,tcelaG);
+        p.add(3,tadjG);
+        p.add(4,Integer.toString(taulerG.length));
+        p.add(5,Integer.toString(taulerG[0].length));
+        g.Generar(p,taulerG,taulerresol);
+        System.out.println(taulerresol.length);
+        //g.GestorGenerarHidato(tcela, tadj, dif, nomG,  pathG);
     }
 
-
-
-
-    //AFEGIT PER CONTROLAR PART3
-    public void CtrlGenerarHidato(String tcela, String tadj, String dif) {
+    public void jugarhidato(String tcela, String tadj, String dif){
         tcelaG = tcela;
         tadjG = tadj;
-        taulerG = g.GestorGenerarHidato(tcela, tadj, dif);
+        Vector<String> p = new Vector<>();
+        System.out.println(nomG);
+        p.add(0,nomG);
+        p.add(1,pathG);
+        p.add(2,tcelaG);
+        p.add(3,tadjG);
+        p.add(4,dif);
+        g.Aleatori(p,taulerG);
+        System.out.println("llego aqui");
+        System.out.println(taulerG.length);
+        System.out.println(taulerG[0].length);
     }
 
     public String[][] CtrlResoldreHidato(String[][] tauler, String tcela, String tadj) {
@@ -335,6 +250,7 @@ public class CtrlPresGestor {
             }
             System.out.println();
         }*/
+        //g.generar(t,tadj,tcel,tablero);
         this.taulerG = tau.clone();
         taulerresol = g.GestorResoldreHidato(taulerG, tcelaG, tadjG);
         for(int i = 0; i < taulerresol.length;++i){
@@ -355,6 +271,11 @@ public class CtrlPresGestor {
 
     public String[][] getTaulersol(){
         return this.taulerresol.clone();
+    }
+
+    public void pasarnumero(Integer fila, Integer columna, String s){
+        //Pasa los valores a gestor
+        //gestor.set
     }
 
 }

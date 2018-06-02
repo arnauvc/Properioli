@@ -139,12 +139,12 @@ public class triangle extends JPanel {
                     else if(tauler[row][col].equals("*")) triButton[row][col].setText("NO");
                     else triButton[row][col].setText(tauler[row][col]);
                     add(triButton[row][col]);
-                    triButton[row][col].setBounds(offsetY, offsetX, 105, 95);
+                    triButton[row][col].setBounds(offsetX, offsetY, 105, 95);
                 }
-                offsetX += 90;
+                offsetX += 53;
             }
             offsetX = 0 ;
-            offsetY += 53;
+            offsetY += 90;
         }
     }
     private void crear(){
@@ -157,17 +157,16 @@ public class triangle extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         s = num.getText();
                         triButton[finalRow][finalCol].setText(s);
-                        //TriButton clickedButton = (TriButton) e.getSource();
                         tauler[finalRow][finalRow] = s;
-                        //System.out.println("Button clicked: [" + finalRow + "][" + finalCol + "]");
+                        System.out.println("Button clicked: [" + finalRow + "][" + finalCol + "]");
                     }
                 });
                 add(triButton[row][col]);
-                triButton[row][col].setBounds(offsetY, offsetX, 105, 95);
-                offsetX += 90;
+                triButton[row][col].setBounds(offsetX, offsetY, 105, 95);
+                offsetX += 53;
             }
             offsetX = 0 ;
-            offsetY += 55;
+            offsetY += 90;
         }
     }
 

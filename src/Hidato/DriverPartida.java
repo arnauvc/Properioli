@@ -44,7 +44,7 @@ public class DriverPartida {
                     p.SetAdjacencia(adj);
                     p.SetDificultat(dif);
                     try {
-                        p.IniciaPartida();
+                        //p.IniciaPartida();
                     } catch (Exception e) {
                         GuardarPartida(path);
                     }
@@ -108,7 +108,7 @@ public class DriverPartida {
                     p.SetFiles(fil);
                     p.SetColumnes(col);
                     p.SetTaulerU(Tauler);
-                    p.Generar();
+                    //p.Generar();
                     break;
                 case 4:
                     bug = false;

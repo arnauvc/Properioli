@@ -24,10 +24,9 @@ public class Menu4 {
         frame = new JFrame();
         frame.setTitle("Juego");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 11000);
+        frame.setSize(1100, 11000);
         frame.setResizable(true);
         frame.setVisible(true);
-        frame.setBackground(Color.WHITE );
     }
     private static void tablero() {
         if(tcela.equals("H")) {

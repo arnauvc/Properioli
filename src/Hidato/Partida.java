@@ -96,7 +96,7 @@ public class Partida {
 		TranscursPartida();
 	}
 
-	public void Generar(){
+	public void Generar(String[][] ts){
 		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
         Random rand = new Random();
@@ -104,15 +104,18 @@ public class Partida {
 
 		String[][] hidato_resolt = new String[t.getNumFiles()][t.getNumColum()];
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
+		ts = hidato_resolt.clone();
 		ctj.MostrarResolucio(hidato_resolt, t);
 
 	}
-	
-	public void IniciaPartida() throws Exception {
+
+	public void IniciaPartida(String[][] ts) throws Exception {
 		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
 
 
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
+		ts = taulerU.clone();
+		System.out.println(ts.length);
 
 		maxim = g.GetValorMaxim();
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
@@ -132,8 +135,8 @@ public class Partida {
 					solucio.add(new Pair<>(p, hr));
 				}
 			}
-			hs.SetPath(path);
-			hs.GuardarHidato(idhidato, t, solucio);
+			//hs.SetPath(path);
+			//hs.GuardarHidato(idhidato, t, solucio);
 
 			r.start(); //Inicia el rellotge
 			finalitzat = false;
@@ -142,7 +145,7 @@ public class Partida {
 			guardat = false;
 			reguardat = false;
 			torn = 1;
-			TranscursPartida();
+			//TranscursPartida();
 		}
 		else e.PrintError(2	);
 
@@ -339,4 +342,5 @@ public class Partida {
 	public boolean GetAjuda(){
 		return ajuda;
 	}
+	public String[][] GetTsolucio(){return hidato_resolt.clone();}
 }

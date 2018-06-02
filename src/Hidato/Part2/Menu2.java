@@ -22,7 +22,6 @@ public class Menu2 {
                 String[] s = new String[0];
                 Menu22.main(s);
                 Menu2.frame.dispose();
-                System.out.println("hola bitcheees");
             }
         });
         carregarButton.addActionListener(new ActionListener() {

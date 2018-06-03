@@ -46,7 +46,6 @@ public class Inici{
             public void actionPerformed(ActionEvent e) {
                 cg.SetNom(username.getText());
                 cg.SetPath(path);
-                System.out.printf("El nom es: %s\n",nom);
                 String[] s = new String[0];
                 Menu2.main(s);
                 frame.setVisible(false);

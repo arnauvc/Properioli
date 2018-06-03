@@ -88,6 +88,7 @@ public class Gestor {
         //partidaactiva.SetDificultat(p.get(5));
         partidaactiva.SetTaulerU(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
         partidaactiva.Generar();//Que s'hauria de dir, RESOLDRELamaquina
+
     }
 
     public void Reprendre(Vector<String> v) throws Exception {
@@ -117,11 +118,11 @@ public class Gestor {
     }
 
     //AFEGIT EXTRA PER CONTROLAR PART3
-    public String[][] GestorGenerarHidato(String tcela, String tadj, String dif) {
+    public void GestorGenerarHidato(String tcela, String tadj, String dif) {
         Generacio g = new Generacio();
         String[][] tauler;
         tauler = g.GenerarHidato(tcela, tadj, dif);
-        return tauler.clone();
+        partidaactiva.SetTaulerU(tauler);
     }
 
     public String[][] GestorResoldreHidato(String[][] tauler, String tcela, String tadj) {

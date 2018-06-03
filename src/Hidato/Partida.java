@@ -102,9 +102,9 @@ public class Partida {
         Random rand = new Random();
         idhidato = rand.nextInt(50) + 1;
 
-		String[][] hidato_resolt = new String[t.getNumFiles()][t.getNumColum()];
+		hidato_resolt = new String[t.getNumFiles()][t.getNumColum()];
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
-		ctj.MostrarResolucio(hidato_resolt, t);
+		//ctj.MostrarResolucio(hidato_resolt, t);
 
 	}
 	

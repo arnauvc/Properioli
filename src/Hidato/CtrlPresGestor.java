@@ -256,7 +256,7 @@ public class CtrlPresGestor {
     public void CtrlGenerarHidato(String tcela, String tadj, String dif) {
         tcelaG = tcela;
         tadjG = tadj;
-        taulerG = g.GestorGenerarHidato(tcela, tadj, dif);
+        //taulerG = g.GestorGenerarHidato(tcela, tadj, dif);
     }
 
     public String[][] CtrlResoldreHidato(String[][] tauler, String tcela, String tadj) {

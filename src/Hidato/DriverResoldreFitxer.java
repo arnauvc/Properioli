@@ -43,6 +43,8 @@ public class DriverResoldreFitxer {
             System.out.println();
         }
         System.out.println();
+        System.out.println(tcela);
+        System.out.println(tadj);
         solucio = r.ResoltreHidato(hidato, tcela, tadj);
 
         System.out.println("Solucio:");

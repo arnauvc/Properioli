@@ -1,12 +1,10 @@
 package Hidato.Part4;
 
-import Hidato.CtrlPresGestor;
+
 import Hidato.Part1.Inici;
-import Hidato.Part4.HexagonPattern;
-import Hidato.Part4.triangle;
+
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Menu4 {
 

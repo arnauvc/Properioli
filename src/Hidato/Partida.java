@@ -93,7 +93,7 @@ public class Partida {
 			}
 		}
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
-		TranscursPartida();
+		//TranscursPartida();
 	}
 
 	public void Generar(){
@@ -157,21 +157,21 @@ public class Partida {
         SetFiles(t.getNumFiles());
         SetColumnes(t.getNumColum());
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
-		TranscursPartida();
+		//TranscursPartida();
 	}
 
-	public void TranscursPartida() throws Exception {
+	public void TranscursPartida(Integer fila, Integer columna, String elem, String accion) {
 		Jugada j = new Jugada();
 		Integer x, y;
 		String num;
 		boolean aux = false;
 
-		while (!finalitzat && !completat){
+		//while (!finalitzat && !completat){
 
 		    ctj.MostrarTauler(t);
 
 
-			ctj.InteraccioJugada(j, t);
+            ctj.InteraccioJugada(j, t,fila,columna,elem,accion);
 			j.SetInvalid(aux);
 			j.GetJugada();
 			if (j.GetJugada().equals("NUMERO")){
@@ -203,7 +203,6 @@ public class Partida {
                 reguardat = true; //Es per avisar al Ctrl que l'usuari ha guardat
                 finalitzat = true;
                 //exception per al gestor
-                throw new Exception();
 			}
 
 			else if (j.GetJugada().equals("SORTIR")) finalitzat = true;
@@ -217,10 +216,9 @@ public class Partida {
 				ajuda = true;
 				String[][] hidato_ajuda;
 				hidato_ajuda = a.GetAjuda(t, hidato_resolt);
-				ctj.MostrarAjuda(hidato_ajuda, t);
+				//ctj.MostrarAjuda(hidato_ajuda, t);
 			}
-
-		}
+		//}
 
 
 		//Partida completada

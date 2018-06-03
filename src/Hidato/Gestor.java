@@ -128,10 +128,15 @@ public class Gestor {
     public String getcelat(Integer f, Integer c){
         return partidaactiva.Celatauler(f,c);
     }
-
+    //jugar
     public Integer getfila(){return partidaactiva.getfila();}
 
     public Integer getcolumna(){return partidaactiva.getCol();}
+
+    public void jugar(Integer fila, Integer columna, String elem, String accion) {
+            partidaactiva.TranscursPartida(fila,columna,elem,accion);
+    }
+
     //AFEGIT EXTRA PER CONTROLAR PART3
     public void GestorGenerarHidato(String tcela, String tadj, String dif, String Nomu, String Path) {
         Generacio g = new Generacio();

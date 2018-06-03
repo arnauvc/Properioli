@@ -32,7 +32,7 @@ public class CtrlPresJugada {
 
     Vector<String> v = new Vector<>();
 
-    public void InteraccioJugada(Jugada j, Tauler t){
+    public void InteraccioJugada(Jugada j, Tauler t, Integer fila, Integer columna, String elem, String accion){
         Scanner input = new Scanner(System.in);
         String jugada;
         String numero = null;
@@ -41,7 +41,7 @@ public class CtrlPresJugada {
 
         System.out.println("Tria la propera jugada: ");
         UsageJugada();
-        jugada = input.nextLine();
+        jugada = accion;
         while (!jugada.equals("GUARDAR") && !jugada.equals("AJUDA") && !jugada.equals("NUMERO")
                 && !jugada.equals("SORTIR") && !jugada.equals("RESET")) {
             System.out.println("Tria la propera jugada: ");
@@ -53,7 +53,9 @@ public class CtrlPresJugada {
         if (jugada.equals("NUMERO")) {
             System.out.println("Insereix numero de casella: ");
             UsageNumero();
-            numero = input.nextLine();
+            numero = elem;
+            System.out.println("elemento: " + elem);
+            System.out.println("numero: " + numero);
             while (!isNumeric(numero) && !numero.equals("?")){
                 System.out.println("Insereix numero de casella: ");
                 UsageNumero();
@@ -63,7 +65,9 @@ public class CtrlPresJugada {
 
             System.out.println("Insereix coordenades de fila: ");
             UsageFila();
-            x = input.nextLine();
+            x = Integer.toString(fila);
+            System.out.println("fila: " + fila);
+            System.out.println("x: " + x);
             while (!isNumeric(x)){
                 System.out.println("Insereix coordenades de fila: ");
                 UsageFila();
@@ -72,7 +76,9 @@ public class CtrlPresJugada {
 
             System.out.println("Insereix coordenades de columna: ");
             UsageColumna();
-            y = input.nextLine();
+            y = Integer.toString(columna);
+            System.out.println("y: " + y);
+            System.out.println("columna: " + columna);
             while (!isNumeric(y)){
                 System.out.println("Insereix coordenades de columna: ");
                 UsageColumna();

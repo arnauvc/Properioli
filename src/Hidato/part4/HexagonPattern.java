@@ -9,8 +9,9 @@ public class HexagonPattern extends JPanel {
     private final int ROWS;
     private final int COLUMNS;
     private HexagonButton[][] hexButton;
-    private String [][] tauler;
+    private String [][] taulerG;
     private boolean crear;
+    private boolean tsol;
 
     private JTextField num;
     private int offsetX;
@@ -24,27 +25,29 @@ public class HexagonPattern extends JPanel {
     private JButton Jayuda;
     private JButton Jsalir;
 
-    public HexagonPattern(boolean cr) {
+    public HexagonPattern(boolean cr, boolean ts) {
         crear = cr;
-        if (!crear) {
-            tauler = Inici.cg.GetTauler();
-            ROWS = tauler.length;
-            COLUMNS = tauler[0].length;
-            System.out.println(ROWS);
-            System.out.println(COLUMNS);
-        }
-        else{
-            ROWS = Inici.cg.getFila();
-            COLUMNS = Inici.cg.getColumna();
-            tauler = new String[ROWS][COLUMNS];
+        ROWS = Inici.cg.getFila();
+        COLUMNS = Inici.cg.getColumna();
+        if (crear) {
+            taulerG = new String[ROWS][COLUMNS];
+            llenarmatriz();
         }
         setLayout(null);
         initGUI();
     }
 
+    private void llenarmatriz(){
+        for(int i = 0; i < ROWS;++i){
+            for(int j = 0; j < COLUMNS;++j){
+                taulerG[i][j] = "?";
+            }
+        }
+    }
+
     private void configurarelpanel() {
         offsetXaux = offsetX = 0;
-        offsetYaux = offsetY = 43;
+        offsetYaux = offsetY = 0;
         setBackground(Color.white);
         hexButton = new HexagonButton[ROWS][COLUMNS];
         //texto
@@ -63,13 +66,18 @@ public class HexagonPattern extends JPanel {
             Jcrear.setBounds(530, 950, 100, 30);
             add(Jcrear);
         }
-        Jguardar = new JButton();
-        Jguardar.setText("Guardar");
-        Jguardar.setBounds(50,950,100,30);
 
-        Jayuda = new JButton();
-        Jayuda.setText("ayuda");
-        Jayuda.setBounds(170,950,100,30);
+        if(!crear) {
+            Jguardar = new JButton();
+            Jguardar.setText("Guardar");
+            Jguardar.setBounds(50, 950, 100, 30);
+
+            Jayuda = new JButton();
+            Jayuda.setText("ayuda");
+            Jayuda.setBounds(170, 950, 100, 30);
+            add(Jayuda);
+            add(Jguardar);
+        }
 
         Jmenu = new JButton();
         Jmenu.setText("Menu");
@@ -78,83 +86,13 @@ public class HexagonPattern extends JPanel {
         Jsalir = new JButton();
         Jsalir.setBounds(410,950,100,30);
         Jsalir.setText("Salir");
+
         //añadir
         add(num);
-        add(Jguardar);
         add(Jmenu);
-        add(Jayuda);
         add(Jsalir);
     }
-    private void jugar() {
-        for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLUMNS; col++) {
-                int finalRow = row;
-                int finalCol = col;
-                if (!(tauler[row][col].equals("#"))) {
-                    hexButton[row][col] = new HexagonButton();
-                    if (tauler[row][col].equals("?")) {
-                        hexButton[row][col].setText(tauler[row][col]);
-                        hexButton[row][col].addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                s = num.getText();
-                                if(!s.isEmpty()) {
-                                    hexButton[finalRow][finalCol].setText(s);
-                                    tauler[finalRow][finalCol] = s;
-                                    //HexagonButton clickedButton = (HexagonButton) e.getSource();
-                                    //System.out.println("Button clicked: [" + clickedButton.getRow() + "][" + clickedButton.getCol() + "]");
-                                }
-                            }
-                        });
-                    }
-                    else if (tauler[row][col].equals("*")) hexButton[row][col].setText("NO");
-                    else hexButton[row][col].setText(tauler[row][col]);
-                    add(hexButton[row][col]);
-                    hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
-                }
-                offsetX += 76;
-                if (col % 2 == 0) {
-                    offsetY = 0;
-                } else {
-                    offsetY = 43;
-                }
-            }
-            offsetX = 0;
-            offsetY += 86;
-        }
-    }
-    private void crear() {
-        for (int row = 0; row < ROWS; row++) {
-            offsetX = 0;
-            for (int col = 0; col < COLUMNS; col++) {
-                hexButton[row][col] = new HexagonButton();
-                int finalRow = row;
-                int finalCol = col;
-                hexButton[row][col].addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        s = num.getText();
-                        if (!s.isEmpty()) {
-                            hexButton[finalRow][finalCol].setText(s);
-                            //HexagonButton clickedButton = (HexagonButton) e.getSource();
-                            tauler[finalRow][finalCol] = s;
-                            //System.out.println("Button clicked: [" + clickedButton.getRow() + "][" + clickedButton.getCol() + "]");
-                        }
-                    }
-                });
-                add(hexButton[row][col]);
-                hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
-                offsetX += 76;
-                if (col % 2 == 0) {
-                    offsetY = offsetYaux ;
-                } else {
-                    offsetY =  43 + offsetYaux;
-                }
-            }
-            offsetX  = 0;
-            offsetYaux += 87;
-            offsetYaux += 87;
-            offsetY += 87;
-        }
-    }
+
 
     private void accionbotones(){
         Jmenu.addActionListener(new ActionListener() {
@@ -171,52 +109,117 @@ public class HexagonPattern extends JPanel {
             }
         });
 
-        Jayuda.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Ayuda");
-            }
-        });
+        if(!crear) {
+            Jayuda.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Inici.cg.Transpartida(-1,-1,"s","AJUDA");
+                    System.out.println("Ayuda");
+                }
+            });
 
-        Jguardar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Guardar");
-            }
-        });
-
+            Jguardar.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Inici.cg.Transpartida(-1,-1,"s","GUARDAR");
+                    System.out.println("Guardar");
+                }
+            });
+        }
         if(crear){
             Jcrear.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     System.out.println("Crear");
-                    Inici.cg.SetTauler(tauler);
-
+                    Inici.cg.SetTauler(taulerG);
+                    Inici.cg.CtrlGenerarHidato();
+                    String[] s = new String[0];
+                    Menufinal.main(s);
+                    Menu4.frame.dispose();
                 }
             });
         }
 
     }
 
+    private void jugar() {
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLUMNS; col++) {
+                String cel = Inici.cg.Stringcela(row,col);
+                int finalRow = row;
+                int finalCol = col;
+                if (!(cel.equals("#"))) {
+                    hexButton[row][col] = new HexagonButton();
+                    if (cel.equals("?")) {
+                        hexButton[row][col].setText(cel);
+                        hexButton[row][col].addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent e) {
+                                s = num.getText();
+                                if(!s.isEmpty()) {
+                                    hexButton[finalRow][finalCol].setText(s);
+                                    Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
+                                }
+                            }
+                        });
+                    }
+                    else if (cel.equals("*")) hexButton[row][col].setText("NO");
+                    else hexButton[row][col].setText(cel);
+                    hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
+                    add(hexButton[row][col]);
+                }
+                offsetX += 76;
+                if (col % 2 == 0) {
+                    offsetY = 43 + offsetYaux ;
+                } else {
+                    offsetY =  offsetYaux;
+                }
+            }
+            offsetX  = 0;
+            offsetYaux += 87;
+            offsetY += 87;
+        }
+    }
+    private void crear() {
+        for (int row = 0; row < ROWS; row++) {
+            offsetX = 0;
+            for (int col = 0; col < COLUMNS; col++) {
+                hexButton[row][col] = new HexagonButton();
+                int finalRow = row;
+                int finalCol = col;
+                hexButton[row][col].addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        s = num.getText();
+                        if (!s.isEmpty()) {
+                            hexButton[finalRow][finalCol].setText(s);
+                            //HexagonButton clickedButton = (HexagonButton) e.getSource();
+                            taulerG[finalRow][finalCol] = s;
+                            System.out.println("Button clicked: [" + finalRow + "][" + finalCol + "]");
+                        }
+                    }
+                });
+                add(hexButton[row][col]);
+                hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
+                offsetX += 76;
+                if (col % 2 == 0) {
+                    offsetY = 43 + offsetYaux ;
+                } else {
+                    offsetY =  offsetYaux;
+                }
+            }
+            offsetX  = 0;
+            offsetYaux += 87;
+            offsetY += 87;
+        }
+    }
 
     private void initGUI() {
         configurarelpanel();
         accionbotones();
-        if(!crear)  jugar();
+        if(!crear) jugar();
         else if(crear)crear();
 
     }
 
-
-
-
-    public int getROWS() {
-        return ROWS;
-    }
-
-    public int getCOLUMNS() {
-        return COLUMNS;
-    }
 
     //Following class draws the Buttons
     class HexagonButton extends JButton {

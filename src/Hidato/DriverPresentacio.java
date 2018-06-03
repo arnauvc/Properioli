@@ -17,7 +17,7 @@ public class DriverPresentacio {
         switch (Integer.parseInt(accio)){
             case 1:
                 CtrlPresGestor cpg = new CtrlPresGestor();
-                cpg.Inicia();
+                //cpg.Inicia();
                 break;
             case 2:
                 Driver_Resolucio dr = new Driver_Resolucio();

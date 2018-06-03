@@ -1,9 +1,6 @@
 package Hidato.Part4;
 
 import Hidato.Part1.Inici;
-import com.sun.crypto.provider.JceKeyStore;
-import sun.awt.Graphics2Delegate;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -18,6 +15,8 @@ public class HexagonPattern extends JPanel {
     private JTextField num;
     private int offsetX;
     private int offsetY;
+    private int offsetXaux;
+    private int offsetYaux;
     private String s;
     private JButton Jcrear;
     private JButton Jmenu;
@@ -44,8 +43,8 @@ public class HexagonPattern extends JPanel {
     }
 
     private void configurarelpanel() {
-        offsetX = 43;
-        offsetY = 0;
+        offsetXaux = offsetX = 0;
+        offsetYaux = offsetY = 43;
         setBackground(Color.white);
         hexButton = new HexagonButton[ROWS][COLUMNS];
         //texto
@@ -110,20 +109,22 @@ public class HexagonPattern extends JPanel {
                     else if (tauler[row][col].equals("*")) hexButton[row][col].setText("NO");
                     else hexButton[row][col].setText(tauler[row][col]);
                     add(hexButton[row][col]);
-                    hexButton[row][col].setBounds(offsetY, offsetX, 105, 95);
+                    hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
                 }
-                offsetX += 87;
+                offsetX += 76;
+                if (col % 2 == 0) {
+                    offsetY = 0;
+                } else {
+                    offsetY = 43;
+                }
             }
-            if (row % 2 == 0) {
-                offsetX = 0;
-            } else {
-                offsetX = 43;
-            }
-            offsetY += 76;
+            offsetX = 0;
+            offsetY += 86;
         }
     }
     private void crear() {
         for (int row = 0; row < ROWS; row++) {
+            offsetX = 0;
             for (int col = 0; col < COLUMNS; col++) {
                 hexButton[row][col] = new HexagonButton();
                 int finalRow = row;
@@ -140,15 +141,18 @@ public class HexagonPattern extends JPanel {
                     }
                 });
                 add(hexButton[row][col]);
-                hexButton[row][col].setBounds(offsetY, offsetX, 105, 95);
-                offsetX += 87;
+                hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
+                offsetX += 76;
+                if (col % 2 == 0) {
+                    offsetY = offsetYaux ;
+                } else {
+                    offsetY =  43 + offsetYaux;
+                }
             }
-            if (row % 2 == 0) {
-                offsetX = 0;
-            } else {
-                offsetX = 43;
-            }
-            offsetY += 76;
+            offsetX  = 0;
+            offsetYaux += 87;
+            offsetYaux += 87;
+            offsetY += 87;
         }
     }
 

@@ -35,7 +35,7 @@ public class Menu3Maquina {
                 tadjM = textField2.getText();
                 dif = textField3.getText();
                 if (!tcelaM.isEmpty() && !tadjM.isEmpty() && !dif.isEmpty()) {
-                    Inici.cg.CtrlGenerarHidato(tcelaM, tadjM, dif);
+                    //Inici.cg.CtrlGenerarHidato(tcelaM, tadjM, dif);
                     System.out.println(tcelaM);
                     Inici.cg.setcela(tcelaM);
                     Menu3Final m3f = new Menu3Final();

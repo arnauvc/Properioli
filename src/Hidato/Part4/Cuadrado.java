@@ -7,10 +7,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Cuadrado extends JPanel {
+public class Cuadrado extends JPanel{
     private final int ROWS;
     private final int COLUMNS;
-    private JButton[][] cuabuton;
+    private cuadrado[][] cuabuton;
     private String [][] tauler;
     private boolean crear;
     private boolean tsol;
@@ -30,7 +30,7 @@ public class Cuadrado extends JPanel {
         tsol = ts;
         if (!crear) {
             if(!ts) tauler = Inici.cg.GetTauler();
-            else Inici.cg.getTaulersol();
+            else tauler = Inici.cg.getTaulersol();
             ROWS = tauler.length;
             COLUMNS = tauler[0].length;
             System.out.println(ROWS);
@@ -57,7 +57,7 @@ public class Cuadrado extends JPanel {
         offsetX = 0;
         offsetY = 0;
         setBackground(Color.white);
-        cuabuton = new JButton[ROWS][COLUMNS];
+        cuabuton = new cuadrado[ROWS][COLUMNS];
 
         //texto
         num = new JTextField();
@@ -74,13 +74,18 @@ public class Cuadrado extends JPanel {
             Jcrear.setBounds(530, 950, 100, 30);
             add(Jcrear);
         }
-        Jguardar = new JButton();
-        Jguardar.setText("Guardar");
-        Jguardar.setBounds(50,950,100,30);
 
-        Jayuda = new JButton();
-        Jayuda.setText("ayuda");
-        Jayuda.setBounds(170,950,100,30);
+        if(!crear) {
+            Jguardar = new JButton();
+            Jguardar.setText("Guardar");
+            Jguardar.setBounds(50, 950, 100, 30);
+
+            Jayuda = new JButton();
+            Jayuda.setText("ayuda");
+            Jayuda.setBounds(170, 950, 100, 30);
+            add(Jayuda);
+            add(Jguardar);
+        }
 
         Jmenu = new JButton();
         Jmenu.setText("Menu");
@@ -91,9 +96,7 @@ public class Cuadrado extends JPanel {
         Jsalir.setText("Salir");
         //añadir
         add(num);
-        add(Jguardar);
         add(Jmenu);
-        add(Jayuda);
         add(Jsalir);
     }
 
@@ -112,28 +115,31 @@ public class Cuadrado extends JPanel {
             }
         });
 
-        Jayuda.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Ayuda");
-            }
-        });
+        if(!crear) {
+            Jayuda.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    System.out.println("Ayuda");
+                }
+            });
 
-        Jguardar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Guardar");
-            }
-        });
-
+            Jguardar.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    System.out.println("Guardar");
+                }
+            });
+        }
         if(crear){
             Jcrear.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     System.out.println("Crear");
                     Inici.cg.SetTauler(tauler);
+                    Inici.cg.CtrlGenerarHidato();
                     String[] s = new String[0];
                     Menufinal.main(s);
+                    Menu4.frame.dispose();
 
                 }
             });
@@ -143,11 +149,12 @@ public class Cuadrado extends JPanel {
 
     private void jugar() {
         for (int row = 0; row < ROWS; row++) {
+            offsetX = 0;
             for (int col = 0; col < COLUMNS; col++) {
                 int finalRow = row;
                 int finalCol = col;
                 if (!(tauler[row][col].equals("#"))) {
-                    cuabuton[row][col] = new JButton();
+                    cuabuton[row][col] = new cuadrado();
                     if (tauler[row][col].equals("?")) {
                         cuabuton[row][col].setText(tauler[row][col]);
                         cuabuton[row][col].addActionListener(new ActionListener() {
@@ -155,21 +162,20 @@ public class Cuadrado extends JPanel {
                                 s = num.getText();
                                 if(!s.isEmpty()) {
                                     cuabuton[finalRow][finalCol].setText(s);
-                                    tauler[finalRow][finalCol] = s;
-                                    //HexagonButton clickedButton = (HexagonButton) e.getSource();
-                                    //System.out.println("Button clicked: [" + clickedButton.getRow() + "][" + clickedButton.getCol() + "]");
+                                    //pasarnumero(fila,columna,s,"NUMERO")
+                                    //tauler[finalRow][finalCol] = s;
                                 }
                             }
                         });
                     }
                     else if (tauler[row][col].equals("*")) cuabuton[row][col].setText("NO");
                     else cuabuton[row][col].setText(tauler[row][col]);
-                    cuabuton[row][col].setBounds(offsetX, offsetY, 100, 100);
+                    cuabuton[row][col].setBounds(offsetX, offsetY, 80, 80);
                     add(cuabuton[row][col]);
                 }
-                offsetX += 100;
+                offsetX += 80;
             }
-            offsetY += 100;
+            offsetY += 80;
         }
     }    
 
@@ -177,7 +183,7 @@ public class Cuadrado extends JPanel {
         for (int row = 0; row < ROWS; row++) {
             offsetX = 0;
             for (int col = 0; col < COLUMNS; col++) {
-                cuabuton[row][col] = new JButton();
+                cuabuton[row][col] = new cuadrado();
                 int finalRow = row;
                 int finalCol = col;
                 cuabuton[row][col].addActionListener(new ActionListener() {
@@ -203,6 +209,27 @@ public class Cuadrado extends JPanel {
         if(!crear)  jugar();
         else if(crear)crear();
 
+    }
+
+    class cuadrado extends JButton {
+        private static final int LENGTH = 80;
+        private static final int WIDTH = 80;
+
+
+        public cuadrado() {
+            setContentAreaFilled(false);
+            setFocusPainted(true);
+            setBorderPainted(false);
+            setPreferredSize(new Dimension(WIDTH, LENGTH));
+            setBackground(Color.GREEN);
+        }
+
+            public void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(Color.red);
+                g.drawRect(0,0,79,79);
+
+        }
     }
 }
 

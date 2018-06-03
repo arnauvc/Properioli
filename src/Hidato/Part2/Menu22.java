@@ -28,7 +28,7 @@ public class Menu22 {
                 tc = tipoc.getText();
                 tn = nivel.getText();
                 ta = tipoad.getText();
-                Inici.cg.CtrlGenerarHidato(tc,ta,tn);
+                Inici.cg.jugarhidato(tc,ta,tn);
                 String[] s = new String[0];
                 Menu4.main(s);
                 //frame.setVisible(false);

@@ -14,6 +14,7 @@ public class triangle extends JPanel {
     private TriButton[][] triButton;
     private String [][] tauler;
     private boolean crear;
+    private boolean tsol;
 
     private JTextField num;
     private int offsetX;
@@ -170,10 +171,19 @@ public class triangle extends JPanel {
         }
     }
 
-    public triangle(boolean cr) {
+    public triangle(boolean cr, boolean ts) {
         crear = cr;
+        tsol = ts;
         if (!crear) {
-            tauler = Inici.cg.GetTauler();
+            if(!tsol) tauler = Inici.cg.GetTauler();
+            else {
+                tauler = new String[Inici.cg.getFila()][Inici.cg.getColumna()];
+                for(int i = 0; i < Inici.cg.getFila(); ++i){
+                    for(int j = 0; j < Inici.cg.getColumna(); ++j){
+                        tauler[i][j] = Inici.cg.Stringcela(i,j);
+                    }
+                }
+            }
             ROWS = tauler.length;
             COLUMNS = tauler[0].length;
             System.out.println(ROWS);

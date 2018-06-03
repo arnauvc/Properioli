@@ -96,27 +96,24 @@ public class Partida {
 		TranscursPartida();
 	}
 
-	public void Generar(String[][] ts){
+	public void Generar(){
 		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
+		System.out.println("Generar en partida");
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
         Random rand = new Random();
         idhidato = rand.nextInt(50) + 1;
 
-		String[][] hidato_resolt = new String[t.getNumFiles()][t.getNumColum()];
+		hidato_resolt = new String[t.getNumFiles()][t.getNumColum()];
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
-		ts = hidato_resolt.clone();
+		//ts = hidato_resolt.clone();
 		ctj.MostrarResolucio(hidato_resolt, t);
-
 	}
 
-	public void IniciaPartida(String[][] ts) throws Exception {
+	public void IniciaPartida() throws Exception {
 		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
 
 
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
-		ts = taulerU.clone();
-		System.out.println(ts.length);
-
 		maxim = g.GetValorMaxim();
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
 		SetFiles(t.getNumFiles());
@@ -343,4 +340,24 @@ public class Partida {
 		return ajuda;
 	}
 	public String[][] GetTsolucio(){return hidato_resolt.clone();}
+
+
+	//mis funciones para el menu4
+    public String Celataulersol(Integer f, Integer c){
+	    //System.out.println(hidato_resolt[f][c]);
+	    return hidato_resolt[f][c];
+    }
+    public String Celatauler(Integer f, Integer c){
+        //System.out.println(hidato_resolt[f][c]);
+        return t.consultarValCela(f,c);
+    }
+
+    public Integer getfila(){
+	    return t.getNumFiles();
+    }
+
+    public Integer getCol(){
+	    return t.getNumFiles();
+    }
+
 }

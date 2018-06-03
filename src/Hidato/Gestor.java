@@ -52,7 +52,7 @@ public class Gestor {
         }
 
     }
-    public void Aleatori(Vector<String> v, String[][] ti){
+    public void Aleatori(Vector<String> v){
         Partida pa =  new Partida();
         partidaactiva = pa;
         System.out.println(v.get(0));
@@ -62,7 +62,7 @@ public class Gestor {
         partidaactiva.SetAdjacencia(v.get(3));
         partidaactiva.SetDificultat(v.get(4));
         try{
-            partidaactiva.IniciaPartida(ti);
+            partidaactiva.IniciaPartida();
         } catch (Exception e){
             GuardarPartida(v.get(1));
         }
@@ -78,8 +78,9 @@ public class Gestor {
         //Aixo ho podriem posar amb una constructora tot junt estil
         //partidaactiva = new Partida(p.get(0),p.get(1),p.get(2),Integer.parseInt(p.get(3)),Integer.parseInt(p.get(4)) )
     }
-    public void Generar(Vector<String> p, String[][] tauler, String[][] tsolucion){
+    public void Generar(Vector<String> p, String[][] tauler){
         //partidaactiva.SetTauler(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
+        System.out.println("Generar en gestor");
         Partida pa = new Partida();
         partidaactiva = pa;
         partidaactiva.SetNom(p.get(0));
@@ -89,7 +90,8 @@ public class Gestor {
         partidaactiva.SetColumnes(Integer.parseInt(p.get(5)));
         //partidaactiva.SetDificultat(p.get(5));
         partidaactiva.SetTaulerU(tauler); // Haura de ser String[][], es a dir SetTauler(tauler);
-        partidaactiva.Generar(tsolucion);//Que s'hauria de dir, RESOLDRELamaquina
+        partidaactiva.Generar();//Que s'hauria de dir, RESOLDRELamaquina
+        //System.out.println(tsolucion.length);
     }
 
     public void Reprendre(Vector<String> v) throws Exception {
@@ -118,6 +120,18 @@ public class Gestor {
         r.Actualitzar(id, temps);
     }
 
+    //generar
+    public String celasol(Integer f, Integer c){
+        return partidaactiva.Celataulersol(f,c);
+    }
+
+    public String getcelat(Integer f, Integer c){
+        return partidaactiva.Celatauler(f,c);
+    }
+
+    public Integer getfila(){return partidaactiva.getfila();}
+
+    public Integer getcolumna(){return partidaactiva.getCol();}
     //AFEGIT EXTRA PER CONTROLAR PART3
     public void GestorGenerarHidato(String tcela, String tadj, String dif, String Nomu, String Path) {
         Generacio g = new Generacio();

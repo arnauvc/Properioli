@@ -1,5 +1,6 @@
 package Hidato;
 
+import com.sun.javafx.image.IntPixelGetter;
 import javafx.util.Pair;
 
 import java.text.StringCharacterIterator;
@@ -11,11 +12,18 @@ public class CtrlPresGestor {
 
     private Gestor g = new Gestor();
     private String[][] taulerG;
-    private String[][] taulerresol;
+    //private String[][] taulerresol;
     private String tcelaG;
     private String tadjG;
     private String pathG;
     private String nomG;
+
+    //identificar que esta jugando o creando y si muestra la solción.
+    private boolean crear = false;
+    private boolean tso = false;
+    //crear
+    private int fila;
+    private int columna;
 
     private String TPartida(){
         Scanner input = new Scanner(System.in);
@@ -133,12 +141,7 @@ public class CtrlPresGestor {
 
     }
 
-    //identificar que esta jugando o creando y si muestra la solción.
-    private boolean crear = false;
-    private boolean tso = false;
-    //crear
-    private int fila;
-    private int columna;
+
 
     public void Interrupcio(String s){
 
@@ -146,6 +149,7 @@ public class CtrlPresGestor {
 
     //AFEGIT PER CONTROLAR PART3
     public void CtrlGenerarHidato() {
+        System.out.println("Control generar hidato");
         Vector<String> p = new Vector<>();
         p.add(0,nomG);
         p.add(1,pathG);
@@ -153,8 +157,8 @@ public class CtrlPresGestor {
         p.add(3,tadjG);
         p.add(4,Integer.toString(taulerG.length));
         p.add(5,Integer.toString(taulerG[0].length));
-        g.Generar(p,taulerG,taulerresol);
-        System.out.println(taulerresol.length);
+        g.Generar(p,taulerG);
+        //System.out.println(taulerresol.length);
         //g.GestorGenerarHidato(tcela, tadj, dif, nomG,  pathG);
     }
 
@@ -168,10 +172,10 @@ public class CtrlPresGestor {
         p.add(2,tcelaG);
         p.add(3,tadjG);
         p.add(4,dif);
-        g.Aleatori(p,taulerG);
-        System.out.println("llego aqui");
-        System.out.println(taulerG.length);
-        System.out.println(taulerG[0].length);
+        g.Aleatori(p);
+        //System.out.println("llego aqui");
+        //System.out.println(taulerG.length);
+        //System.out.println(taulerG[0].length);
     }
 
     public String[][] CtrlResoldreHidato(String[][] tauler, String tcela, String tadj) {
@@ -236,29 +240,17 @@ public class CtrlPresGestor {
     }
 
     public int getColumna() {
-        return columna;
+        if(tso) return fila;
+        return g.getcolumna();
     }
 
     public int getFila() {
-        return fila;
+        if(tso) return columna;
+        return g.getfila();
     }
 
     public void SetTauler(String[][] tau){
-        /*for(int i = 0; i < tau.length;++i){
-            for(int j = 0; j < tau[0].length;++j){
-                System.out.print(tau[i][j]);
-            }
-            System.out.println();
-        }*/
-        //g.generar(t,tadj,tcel,tablero);
         this.taulerG = tau.clone();
-        taulerresol = g.GestorResoldreHidato(taulerG, tcelaG, tadjG);
-        for(int i = 0; i < taulerresol.length;++i){
-            for(int j = 0; j < taulerresol[0].length;++j){
-                System.out.print(taulerresol[i][j]);
-            }
-            System.out.println();
-        }
     }
 
     public void settsol(boolean ts){
@@ -269,13 +261,16 @@ public class CtrlPresGestor {
         return tso;
     }
 
-    public String[][] getTaulersol(){
-        return this.taulerresol.clone();
-    }
-
     public void pasarnumero(Integer fila, Integer columna, String s){
         //Pasa los valores a gestor
         //gestor.set
+    }
+
+
+    public String Stringcela(Integer f, Integer c){
+        //generar
+        if(tso) return g.celasol(f, c);
+        else return g.getcelat(f,c);
     }
 
 }

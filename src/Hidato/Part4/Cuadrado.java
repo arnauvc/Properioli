@@ -29,8 +29,17 @@ public class Cuadrado extends JPanel{
         crear = cr;
         tsol = ts;
         if (!crear) {
-            if(!ts) tauler = Inici.cg.GetTauler();
-            else tauler = Inici.cg.getTaulersol();
+            //if(!tsol) tauler = Inici.cg.GetTauler();
+            //else {
+                tauler = new String[Inici.cg.getFila()][Inici.cg.getColumna()];
+                for(int i = 0; i < Inici.cg.getFila(); ++i){
+                    for(int j = 0; j < Inici.cg.getColumna(); ++j){
+                        tauler[i][j] = Inici.cg.Stringcela(i,j);
+                    }
+                }
+                System.out.println("estoy aqui");
+                //tauler = Inici.cg.getTaulerresol();
+            //}
             ROWS = tauler.length;
             COLUMNS = tauler[0].length;
             System.out.println(ROWS);

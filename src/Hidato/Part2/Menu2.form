@@ -20,12 +20,12 @@
           <text value="Jugar"/>
         </properties>
       </component>
-      <component id="e3d34" class="javax.swing.JButton" binding="carregarButton" default-binding="true">
+      <component id="e3d34" class="javax.swing.JButton" binding="ReprendreButton">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Carregar"/>
+          <text value="Reprendre"/>
         </properties>
       </component>
       <component id="145af" class="javax.swing.JButton" binding="sortirButton" default-binding="true">

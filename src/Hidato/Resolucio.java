@@ -875,21 +875,10 @@ public class Resolucio{
         if (solucio != null) {
             if (!LaBona(0)) System.out.println("NO TROBO SOL");
         }
-        System.out.println("Estamos en resolucion");
-        System.out.println(solucio.length);
-        for(int i = 0; i < solucio.length;++i){
-            for(int j = 0; j < solucio[0].length;++j){
-                System.out.print(solucio[i][j]);
-            }
-            System.out.println();
-        }
-        System.out.println("salimos de resolucion");
         return solucio;
     }
 
     public String consultarsolucio(Integer f, Integer c){
-        System.out.println("Estamos en resolucion en la parte de consultar");
-        System.out.println(solucio[f][c]);
        return solucio[f][c];
     }
 }

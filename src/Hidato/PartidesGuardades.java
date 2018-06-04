@@ -45,7 +45,6 @@ public class PartidesGuardades {
     }
 
     public Partida Obtenirpartida(String nom_usuari) {
-        System.out.println("OBTENIR PARTIDA");
         String s = new String(path);
         s += nom_usuari;
         x = LE.ObrirFitxerLectura(s);

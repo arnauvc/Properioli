@@ -96,7 +96,6 @@ public class Gestor {
 
     public void Reprendre(Vector<String> v)  {
         pg.SetPath(v.get(1));
-        System.out.println("estamos en reprendre");
         partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
             partidaactiva.ReprendrePartida();
 

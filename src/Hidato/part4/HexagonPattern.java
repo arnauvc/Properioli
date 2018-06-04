@@ -163,8 +163,9 @@ public class HexagonPattern extends JPanel {
                             public void actionPerformed(ActionEvent e) {
                                 s = num.getText();
                                 if(!s.isEmpty()) {
-                                    hexButton[finalRow][finalCol].setText(s);
+
                                     Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
+                                    if(!Inici.cg.comprobajugada())hexButton[finalRow][finalCol].setText(s);
                                 }
                             }
                         });
@@ -180,7 +181,7 @@ public class HexagonPattern extends JPanel {
             offsetY += 87;
         }
     }
-    private void crear() {
+    private void crear()  {
         for (int row = 0; row < ROWS; row++) {
             offsetX = 0;
             offsetYaux =  row * 87;

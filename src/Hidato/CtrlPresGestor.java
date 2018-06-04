@@ -1,6 +1,5 @@
 package Hidato;
 
-import com.sun.javafx.image.IntPixelGetter;
 import javafx.util.Pair;
 
 import java.text.StringCharacterIterator;
@@ -20,6 +19,7 @@ public class CtrlPresGestor {
     //identificar que esta jugando o creando y si muestra la solción.
     private boolean crear = false;
     private boolean tso = false;
+    private boolean tayuda = false;
     //crear
     private int fila;
     private int columna;
@@ -181,6 +181,9 @@ public class CtrlPresGestor {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        tcelaG = g.gettcela();
+        tso = false;
+        tadjG = g.gettadj();
     }
 
     public void Interrupcio(String s){
@@ -286,6 +289,10 @@ public class CtrlPresGestor {
         return g.getfila();
     }
 
+    public boolean isTayuda() {
+        return tayuda;
+    }
+
     public void SetTauler(String[][] tau){
         this.taulerG = tau.clone();
     }
@@ -298,10 +305,15 @@ public class CtrlPresGestor {
         return tso;
     }
 
+    public void setTayuda(boolean a){
+        this.tayuda = a;
+    }
+
     public String Stringcela(Integer f, Integer c){
         //generar
         if(tso) return g.celasol(f, c);
-        else return g.getcelat(f,c);
+        else if(tayuda) return g.celaayuda(f,c);
+        return g.getcelat(f,c);
     }
     public void Transpartida(Integer fila, Integer columna, String elem, String accion) {
             g.jugar(fila,columna,elem,accion);
@@ -309,9 +321,15 @@ public class CtrlPresGestor {
                 tso = true;
                 System.out.println("Muy bien, eres el puto amo");
             }
-            else System.out.println("aun no acaba");
+            //else System.out.println("aun no acaba");
             if(accion.equals("GUARDAR")) g.GuardarPartida(pathG);
+            if(accion.equals("AJUDA")) {
+                tayuda = true;
+            }
     }
 
+    public boolean comprobajugada(){
+        return g.comprobarjugada();
+    }
 
 }

@@ -161,8 +161,8 @@ public class triangle extends JPanel {
                             public void actionPerformed(ActionEvent e) {
                                  s = num.getText();
                                  if(!s.isEmpty()) {
-                                     triButton[finalRow][finalCol].setText(s);
                                      Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
+                                     if(!Inici.cg.comprobajugada())triButton[finalRow][finalCol].setText(s);
                                  }
                             }
                         });

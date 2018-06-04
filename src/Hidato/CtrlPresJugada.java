@@ -45,18 +45,18 @@ public class CtrlPresJugada {
         if (!jugada.equals("GUARDAR") && !jugada.equals("AJUDA") && !jugada.equals("NUMERO")
                 && !jugada.equals("SORTIR") && !jugada.equals("RESET")) {
             //System.out.println("Tria la propera jugada: ");
-            UsageJugada();
+            //UsageJugada();
             //jugada = input.nextLine();
 
         }
         v.add(0, jugada);
         if (jugada.equals("NUMERO")) {
             //System.out.println("Insereix numero de casella: ");
-            UsageNumero();
+            //UsageNumero();
             numero = elem;
             if (!isNumeric(numero) && !numero.equals("?")){
                 //System.out.println("Insereix numero de casella: ");
-                UsageNumero();
+                //UsageNumero();
                 //numero = input.nextLine();
             }
 
@@ -68,7 +68,7 @@ public class CtrlPresJugada {
             //System.out.println("x: " + x);
             if (!isNumeric(x)){
                 //System.out.println("Insereix coordenades de fila: ");
-                UsageFila();
+                //UsageFila();
                 //x = input.nextLine();
             }
 
@@ -79,7 +79,7 @@ public class CtrlPresJugada {
             //System.out.println("columna: " + columna);
             if (!isNumeric(y)){
                 //System.out.println("Insereix coordenades de columna: ");
-                UsageColumna();
+                //UsageColumna();
                 //y = input.nextLine();
             }
 

@@ -23,6 +23,7 @@ public class Cuadrado extends JPanel{
     private JButton Jguardar;
     private JButton Jayuda;
     private JButton Jsalir;
+    boolean cj;
 
     public Cuadrado(boolean cr, boolean ts) {
         crear = cr;
@@ -90,6 +91,13 @@ public class Cuadrado extends JPanel{
         add(Jsalir);
     }
 
+    private void modificamatriu(){
+        for(int i = 0; i < ROWS; ++i){
+            for(int j = 0; j < COLUMNS; ++j){
+                cuabuton[i][j].setText(Inici.cg.Stringcela(i,j));
+            }
+        }
+    }
     private void accionbotones(){
         Jmenu.addActionListener(new ActionListener() {
             @Override
@@ -101,6 +109,7 @@ public class Cuadrado extends JPanel{
         Jsalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+
                 System.out.println("Salir");
             }
         });
@@ -111,6 +120,11 @@ public class Cuadrado extends JPanel{
                 public void actionPerformed(ActionEvent actionEvent) {
                     Inici.cg.Transpartida(-1,-1,"s","AJUDA");
                     System.out.println("Ayuda");
+                    //modificamatriu();
+                    Menu4.frame.dispose();
+                    String[] s = new String[0];
+                    Menu4.main(s);
+                    Inici.cg.setTayuda(false);
                 }
             });
 
@@ -148,14 +162,14 @@ public class Cuadrado extends JPanel{
                 if (!cel.equals("#")) {
                     cuabuton[row][col] = new cuadradoBoton();
                     if(!Inici.cg.isTso()) {
-                        if (cel.equals("?")) {
+                        if (cel.equals("?") || cel.charAt(cel.length()-1) == 'I') {
                             cuabuton[row][col].setText(cel);
                             cuabuton[row][col].addActionListener(new ActionListener() {
                                 public void actionPerformed(ActionEvent e) {
                                     s = num.getText();
                                     if (!s.isEmpty()) {
-                                        cuabuton[finalRow][finalCol].setText(s);
                                         Inici.cg.Transpartida(finalRow, finalCol, s, "NUMERO");
+                                        if(!Inici.cg.comprobajugada()) cuabuton[finalRow][finalCol].setText(s);
                                     }
                                 }
                             });

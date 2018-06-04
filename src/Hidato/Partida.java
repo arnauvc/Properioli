@@ -37,6 +37,8 @@ public class Partida {
 	private Integer maxim;
 	private String nomusuari;
 	private String path;
+	private String[][] hidato_ajuda;
+	private boolean cj;
 
 
 	public Partida(){}
@@ -154,7 +156,7 @@ public class Partida {
 		else e.PrintError(2	);
 
 	}
-	public void ReprendrePartida() throws Exception {
+	public void ReprendrePartida() {
 		//Quan l'usuari carrega la partida que tenia guardada
 		finalitzat = false;
 		completat = false;
@@ -164,6 +166,19 @@ public class Partida {
         SetFiles(t.getNumFiles());
         SetColumnes(t.getNumColum());
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
+		for(int i = 0; i < t.getNumFiles();++i){
+			for(int j = 0; j < t.getNumColum();++j){
+				hidato_resolt[i][j] = re.consultarsolucio(i,j);
+			}
+		}
+		System.out.println("mostar hidato resuelto");
+		for(int i = 0; i < t.getNumFiles();++i){
+			for(int j = 0; j < t.getNumColum();++j){
+				System.out.print(hidato_resolt[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println("llegamos aqui");
 		//TranscursPartida();
 	}
 
@@ -186,6 +201,7 @@ public class Partida {
 				x = j.GetX();
 				y = j.GetY();
                 j.ComprovaJugada(t, maxim);
+                cj = j.GetInvalid();
                 if (j.GetInvalid()) e.PrintError(1);
 				else if (!j.GetInvalid()) {
                     ++torn;
@@ -220,7 +236,6 @@ public class Partida {
 			else if (j.GetJugada().equals("AJUDA")){
 				r.stop();
 				ajuda = true;
-				String[][] hidato_ajuda;
 				hidato_ajuda = a.GetAjuda(t, hidato_resolt);
 				//ctj.MostrarAjuda(hidato_ajuda, t);
 			}
@@ -357,5 +372,11 @@ public class Partida {
         return t.consultarValCela(f,c);
     }
 
+    public String celayuda(Integer f, Integer c){
+		return hidato_ajuda[f][c];
+	}
 
+	public boolean comprabajugada() {
+		return cj;
+	}
 }

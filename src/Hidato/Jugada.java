@@ -14,7 +14,7 @@ public class Jugada {
 
 
     public void ComprovaJugada(Tauler t, Integer maxim){
-
+        invalid = false;
         Integer max, min, nfil, ncol;
         min = 1;
         max = maxim; //g.GetValorMaxim();

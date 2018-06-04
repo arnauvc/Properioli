@@ -130,7 +130,7 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
         return tauler.clone();
     }
 
-    public Tauler CarregarHidato(Integer idhidato) throws Exception {
+    public Tauler CarregarHidato(Integer idhidato){
         String s = new String(path);
         String tcela = new String();
         String adj = new String();

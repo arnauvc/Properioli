@@ -5,6 +5,7 @@ import Hidato.Part3.Menu3;
 import Hidato.Part4.Menu4;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +23,7 @@ public class Menu2 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String[] s = new String[0];
-                Menu22.main(s);
+                Menu21.main(s);
                 Menu2.frame.dispose();
             }
         });

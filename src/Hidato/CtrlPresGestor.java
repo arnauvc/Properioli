@@ -194,13 +194,13 @@ public class CtrlPresGestor {
     public void CtrlGenerarHidato() {
         crear = true;
         Vector<String> p = new Vector<>();
-        p.add(0,nomG);
-        p.add(1,pathG);
-        p.add(2,tcelaG);
-        p.add(3,tadjG);
-        p.add(4,Integer.toString(taulerG.length));
-        p.add(5,Integer.toString(taulerG[0].length));
-        g.Generar(p,taulerG);
+        //p.add(0,nomG);
+        //p.add(1,pathG);
+        v.add(2,tcelaG);
+        v.add(3,tadjG);
+        v.add(4,Integer.toString(taulerG.length));
+        v.add(5,Integer.toString(taulerG[0].length));
+        g.Generar(v,taulerG);
     }
 
     public void jugarhidato(String tcela, String tadj, String dif){
@@ -210,12 +210,12 @@ public class CtrlPresGestor {
         tadjG = tadj;
         Vector<String> p = new Vector<>();
         System.out.println(nomG);
-        p.add(0,nomG);
-        p.add(1,pathG);
-        p.add(2,tcelaG);
-        p.add(3,tadjG);
-        p.add(4,dif);
-        g.Aleatori(p);
+        //p.add(0,nomG);
+        //p.add(1,pathG);
+        v.add(2,tcelaG);
+        v.add(3,tadjG);
+        v.add(4,dif);
+        g.Aleatori(v);
     }
 
     public String[][] CtrlResoldreHidato(String[][] tauler, String tcela, String tadj) {
@@ -332,4 +332,7 @@ public class CtrlPresGestor {
         return g.comprobarjugada();
     }
 
+    public void hidatobiblio(Integer n) {
+        g.JugarHidato(v,n);
+    }
 }

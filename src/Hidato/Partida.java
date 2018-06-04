@@ -62,7 +62,7 @@ public class Partida {
 
 
 
-	public void PartidaBiblioteca() throws Exception{
+	public void PartidaBiblioteca(){
 		//Quan l'usuari tria un hidato que esta a la biblioteca i el vol resoldre
 		r.start();
 		finalitzat = false;

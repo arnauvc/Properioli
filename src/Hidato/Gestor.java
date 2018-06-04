@@ -129,12 +129,24 @@ public class Gestor {
         return partidaactiva.Celatauler(f,c);
     }
     //jugar
-    public Integer getfila(){return partidaactiva.getfila();}
+    public Integer getfila(){
+        //System.out.println("estamos en gestor");
+        //System.out.println("fila: " + partidaactiva.GetFiles());
+        return partidaactiva.GetFiles();
+    }
 
-    public Integer getcolumna(){return partidaactiva.getCol();}
+    public Integer getcolumna(){
+        //System.out.println("estamos en gestor");
+        //System.out.println("columna: " + partidaactiva.GetColumnes());
+        return partidaactiva.GetColumnes();
+    }
 
     public void jugar(Integer fila, Integer columna, String elem, String accion) {
             partidaactiva.TranscursPartida(fila,columna,elem,accion);
+    }
+
+    public boolean partidafinalitzada(){
+        return partidaactiva.GetCompletat();
     }
 
     //AFEGIT EXTRA PER CONTROLAR PART3

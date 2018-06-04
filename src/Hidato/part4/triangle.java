@@ -227,6 +227,7 @@ public class triangle extends JPanel {
             setFocusPainted(true);
             setBorderPainted(false);
             setPreferredSize(new Dimension(WIDTH, LENGTH));
+            setFont(new Font("Calibri",1,35));
             this.a = a;
 
         }

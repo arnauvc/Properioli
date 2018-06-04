@@ -52,7 +52,7 @@ public class Cuadrado extends JPanel{
         //texto
         num = new JTextField();
         num.setSize(25,25);
-        num.setBounds(800 , 800,100,30);
+        num.setBounds(950 , 800,100,30);
 
         //botones
         configurarboronoes();
@@ -147,28 +147,29 @@ public class Cuadrado extends JPanel{
                 int finalCol = col;
                 if (!cel.equals("#")) {
                     cuabuton[row][col] = new cuadradoBoton();
-                    if (cel.equals("?")) {
-                        cuabuton[row][col].setText(cel);
-                        cuabuton[row][col].addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                s = num.getText();
-                                if(!s.isEmpty()) {
-                                    cuabuton[finalRow][finalCol].setText(s);
-                                    Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
+                    if(!Inici.cg.isTso()) {
+                        if (cel.equals("?")) {
+                            cuabuton[row][col].setText(cel);
+                            cuabuton[row][col].addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                    s = num.getText();
+                                    if (!s.isEmpty()) {
+                                        cuabuton[finalRow][finalCol].setText(s);
+                                        Inici.cg.Transpartida(finalRow, finalCol, s, "NUMERO");
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        } else if (cel.equals("*")) cuabuton[row][col].setText("NO");
+                        else cuabuton[row][col].setText(cel);
                     }
-                    else if (cel.equals("*")) cuabuton[row][col].setText("NO");
-                    else cuabuton[row][col].setText(cel);
-                    cuabuton[row][col].setBounds(offsetX, offsetY, 80, 80);
+                    cuabuton[row][col].setBounds(offsetX, offsetY, 90, 90);
                     add(cuabuton[row][col]);
                 }
-                offsetX += 80;
+                offsetX += 90;
             }
-            offsetY += 80;
+            offsetY += 90;
         }
-    }    
+    }
 
     private void generar() {
         for (int row = 0; row < ROWS; row++) {
@@ -187,11 +188,11 @@ public class Cuadrado extends JPanel{
                         }
                     }
                 });
-                cuabuton[row][col].setBounds(offsetX, offsetY, 80, 80);
+                cuabuton[row][col].setBounds(offsetX, offsetY, 90, 90);
                 add(cuabuton[row][col]);
-                offsetX += 80;
+                offsetX += 90;
             }
-            offsetY += 80;
+            offsetY += 90;
         }
     }
     private void initGUI(){
@@ -203,8 +204,8 @@ public class Cuadrado extends JPanel{
     }
 
     class cuadradoBoton extends JButton {
-        private static final int LENGTH = 80;
-        private static final int WIDTH = 80;
+        private static final int LENGTH = 100;
+        private static final int WIDTH = 100;
 
 
         public cuadradoBoton() {
@@ -212,13 +213,14 @@ public class Cuadrado extends JPanel{
             setFocusPainted(true);
             setBorderPainted(false);
             setPreferredSize(new Dimension(WIDTH, LENGTH));
+            setFont(new Font("Calibri",1,35));
             setBackground(Color.GREEN);
         }
 
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.setColor(Color.red);
-                g.drawRect(0,0,79,79);
+                g.drawRect(0,0,89,89);
 
         }
     }

@@ -114,6 +114,13 @@ public class Partida {
 
 
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
+		for(int i = 0; i <taulerU.length;++i){
+			for(int j = 0; j < taulerU[i].length;++j){
+				System.out.print(taulerU[i][j]);
+				if(j < taulerU[0].length-1) System.out.print(",");
+			}
+			System.out.println();
+		}
 		maxim = g.GetValorMaxim();
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
 		SetFiles(t.getNumFiles());
@@ -168,7 +175,7 @@ public class Partida {
 
 		//while (!finalitzat && !completat){
 
-		    ctj.MostrarTauler(t);
+		    //ctj.MostrarTauler(t);
 
 
             ctj.InteraccioJugada(j, t,fila,columna,elem,accion);
@@ -187,7 +194,6 @@ public class Partida {
                 if (ComprovarPartidaFinalitzada(hidato_resolt)) {
 					completat = true;
 				}
-
 			}
 			else if (j.GetJugada().equals("GUARDAR")) {
 				//Preparar el tauler[][] per a PartidesGuardades
@@ -226,7 +232,7 @@ public class Partida {
 			r.stop();
 			temps = r.GetTime();
 			ctj.MostrarPuntuacio(temps);
-
+			ctj.MostrarTauler(t);
 		}
 
 		//Partida completada utilitzant ajuda o havent guardat
@@ -339,6 +345,7 @@ public class Partida {
 	}
 	public String[][] GetTsolucio(){return hidato_resolt.clone();}
 
+	public boolean isFinalitzat(){return finalitzat;}
 
 	//mis funciones para el menu4
     public String Celataulersol(Integer f, Integer c){
@@ -350,12 +357,5 @@ public class Partida {
         return t.consultarValCela(f,c);
     }
 
-    public Integer getfila(){
-	    return t.getNumFiles();
-    }
-
-    public Integer getCol(){
-	    return t.getNumFiles();
-    }
 
 }

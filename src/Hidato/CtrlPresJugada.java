@@ -39,50 +39,48 @@ public class CtrlPresJugada {
         String x = null;
         String y = null;
 
-        System.out.println("Tria la propera jugada: ");
-        UsageJugada();
+        //System.out.println("Tria la propera jugada: ");
+        //UsageJugada();
         jugada = accion;
-        while (!jugada.equals("GUARDAR") && !jugada.equals("AJUDA") && !jugada.equals("NUMERO")
+        if (!jugada.equals("GUARDAR") && !jugada.equals("AJUDA") && !jugada.equals("NUMERO")
                 && !jugada.equals("SORTIR") && !jugada.equals("RESET")) {
-            System.out.println("Tria la propera jugada: ");
-            UsageJugada();
-            jugada = input.nextLine();
+            //System.out.println("Tria la propera jugada: ");
+            //UsageJugada();
+            //jugada = input.nextLine();
 
         }
         v.add(0, jugada);
         if (jugada.equals("NUMERO")) {
-            System.out.println("Insereix numero de casella: ");
-            UsageNumero();
+            //System.out.println("Insereix numero de casella: ");
+            //UsageNumero();
             numero = elem;
-            System.out.println("elemento: " + elem);
-            System.out.println("numero: " + numero);
-            while (!isNumeric(numero) && !numero.equals("?")){
-                System.out.println("Insereix numero de casella: ");
-                UsageNumero();
-                numero = input.nextLine();
+            if (!isNumeric(numero) && !numero.equals("?")){
+                //System.out.println("Insereix numero de casella: ");
+                //UsageNumero();
+                //numero = input.nextLine();
             }
 
 
-            System.out.println("Insereix coordenades de fila: ");
-            UsageFila();
+            //System.out.println("Insereix coordenades de fila: ");
+            //UsageFila();
             x = Integer.toString(fila);
-            System.out.println("fila: " + fila);
-            System.out.println("x: " + x);
-            while (!isNumeric(x)){
-                System.out.println("Insereix coordenades de fila: ");
-                UsageFila();
-                x = input.nextLine();
+            //System.out.println("fila: " + fila);
+            //System.out.println("x: " + x);
+            if (!isNumeric(x)){
+                //System.out.println("Insereix coordenades de fila: ");
+                //UsageFila();
+                //x = input.nextLine();
             }
 
-            System.out.println("Insereix coordenades de columna: ");
-            UsageColumna();
+            //System.out.println("Insereix coordenades de columna: ");
+            //UsageColumna();
             y = Integer.toString(columna);
-            System.out.println("y: " + y);
-            System.out.println("columna: " + columna);
-            while (!isNumeric(y)){
-                System.out.println("Insereix coordenades de columna: ");
-                UsageColumna();
-                y = input.nextLine();
+            //System.out.println("y: " + y);
+            //System.out.println("columna: " + columna);
+            if (!isNumeric(y)){
+                //System.out.println("Insereix coordenades de columna: ");
+                //UsageColumna();
+                //y = input.nextLine();
             }
 
             v.add(1, numero);

@@ -1,6 +1,5 @@
 package Hidato;
 
-import com.sun.javafx.image.IntPixelGetter;
 import javafx.util.Pair;
 
 import java.text.StringCharacterIterator;
@@ -20,6 +19,7 @@ public class CtrlPresGestor {
     //identificar que esta jugando o creando y si muestra la solción.
     private boolean crear = false;
     private boolean tso = false;
+    private boolean tayuda = false;
     //crear
     private int fila;
     private int columna;
@@ -149,6 +149,7 @@ public class CtrlPresGestor {
     }
     private Scanner input = new Scanner(System.in);
     public void Inicia() {
+
         String nomusuari;
         //boolean segur = false;
 
@@ -180,6 +181,9 @@ public class CtrlPresGestor {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        tcelaG = g.gettcela();
+        tso = false;
+        tadjG = g.gettadj();
     }
 
     public void Interrupcio(String s){
@@ -188,6 +192,7 @@ public class CtrlPresGestor {
 
     //AFEGIT PER CONTROLAR PART3
     public void CtrlGenerarHidato() {
+        crear = true;
         Vector<String> p = new Vector<>();
         p.add(0,nomG);
         p.add(1,pathG);
@@ -199,6 +204,8 @@ public class CtrlPresGestor {
     }
 
     public void jugarhidato(String tcela, String tadj, String dif){
+        crear = false;
+        tso = false;
         tcelaG = tcela;
         tadjG = tadj;
         Vector<String> p = new Vector<>();
@@ -273,13 +280,17 @@ public class CtrlPresGestor {
     }
 
     public int getColumna() {
-        if(crear) return fila;
+        if(crear)  return columna;
         return g.getcolumna();
     }
 
     public int getFila() {
-        if(crear) return columna;
+        if(crear) return fila;
         return g.getfila();
+    }
+
+    public boolean isTayuda() {
+        return tayuda;
     }
 
     public void SetTauler(String[][] tau){
@@ -294,22 +305,31 @@ public class CtrlPresGestor {
         return tso;
     }
 
-    public void pasarnumero(Integer fila, Integer columna, String elem, String accion){
-        //Pasa los valores a gestor
-        //gestor.set
+    public void setTayuda(boolean a){
+        this.tayuda = a;
     }
-
 
     public String Stringcela(Integer f, Integer c){
         //generar
         if(tso) return g.celasol(f, c);
-        else return g.getcelat(f,c);
+        else if(tayuda) return g.celaayuda(f,c);
+        return g.getcelat(f,c);
     }
     public void Transpartida(Integer fila, Integer columna, String elem, String accion) {
             g.jugar(fila,columna,elem,accion);
+            if(g.partidafinalitzada()) {
+                tso = true;
+                System.out.println("Muy bien, eres el puto amo");
+            }
+            //else System.out.println("aun no acaba");
             if(accion.equals("GUARDAR")) g.GuardarPartida(pathG);
-
+            if(accion.equals("AJUDA")) {
+                tayuda = true;
+            }
     }
 
+    public boolean comprobajugada(){
+        return g.comprobarjugada();
+    }
 
 }

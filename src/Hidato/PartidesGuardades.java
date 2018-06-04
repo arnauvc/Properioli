@@ -44,7 +44,8 @@ public class PartidesGuardades {
         LE.TancarFitxerEscriptura(escriptor);
     }
 
-    public Partida Obtenirpartida(String nom_usuari) throws Exception {
+    public Partida Obtenirpartida(String nom_usuari) {
+        System.out.println("OBTENIR PARTIDA");
         String s = new String(path);
         s += nom_usuari;
         x = LE.ObrirFitxerLectura(s);

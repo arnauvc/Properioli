@@ -94,15 +94,12 @@ public class Gestor {
         //System.out.println(tsolucion.length);
     }
 
-    public void Reprendre(Vector<String> v) throws Exception {
+    public void Reprendre(Vector<String> v)  {
         pg.SetPath(v.get(1));
-
+        System.out.println("estamos en reprendre");
         partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
-        try{
             partidaactiva.ReprendrePartida();
-        } catch (Exception e){
-            GuardarPartida(v.get(1));
-        }
+
     }
     public void GuardarPartida(String path){
         pg.SetPath(path);
@@ -129,12 +126,31 @@ public class Gestor {
         return partidaactiva.Celatauler(f,c);
     }
     //jugar
-    public Integer getfila(){return partidaactiva.getfila();}
+    public Integer getfila(){
+        //System.out.println("estamos en gestor");
+        //System.out.println("fila: " + partidaactiva.GetFiles());
+        return partidaactiva.GetFiles();
+    }
 
-    public Integer getcolumna(){return partidaactiva.getCol();}
+    public Integer getcolumna(){
+        //System.out.println("estamos en gestor");
+        //System.out.println("columna: " + partidaactiva.GetColumnes());
+        return partidaactiva.GetColumnes();
+    }
+
+    public String celaayuda(Integer f, Integer c){
+            return partidaactiva.celayuda(f,c);
+    }
 
     public void jugar(Integer fila, Integer columna, String elem, String accion) {
-            partidaactiva.TranscursPartida(fila,columna,elem,accion);
+            partidaactiva.TranscursPartida(fila,columna,elem, accion);
+    }
+
+    public boolean comprobarjugada(){
+        return partidaactiva.comprabajugada();
+    }
+    public boolean partidafinalitzada(){
+        return partidaactiva.GetCompletat();
     }
 
     //AFEGIT EXTRA PER CONTROLAR PART3
@@ -163,7 +179,13 @@ public class Gestor {
         }
     }
 
+    public String gettcela(){
+        return partidaactiva.GetCela();
+    }
 
+    public String gettadj(){
+        return partidaactiva.GetAdjacencia();
+    }
 }
 
 

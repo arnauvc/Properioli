@@ -144,10 +144,17 @@ public class HexagonPattern extends JPanel {
 
     private void jugar() {
         for (int row = 0; row < ROWS; row++) {
+            offsetX = 0;
+            offsetYaux =  row * 87;
             for (int col = 0; col < COLUMNS; col++) {
                 String cel = Inici.cg.Stringcela(row,col);
                 int finalRow = row;
                 int finalCol = col;
+                if (col % 2 == 0) {
+                    offsetY = 43 + offsetYaux ;
+                } else {
+                    offsetY =  offsetYaux;
+                }
                 if (!(cel.equals("#"))) {
                     hexButton[row][col] = new HexagonButton();
                     if (cel.equals("?")) {
@@ -156,8 +163,9 @@ public class HexagonPattern extends JPanel {
                             public void actionPerformed(ActionEvent e) {
                                 s = num.getText();
                                 if(!s.isEmpty()) {
-                                    hexButton[finalRow][finalCol].setText(s);
+
                                     Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
+                                    if(!Inici.cg.comprobajugada())hexButton[finalRow][finalCol].setText(s);
                                 }
                             }
                         });
@@ -168,21 +176,19 @@ public class HexagonPattern extends JPanel {
                     add(hexButton[row][col]);
                 }
                 offsetX += 76;
-                if (col % 2 == 0) {
-                    offsetY = 43 + offsetYaux ;
-                } else {
-                    offsetY =  offsetYaux;
-                }
             }
             offsetX  = 0;
-            offsetYaux += 87;
             offsetY += 87;
         }
     }
-    private void crear() {
+    private void crear()  {
         for (int row = 0; row < ROWS; row++) {
             offsetX = 0;
+            offsetYaux =  row * 87;
+            //System.out.println("fila: " + row);
+            //System.out.println("offseYaux: " + offsetYaux);
             for (int col = 0; col < COLUMNS; col++) {
+                //System.out.println("offsetx: " + offsetX + "offsety: " + offsetY);
                 hexButton[row][col] = new HexagonButton();
                 int finalRow = row;
                 int finalCol = col;
@@ -197,18 +203,20 @@ public class HexagonPattern extends JPanel {
                         }
                     }
                 });
-                add(hexButton[row][col]);
-                hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
-                offsetX += 76;
                 if (col % 2 == 0) {
                     offsetY = 43 + offsetYaux ;
                 } else {
                     offsetY =  offsetYaux;
                 }
+                add(hexButton[row][col]);
+                hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
+                offsetX += 76;
+
             }
             offsetX  = 0;
-            offsetYaux += 87;
             offsetY += 87;
+
+
         }
     }
 
@@ -217,7 +225,6 @@ public class HexagonPattern extends JPanel {
         accionbotones();
         if(!crear) jugar();
         else if(crear)crear();
-
     }
 
 
@@ -232,6 +239,7 @@ public class HexagonPattern extends JPanel {
             setContentAreaFilled(false);
             setFocusPainted(true);
             setBorderPainted(false);
+            setFont(new Font("Calibri",1,50));
             setPreferredSize(new Dimension(WIDTH, LENGTH));
         }
 

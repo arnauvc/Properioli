@@ -161,8 +161,8 @@ public class triangle extends JPanel {
                             public void actionPerformed(ActionEvent e) {
                                  s = num.getText();
                                  if(!s.isEmpty()) {
-                                     triButton[finalRow][finalCol].setText(s);
                                      Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
+                                     if(!Inici.cg.comprobajugada())triButton[finalRow][finalCol].setText(s);
                                  }
                             }
                         });
@@ -227,6 +227,7 @@ public class triangle extends JPanel {
             setFocusPainted(true);
             setBorderPainted(false);
             setPreferredSize(new Dimension(WIDTH, LENGTH));
+            setFont(new Font("Calibri",1,35));
             this.a = a;
 
         }

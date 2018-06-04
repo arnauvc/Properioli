@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Scanner;
 
 public class LlegirEscriure {
-    public BufferedWriter ObrirFitxerEscriptura (String nom, boolean sobreescriure) throws Exception {//Nom ha de ser idHidato.txt
+    public BufferedWriter ObrirFitxerEscriptura (String nom, boolean sobreescriure) {//Nom ha de ser idHidato.txt
         File fitxer = new File(nom);
         FileWriter filew;
         BufferedWriter escriptor = null;
@@ -26,7 +26,7 @@ public class LlegirEscriure {
         return escriptor;
     }
 
-    public boolean TancarFitxerEscriptura(BufferedWriter escriptor) throws Exception{
+    public boolean TancarFitxerEscriptura(BufferedWriter escriptor){
         try {
             escriptor.close();
         } catch (FileNotFoundException e) {
@@ -39,7 +39,7 @@ public class LlegirEscriure {
         return true;
     }
 
-    public Scanner ObrirFitxerLectura (String nom) throws Exception {//Nom ha de ser idHidato.txt
+    public Scanner ObrirFitxerLectura (String nom) {//Nom ha de ser idHidato.txt
         Scanner x = null;
         try {
             x = new Scanner(new File(nom));

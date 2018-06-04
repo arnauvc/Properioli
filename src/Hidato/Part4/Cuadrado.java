@@ -23,6 +23,7 @@ public class Cuadrado extends JPanel{
     private JButton Jguardar;
     private JButton Jayuda;
     private JButton Jsalir;
+    boolean cj;
 
     public Cuadrado(boolean cr, boolean ts) {
         crear = cr;
@@ -52,7 +53,7 @@ public class Cuadrado extends JPanel{
         //texto
         num = new JTextField();
         num.setSize(25,25);
-        num.setBounds(800 , 600,100,30);
+        num.setBounds(950 , 800,100,30);
 
         //botones
         configurarboronoes();
@@ -61,28 +62,28 @@ public class Cuadrado extends JPanel{
         if(crear) {
             Jcrear = new JButton();
             Jcrear.setText("Crear");
-            Jcrear.setBounds(530, 650, 100, 30);
+            Jcrear.setBounds(530, 950, 100, 30);
             add(Jcrear);
         }
 
         if(!crear) {
             Jguardar = new JButton();
             Jguardar.setText("Guardar");
-            Jguardar.setBounds(50, 650, 100, 30);
+            Jguardar.setBounds(50, 950, 100, 30);
 
             Jayuda = new JButton();
             Jayuda.setText("ayuda");
-            Jayuda.setBounds(170, 650, 100, 30);
+            Jayuda.setBounds(170, 950, 100, 30);
             add(Jayuda);
             add(Jguardar);
         }
 
         Jmenu = new JButton();
         Jmenu.setText("Menu");
-        Jmenu.setBounds(290, 650, 100, 30);
+        Jmenu.setBounds(290, 950, 100, 30);
 
         Jsalir = new JButton();
-        Jsalir.setBounds(410,650,100,30);
+        Jsalir.setBounds(410,950,100,30);
         Jsalir.setText("Salir");
         //añadir
         add(num);
@@ -90,6 +91,13 @@ public class Cuadrado extends JPanel{
         add(Jsalir);
     }
 
+    private void modificamatriu(){
+        for(int i = 0; i < ROWS; ++i){
+            for(int j = 0; j < COLUMNS; ++j){
+                cuabuton[i][j].setText(Inici.cg.Stringcela(i,j));
+            }
+        }
+    }
     private void accionbotones(){
         Jmenu.addActionListener(new ActionListener() {
             @Override
@@ -101,6 +109,7 @@ public class Cuadrado extends JPanel{
         Jsalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+
                 System.out.println("Salir");
             }
         });
@@ -111,6 +120,11 @@ public class Cuadrado extends JPanel{
                 public void actionPerformed(ActionEvent actionEvent) {
                     Inici.cg.Transpartida(-1,-1,"s","AJUDA");
                     System.out.println("Ayuda");
+                    //modificamatriu();
+                    Menu4.frame.dispose();
+                    String[] s = new String[0];
+                    Menu4.main(s);
+                    Inici.cg.setTayuda(false);
                 }
             });
 
@@ -147,28 +161,29 @@ public class Cuadrado extends JPanel{
                 int finalCol = col;
                 if (!cel.equals("#")) {
                     cuabuton[row][col] = new cuadradoBoton();
-                    if (cel.equals("?")) {
-                        cuabuton[row][col].setText(cel);
-                        cuabuton[row][col].addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                s = num.getText();
-                                if(!s.isEmpty()) {
-                                    cuabuton[finalRow][finalCol].setText(s);
-                                    Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
+                    if(!Inici.cg.isTso()) {
+                        if (cel.equals("?") || cel.charAt(cel.length()-1) == 'I') {
+                            cuabuton[row][col].setText(cel);
+                            cuabuton[row][col].addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                    s = num.getText();
+                                    if (!s.isEmpty()) {
+                                        Inici.cg.Transpartida(finalRow, finalCol, s, "NUMERO");
+                                        if(!Inici.cg.comprobajugada()) cuabuton[finalRow][finalCol].setText(s);
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        } else if (cel.equals("*")) cuabuton[row][col].setText("NO");
+                        else cuabuton[row][col].setText(cel);
                     }
-                    else if (cel.equals("*")) cuabuton[row][col].setText("NO");
-                    else cuabuton[row][col].setText(cel);
-                    cuabuton[row][col].setBounds(offsetX, offsetY, 80, 80);
+                    cuabuton[row][col].setBounds(offsetX, offsetY, 90, 90);
                     add(cuabuton[row][col]);
                 }
-                offsetX += 80;
+                offsetX += 90;
             }
-            offsetY += 80;
+            offsetY += 90;
         }
-    }    
+    }
 
     private void generar() {
         for (int row = 0; row < ROWS; row++) {
@@ -187,11 +202,11 @@ public class Cuadrado extends JPanel{
                         }
                     }
                 });
-                cuabuton[row][col].setBounds(offsetX, offsetY, 80, 80);
+                cuabuton[row][col].setBounds(offsetX, offsetY, 90, 90);
                 add(cuabuton[row][col]);
-                offsetX += 80;
+                offsetX += 90;
             }
-            offsetY += 80;
+            offsetY += 90;
         }
     }
     private void initGUI(){
@@ -203,8 +218,8 @@ public class Cuadrado extends JPanel{
     }
 
     class cuadradoBoton extends JButton {
-        private static final int LENGTH = 80;
-        private static final int WIDTH = 80;
+        private static final int LENGTH = 100;
+        private static final int WIDTH = 100;
 
 
         public cuadradoBoton() {
@@ -212,13 +227,14 @@ public class Cuadrado extends JPanel{
             setFocusPainted(true);
             setBorderPainted(false);
             setPreferredSize(new Dimension(WIDTH, LENGTH));
+            setFont(new Font("Calibri",1,35));
             setBackground(Color.GREEN);
         }
 
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.setColor(Color.red);
-                g.drawRect(0,0,79,79);
+                g.drawRect(0,0,89,89);
 
         }
     }

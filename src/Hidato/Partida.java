@@ -37,6 +37,8 @@ public class Partida {
 	private Integer maxim;
 	private String nomusuari;
 	private String path;
+	private String[][] hidato_ajuda;
+	private boolean cj;
 
 
 	public Partida(){}
@@ -114,6 +116,13 @@ public class Partida {
 
 
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
+		for(int i = 0; i <taulerU.length;++i){
+			for(int j = 0; j < taulerU[i].length;++j){
+				System.out.print(taulerU[i][j]);
+				if(j < taulerU[0].length-1) System.out.print(",");
+			}
+			System.out.println();
+		}
 		maxim = g.GetValorMaxim();
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
 		SetFiles(t.getNumFiles());
@@ -147,7 +156,7 @@ public class Partida {
 		else e.PrintError(2	);
 
 	}
-	public void ReprendrePartida() throws Exception {
+	public void ReprendrePartida() {
 		//Quan l'usuari carrega la partida que tenia guardada
 		finalitzat = false;
 		completat = false;
@@ -157,6 +166,19 @@ public class Partida {
         SetFiles(t.getNumFiles());
         SetColumnes(t.getNumColum());
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
+		for(int i = 0; i < t.getNumFiles();++i){
+			for(int j = 0; j < t.getNumColum();++j){
+				hidato_resolt[i][j] = re.consultarsolucio(i,j);
+			}
+		}
+		System.out.println("mostar hidato resuelto");
+		for(int i = 0; i < t.getNumFiles();++i){
+			for(int j = 0; j < t.getNumColum();++j){
+				System.out.print(hidato_resolt[i][j]);
+			}
+			System.out.println();
+		}
+		System.out.println("llegamos aqui");
 		//TranscursPartida();
 	}
 
@@ -168,7 +190,7 @@ public class Partida {
 
 		//while (!finalitzat && !completat){
 
-		    ctj.MostrarTauler(t);
+		    //ctj.MostrarTauler(t);
 
 
             ctj.InteraccioJugada(j, t,fila,columna,elem,accion);
@@ -179,6 +201,7 @@ public class Partida {
 				x = j.GetX();
 				y = j.GetY();
                 j.ComprovaJugada(t, maxim);
+                cj = j.GetInvalid();
                 if (j.GetInvalid()) e.PrintError(1);
 				else if (!j.GetInvalid()) {
                     ++torn;
@@ -187,7 +210,6 @@ public class Partida {
                 if (ComprovarPartidaFinalitzada(hidato_resolt)) {
 					completat = true;
 				}
-
 			}
 			else if (j.GetJugada().equals("GUARDAR")) {
 				//Preparar el tauler[][] per a PartidesGuardades
@@ -214,7 +236,6 @@ public class Partida {
 			else if (j.GetJugada().equals("AJUDA")){
 				r.stop();
 				ajuda = true;
-				String[][] hidato_ajuda;
 				hidato_ajuda = a.GetAjuda(t, hidato_resolt);
 				//ctj.MostrarAjuda(hidato_ajuda, t);
 			}
@@ -226,7 +247,7 @@ public class Partida {
 			r.stop();
 			temps = r.GetTime();
 			ctj.MostrarPuntuacio(temps);
-
+			ctj.MostrarTauler(t);
 		}
 
 		//Partida completada utilitzant ajuda o havent guardat
@@ -339,6 +360,7 @@ public class Partida {
 	}
 	public String[][] GetTsolucio(){return hidato_resolt.clone();}
 
+	public boolean isFinalitzat(){return finalitzat;}
 
 	//mis funciones para el menu4
     public String Celataulersol(Integer f, Integer c){
@@ -350,12 +372,11 @@ public class Partida {
         return t.consultarValCela(f,c);
     }
 
-    public Integer getfila(){
-	    return t.getNumFiles();
-    }
+    public String celayuda(Integer f, Integer c){
+		return hidato_ajuda[f][c];
+	}
 
-    public Integer getCol(){
-	    return t.getNumFiles();
-    }
-
+	public boolean comprabajugada() {
+		return cj;
+	}
 }

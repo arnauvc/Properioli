@@ -22,7 +22,7 @@ public class Menu4 {
         frame = new JFrame();
         frame.setTitle("Juego");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1100, 11000);
+        frame.setSize(1100, 1100);
         frame.setResizable(true);
         frame.setVisible(true);
     }

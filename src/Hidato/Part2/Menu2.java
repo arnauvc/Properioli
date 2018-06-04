@@ -2,6 +2,8 @@ package Hidato.Part2;
 
 import Hidato.Part1.Inici;
 import Hidato.Part3.Menu3;
+import Hidato.Part4.Menu4;
+import javafx.scene.control.Menu;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -33,6 +35,8 @@ public class Menu2 {
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }
+                String[] s= new String[0];
+                Menu4.main(s);
             }
         });
         sortirButton.addActionListener(new ActionListener() {

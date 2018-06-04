@@ -15,8 +15,11 @@ public class Inici{
     private JLabel Image;
     private JTextField username;
     private JButton seguentButton;
+    private JRadioButton windowsRadioButton;
+    private JRadioButton linuxRadioButton;
     private String path;
     private String nom;
+    private boolean sistema = false;
     private static JFrame frame;
     public static CtrlPresGestor cg;
     JFileChooser chooser;
@@ -34,19 +37,34 @@ public class Inici{
                 chooser.getCurrentDirectory();
                 File newLoc = chooser.getSelectedFile();
                 path = newLoc.getAbsolutePath();
-                path += "/";
                 System.out.printf("El path es: %s\n", path);
             }
         });
         seguentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if (sistema) path += "\\";
+                else path += "/";
+                System.out.printf("El path es: %s\n", path);
                 cg.SetNom(username.getText());
                 cg.SetPath(path);
                 String[] s = new String[0];
                 Menu2.main(s);
                 frame.setVisible(false);
                 cg.Inicia();
+            }
+        });
+        windowsRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sistema = true;
+            }
+
+        });
+        linuxRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                sistema = false;
             }
         });
     }

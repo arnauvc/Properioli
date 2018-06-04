@@ -52,7 +52,7 @@ public class Cuadrado extends JPanel{
         //texto
         num = new JTextField();
         num.setSize(25,25);
-        num.setBounds(800 , 800,100,30);
+        num.setBounds(800 , 600,100,30);
 
         //botones
         configurarboronoes();
@@ -61,28 +61,28 @@ public class Cuadrado extends JPanel{
         if(crear) {
             Jcrear = new JButton();
             Jcrear.setText("Crear");
-            Jcrear.setBounds(530, 950, 100, 30);
+            Jcrear.setBounds(530, 650, 100, 30);
             add(Jcrear);
         }
 
         if(!crear) {
             Jguardar = new JButton();
             Jguardar.setText("Guardar");
-            Jguardar.setBounds(50, 950, 100, 30);
+            Jguardar.setBounds(50, 650, 100, 30);
 
             Jayuda = new JButton();
             Jayuda.setText("ayuda");
-            Jayuda.setBounds(170, 950, 100, 30);
+            Jayuda.setBounds(170, 650, 100, 30);
             add(Jayuda);
             add(Jguardar);
         }
 
         Jmenu = new JButton();
         Jmenu.setText("Menu");
-        Jmenu.setBounds(290, 950, 100, 30);
+        Jmenu.setBounds(290, 650, 100, 30);
 
         Jsalir = new JButton();
-        Jsalir.setBounds(410,950,100,30);
+        Jsalir.setBounds(410,650,100,30);
         Jsalir.setText("Salir");
         //añadir
         add(num);

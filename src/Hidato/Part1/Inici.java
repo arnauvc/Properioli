@@ -29,7 +29,6 @@ public class Inici{
                 chooser = new JFileChooser();
                 chooser.setCurrentDirectory(new java.io.File("."));
                 chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-
                 chooser.setAcceptAllFileFilterUsed(false);
                 chooser.showSaveDialog(null);
                 chooser.getCurrentDirectory();
@@ -38,8 +37,6 @@ public class Inici{
                 path += "/";
                 System.out.printf("El path es: %s\n", path);
             }
-
-
         });
         seguentButton.addActionListener(new ActionListener() {
             @Override
@@ -49,6 +46,7 @@ public class Inici{
                 String[] s = new String[0];
                 Menu2.main(s);
                 frame.setVisible(false);
+                cg.Inicia();
             }
         });
     }

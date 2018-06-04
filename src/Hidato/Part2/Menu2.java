@@ -1,5 +1,6 @@
 package Hidato.Part2;
 
+import Hidato.Part1.Inici;
 import Hidato.Part3.Menu3;
 
 import javax.swing.*;
@@ -27,7 +28,11 @@ public class Menu2 {
         carregarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    Inici.cg.Rependre();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
         });
         sortirButton.addActionListener(new ActionListener() {

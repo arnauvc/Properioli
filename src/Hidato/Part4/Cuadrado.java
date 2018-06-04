@@ -10,10 +10,9 @@ import java.awt.event.ActionListener;
 public class Cuadrado extends JPanel{
     private final int ROWS;
     private final int COLUMNS;
-    private cuadrado[][] cuabuton;
-    private String [][] tauler;
+    private cuadradoBoton[][] cuabuton;
+    private String [][] taulerG;
     private boolean crear;
-    private boolean tsol;
 
     private JTextField num;
     private int offsetX;
@@ -27,19 +26,10 @@ public class Cuadrado extends JPanel{
 
     public Cuadrado(boolean cr, boolean ts) {
         crear = cr;
-        tsol = ts;
-        if (!crear) {
-            if(!ts) tauler = Inici.cg.GetTauler();
-            else tauler = Inici.cg.getTaulersol();
-            ROWS = tauler.length;
-            COLUMNS = tauler[0].length;
-            System.out.println(ROWS);
-            System.out.println(COLUMNS);
-        }
-        else{
-            ROWS = Inici.cg.getFila();
-            COLUMNS = Inici.cg.getColumna();
-            tauler = new String[ROWS][COLUMNS];
+        ROWS = Inici.cg.getFila();
+        COLUMNS = Inici.cg.getColumna();
+        if (crear) {
+            taulerG = new String[ROWS][COLUMNS];
             llenarmatriz();
         }
         setLayout(null);
@@ -49,7 +39,7 @@ public class Cuadrado extends JPanel{
     private void llenarmatriz(){
         for(int i = 0; i < ROWS;++i){
             for(int j = 0; j < COLUMNS;++j){
-                tauler[i][j] = "?";
+                taulerG[i][j] = "?";
             }
         }
     }
@@ -57,7 +47,7 @@ public class Cuadrado extends JPanel{
         offsetX = 0;
         offsetY = 0;
         setBackground(Color.white);
-        cuabuton = new cuadrado[ROWS][COLUMNS];
+        cuabuton = new cuadradoBoton[ROWS][COLUMNS];
 
         //texto
         num = new JTextField();
@@ -119,6 +109,7 @@ public class Cuadrado extends JPanel{
             Jayuda.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
+                    Inici.cg.Transpartida(-1,-1,"s","AJUDA");
                     System.out.println("Ayuda");
                 }
             });
@@ -126,6 +117,7 @@ public class Cuadrado extends JPanel{
             Jguardar.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
+                    Inici.cg.Transpartida(-1,-1,"s","GUARDAR");
                     System.out.println("Guardar");
                 }
             });
@@ -135,12 +127,11 @@ public class Cuadrado extends JPanel{
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     System.out.println("Crear");
-                    Inici.cg.SetTauler(tauler);
+                    Inici.cg.SetTauler(taulerG);
                     Inici.cg.CtrlGenerarHidato();
                     String[] s = new String[0];
                     Menufinal.main(s);
                     Menu4.frame.dispose();
-
                 }
             });
         }
@@ -151,25 +142,25 @@ public class Cuadrado extends JPanel{
         for (int row = 0; row < ROWS; row++) {
             offsetX = 0;
             for (int col = 0; col < COLUMNS; col++) {
+                String cel = Inici.cg.Stringcela(row,col);
                 int finalRow = row;
                 int finalCol = col;
-                if (!(tauler[row][col].equals("#"))) {
-                    cuabuton[row][col] = new cuadrado();
-                    if (tauler[row][col].equals("?")) {
-                        cuabuton[row][col].setText(tauler[row][col]);
+                if (!cel.equals("#")) {
+                    cuabuton[row][col] = new cuadradoBoton();
+                    if (cel.equals("?")) {
+                        cuabuton[row][col].setText(cel);
                         cuabuton[row][col].addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                 s = num.getText();
                                 if(!s.isEmpty()) {
                                     cuabuton[finalRow][finalCol].setText(s);
-                                    //pasarnumero(fila,columna,s,"NUMERO")
-                                    //tauler[finalRow][finalCol] = s;
+                                    Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
                                 }
                             }
                         });
                     }
-                    else if (tauler[row][col].equals("*")) cuabuton[row][col].setText("NO");
-                    else cuabuton[row][col].setText(tauler[row][col]);
+                    else if (cel.equals("*")) cuabuton[row][col].setText("NO");
+                    else cuabuton[row][col].setText(cel);
                     cuabuton[row][col].setBounds(offsetX, offsetY, 80, 80);
                     add(cuabuton[row][col]);
                 }
@@ -179,11 +170,11 @@ public class Cuadrado extends JPanel{
         }
     }    
 
-    private void crear() {
+    private void generar() {
         for (int row = 0; row < ROWS; row++) {
             offsetX = 0;
             for (int col = 0; col < COLUMNS; col++) {
-                cuabuton[row][col] = new cuadrado();
+                cuabuton[row][col] = new cuadradoBoton();
                 int finalRow = row;
                 int finalCol = col;
                 cuabuton[row][col].addActionListener(new ActionListener() {
@@ -191,7 +182,7 @@ public class Cuadrado extends JPanel{
                         s = num.getText();
                         if (!s.isEmpty()) {
                             cuabuton[finalRow][finalCol].setText(s);
-                            tauler[finalRow][finalCol] = s;
+                            taulerG[finalRow][finalCol] = s;
                             System.out.println("Button clicked: [" + finalRow + "][" + finalCol + "]");
                         }
                     }
@@ -207,16 +198,16 @@ public class Cuadrado extends JPanel{
         configurarelpanel();
         accionbotones();
         if(!crear)  jugar();
-        else if(crear)crear();
+        else generar();
 
     }
 
-    class cuadrado extends JButton {
+    class cuadradoBoton extends JButton {
         private static final int LENGTH = 80;
         private static final int WIDTH = 80;
 
 
-        public cuadrado() {
+        public cuadradoBoton() {
             setContentAreaFilled(false);
             setFocusPainted(true);
             setBorderPainted(false);

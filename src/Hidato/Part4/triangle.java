@@ -12,8 +12,9 @@ public class triangle extends JPanel {
     private final int ROWS;
     private final int COLUMNS;
     private TriButton[][] triButton;
-    private String [][] tauler;
+    private String [][] taulerG;
     private boolean crear;
+    private boolean tsol;
 
     private JTextField num;
     private int offsetX;
@@ -26,15 +27,36 @@ public class triangle extends JPanel {
     private JButton Jayuda;
     private JButton Jsalir;
 
+
+    public triangle(boolean cr, boolean ts) {
+        crear = cr;
+        ROWS = Inici.cg.getFila();
+        COLUMNS = Inici.cg.getColumna();
+        if (crear) {
+            taulerG = new String[ROWS][COLUMNS];
+            llenarmatriz();
+        }
+        setLayout(null);
+        initGUI();
+    }
+
+    private void llenarmatriz(){
+        for(int i = 0; i < ROWS;++i){
+            for(int j = 0; j < COLUMNS;++j){
+                taulerG[i][j] = "?";
+            }
+        }
+    }
+
     private void configurarelpanel(){
+        offsetX = 0;
+        offsetY = 0;
         setBackground(Color.white);
         triButton = new TriButton[ROWS][COLUMNS];
         num = new JTextField();
         num.setSize(25,25);
         num.setBounds(ROWS * 85 , COLUMNS * 85,100,25);
         add(num);
-        offsetX = 0;
-        offsetY = 0;
         configurarboronoes();
     }
 
@@ -45,13 +67,18 @@ public class triangle extends JPanel {
             Jcrear.setBounds(530, 950, 100, 30);
             add(Jcrear);
         }
-        Jguardar = new JButton();
-        Jguardar.setText("Guardar");
-        Jguardar.setBounds(50,950,100,30);
 
-        Jayuda = new JButton();
-        Jayuda.setText("ayuda");
-        Jayuda.setBounds(170,950,100,30);
+        if(!crear) {
+            Jguardar = new JButton();
+            Jguardar.setText("Guardar");
+            Jguardar.setBounds(50, 950, 100, 30);
+
+            Jayuda = new JButton();
+            Jayuda.setText("ayuda");
+            Jayuda.setBounds(170, 950, 100, 30);
+            add(Jayuda);
+            add(Jguardar);
+        }
 
         Jmenu = new JButton();
         Jmenu.setText("Menu");
@@ -62,9 +89,7 @@ public class triangle extends JPanel {
         Jsalir.setText("Salir");
         //añadir
         add(num);
-        add(Jguardar);
         add(Jmenu);
-        add(Jayuda);
         add(Jsalir);
     }
 
@@ -83,29 +108,36 @@ public class triangle extends JPanel {
             }
         });
 
-        Jayuda.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Ayuda");
-            }
-        });
+        if(!crear) {
+            Jayuda.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Inici.cg.Transpartida(-1,-1,"s","AJUDA");
+                    System.out.println("Ayuda");
+                }
+            });
 
-        Jguardar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("Guardar");
-            }
-        });
-
+            Jguardar.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    Inici.cg.Transpartida(-1,-1,"s","GUARDAR");
+                    System.out.println("Guardar");
+                }
+            });
+        }
         if(crear){
             Jcrear.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     System.out.println("Crear");
+                    Inici.cg.SetTauler(taulerG);
+                    Inici.cg.CtrlGenerarHidato();
+                    String[] s = new String[0];
+                    Menufinal.main(s);
+                    Menu4.frame.dispose();
                 }
             });
         }
-
     }
 
     private boolean comprabarBase(int row, int col){
@@ -118,26 +150,25 @@ public class triangle extends JPanel {
     private void jugar(){
         for(int row = 0; row < ROWS; row++) {
             for(int col = 0; col < COLUMNS; col++) {
-                if (!(tauler[row][col].equals("#"))) {
+                String cel = Inici.cg.Stringcela(row,col);
+                if (!(cel.equals("#"))) {
                     triButton[row][col] = new TriButton(comprabarBase(row,col));
                     int finalRow = row;
                     int finalCol = col;
-                    if(tauler[row][col].equals("?")){
-                        triButton[row][col].setText(tauler[row][col]);
+                    if(cel.equals("?")){
+                        triButton[row][col].setText(cel);
                         triButton[row][col].addActionListener(new ActionListener() {
                             public void actionPerformed(ActionEvent e) {
                                  s = num.getText();
                                  if(!s.isEmpty()) {
                                      triButton[finalRow][finalCol].setText(s);
-                                     tauler[finalRow][finalRow] = s;
-                                     //TriButton clickedButton = (TriButton) e.getSource();
-                                     //System.out.println("Button clicked: [" + finalRow + "][" + finalCol + "]");
+                                     Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
                                  }
                             }
                         });
                     }
-                    else if(tauler[row][col].equals("*")) triButton[row][col].setText("NO");
-                    else triButton[row][col].setText(tauler[row][col]);
+                    else if(cel.equals("*")) triButton[row][col].setText("NO");
+                    else triButton[row][col].setText(cel);
                     add(triButton[row][col]);
                     triButton[row][col].setBounds(offsetX, offsetY, 105, 95);
                 }
@@ -157,7 +188,7 @@ public class triangle extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         s = num.getText();
                         triButton[finalRow][finalCol].setText(s);
-                        tauler[finalRow][finalRow] = s;
+                        taulerG[finalRow][finalRow] = s;
                         System.out.println("Button clicked: [" + finalRow + "][" + finalCol + "]");
                     }
                 });
@@ -170,23 +201,7 @@ public class triangle extends JPanel {
         }
     }
 
-    public triangle(boolean cr) {
-        crear = cr;
-        if (!crear) {
-            tauler = Inici.cg.GetTauler();
-            ROWS = tauler.length;
-            COLUMNS = tauler[0].length;
-            System.out.println(ROWS);
-            System.out.println(COLUMNS);
-        }
-        else{
-            ROWS = Inici.cg.getFila();
-            COLUMNS = Inici.cg.getColumna();
-            tauler = new String[ROWS][COLUMNS];
-        }
-        setLayout(null);
-        initGUI();
-    }
+
 
 
     public void initGUI() {

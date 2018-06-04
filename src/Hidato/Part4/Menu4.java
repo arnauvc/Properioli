@@ -1,12 +1,10 @@
 package Hidato.Part4;
 
-import Hidato.CtrlPresGestor;
+
 import Hidato.Part1.Inici;
-import Hidato.Part4.HexagonPattern;
-import Hidato.Part4.triangle;
+
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Menu4 {
 
@@ -30,13 +28,13 @@ public class Menu4 {
     }
     private static void tablero() {
         if(tcela.equals("H")) {
-            HexagonPattern hexPattern = new HexagonPattern(crear);
+            HexagonPattern hexPattern = new HexagonPattern(crear, tsol);
             //frame.setLocation(new Point(700, 300));
             frame.add(hexPattern);
 
         }
         else if (tcela.equals("T")){
-            triangle tri = new triangle(crear);
+            triangle tri = new triangle(crear, tsol);
             //frame.setLocation(new Point(700, 300));
             frame.add(tri);
         }

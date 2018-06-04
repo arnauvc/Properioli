@@ -31,8 +31,7 @@ public class Menu22 {
                 Inici.cg.jugarhidato(tc,ta,tn);
                 String[] s = new String[0];
                 Menu4.main(s);
-                //frame.setVisible(false);
-                //Menu22.frame.dispose();
+                Menu22.frame.dispose();
             }
         });
 

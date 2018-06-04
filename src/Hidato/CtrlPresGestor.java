@@ -1,5 +1,6 @@
 package Hidato;
 
+import com.sun.javafx.image.IntPixelGetter;
 import javafx.util.Pair;
 
 import java.text.StringCharacterIterator;
@@ -11,11 +12,25 @@ public class CtrlPresGestor {
 
     private Gestor g = new Gestor();
     private String[][] taulerG;
-    private String[][] taulerresol;
     private String tcelaG;
     private String tadjG;
     private String pathG;
     private String nomG;
+
+    //identificar que esta jugando o creando y si muestra la solción.
+    private boolean crear = false;
+    private boolean tso = false;
+    //crear
+    private int fila;
+    private int columna;
+    private Vector<String> v = new Vector<String>();
+
+
+    private String tipuspartida;
+    private String tipuscela;
+    private String tipusadj;
+    private String tipusdificultat;
+    private String path;
 
     private String TPartida(){
         Scanner input = new Scanner(System.in);
@@ -132,13 +147,40 @@ public class CtrlPresGestor {
 
 
     }
+    private Scanner input = new Scanner(System.in);
+    public void Inicia() {
+        String nomusuari;
+        //boolean segur = false;
 
-    //identificar que esta jugando o creando y si muestra la solción.
-    private boolean crear = false;
-    private boolean tso = false;
-    //crear
-    private int fila;
-    private int columna;
+        System.out.println("Benvingut a Hidato!");
+        System.out.println("Insereix el teu nom: ");
+        nomusuari = nomG;
+        System.out.println("Hola " + nomusuari);
+        v.add(0, nomusuari);
+
+        /*while(!segur) {
+            System.out.println("Tria la direccio desti per a guardar o carregar arxius:\nIMPORTANT! Ha de ser una direccio valida! ");
+            path = input.nextLine();
+            System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
+            String siono = input.nextLine();
+            while(!siono.equals("SI") && !siono.equals("NO")){
+                System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
+                siono = input.nextLine();
+            }
+            if (siono.equals("SI")) {
+                v.add(1, path);
+                segur = true;
+            }
+        }*/
+        v.add(1, pathG);
+    }
+    public void Rependre() throws Exception {
+        try {
+            g.Reprendre(v);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public void Interrupcio(String s){
 
@@ -153,9 +195,7 @@ public class CtrlPresGestor {
         p.add(3,tadjG);
         p.add(4,Integer.toString(taulerG.length));
         p.add(5,Integer.toString(taulerG[0].length));
-        g.Generar(p,taulerG,taulerresol);
-        System.out.println(taulerresol.length);
-        //g.GestorGenerarHidato(tcela, tadj, dif, nomG,  pathG);
+        g.Generar(p,taulerG);
     }
 
     public void jugarhidato(String tcela, String tadj, String dif){
@@ -168,10 +208,7 @@ public class CtrlPresGestor {
         p.add(2,tcelaG);
         p.add(3,tadjG);
         p.add(4,dif);
-        g.Aleatori(p,taulerG);
-        System.out.println("llego aqui");
-        System.out.println(taulerG.length);
-        System.out.println(taulerG[0].length);
+        g.Aleatori(p);
     }
 
     public String[][] CtrlResoldreHidato(String[][] tauler, String tcela, String tadj) {
@@ -236,29 +273,17 @@ public class CtrlPresGestor {
     }
 
     public int getColumna() {
-        return columna;
+        if(crear) return fila;
+        return g.getcolumna();
     }
 
     public int getFila() {
-        return fila;
+        if(crear) return columna;
+        return g.getfila();
     }
 
     public void SetTauler(String[][] tau){
-        /*for(int i = 0; i < tau.length;++i){
-            for(int j = 0; j < tau[0].length;++j){
-                System.out.print(tau[i][j]);
-            }
-            System.out.println();
-        }*/
-        //g.generar(t,tadj,tcel,tablero);
         this.taulerG = tau.clone();
-        taulerresol = g.GestorResoldreHidato(taulerG, tcelaG, tadjG);
-        for(int i = 0; i < taulerresol.length;++i){
-            for(int j = 0; j < taulerresol[0].length;++j){
-                System.out.print(taulerresol[i][j]);
-            }
-            System.out.println();
-        }
     }
 
     public void settsol(boolean ts){
@@ -269,13 +294,22 @@ public class CtrlPresGestor {
         return tso;
     }
 
-    public String[][] getTaulersol(){
-        return this.taulerresol.clone();
-    }
-
-    public void pasarnumero(Integer fila, Integer columna, String s){
+    public void pasarnumero(Integer fila, Integer columna, String elem, String accion){
         //Pasa los valores a gestor
         //gestor.set
     }
+
+
+    public String Stringcela(Integer f, Integer c){
+        //generar
+        if(tso) return g.celasol(f, c);
+        else return g.getcelat(f,c);
+    }
+    public void Transpartida(Integer fila, Integer columna, String elem, String accion) {
+            g.jugar(fila,columna,elem,accion);
+            if(accion.equals("GUARDAR")) g.GuardarPartida(pathG);
+
+    }
+
 
 }

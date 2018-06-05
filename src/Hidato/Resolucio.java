@@ -881,4 +881,5 @@ public class Resolucio{
     public String consultarsolucio(Integer f, Integer c){
        return solucio[f][c];
     }
+
 }

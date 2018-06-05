@@ -37,7 +37,7 @@ public class Menu21 {
         frame = new JFrame("Menu21");
         frame.setResizable(false);
         frame.setContentPane(new Menu21().Finestra);
-        frame.setLocationRelativeTo(null);
+        //frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);

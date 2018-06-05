@@ -182,6 +182,10 @@ public class Gestor {
         return partidaactiva.GetAdjacencia();
     }
 
+    public double gettiempo(){
+        return partidaactiva.GetTemps();
+    }
+
 }
 
 

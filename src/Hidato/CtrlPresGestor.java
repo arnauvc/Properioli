@@ -319,7 +319,7 @@ public class CtrlPresGestor {
             g.jugar(fila,columna,elem,accion);
             if(g.partidafinalitzada()) {
                 tso = true;
-                System.out.println("Muy bien, eres el puto amo");
+                //System.out.println("Muy bien, eres el puto amo");
             }
             //else System.out.println("aun no acaba");
             if(accion.equals("GUARDAR")) g.GuardarPartida(pathG);
@@ -334,5 +334,9 @@ public class CtrlPresGestor {
 
     public void hidatobiblio(Integer n) {
         g.JugarHidato(v,n);
+    }
+
+    public double tiempo(){
+        return g.gettiempo();
     }
 }

@@ -23,7 +23,6 @@ public class Cuadrado extends JPanel{
     private JButton Jguardar;
     private JButton Jayuda;
     private JButton Jsalir;
-    boolean cj;
 
     public Cuadrado(boolean cr, boolean ts) {
         crear = cr;
@@ -53,7 +52,8 @@ public class Cuadrado extends JPanel{
         //texto
         num = new JTextField();
         num.setSize(25,25);
-        num.setBounds(950 , 800,100,30);
+        num.setBounds(950 , 800,100,55);
+        num.setFont(new Font("Calibri",1,50));
 
         //botones
         configurarboronoes();
@@ -170,6 +170,11 @@ public class Cuadrado extends JPanel{
                                     if (!s.isEmpty()) {
                                         Inici.cg.Transpartida(finalRow, finalCol, s, "NUMERO");
                                         if(!Inici.cg.comprobajugada()) cuabuton[finalRow][finalCol].setText(s);
+                                        if(Inici.cg.isTso()) {
+                                            String[] s = new String[0];
+                                            Final.main(s);
+                                            Menu4.frame.dispose();
+                                        }
                                     }
                                 }
                             });

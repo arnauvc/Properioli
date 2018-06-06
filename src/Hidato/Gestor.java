@@ -33,7 +33,7 @@ public class Gestor {
         //I retornara el nombre total d'hidatos
         return 5;
     }
-    public void JugarHidato(Vector<String> v , Integer idhidato) throws Exception {
+    public void JugarHidato(Vector<String> v , Integer idhidato) {
         //Es selecciona de la biblioteca l'hidato amb id nhidato
         hs.SetPath(v.get(1));
         Tauler t = hs.CarregarHidato(idhidato);
@@ -45,11 +45,7 @@ public class Gestor {
 
         partidaactiva.SetNom(v.get(0));
         partidaactiva.SetTauler(t);
-        try{
             partidaactiva.PartidaBiblioteca();
-        } catch (Exception e){
-            GuardarPartida(v.get(1));
-        }
 
     }
     public void Aleatori(Vector<String> v){
@@ -96,7 +92,6 @@ public class Gestor {
 
     public void Reprendre(Vector<String> v)  {
         pg.SetPath(v.get(1));
-        System.out.println("estamos en reprendre");
         partidaactiva = pg.Obtenirpartida(v.get(0));//NOMES CAL EL NOM DEL USUARI, PERQUE NOMES POT TENIR UNA PARTIDA EN MARXA
             partidaactiva.ReprendrePartida();
 
@@ -186,6 +181,11 @@ public class Gestor {
     public String gettadj(){
         return partidaactiva.GetAdjacencia();
     }
+
+    public double gettiempo(){
+        return partidaactiva.GetTemps();
+    }
+
 }
 
 

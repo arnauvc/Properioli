@@ -55,7 +55,8 @@ public class triangle extends JPanel {
         triButton = new TriButton[ROWS][COLUMNS];
         num = new JTextField();
         num.setSize(25,25);
-        num.setBounds(ROWS * 85 , COLUMNS * 85,100,25);
+        num.setBounds(800 , 800,100,55);
+        num.setFont(new Font("Calibri",1,50));
         add(num);
         configurarboronoes();
     }
@@ -163,6 +164,11 @@ public class triangle extends JPanel {
                                  if(!s.isEmpty()) {
                                      Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
                                      if(!Inici.cg.comprobajugada())triButton[finalRow][finalCol].setText(s);
+                                     if(Inici.cg.isTso()) {
+                                         String[] s = new String[0];
+                                         Final.main(s);
+                                         Menu4.frame.dispose();
+                                     }
                                  }
                             }
                         });

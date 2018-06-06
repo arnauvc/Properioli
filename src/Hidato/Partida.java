@@ -62,7 +62,7 @@ public class Partida {
 
 
 
-	public void PartidaBiblioteca() throws Exception{
+	public void PartidaBiblioteca(){
 		//Quan l'usuari tria un hidato que esta a la biblioteca i el vol resoldre
 		r.start();
 		finalitzat = false;
@@ -166,19 +166,6 @@ public class Partida {
         SetFiles(t.getNumFiles());
         SetColumnes(t.getNumColum());
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
-		for(int i = 0; i < t.getNumFiles();++i){
-			for(int j = 0; j < t.getNumColum();++j){
-				hidato_resolt[i][j] = re.consultarsolucio(i,j);
-			}
-		}
-		System.out.println("mostar hidato resuelto");
-		for(int i = 0; i < t.getNumFiles();++i){
-			for(int j = 0; j < t.getNumColum();++j){
-				System.out.print(hidato_resolt[i][j]);
-			}
-			System.out.println();
-		}
-		System.out.println("llegamos aqui");
 		//TranscursPartida();
 	}
 
@@ -217,9 +204,18 @@ public class Partida {
 
                 for (int i = 0; i < t.getNumFiles(); ++i) {
                     for (int l = 0; l < t.getNumColum(); ++l) {
-                        taulerguardat[i][l] = t.consultarValCela(i, l);
+                        if(t.consultarValCela(i,l).equals(hidato_resolt[i][l])) taulerguardat[i][l] = t.consultarValCela(i, l);
+                        else  taulerguardat[i][l] = taulerU[i][l];
                     }
                 }
+
+				for (int i = 0; i < t.getNumFiles(); ++i) {
+					for (int l = 0; l < t.getNumColum(); ++l) {
+						System.out.print(taulerguardat[i][l]);
+					}
+					System.out.println();
+				}
+
                 r.stop();
                 guardat = true; //L'unic que fa es invalidar el temps
                 reguardat = true; //Es per avisar al Ctrl que l'usuari ha guardat

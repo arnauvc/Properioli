@@ -3,15 +3,15 @@ package Hidato.Part2;
 import Hidato.Part1.Inici;
 import Hidato.Part3.Menu3;
 import Hidato.Part4.Menu4;
-import javafx.scene.control.Menu;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Menu2 {
     private JButton jugarButton;
-    private JButton carregarButton;
+    private JButton ReprendreButton;
     private JButton sortirButton;
     private JButton generarButton;
     private static JFrame frame;
@@ -23,11 +23,11 @@ public class Menu2 {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String[] s = new String[0];
-                Menu22.main(s);
+                Menu21.main(s);
                 Menu2.frame.dispose();
             }
         });
-        carregarButton.addActionListener(new ActionListener() {
+        ReprendreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {

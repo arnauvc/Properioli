@@ -53,7 +53,8 @@ public class HexagonPattern extends JPanel {
         //texto
         num = new JTextField();
         num.setSize(25,25);
-        num.setBounds(800 , 800,100,30);
+        num.setBounds(800 , 800,100,55);
+        num.setFont(new Font("Calibri",1,50));
 
         //botones
         configurarboronoes();
@@ -166,6 +167,11 @@ public class HexagonPattern extends JPanel {
 
                                     Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
                                     if(!Inici.cg.comprobajugada())hexButton[finalRow][finalCol].setText(s);
+                                    if(Inici.cg.isTso()) {
+                                        String[] s = new String[0];
+                                        Final.main(s);
+                                        Menu4.frame.dispose();
+                                    }
                                 }
                             }
                         });

@@ -1,6 +1,7 @@
 package Hidato.Part4;
 
 import Hidato.Part1.Inici;
+import Hidato.Part2.Menu2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -69,7 +70,7 @@ public class Cuadrado extends JPanel{
         if(!crear) {
             Jguardar = new JButton();
             Jguardar.setText("Guardar");
-            Jguardar.setBounds(50, 950, 100, 30);
+            Jguardar.setBounds(50, 950, 100, 50);
 
             Jayuda = new JButton();
             Jayuda.setText("ayuda");
@@ -103,13 +104,17 @@ public class Cuadrado extends JPanel{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Menu");
+                String[] s = new String[0];
+                Menu2.main(s);
+                Menu4.frame.dispose();
+                System.out.println("Menu");
             }
         });
 
         Jsalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                System.exit(0);
                 System.out.println("Salir");
             }
         });
@@ -157,10 +162,12 @@ public class Cuadrado extends JPanel{
             offsetX = 0;
             for (int col = 0; col < COLUMNS; col++) {
                 String cel = Inici.cg.Stringcela(row,col);
+                System.out.println(cel);
                 int finalRow = row;
                 int finalCol = col;
                 if (!cel.equals("#")) {
                     cuabuton[row][col] = new cuadradoBoton();
+                    cuabuton[row][col].setText(cel);
                     if(!Inici.cg.isTso()) {
                         if (cel.equals("?") || cel.charAt(cel.length()-1) == 'I') {
                             cuabuton[row][col].setText(cel);
@@ -203,7 +210,7 @@ public class Cuadrado extends JPanel{
                         if (!s.isEmpty()) {
                             cuabuton[finalRow][finalCol].setText(s);
                             taulerG[finalRow][finalCol] = s;
-                            System.out.println("Button clicked: [" + finalRow + "][" + finalCol + "]");
+                            //System.out.println("Button clicked: [" + finalRow + "][" + finalCol + "]");
                         }
                     }
                 });

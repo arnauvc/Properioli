@@ -100,8 +100,18 @@ public class Partida {
 
 	public void Generar(){
 		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
-		System.out.println("Generar en partida");
+		//System.out.println("Generar en partida");
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
+		Integer auxm = 1;
+		for(int i = 0; i < taulerU.length;++i){
+			for(int j = 0; j < taulerU[0].length; ++j){
+				if(!taulerU[i][j].equals("?") & !taulerU[i][j].equals("*") & !taulerU[i][j].equals("#")) {
+					if(Integer.parseInt(taulerU[i][j]) > auxm) auxm = Integer.parseInt(taulerU[i][j]);
+				}
+			}
+		}
+		maxim = auxm;
+		System.out.println(maxim);
         Random rand = new Random();
         idhidato = rand.nextInt(50) + 1;
 

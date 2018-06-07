@@ -30,7 +30,7 @@ public class CtrlPresJugada {
     }
 
 
-    Vector<String> v = new Vector<>();
+    private Vector<String> v = new Vector<>();
 
     public void InteraccioJugada(Jugada j, Tauler t, Integer fila, Integer columna, String elem, String accion){
         Scanner input = new Scanner(System.in);

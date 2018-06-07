@@ -185,7 +185,9 @@ public class Gestor {
     public double gettiempo(){
         return partidaactiva.GetTemps();
     }
-
+    public void settorn(Integer a){
+        partidaactiva.SetTorn(a);
+    }
 }
 
 

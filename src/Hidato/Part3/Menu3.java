@@ -9,13 +9,11 @@ import java.awt.event.ActionListener;
 
 public class Menu3 {
     private JPanel Finestra1;
-    private JButton Màquina;
     private JButton Jo;
-    //public static CtrlPresGestor g;
     private static JFrame frame;
 
     public Menu3() {
-        Màquina.addActionListener(new ActionListener() {
+        /*Màquina.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Menu3Maquina m3m = new Menu3Maquina();
@@ -23,7 +21,7 @@ public class Menu3 {
                 m3m.SetG(Inici.cg);
                 Menu3.frame.dispose();
             }
-        });
+        });*/
         Jo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

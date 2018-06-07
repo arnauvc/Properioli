@@ -1,6 +1,7 @@
 package Hidato.Part4;
 
 import Hidato.Part1.Inici;
+import Hidato.Part2.Menu2;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,19 +21,23 @@ public class Final {
         System.out.println(temps);
         int t = (int) (temps*1);
         s += String.valueOf(t);
+        s += " segundos";
         System.out.println(t);
 
         tiempo.setText(s);
         menu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                System.out.println("Menu");
+                String[] s = new String[0];
+                Menu2.main(s);
+                Final.frame.dispose();
             }
         });
         salir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-
+                System.exit(0);
             }
         });
     }

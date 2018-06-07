@@ -2,6 +2,7 @@ package Hidato.Part2;
 
 import Hidato.Part1.Inici;
 import Hidato.Part3.Menu3;
+import Hidato.Part3.Menu3Jo;
 import Hidato.Part4.Menu4;
 
 import javax.swing.*;
@@ -48,11 +49,15 @@ public class Menu2 {
         generarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String[] s = new String[0];
+                /*String[] s = new String[0];
                 Menu2.frame.dispose();
-                Menu3.main(s);
+                Menu3.main(s);*/
+                Menu3Jo m3j= new Menu3Jo();
+                m3j.main();
+                Menu2.frame.dispose();
             }
         });
+
     }
 
     public static void main(String[] args) {

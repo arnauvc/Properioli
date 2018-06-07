@@ -16,12 +16,12 @@ public class Final {
     private static JFrame frame;
 
     public Final() {
-        String s = "TU TIEMPO ES: ";
+        String s = "Temps: ";
         double temps = Inici.cg.tiempo();
         System.out.println(temps);
         int t = (int) (temps*1);
         s += String.valueOf(t);
-        s += " segundos";
+        s += " segons";
         System.out.println(t);
 
         tiempo.setText(s);
@@ -43,7 +43,7 @@ public class Final {
     }
 
     public static void main(String[] args){
-        frame = new JFrame("Puto amo");
+        frame = new JFrame("Felicitats");
         frame.setResizable(true);
         frame.setContentPane(new Final().fin);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

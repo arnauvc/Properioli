@@ -123,8 +123,6 @@ public class Partida {
 
 	public void IniciaPartida() throws Exception {
 		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
-
-
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
 		for(int i = 0; i <taulerU.length;++i){
 			for(int j = 0; j < taulerU[i].length;++j){
@@ -151,8 +149,8 @@ public class Partida {
 					solucio.add(new Pair<>(p, hr));
 				}
 			}
-			//hs.SetPath(path);
-			//hs.GuardarHidato(idhidato, t, solucio);
+			hs.SetPath(path);
+			hs.GuardarHidato(idhidato, t, solucio);
 
 			r.start(); //Inicia el rellotge
 			finalitzat = false;
@@ -184,11 +182,6 @@ public class Partida {
 		Integer x, y;
 		String num;
 		boolean aux = false;
-
-		//while (!finalitzat && !completat){
-
-		    //ctj.MostrarTauler(t);
-
 
             ctj.InteraccioJugada(j, t,fila,columna,elem,accion);
 			j.SetInvalid(aux);

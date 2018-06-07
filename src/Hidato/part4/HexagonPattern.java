@@ -1,6 +1,8 @@
 package Hidato.Part4;
 
 import Hidato.Part1.Inici;
+import Hidato.Part2.Menu2;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -63,7 +65,7 @@ public class HexagonPattern extends JPanel {
     private void configurarboronoes(){
         if(crear) {
             Jcrear = new JButton();
-            Jcrear.setText("Crear");
+            Jcrear.setText("Generar");
             Jcrear.setBounds(530, 950, 100, 30);
             add(Jcrear);
         }
@@ -74,19 +76,19 @@ public class HexagonPattern extends JPanel {
             Jguardar.setBounds(50, 950, 100, 30);
 
             Jayuda = new JButton();
-            Jayuda.setText("ayuda");
+            Jayuda.setText("Ajuda");
             Jayuda.setBounds(170, 950, 100, 30);
             add(Jayuda);
             add(Jguardar);
         }
 
         Jmenu = new JButton();
-        Jmenu.setText("Menu");
+        Jmenu.setText("Menú");
         Jmenu.setBounds(290, 950, 100, 30);
 
         Jsalir = new JButton();
         Jsalir.setBounds(410,950,100,30);
-        Jsalir.setText("Salir");
+        Jsalir.setText("Sortir");
 
         //añadir
         add(num);
@@ -100,12 +102,17 @@ public class HexagonPattern extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Menu");
+                String[] s = new String[0];
+                Menu2.main(s);
+                Menu4.frame.dispose();
+                System.out.println("Menu");
             }
         });
 
         Jsalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
                 System.out.println("Salir");
             }
         });
@@ -158,28 +165,29 @@ public class HexagonPattern extends JPanel {
                 }
                 if (!(cel.equals("#"))) {
                     hexButton[row][col] = new HexagonButton();
-                    if (cel.equals("?")) {
-                        hexButton[row][col].setText(cel);
-                        hexButton[row][col].addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                s = num.getText();
-                                if(!s.isEmpty()) {
-
-                                    Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
-                                    if(!Inici.cg.comprobajugada())hexButton[finalRow][finalCol].setText(s);
-                                    if(Inici.cg.isTso()) {
-                                        String[] s = new String[0];
-                                        Final.main(s);
-                                        Menu4.frame.dispose();
+                    hexButton[row][col].setText(cel);
+                    if (!Inici.cg.isTso()) {
+                        if (cel.equals("?") || cel.charAt(cel.length() - 1) == 'I') {
+                            hexButton[row][col].setText(cel);
+                            hexButton[row][col].addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                    s = num.getText();
+                                    if (!s.isEmpty()) {
+                                        Inici.cg.Transpartida(finalRow, finalCol, s, "NUMERO");
+                                        if (!Inici.cg.comprobajugada()) hexButton[finalRow][finalCol].setText(s);
+                                        if (Inici.cg.isTso()) {
+                                            String[] s = new String[0];
+                                            Final.main(s);
+                                            Menu4.frame.dispose();
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                        } else if (cel.equals("*")) hexButton[row][col].setText("NO");
+                        else hexButton[row][col].setText(cel);
+                        hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
+                        add(hexButton[row][col]);
                     }
-                    else if (cel.equals("*")) hexButton[row][col].setText("NO");
-                    else hexButton[row][col].setText(cel);
-                    hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
-                    add(hexButton[row][col]);
                 }
                 offsetX += 76;
             }

@@ -65,7 +65,7 @@ public class triangle extends JPanel {
     private void configurarboronoes(){
         if(crear) {
             Jcrear = new JButton();
-            Jcrear.setText("Crear");
+            Jcrear.setText("Generar");
             Jcrear.setBounds(530, 950, 100, 30);
             add(Jcrear);
         }
@@ -76,19 +76,19 @@ public class triangle extends JPanel {
             Jguardar.setBounds(50, 950, 100, 30);
 
             Jayuda = new JButton();
-            Jayuda.setText("ayuda");
+            Jayuda.setText("Ayuda");
             Jayuda.setBounds(170, 950, 100, 30);
             add(Jayuda);
             add(Jguardar);
         }
 
         Jmenu = new JButton();
-        Jmenu.setText("Menu");
+        Jmenu.setText("Menú");
         Jmenu.setBounds(290, 950, 100, 30);
 
         Jsalir = new JButton();
         Jsalir.setBounds(410,950,100,30);
-        Jsalir.setText("Salir");
+        Jsalir.setText("Sortir");
         //añadir
         add(num);
         add(Jmenu);

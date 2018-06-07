@@ -25,6 +25,16 @@ public class Menufinal {
                 Menu4.main(s);
             }
         });
+        jugar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                Inici.cg.settorn();
+                Inici.cg.settsol(false);
+                Inici.cg.SetCrear(false);
+                String[] s = new String[0];
+                Menu4.main(s);
+            }
+        });
     }
 
     public static void  main(String[] args){

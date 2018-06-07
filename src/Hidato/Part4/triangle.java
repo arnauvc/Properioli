@@ -1,5 +1,6 @@
 package Hidato.Part4;
 
+import Hidato.Part2.Menu2;
 import javafx.scene.shape.TriangleMesh;
 
 import Hidato.Part1.Inici;
@@ -56,7 +57,7 @@ public class triangle extends JPanel {
         num = new JTextField();
         num.setSize(25,25);
         num.setBounds(800 , 800,100,55);
-        num.setFont(new Font("Calibri",1,50));
+        num.setFont(new Font("Calibri",1,45));
         add(num);
         configurarboronoes();
     }
@@ -64,7 +65,7 @@ public class triangle extends JPanel {
     private void configurarboronoes(){
         if(crear) {
             Jcrear = new JButton();
-            Jcrear.setText("Crear");
+            Jcrear.setText("Generar");
             Jcrear.setBounds(530, 950, 100, 30);
             add(Jcrear);
         }
@@ -75,19 +76,19 @@ public class triangle extends JPanel {
             Jguardar.setBounds(50, 950, 100, 30);
 
             Jayuda = new JButton();
-            Jayuda.setText("ayuda");
+            Jayuda.setText("Ayuda");
             Jayuda.setBounds(170, 950, 100, 30);
             add(Jayuda);
             add(Jguardar);
         }
 
         Jmenu = new JButton();
-        Jmenu.setText("Menu");
+        Jmenu.setText("Menú");
         Jmenu.setBounds(290, 950, 100, 30);
 
         Jsalir = new JButton();
         Jsalir.setBounds(410,950,100,30);
-        Jsalir.setText("Salir");
+        Jsalir.setText("Sortir");
         //añadir
         add(num);
         add(Jmenu);
@@ -99,12 +100,16 @@ public class triangle extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Menu");
+                String[] s = new String[0];
+                Menu2.main(s);
+                Menu4.frame.dispose();
             }
         });
 
         Jsalir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                System.exit(0);
                 System.out.println("Salir");
             }
         });
@@ -153,30 +158,32 @@ public class triangle extends JPanel {
             for(int col = 0; col < COLUMNS; col++) {
                 String cel = Inici.cg.Stringcela(row,col);
                 if (!(cel.equals("#"))) {
-                    triButton[row][col] = new TriButton(comprabarBase(row,col));
+                    triButton[row][col] = new TriButton(comprabarBase(row, col));
                     int finalRow = row;
                     int finalCol = col;
-                    if(cel.equals("?")){
-                        triButton[row][col].setText(cel);
-                        triButton[row][col].addActionListener(new ActionListener() {
-                            public void actionPerformed(ActionEvent e) {
-                                 s = num.getText();
-                                 if(!s.isEmpty()) {
-                                     Inici.cg.Transpartida(finalRow,finalCol,s,"NUMERO");
-                                     if(!Inici.cg.comprobajugada())triButton[finalRow][finalCol].setText(s);
-                                     if(Inici.cg.isTso()) {
-                                         String[] s = new String[0];
-                                         Final.main(s);
-                                         Menu4.frame.dispose();
-                                     }
-                                 }
-                            }
-                        });
+                    triButton[row][col].setText(cel);
+                    if (!Inici.cg.isTso()) {
+                        if (cel.equals("?") || cel.charAt(cel.length() - 1) == 'I') {
+                            triButton[row][col].setText(cel);
+                            triButton[row][col].addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent e) {
+                                    s = num.getText();
+                                    if (!s.isEmpty()) {
+                                        Inici.cg.Transpartida(finalRow, finalCol, s, "NUMERO");
+                                        if (!Inici.cg.comprobajugada()) triButton[finalRow][finalCol].setText(s);
+                                        if (Inici.cg.isTso()) {
+                                            String[] s = new String[0];
+                                            Final.main(s);
+                                            Menu4.frame.dispose();
+                                        }
+                                    }
+                                }
+                            });
+                        } else if (cel.equals("*")) triButton[row][col].setText("NO");
+                        else triButton[row][col].setText(cel);
+                        add(triButton[row][col]);
+                        triButton[row][col].setBounds(offsetX, offsetY, 105, 95);
                     }
-                    else if(cel.equals("*")) triButton[row][col].setText("NO");
-                    else triButton[row][col].setText(cel);
-                    add(triButton[row][col]);
-                    triButton[row][col].setBounds(offsetX, offsetY, 105, 95);
                 }
                 offsetX += 53;
             }

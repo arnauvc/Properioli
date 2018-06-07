@@ -159,20 +159,21 @@ public class CtrlPresGestor {
         System.out.println("Hola " + nomusuari);
         v.add(0, nomusuari);
 
-        /*while(!segur) {
-            System.out.println("Tria la direccio desti per a guardar o carregar arxius:\nIMPORTANT! Ha de ser una direccio valida! ");
-            path = input.nextLine();
-            System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
-            String siono = input.nextLine();
-            while(!siono.equals("SI") && !siono.equals("NO")){
-                System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
-                siono = input.nextLine();
-            }
-            if (siono.equals("SI")) {
+        //while(!segur) {
+            //System.out.println("Tria la direccio desti per a guardar o carregar arxius:\nIMPORTANT! Ha de ser una direccio valida! ");
+            //path = input.nextLine();
+            //System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
+            //String siono = input.nextLine();
+            //while(!siono.equals("SI") && !siono.equals("NO")){
+                //System.out.println("Estas segur que vols aquesta direccio desti? SI o NO");
+
+        //siono = input.nextLine();
+            //}*/
+            /*if (siono.equals("SI")) {
                 v.add(1, path);
                 segur = true;
-            }
-        }*/
+            }*/
+        //}
         v.add(1, pathG);
     }
     public void Rependre() throws Exception {
@@ -310,12 +311,16 @@ public class CtrlPresGestor {
     }
 
     public String Stringcela(Integer f, Integer c){
-        //generar
-        if(tso) return g.celasol(f, c);
+        System.out.println(tso);
+        if(tso) {
+            System.out.println(g.celasol(f,c));
+            return g.celasol(f, c);
+        }
         else if(tayuda) return g.celaayuda(f,c);
         return g.getcelat(f,c);
     }
     public void Transpartida(Integer fila, Integer columna, String elem, String accion) {
+            //System.out.println("elem " + elem);
             g.jugar(fila,columna,elem,accion);
             if(g.partidafinalitzada()) {
                 tso = true;
@@ -338,5 +343,9 @@ public class CtrlPresGestor {
 
     public double tiempo(){
         return g.gettiempo();
+    }
+
+    public void settorn(){
+        g.settorn(1);
     }
 }

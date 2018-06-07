@@ -14,6 +14,7 @@ public class Menu22 {
     private JButton comenzar;
     private JPanel R;
     private JLabel Tnivel;
+    private JButton menu;
     private static JFrame frame;
 
     private String tc;
@@ -35,6 +36,14 @@ public class Menu22 {
             }
         });
 
+        menu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String[] s = new String[0];
+                Menu2.main(s);
+                Menu22.frame.dispose();
+            }
+        });
     }
 
     public static void main(String[] args){

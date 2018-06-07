@@ -100,8 +100,18 @@ public class Partida {
 
 	public void Generar(){
 		//Quan l'usuari ha generat un hidato i la IA l'ha de resoldre
-		System.out.println("Generar en partida");
+		//System.out.println("Generar en partida");
 		t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);
+		Integer auxm = 1;
+		for(int i = 0; i < taulerU.length;++i){
+			for(int j = 0; j < taulerU[0].length; ++j){
+				if(!taulerU[i][j].equals("?") & !taulerU[i][j].equals("*") & !taulerU[i][j].equals("#")) {
+					if(Integer.parseInt(taulerU[i][j]) > auxm) auxm = Integer.parseInt(taulerU[i][j]);
+				}
+			}
+		}
+		maxim = auxm;
+		System.out.println(maxim);
         Random rand = new Random();
         idhidato = rand.nextInt(50) + 1;
 
@@ -113,8 +123,6 @@ public class Partida {
 
 	public void IniciaPartida() throws Exception {
 		//Quan l'usuari vol resoldre un hidato creat per la IA(Aleatori)
-
-
 		taulerU = g.GenerarHidato(GetCela(), GetAdjacencia(), dif);
 		for(int i = 0; i <taulerU.length;++i){
 			for(int j = 0; j < taulerU[i].length;++j){
@@ -141,8 +149,8 @@ public class Partida {
 					solucio.add(new Pair<>(p, hr));
 				}
 			}
-			//hs.SetPath(path);
-			//hs.GuardarHidato(idhidato, t, solucio);
+			hs.SetPath(path);
+			hs.GuardarHidato(idhidato, t, solucio);
 
 			r.start(); //Inicia el rellotge
 			finalitzat = false;
@@ -174,11 +182,6 @@ public class Partida {
 		Integer x, y;
 		String num;
 		boolean aux = false;
-
-		//while (!finalitzat && !completat){
-
-		    //ctj.MostrarTauler(t);
-
 
             ctj.InteraccioJugada(j, t,fila,columna,elem,accion);
 			j.SetInvalid(aux);

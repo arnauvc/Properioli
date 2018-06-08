@@ -53,7 +53,7 @@ public class Cuadrado extends JPanel{
         //texto
         num = new JTextField();
         num.setSize(25,25);
-        num.setBounds(950 , 800,100,55);
+        num.setBounds( 900, 350,100,55);
         num.setFont(new Font("Calibri",1,50));
 
         //botones
@@ -63,28 +63,28 @@ public class Cuadrado extends JPanel{
         if(crear) {
             Jcrear = new JButton();
             Jcrear.setText("Generar");
-            Jcrear.setBounds(530, 950, 100, 30);
+            Jcrear.setBounds(900, 50, 100, 30);
             add(Jcrear);
         }
 
         if(!crear) {
             Jguardar = new JButton();
             Jguardar.setText("Guardar");
-            Jguardar.setBounds(50, 950, 100, 30);
+            Jguardar.setBounds(900, 100, 100, 30);
 
             Jayuda = new JButton();
             Jayuda.setText("Ajuda");
-            Jayuda.setBounds(170, 950, 100, 30);
+            Jayuda.setBounds(900, 150, 100, 30);
             add(Jayuda);
             add(Jguardar);
         }
 
         Jmenu = new JButton();
         Jmenu.setText("Menú");
-        Jmenu.setBounds(290, 950, 100, 30);
+        Jmenu.setBounds(900, 200, 100, 30);
 
         Jsalir = new JButton();
-        Jsalir.setBounds(410,950,100,30);
+        Jsalir.setBounds(900,250,100,30);
         Jsalir.setText("Sortir");
         //añadir
         add(num);
@@ -187,12 +187,12 @@ public class Cuadrado extends JPanel{
                         } else if (cel.equals("*")) cuabuton[row][col].setText("NO");
                         else cuabuton[row][col].setText(cel);
                     }
-                    cuabuton[row][col].setBounds(offsetX, offsetY, 90, 90);
+                    cuabuton[row][col].setBounds(offsetX, offsetY, 70, 70);
                     add(cuabuton[row][col]);
                 }
-                offsetX += 90;
+                offsetX += 70;
             }
-            offsetY += 90;
+            offsetY += 70;
         }
     }
 
@@ -213,11 +213,11 @@ public class Cuadrado extends JPanel{
                         }
                     }
                 });
-                cuabuton[row][col].setBounds(offsetX, offsetY, 90, 90);
+                cuabuton[row][col].setBounds(offsetX, offsetY, 70  , 70);
                 add(cuabuton[row][col]);
-                offsetX += 90;
+                offsetX += 70;
             }
-            offsetY += 90;
+            offsetY += 70;
         }
     }
     private void initGUI(){
@@ -229,8 +229,8 @@ public class Cuadrado extends JPanel{
     }
 
     class cuadradoBoton extends JButton {
-        private static final int LENGTH = 100;
-        private static final int WIDTH = 100;
+        private static final int LENGTH = 70;
+        private static final int WIDTH = 70;
 
 
         public cuadradoBoton() {
@@ -238,14 +238,14 @@ public class Cuadrado extends JPanel{
             setFocusPainted(true);
             setBorderPainted(false);
             setPreferredSize(new Dimension(WIDTH, LENGTH));
-            setFont(new Font("Calibri",1,35));
+            setFont(new Font("Calibri",1,20));
             setBackground(Color.GREEN);
         }
 
             public void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 g.setColor(Color.red);
-                g.drawRect(0,0,89,89);
+                g.drawRect(0,0,69,69);
 
         }
     }

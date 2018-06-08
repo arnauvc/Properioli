@@ -1,5 +1,6 @@
 package Hidato;
 
+import Hidato.Part4.Ayuda;
 import javafx.util.Pair;
 
 import java.text.StringCharacterIterator;
@@ -24,6 +25,8 @@ public class CtrlPresGestor {
     private int fila;
     private int columna;
     private Vector<String> v = new Vector<String>();
+
+    private boolean a;
 
 
     private String tipuspartida;
@@ -327,18 +330,25 @@ public class CtrlPresGestor {
                 //System.out.println("Muy bien, eres el puto amo");
             }
             //else System.out.println("aun no acaba");
-            if(accion.equals("GUARDAR")) g.GuardarPartida(pathG);
+            if(accion.equals("GUARDAR")){
+                a = g.GuardarPartida(pathG);
+            }
             if(accion.equals("AJUDA")) {
                 tayuda = true;
             }
     }
 
+    public boolean getA(){
+        return a;
+    }
     public boolean comprobajugada(){
         return g.comprobarjugada();
     }
 
     public void hidatobiblio(Integer n) {
         g.JugarHidato(v,n);
+        tadjG = g.gettadj();
+        tcelaG = g.gettcela();
     }
 
     public double tiempo(){

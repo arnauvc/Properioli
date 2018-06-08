@@ -119,6 +119,7 @@ public class Partida {
 		hidato_resolt = re.ResoltreHidato(taulerU, GetCela(), GetAdjacencia());
 		//ts = hidato_resolt.clone();
 		ctj.MostrarResolucio(hidato_resolt, t);
+		dif = "N";
 	}
 
 	public void IniciaPartida() throws Exception {
@@ -226,7 +227,7 @@ public class Partida {
                 //exception per al gestor
 			}
 
-			else if (j.GetJugada().equals("SORTIR")) finalitzat = true;
+			//else if (j.GetJugada().equals("SORTIR")) finalitzat = true;
 			else if (j.GetJugada().equals("RESET")){
 				t = new Tauler();
 				t.CrearTauler(GetCela(), GetAdjacencia(), taulerU);

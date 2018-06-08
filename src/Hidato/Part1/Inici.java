@@ -44,9 +44,9 @@ public class Inici{
                 cg.SetNom(username.getText());
                 cg.SetPath(path);
                 String[] s = new String[0];
+                cg.Inicia();
                 Menu2.main(s);
                 frame.setVisible(false);
-                cg.Inicia();
             }
         });
     }

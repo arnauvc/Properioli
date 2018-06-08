@@ -128,6 +128,13 @@ public class triangle extends JPanel {
                 public void actionPerformed(ActionEvent actionEvent) {
                     Inici.cg.Transpartida(-1,-1,"s","GUARDAR");
                     System.out.println("Guardar");
+                    String[] s = new String[0];
+                    try {
+                        Ayuda.main(s);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Menu4.frame.dispose();
                 }
             });
         }

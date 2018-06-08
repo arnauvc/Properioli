@@ -70,7 +70,7 @@ public class Cuadrado extends JPanel{
         if(!crear) {
             Jguardar = new JButton();
             Jguardar.setText("Guardar");
-            Jguardar.setBounds(50, 950, 100, 50);
+            Jguardar.setBounds(50, 950, 100, 30);
 
             Jayuda = new JButton();
             Jayuda.setText("Ajuda");
@@ -92,13 +92,6 @@ public class Cuadrado extends JPanel{
         add(Jsalir);
     }
 
-    private void modificamatriu(){
-        for(int i = 0; i < ROWS; ++i){
-            for(int j = 0; j < COLUMNS; ++j){
-                cuabuton[i][j].setText(Inici.cg.Stringcela(i,j));
-            }
-        }
-    }
     private void accionbotones(){
         Jmenu.addActionListener(new ActionListener() {
             @Override
@@ -125,7 +118,6 @@ public class Cuadrado extends JPanel{
                 public void actionPerformed(ActionEvent actionEvent) {
                     Inici.cg.Transpartida(-1,-1,"s","AJUDA");
                     System.out.println("Ayuda");
-                    //modificamatriu();
                     Menu4.frame.dispose();
                     String[] s = new String[0];
                     Menu4.main(s);
@@ -138,6 +130,13 @@ public class Cuadrado extends JPanel{
                 public void actionPerformed(ActionEvent actionEvent) {
                     Inici.cg.Transpartida(-1,-1,"s","GUARDAR");
                     System.out.println("Guardar");
+                    String[] s = new String[0];
+                    try {
+                        Ayuda.main(s);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Menu4.frame.dispose();
                 }
             });
         }

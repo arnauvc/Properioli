@@ -30,6 +30,7 @@ public class Menu21 {
                 if(!n.isEmpty()) Inici.cg.hidatobiblio(Integer.parseInt(n));
                 String[] s = new String[0];
                 Menu4.main(s);
+                Menu21.frame.dispose();
             }
         });
     }

@@ -37,15 +37,15 @@ public class Gestor {
         //Es selecciona de la biblioteca l'hidato amb id nhidato
         hs.SetPath(v.get(1));
         Tauler t = hs.CarregarHidato(idhidato);
-        //Partida pa = new Partida();
+        Partida pa = new Partida();
         //pa.SetTauler(t);
-        //partidaactiva = pa;
+        partidaactiva = pa;
 
         //Caldra considerar si crea una nova partida o no
 
         partidaactiva.SetNom(v.get(0));
         partidaactiva.SetTauler(t);
-            partidaactiva.PartidaBiblioteca();
+        partidaactiva.PartidaBiblioteca();
 
     }
     public void Aleatori(Vector<String> v){
@@ -96,16 +96,17 @@ public class Gestor {
             partidaactiva.ReprendrePartida();
 
     }
-    public void GuardarPartida(String path){
+    public boolean GuardarPartida(String path){
         pg.SetPath(path);
         try {
             System.out.println("Partida guardada");
             pg.GuardarPartida(partidaactiva.GetNom(), partidaactiva, partidaactiva.GetTaulerG());
+            return true;
         } catch (Exception e) {
-            System.out.print("Error al guardar la partida");
-
+           // System.out.print("Error al guardar la partida");
+            e.printStackTrace();
+            return false;
         }
-
     }
 
     public void ActulitzarRanking(Integer id, Double temps){

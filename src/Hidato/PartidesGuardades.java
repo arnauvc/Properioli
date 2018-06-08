@@ -11,7 +11,7 @@ public class PartidesGuardades {
     private BufferedWriter escriptor;
     private Scanner x;
     private LlegirEscriure LE = new LlegirEscriure();
-    private String path = new String("/home/marc/FIB/");
+    private String path ;/*= new String("/home/marc/FIB/");*/
 
     public void SetPath(String path) {
         this.path = path;
@@ -19,6 +19,8 @@ public class PartidesGuardades {
 
     public void GuardarPartida(String nom_usuari, Partida p, String[][] Tauler) throws Exception {
         String s = new String(path);
+        System.out.println(s);
+        System.out.println(nom_usuari);
         s += nom_usuari;
         escriptor = LE.ObrirFitxerEscriptura(s, true);
         try {
@@ -31,7 +33,6 @@ public class PartidesGuardades {
             escriptor.write(Integer.toString(p.GetTorn()));escriptor.newLine();
             escriptor.write(Integer.toString(p.GetMaxim()));escriptor.newLine();
             for (int i = 0; i < Tauler.length; i++) {
-
                 for (int j = 0; j < Tauler[i].length; j++) {
                     escriptor.write(Tauler[i][j]);
                     if (j != (Tauler[i].length-1)) escriptor.write(",");

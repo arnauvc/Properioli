@@ -23,6 +23,7 @@ public class Menufinal {
                 Inici.cg.SetCrear(false);
                 String[] s = new String[0];
                 Menu4.main(s);
+                Menufinal.frame.dispose();
             }
         });
         jugar.addActionListener(new ActionListener() {
@@ -33,6 +34,7 @@ public class Menufinal {
                 Inici.cg.SetCrear(false);
                 String[] s = new String[0];
                 Menu4.main(s);
+                Menufinal.frame.dispose();
             }
         });
     }

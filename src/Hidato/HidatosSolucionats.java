@@ -13,7 +13,7 @@ public class HidatosSolucionats { // Guarda a disc un idhidato, un Tauler, i les
     private BufferedWriter escriptor;
     private Scanner x;
     private LlegirEscriure LE = new LlegirEscriure();
-    private String path = new String("C:\\Users\\nilmc\\Desktop\\");
+    private String path;
     private String tcela;
     private String tadj;
 

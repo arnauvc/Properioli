@@ -128,7 +128,7 @@ public class Generacio {
                     maxcolumna = 10;
                 }
                 else{
-                    maxfila =11;
+                    maxfila = 11;
                     maxcolumna = 11;
                 }
 

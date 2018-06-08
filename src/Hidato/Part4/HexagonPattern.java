@@ -55,7 +55,7 @@ public class HexagonPattern extends JPanel {
         //texto
         num = new JTextField();
         num.setSize(25,25);
-        num.setBounds(800 , 800,100,55);
+        num.setBounds(900,350,100,55);
         num.setFont(new Font("Calibri",1,50));
 
         //botones
@@ -66,30 +66,29 @@ public class HexagonPattern extends JPanel {
         if(crear) {
             Jcrear = new JButton();
             Jcrear.setText("Generar");
-            Jcrear.setBounds(530, 950, 100, 30);
+            Jcrear.setBounds(900, 50, 100, 30);
             add(Jcrear);
         }
 
         if(!crear) {
             Jguardar = new JButton();
             Jguardar.setText("Guardar");
-            Jguardar.setBounds(50, 950, 100, 30);
+            Jguardar.setBounds(900, 100, 100, 30);
 
             Jayuda = new JButton();
             Jayuda.setText("Ajuda");
-            Jayuda.setBounds(170, 950, 100, 30);
+            Jayuda.setBounds(900, 150, 100, 30);
             add(Jayuda);
             add(Jguardar);
         }
 
         Jmenu = new JButton();
         Jmenu.setText("Menú");
-        Jmenu.setBounds(290, 950, 100, 30);
+        Jmenu.setBounds(900, 200, 100, 30);
 
         Jsalir = new JButton();
-        Jsalir.setBounds(410,950,100,30);
+        Jsalir.setBounds(900,250,100,30);
         Jsalir.setText("Sortir");
-
         //añadir
         add(num);
         add(Jmenu);
@@ -131,6 +130,13 @@ public class HexagonPattern extends JPanel {
                 public void actionPerformed(ActionEvent actionEvent) {
                     Inici.cg.Transpartida(-1,-1,"s","GUARDAR");
                     System.out.println("Guardar");
+                    String[] s = new String[0];
+                    try {
+                        Ayuda.main(s);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Menu4.frame.dispose();
                 }
             });
         }
@@ -153,13 +159,13 @@ public class HexagonPattern extends JPanel {
     private void jugar() {
         for (int row = 0; row < ROWS; row++) {
             offsetX = 0;
-            offsetYaux =  row * 87;
+            offsetYaux =  row * 70;
             for (int col = 0; col < COLUMNS; col++) {
                 String cel = Inici.cg.Stringcela(row,col);
                 int finalRow = row;
                 int finalCol = col;
                 if (col % 2 == 0) {
-                    offsetY = 43 + offsetYaux ;
+                    offsetY = 35 + offsetYaux ;
                 } else {
                     offsetY =  offsetYaux;
                 }
@@ -185,20 +191,20 @@ public class HexagonPattern extends JPanel {
                             });
                         } else if (cel.equals("*")) hexButton[row][col].setText("NO");
                         else hexButton[row][col].setText(cel);
-                        hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
+                        hexButton[row][col].setBounds(offsetX, offsetY, 80, 71);
                         add(hexButton[row][col]);
                     }
                 }
-                offsetX += 76;
+                offsetX += 60;
             }
             offsetX  = 0;
-            offsetY += 87;
+            offsetY += 70;
         }
     }
     private void crear()  {
         for (int row = 0; row < ROWS; row++) {
             offsetX = 0;
-            offsetYaux =  row * 87;
+            offsetYaux =  row * 70;
             //System.out.println("fila: " + row);
             //System.out.println("offseYaux: " + offsetYaux);
             for (int col = 0; col < COLUMNS; col++) {
@@ -218,19 +224,17 @@ public class HexagonPattern extends JPanel {
                     }
                 });
                 if (col % 2 == 0) {
-                    offsetY = 43 + offsetYaux ;
+                    offsetY = 35 + offsetYaux ;
                 } else {
                     offsetY =  offsetYaux;
                 }
                 add(hexButton[row][col]);
-                hexButton[row][col].setBounds(offsetX, offsetY, 105, 95);
-                offsetX += 76;
+                hexButton[row][col].setBounds(offsetX, offsetY, 81, 71);
+                offsetX += 60;
 
             }
             offsetX  = 0;
-            offsetY += 87;
-
-
+            offsetY += 70;
         }
     }
 
@@ -246,14 +250,14 @@ public class HexagonPattern extends JPanel {
     class HexagonButton extends JButton {
         private static final int SIDES = 6;
         private static final int SIDE_LENGTH = 50;
-        public static final int LENGTH = 95;
-        public static final int WIDTH = 105;
+        public static final int LENGTH = 71;
+        public static final int WIDTH = 80;
 
         public HexagonButton() {
             setContentAreaFilled(false);
             setFocusPainted(true);
             setBorderPainted(false);
-            setFont(new Font("Calibri",1,50));
+            setFont(new Font("Calibri",1,30));
             setPreferredSize(new Dimension(WIDTH, LENGTH));
         }
 
@@ -261,10 +265,18 @@ public class HexagonPattern extends JPanel {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             Polygon hex = new Polygon();
-            for (int i = 0; i < SIDES; i++) {
+            /*for (int i = 0; i < SIDES; i++) {
                 hex.addPoint((int) (50 + SIDE_LENGTH * Math.cos(i * 2 * Math.PI / SIDES)), //calculation for side
                         (int) (50 + SIDE_LENGTH * Math.sin(i * 2 * Math.PI / SIDES)));   //calculation for side
-            }
+            }*/
+            //PUNTOS DEL HEXAGONO;
+            hex.addPoint(0,35); //punto izquierda
+            hex.addPoint(20,0); //punto arriba izquierda
+            hex.addPoint(60,0); //punto arriba derecha
+            hex.addPoint(80,35); //putno derecha
+            hex.addPoint(60,70); //punto abajo derecha
+            hex.addPoint(20,70);;
+            ;
             g.setColor(Color.red);
             g.drawPolygon(hex);
         }

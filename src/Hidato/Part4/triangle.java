@@ -56,8 +56,8 @@ public class triangle extends JPanel {
         triButton = new TriButton[ROWS][COLUMNS];
         num = new JTextField();
         num.setSize(25,25);
-        num.setBounds(800 , 800,100,55);
-        num.setFont(new Font("Calibri",1,45));
+        num.setBounds( 900, 350,100,55);
+        num.setFont(new Font("Calibri",1,20));
         add(num);
         configurarboronoes();
     }
@@ -66,28 +66,28 @@ public class triangle extends JPanel {
         if(crear) {
             Jcrear = new JButton();
             Jcrear.setText("Generar");
-            Jcrear.setBounds(530, 950, 100, 30);
+            Jcrear.setBounds(900, 50, 100, 30);
             add(Jcrear);
         }
 
         if(!crear) {
             Jguardar = new JButton();
             Jguardar.setText("Guardar");
-            Jguardar.setBounds(50, 950, 100, 30);
+            Jguardar.setBounds(900, 100, 100, 30);
 
             Jayuda = new JButton();
-            Jayuda.setText("Ayuda");
-            Jayuda.setBounds(170, 950, 100, 30);
+            Jayuda.setText("Ajuda");
+            Jayuda.setBounds(900, 150, 100, 30);
             add(Jayuda);
             add(Jguardar);
         }
 
         Jmenu = new JButton();
         Jmenu.setText("Menú");
-        Jmenu.setBounds(290, 950, 100, 30);
+        Jmenu.setBounds(900, 200, 100, 30);
 
         Jsalir = new JButton();
-        Jsalir.setBounds(410,950,100,30);
+        Jsalir.setBounds(900,250,100,30);
         Jsalir.setText("Sortir");
         //añadir
         add(num);
@@ -189,13 +189,13 @@ public class triangle extends JPanel {
                         } else if (cel.equals("*")) triButton[row][col].setText("NO");
                         else triButton[row][col].setText(cel);
                         add(triButton[row][col]);
-                        triButton[row][col].setBounds(offsetX, offsetY, 105, 95);
+                        triButton[row][col].setBounds(offsetX, offsetY, 71, 71);
                     }
                 }
-                offsetX += 53;
+                offsetX += 35;
             }
             offsetX = 0 ;
-            offsetY += 90;
+            offsetY += 70;
         }
     }
     private void crear(){
@@ -213,11 +213,11 @@ public class triangle extends JPanel {
                     }
                 });
                 add(triButton[row][col]);
-                triButton[row][col].setBounds(offsetX, offsetY, 105, 95);
-                offsetX += 53;
+                triButton[row][col].setBounds(offsetX, offsetY, 71, 71);
+                offsetX += 35;
             }
             offsetX = 0 ;
-            offsetY += 90;
+            offsetY += 70;
         }
     }
 
@@ -238,8 +238,8 @@ public class triangle extends JPanel {
 
     //Following class draws the Buttons
     class TriButton extends JButton {
-        private static final int LENGTH = 95;
-        private static final int WIDTH = 105;
+        private static final int LENGTH = 71;
+        private static final int WIDTH = 71;
         private boolean a;
 
         public TriButton( boolean a) {
@@ -247,7 +247,7 @@ public class triangle extends JPanel {
             setFocusPainted(true);
             setBorderPainted(false);
             setPreferredSize(new Dimension(WIDTH, LENGTH));
-            setFont(new Font("Calibri",1,35));
+            setFont(new Font("Calibri",1,20));
             this.a = a;
 
         }
@@ -257,13 +257,13 @@ public class triangle extends JPanel {
             super.paintComponent(g);
             Polygon hex = new Polygon();
             if (a) {
-                hex.addPoint(53, 0); //"la punta de arriba"
-                hex.addPoint(0, 90); //abajo a la izquierda
-                hex.addPoint(105, 90); //abajo a la derecha
+                hex.addPoint(35, 0); //"la punta de arriba"
+                hex.addPoint(0, 70); //abajo a la izquierda
+                hex.addPoint(70, 70); //abajo a la derecha
             } else {
                 hex.addPoint(0, 0); //"la punta de arriba"
-                hex.addPoint(105, 0); //abajo a la izquierda
-                hex.addPoint(52, 90); //abajo a la derecha
+                hex.addPoint(70, 0); //abajo a la izquierda
+                hex.addPoint(35, 70); //abajo a la derecha
             }
             g.setColor(Color.red);
             g.drawPolygon(hex);

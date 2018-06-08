@@ -120,6 +120,10 @@ public class triangle extends JPanel {
                 public void actionPerformed(ActionEvent actionEvent) {
                     Inici.cg.Transpartida(-1,-1,"s","AJUDA");
                     System.out.println("Ayuda");
+                    Menu4.frame.dispose();
+                    String[] s = new String[0];
+                    Menu4.main(s);
+                    Inici.cg.setTayuda(false);
                 }
             });
 
